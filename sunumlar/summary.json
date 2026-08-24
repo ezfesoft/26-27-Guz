@@ -5,7 +5,7 @@
       "title": "Görsel Programlama",
       "icon": "💻",
       "badge": "C# & Windows Forms",
-      "color": "#6366f1"
+      "color": "#4f46e5"
     },
     "weeks": [
       {
@@ -128,7 +128,7 @@
       "title": "Mesleki Matematik",
       "icon": "📐",
       "badge": "Aritmetik & Bilişim Mantığı",
-      "color": "#0ea5e9"
+      "color": "#0284c7"
     },
     "weeks": [
       {
@@ -251,7 +251,7 @@
       "title": "Nesne Tabanlı Programlama II",
       "icon": "🧱",
       "badge": "OOP & Mimari",
-      "color": "#8b5cf6"
+      "color": "#7c3aed"
     },
     "weeks": [
       {
@@ -374,7 +374,7 @@
       "title": "Sağlıkta Yapay Zeka",
       "icon": "🏥",
       "badge": "Medikal YZ & Teşhis",
-      "color": "#10b981"
+      "color": "#059669"
     },
     "weeks": [
       {
@@ -497,7 +497,7 @@
       "title": "Siber Saldırı ve Savunma Yöntemleri",
       "icon": "🛡️",
       "badge": "Siber Güvenlik & SOC",
-      "color": "#f43f5e"
+      "color": "#e11d48"
     },
     "weeks": [
       {
@@ -620,7 +620,7 @@
       "title": "Veri Madenciliği ve Makine Öğrenmesi",
       "icon": "🤖",
       "badge": "Python & ML Algoritmaları",
-      "color": "#f59e0b"
+      "color": "#d97706"
     },
     "weeks": [
       {

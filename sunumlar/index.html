@@ -1,147 +1,132 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="dark">
-
+<html lang="tr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026-2027 Güz Dönemi Ders Sunumları & Ders Notları Portal | ezfesoft</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
+            --bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border: rgba(0, 0, 0, 0.08);
+            --text: #0f172a;
+            --text-sub: #475569;
+            --accent: #4f46e5;
+        }
+        [data-theme="dark"] {
             --bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.85);
             --border: rgba(255, 255, 255, 0.1);
             --text: #f8fafc;
             --text-sub: #94a3b8;
-            --accent: #6366f1;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 30px 16px;
         }
-
         .header {
             text-align: center;
             max-width: 900px;
-            margin: 0 auto 50px auto;
+            margin: 0 auto 36px auto;
         }
-
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #38bdf8, #ec4899);
+            background: linear-gradient(135deg, #4f46e5, #0284c7, #e11d48);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
-
         .header p {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-sub);
         }
-
         .courses-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
-
         .course-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
+            border-radius: 14px;
+            padding: 24px;
             backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
-
         .course-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: var(--accent);
         }
-
         .course-head {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
-
         .course-icon {
-            font-size: 2.2rem;
+            font-size: 2rem;
         }
-
         .course-title {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
         }
-
         .course-badge {
             font-size: 0.8rem;
             color: var(--text-sub);
         }
-
         .weeks-list {
-            margin-top: 16px;
+            margin-top: 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
             max-height: 380px;
             overflow-y: auto;
-            padding-right: 6px;
+            padding-right: 4px;
         }
-
         .week-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
+            padding: 9px 12px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
             text-decoration: none;
             color: var(--text);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: background 0.2s ease;
         }
-
+        [data-theme="dark"] .week-item {
+            background: rgba(255,255,255,0.04);
+        }
         .week-item:hover {
             background: var(--accent);
             color: #fff;
         }
-
         .week-num {
             font-weight: 700;
         }
-
         .week-title {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-sub);
         }
-
         .week-item:hover .week-title {
             color: #e0e7ff;
         }
     </style>
 </head>
-
 <body>
     <div class="header">
         <h1>🎓 2026-2027 Güz Dönemi Ders Sunumları</h1>
@@ -150,7 +135,7 @@
 
     <div class="courses-grid">
 
-        <div class="course-card" style="--accent: #6366f1;">
+        <div class="course-card" style="--accent: #4f46e5;">
             <div class="course-head">
                 <div class="course-icon">💻</div>
                 <div>
@@ -159,95 +144,95 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="gorsel-programlama/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">Görsel Programlama: Hafta 1</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">Görsel Programlama: Hafta 2</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">Görsel Programlama: Hafta 3</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">Görsel Programlama: Hafta 4</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">Görsel Programlama: Hafta 5</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">Görsel Programlama: Hafta 6</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">Görsel Programlama: Hafta 7</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">Görsel Programlama: Hafta 8</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">Görsel Programlama: Hafta 9</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">Görsel Programlama: Hafta 10</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">Görsel Programlama: Hafta 11</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">Görsel Programlama: Hafta 12</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">Görsel Programlama: Hafta 13</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="gorsel-programlama/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">Görsel Programlama: Hafta 14</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
-        <div class="course-card" style="--accent: #0ea5e9;">
+        
+        <div class="course-card" style="--accent: #0284c7;">
             <div class="course-head">
                 <div class="course-icon">📐</div>
                 <div>
@@ -256,95 +241,95 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="mesleki-matematik/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">Mesleki Matematik: Hafta 1</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">Mesleki Matematik: Hafta 2</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">Mesleki Matematik: Hafta 3</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">Mesleki Matematik: Hafta 4</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">Mesleki Matematik: Hafta 5</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">Mesleki Matematik: Hafta 6</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">Mesleki Matematik: Hafta 7</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">Mesleki Matematik: Hafta 8</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">Mesleki Matematik: Hafta 9</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">Mesleki Matematik: Hafta 10</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">Mesleki Matematik: Hafta 11</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">Mesleki Matematik: Hafta 12</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">Mesleki Matematik: Hafta 13</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="mesleki-matematik/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">Mesleki Matematik: Hafta 14</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
-        <div class="course-card" style="--accent: #8b5cf6;">
+        
+        <div class="course-card" style="--accent: #7c3aed;">
             <div class="course-head">
                 <div class="course-icon">🧱</div>
                 <div>
@@ -353,95 +338,95 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="nesne-tabanli-programlama-2/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">NTP II: Hafta 1</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">NTP II: Hafta 2</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">NTP II: Hafta 3</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">NTP II: Hafta 4</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">NTP II: Hafta 5</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">NTP II: Hafta 6</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">NTP II: Hafta 7</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">NTP II: Hafta 8</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">NTP II: Hafta 9</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">NTP II: Hafta 10</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">NTP II: Hafta 11</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">NTP II: Hafta 12</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">NTP II: Hafta 13</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="nesne-tabanli-programlama-2/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">NTP II: Hafta 14</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
-        <div class="course-card" style="--accent: #10b981;">
+        
+        <div class="course-card" style="--accent: #059669;">
             <div class="course-head">
                 <div class="course-icon">🏥</div>
                 <div>
@@ -450,95 +435,95 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="saglikta-yapay-zeka/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">Sağlıkta Yapay Zekanın Bilimsel Temeli</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">Görüntü Tabanlı Tanı Sistemleri</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">Sağlık Kayıtlarında Doğal Dil İşleme (NLP)</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">Klinik Karar Destek Sistemleri (CDSS)</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">HBYS/EHR ve Sağlık Veri Standartları</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">Veri Kalitesinin YZ Performansına Etkisi</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">Giyilebilir Teknolojiler ve Sürekli İzleme Verisi</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">Ara Değerlendirme ve Vaka Çalıştayı</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">Genomik Veri ve Kişiselleştirilmiş Tıp</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">İlaç Geliştirme ve Klinik Araştırmalarda YZ</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">Sağlıkta Veri Mahremiyeti ve Anonimleştirme</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">Algoritmik Yanlılık (Bias) ve YZ'nin Sınırları</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">Sağlıkta YZ: Sektörden Bakış ve Kariyer</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="saglikta-yapay-zeka/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">Final Projesi Sunumları ve Değerlendirme</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
-        <div class="course-card" style="--accent: #f43f5e;">
+        
+        <div class="course-card" style="--accent: #e11d48;">
             <div class="course-head">
                 <div class="course-icon">🛡️</div>
                 <div>
@@ -547,95 +532,95 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="siber-saldiri-ve-savunma/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">Siber Güvenlik: Hafta 1</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">Siber Güvenlik: Hafta 2</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">Siber Güvenlik: Hafta 3</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">Siber Güvenlik: Hafta 4</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">Siber Güvenlik: Hafta 5</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">Siber Güvenlik: Hafta 6</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">Siber Güvenlik: Hafta 7</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">Siber Güvenlik: Hafta 8</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">Siber Güvenlik: Hafta 9</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">Siber Güvenlik: Hafta 10</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">Siber Güvenlik: Hafta 11</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">Siber Güvenlik: Hafta 12</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">Siber Güvenlik: Hafta 13</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="siber-saldiri-ve-savunma/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">Siber Güvenlik: Hafta 14</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
-        <div class="course-card" style="--accent: #f59e0b;">
+        
+        <div class="course-card" style="--accent: #d97706;">
             <div class="course-head">
                 <div class="course-icon">🤖</div>
                 <div>
@@ -644,95 +629,94 @@
                 </div>
             </div>
             <div class="weeks-list">
-
+        
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-01.html" class="week-item">
                     <span class="week-num">Hafta 01</span>
                     <span class="week-title">Veri Madenciliği: Hafta 1</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-02.html" class="week-item">
                     <span class="week-num">Hafta 02</span>
                     <span class="week-title">Veri Madenciliği: Hafta 2</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-03.html" class="week-item">
                     <span class="week-num">Hafta 03</span>
                     <span class="week-title">Veri Madenciliği: Hafta 3</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-04.html" class="week-item">
                     <span class="week-num">Hafta 04</span>
                     <span class="week-title">Veri Madenciliği: Hafta 4</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-05.html" class="week-item">
                     <span class="week-num">Hafta 05</span>
                     <span class="week-title">Veri Madenciliği: Hafta 5</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-06.html" class="week-item">
                     <span class="week-num">Hafta 06</span>
                     <span class="week-title">Veri Madenciliği: Hafta 6</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-07.html" class="week-item">
                     <span class="week-num">Hafta 07</span>
                     <span class="week-title">Veri Madenciliği: Hafta 7</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-08.html" class="week-item">
                     <span class="week-num">Hafta 08</span>
                     <span class="week-title">Veri Madenciliği: Hafta 8</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-09.html" class="week-item">
                     <span class="week-num">Hafta 09</span>
                     <span class="week-title">Veri Madenciliği: Hafta 9</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-10.html" class="week-item">
                     <span class="week-num">Hafta 10</span>
                     <span class="week-title">Veri Madenciliği: Hafta 10</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-11.html" class="week-item">
                     <span class="week-num">Hafta 11</span>
                     <span class="week-title">Veri Madenciliği: Hafta 11</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-12.html" class="week-item">
                     <span class="week-num">Hafta 12</span>
                     <span class="week-title">Veri Madenciliği: Hafta 12</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-13.html" class="week-item">
                     <span class="week-num">Hafta 13</span>
                     <span class="week-title">Veri Madenciliği: Hafta 13</span>
                     <span>➔</span>
                 </a>
-
+            
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-14.html" class="week-item">
                     <span class="week-num">Hafta 14</span>
                     <span class="week-title">Veri Madenciliği: Hafta 14</span>
                     <span>➔</span>
                 </a>
-
+            
             </div>
         </div>
-
+        
     </div>
 </body>
-
 </html>
