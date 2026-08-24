@@ -29,72 +29,125 @@
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            padding: 30px 16px;
+            padding: 24px 16px;
         }
         .header {
             text-align: center;
             max-width: 900px;
-            margin: 0 auto 36px auto;
+            margin: 0 auto 28px auto;
         }
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2.0rem;
             font-weight: 800;
             background: linear-gradient(135deg, #4f46e5, #0284c7, #e11d48);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .header p {
-            font-size: 1.05rem;
+            font-size: 1.0rem;
             color: var(--text-sub);
         }
         .courses-grid {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
         .course-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 24px;
+            padding: 18px 20px;
             backdrop-filter: blur(12px);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-        .course-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
         }
         .course-head {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
-            margin-bottom: 14px;
+            cursor: pointer;
+        }
+        .course-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
         }
         .course-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
+            flex-shrink: 0;
         }
         .course-title {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
         }
         .course-badge {
             font-size: 0.8rem;
             color: var(--text-sub);
         }
-        .weeks-list {
-            margin-top: 12px;
+        .expand-btn {
+            background: rgba(0,0,0,0.04);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.82rem;
             display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        [data-theme="dark"] .expand-btn {
+            background: rgba(255,255,255,0.06);
+        }
+        .course-card:hover .expand-btn {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .arrow-icon {
+            transition: transform 0.25s ease;
+        }
+        .course-card.expanded .arrow-icon {
+            transform: rotate(180deg);
+        }
+        .select-container {
+            margin-top: 14px;
+        }
+        .week-select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid var(--accent);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+        }
+        .weeks-list {
+            margin-top: 14px;
+            display: none;
             flex-direction: column;
             gap: 8px;
             max-height: 380px;
             overflow-y: auto;
             padding-right: 4px;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+        .course-card.expanded .weeks-list {
+            display: flex;
         }
         .week-item {
             display: flex;
@@ -125,6 +178,15 @@
         .week-item:hover .week-title {
             color: #e0e7ff;
         }
+
+        @media (min-width: 768px) {
+            .weeks-list {
+                display: flex;
+            }
+            .select-container {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -136,13 +198,55 @@
     <div class="courses-grid">
 
         <div class="course-card" style="--accent: #4f46e5;">
-            <div class="course-head">
-                <div class="course-icon">💻</div>
-                <div>
-                    <div class="course-title">Görsel Programlama</div>
-                    <div class="course-badge">C# & Windows Forms • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">💻</div>
+                    <div>
+                        <div class="course-title">Görsel Programlama</div>
+                        <div class="course-badge">C# & Windows Forms • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="gorsel-programlama/hafta-01.html">Hafta 01: Görsel Programlama: Hafta 1</option>
+            
+                    <option value="gorsel-programlama/hafta-02.html">Hafta 02: Görsel Programlama: Hafta 2</option>
+            
+                    <option value="gorsel-programlama/hafta-03.html">Hafta 03: Görsel Programlama: Hafta 3</option>
+            
+                    <option value="gorsel-programlama/hafta-04.html">Hafta 04: Görsel Programlama: Hafta 4</option>
+            
+                    <option value="gorsel-programlama/hafta-05.html">Hafta 05: Görsel Programlama: Hafta 5</option>
+            
+                    <option value="gorsel-programlama/hafta-06.html">Hafta 06: Görsel Programlama: Hafta 6</option>
+            
+                    <option value="gorsel-programlama/hafta-07.html">Hafta 07: Görsel Programlama: Hafta 7</option>
+            
+                    <option value="gorsel-programlama/hafta-08.html">Hafta 08: Görsel Programlama: Hafta 8</option>
+            
+                    <option value="gorsel-programlama/hafta-09.html">Hafta 09: Görsel Programlama: Hafta 9</option>
+            
+                    <option value="gorsel-programlama/hafta-10.html">Hafta 10: Görsel Programlama: Hafta 10</option>
+            
+                    <option value="gorsel-programlama/hafta-11.html">Hafta 11: Görsel Programlama: Hafta 11</option>
+            
+                    <option value="gorsel-programlama/hafta-12.html">Hafta 12: Görsel Programlama: Hafta 12</option>
+            
+                    <option value="gorsel-programlama/hafta-13.html">Hafta 13: Görsel Programlama: Hafta 13</option>
+            
+                    <option value="gorsel-programlama/hafta-14.html">Hafta 14: Görsel Programlama: Hafta 14</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="gorsel-programlama/hafta-01.html" class="week-item">
@@ -233,13 +337,55 @@
         </div>
         
         <div class="course-card" style="--accent: #0284c7;">
-            <div class="course-head">
-                <div class="course-icon">📐</div>
-                <div>
-                    <div class="course-title">Mesleki Matematik</div>
-                    <div class="course-badge">Aritmetik & Bilişim Mantığı • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">📐</div>
+                    <div>
+                        <div class="course-title">Mesleki Matematik</div>
+                        <div class="course-badge">Aritmetik & Bilişim Mantığı • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="mesleki-matematik/hafta-01.html">Hafta 01: Mesleki Matematik: Hafta 1</option>
+            
+                    <option value="mesleki-matematik/hafta-02.html">Hafta 02: Mesleki Matematik: Hafta 2</option>
+            
+                    <option value="mesleki-matematik/hafta-03.html">Hafta 03: Mesleki Matematik: Hafta 3</option>
+            
+                    <option value="mesleki-matematik/hafta-04.html">Hafta 04: Mesleki Matematik: Hafta 4</option>
+            
+                    <option value="mesleki-matematik/hafta-05.html">Hafta 05: Mesleki Matematik: Hafta 5</option>
+            
+                    <option value="mesleki-matematik/hafta-06.html">Hafta 06: Mesleki Matematik: Hafta 6</option>
+            
+                    <option value="mesleki-matematik/hafta-07.html">Hafta 07: Mesleki Matematik: Hafta 7</option>
+            
+                    <option value="mesleki-matematik/hafta-08.html">Hafta 08: Mesleki Matematik: Hafta 8</option>
+            
+                    <option value="mesleki-matematik/hafta-09.html">Hafta 09: Mesleki Matematik: Hafta 9</option>
+            
+                    <option value="mesleki-matematik/hafta-10.html">Hafta 10: Mesleki Matematik: Hafta 10</option>
+            
+                    <option value="mesleki-matematik/hafta-11.html">Hafta 11: Mesleki Matematik: Hafta 11</option>
+            
+                    <option value="mesleki-matematik/hafta-12.html">Hafta 12: Mesleki Matematik: Hafta 12</option>
+            
+                    <option value="mesleki-matematik/hafta-13.html">Hafta 13: Mesleki Matematik: Hafta 13</option>
+            
+                    <option value="mesleki-matematik/hafta-14.html">Hafta 14: Mesleki Matematik: Hafta 14</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="mesleki-matematik/hafta-01.html" class="week-item">
@@ -330,13 +476,55 @@
         </div>
         
         <div class="course-card" style="--accent: #7c3aed;">
-            <div class="course-head">
-                <div class="course-icon">🧱</div>
-                <div>
-                    <div class="course-title">Nesne Tabanlı Programlama II</div>
-                    <div class="course-badge">OOP & Mimari • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">🧱</div>
+                    <div>
+                        <div class="course-title">Nesne Tabanlı Programlama II</div>
+                        <div class="course-badge">OOP & Mimari • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="nesne-tabanli-programlama-2/hafta-01.html">Hafta 01: NTP II: Hafta 1</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-02.html">Hafta 02: NTP II: Hafta 2</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-03.html">Hafta 03: NTP II: Hafta 3</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-04.html">Hafta 04: NTP II: Hafta 4</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-05.html">Hafta 05: NTP II: Hafta 5</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-06.html">Hafta 06: NTP II: Hafta 6</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-07.html">Hafta 07: NTP II: Hafta 7</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-08.html">Hafta 08: NTP II: Hafta 8</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-09.html">Hafta 09: NTP II: Hafta 9</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-10.html">Hafta 10: NTP II: Hafta 10</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-11.html">Hafta 11: NTP II: Hafta 11</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-12.html">Hafta 12: NTP II: Hafta 12</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-13.html">Hafta 13: NTP II: Hafta 13</option>
+            
+                    <option value="nesne-tabanli-programlama-2/hafta-14.html">Hafta 14: NTP II: Hafta 14</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="nesne-tabanli-programlama-2/hafta-01.html" class="week-item">
@@ -427,13 +615,55 @@
         </div>
         
         <div class="course-card" style="--accent: #059669;">
-            <div class="course-head">
-                <div class="course-icon">🏥</div>
-                <div>
-                    <div class="course-title">Sağlıkta Yapay Zeka</div>
-                    <div class="course-badge">Medikal YZ & Teşhis • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">🏥</div>
+                    <div>
+                        <div class="course-title">Sağlıkta Yapay Zeka</div>
+                        <div class="course-badge">Medikal YZ & Teşhis • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="saglikta-yapay-zeka/hafta-01.html">Hafta 01: Sağlıkta Yapay Zekanın Bilimsel Temeli</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-02.html">Hafta 02: Görüntü Tabanlı Tanı Sistemleri</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-03.html">Hafta 03: Sağlık Kayıtlarında Doğal Dil İşleme (NLP)</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-04.html">Hafta 04: Klinik Karar Destek Sistemleri (CDSS)</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-05.html">Hafta 05: HBYS/EHR ve Sağlık Veri Standartları</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-06.html">Hafta 06: Veri Kalitesinin YZ Performansına Etkisi</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-07.html">Hafta 07: Giyilebilir Teknolojiler ve Sürekli İzleme Verisi</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-08.html">Hafta 08: Ara Değerlendirme ve Vaka Çalıştayı</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-09.html">Hafta 09: Genomik Veri ve Kişiselleştirilmiş Tıp</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-10.html">Hafta 10: İlaç Geliştirme ve Klinik Araştırmalarda YZ</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-11.html">Hafta 11: Sağlıkta Veri Mahremiyeti ve Anonimleştirme</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-12.html">Hafta 12: Algoritmik Yanlılık (Bias) ve YZ'nin Sınırları</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-13.html">Hafta 13: Sağlıkta YZ: Sektörden Bakış ve Kariyer</option>
+            
+                    <option value="saglikta-yapay-zeka/hafta-14.html">Hafta 14: Final Projesi Sunumları ve Değerlendirme</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="saglikta-yapay-zeka/hafta-01.html" class="week-item">
@@ -524,13 +754,55 @@
         </div>
         
         <div class="course-card" style="--accent: #e11d48;">
-            <div class="course-head">
-                <div class="course-icon">🛡️</div>
-                <div>
-                    <div class="course-title">Siber Saldırı ve Savunma Yöntemleri</div>
-                    <div class="course-badge">Siber Güvenlik & SOC • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">🛡️</div>
+                    <div>
+                        <div class="course-title">Siber Saldırı ve Savunma Yöntemleri</div>
+                        <div class="course-badge">Siber Güvenlik & SOC • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="siber-saldiri-ve-savunma/hafta-01.html">Hafta 01: Siber Güvenlik: Hafta 1</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-02.html">Hafta 02: Siber Güvenlik: Hafta 2</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-03.html">Hafta 03: Siber Güvenlik: Hafta 3</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-04.html">Hafta 04: Siber Güvenlik: Hafta 4</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-05.html">Hafta 05: Siber Güvenlik: Hafta 5</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-06.html">Hafta 06: Siber Güvenlik: Hafta 6</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-07.html">Hafta 07: Siber Güvenlik: Hafta 7</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-08.html">Hafta 08: Siber Güvenlik: Hafta 8</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-09.html">Hafta 09: Siber Güvenlik: Hafta 9</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-10.html">Hafta 10: Siber Güvenlik: Hafta 10</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-11.html">Hafta 11: Siber Güvenlik: Hafta 11</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-12.html">Hafta 12: Siber Güvenlik: Hafta 12</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-13.html">Hafta 13: Siber Güvenlik: Hafta 13</option>
+            
+                    <option value="siber-saldiri-ve-savunma/hafta-14.html">Hafta 14: Siber Güvenlik: Hafta 14</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="siber-saldiri-ve-savunma/hafta-01.html" class="week-item">
@@ -621,13 +893,55 @@
         </div>
         
         <div class="course-card" style="--accent: #d97706;">
-            <div class="course-head">
-                <div class="course-icon">🤖</div>
-                <div>
-                    <div class="course-title">Veri Madenciliği ve Makine Öğrenmesi</div>
-                    <div class="course-badge">Python & ML Algoritmaları • 14 Hafta</div>
+            <div class="course-head" onclick="toggleCourse(this)">
+                <div class="course-title-box">
+                    <div class="course-icon">🤖</div>
+                    <div>
+                        <div class="course-title">Veri Madenciliği ve Makine Öğrenmesi</div>
+                        <div class="course-badge">Python & ML Algoritmaları • 14 Hafta</div>
+                    </div>
+                </div>
+                <div class="expand-btn">
+                    <span>Haftalar</span>
+                    <span class="arrow-icon">▼</span>
                 </div>
             </div>
+
+            <div class="select-container">
+                <select class="week-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">▼ Hafta Seçiniz (14 Hafta)</option>
+        
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-01.html">Hafta 01: Veri Madenciliği: Hafta 1</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-02.html">Hafta 02: Veri Madenciliği: Hafta 2</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-03.html">Hafta 03: Veri Madenciliği: Hafta 3</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-04.html">Hafta 04: Veri Madenciliği: Hafta 4</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-05.html">Hafta 05: Veri Madenciliği: Hafta 5</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-06.html">Hafta 06: Veri Madenciliği: Hafta 6</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-07.html">Hafta 07: Veri Madenciliği: Hafta 7</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-08.html">Hafta 08: Veri Madenciliği: Hafta 8</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-09.html">Hafta 09: Veri Madenciliği: Hafta 9</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-10.html">Hafta 10: Veri Madenciliği: Hafta 10</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-11.html">Hafta 11: Veri Madenciliği: Hafta 11</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-12.html">Hafta 12: Veri Madenciliği: Hafta 12</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-13.html">Hafta 13: Veri Madenciliği: Hafta 13</option>
+            
+                    <option value="veri-madenciligi-ve-makine-ogrenmesi/hafta-14.html">Hafta 14: Veri Madenciliği: Hafta 14</option>
+            
+                </select>
+            </div>
+
             <div class="weeks-list">
         
                 <a href="veri-madenciligi-ve-makine-ogrenmesi/hafta-01.html" class="week-item">
@@ -718,5 +1032,12 @@
         </div>
         
     </div>
+
+    <script>
+        function toggleCourse(headerElem) {
+            const card = headerElem.closest('.course-card');
+            card.classList.toggle('expanded');
+        }
+    </script>
 </body>
 </html>
