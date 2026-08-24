@@ -570,9 +570,6 @@
             slideSubtitle.textContent = slide.altbaslik || '';
             
             let bodyHTML = formatContent(slide.icerik);
-            if (slide.gorsel && slide.gorsel.query) {
-                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
-            }
             slideBody.innerHTML = bodyHTML;
 
             slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
