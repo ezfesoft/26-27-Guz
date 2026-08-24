@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 01 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 01</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="#" class="btn-nav" style="text-decoration:none;" disabled>
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-02.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 1", "altbaslik": "Sayı Sistemlerine Giriş ve 10'luk (Desimal) Sistem", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Sayı Sistemleri ve Temel Aritmetik\nHaftalık Odak: Basamak Değeri, Dört İşlem ve Depolama Birimleri (KB/MB/GB)\nHedef: Bilişim altyapılarında veri büyüklüğü ve log yönetimini doğru hesaplamak.", "gorsel": {"type": "image", "query": "cyber security operations center data servers digital technology"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: SOC Log Yönetimi", "icerik": "Güvenlik Operasyon Merkezinde (SOC) çalışan bir uzman, her saat 500 MB log üreten güvenlik duvarlarını izler.\n- Günlük toplam veri ne kadar olur?\n- 1 TB'lık disk kaç günde dolar?\nBu operasyonel kararların tamamı basamak değeri ve dört işlem doğruluğuna dayanır.", "gorsel": {"type": "image", "query": "SOC security analysts monitoring data dashboards servers"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. 10'luk sistemde basamak değerlerini ve sayıların çözümlenmesini açıklar.\n2. Tam sayılar ve ondalık sayılarla temel dört işlemi hatasız uygular.\n3. KB, MB, GB, TB veri birimleri arasındaki dönüşümleri yapar.\n4. Ağ ve depolama problemlerinde birim tutarlılığını denetler.", "gorsel": {"type": "image", "query": "education learning outcomes checklist technology"}}, {"baslik": "10'luk (Desimal) Sayı Sistemi Nedir?", "altbaslik": "Kavramsal Tanım ve Taban Mantığı", "icerik": "Günlük hayatta kullandığımız taban 10 sistemidir.\n- Kullanılan rakamlar: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 (Toplam 10 sembol)\n- Her basamak 10'un bir kuvvetini temsil eder: 10^0, 10^1, 10^2, 10^3...\n- Bir sayının değeri, basamaktaki rakam ile basamak değerinin çarpımlarının toplamıdır.", "gorsel": {"type": "image", "query": "decimal number system place value chart mathematics"}}, {"baslik": "Basamak Değeri ve Sayı Çözümleme", "altbaslik": "Bir Sayıyı Bileşenlerine Ayırma", "icerik": "Örnek Sayı: 4725\n- 5 x 10^0 = 5 x 1 = 5 (Birler basamağı)\n- 2 x 10^1 = 2 x 10 = 20 (Onlar basamağı)\n- 7 x 10^2 = 7 x 100 = 700 (Yüzler basamağı)\n- 4 x 10^3 = 4 x 1000 = 4000 (Binler basamağı)\nToplam = 4000 + 700 + 20 + 5 = 4725", "gorsel": {"type": "image", "query": "place value breakdown arithmetic steps visual"}}, {"baslik": "Bilişimde Basamak Değeri Neden Önemlidir?", "altbaslik": "IP Adresleri ve Port Numaraları", "icerik": "Bir IPv4 adresi 4 adet 8-bitlik sayıdan (oktet) oluşur (örn: 192.168.1.105).\n- Her oktet 0 ile 255 arasında desimal değer alır.\n- Ağ yapılandırmasında ve alt ağ maskelerinde desimal basamak çözümlemesi doğrudan kullanılır.", "gorsel": {"type": "image", "query": "IPv4 address octets network configuration networking"}}, {"baslik": "Tam Sayılarda Toplama ve Çıkarma", "altbaslik": "Temel İşlem Kuralları ve Hizalama", "icerik": "Aritmetik İşlem Kuralları:\n- Sayılar basamak basamak aynı hizada alt alta yazılır.\n- Elde ve onluk alma kuralları soldaki basamağa aktarılır.\n- Örnek: 1450 MB log + 875 MB log = 2325 MB log.", "gorsel": {"type": "image", "query": "mathematical addition subtraction calculation board"}}, {"baslik": "Tam Sayılarda Çarpma ve Bölme", "altbaslik": "Kapasite ve Süre Hesaplamaları", "icerik": "Bilişimde Çarpma: Tekrarlı veri girişleri (Örn: 24 sunucu x 150 log/sn = 3600 log/sn)\nBilişimde Bölme: Kaynak paylaştırma ve birim süre (Örn: 4800 MB veri / 6 saat = 800 MB/saat)\nBölme işleminde kalan kavramı paketleme ve blok boyutunda kritiktir.", "gorsel": {"type": "image", "query": "data throughput bandwidth calculation server room"}}, {"baslik": "Ondalık (Virgüllü) Sayılar ve Basamakları", "altbaslik": "Virgülden Sonraki Basamakların Anlamı", "icerik": "Örnek: 14.625\n- 14: Tam kısım (Onlar ve birler basamağı)\n- 6: Onda birler basamağı (10^-1 = 0.1)\n- 2: Yüzde birler basamağı (10^-2 = 0.01)\n- 5: Binde birler basamağı (10^-3 = 0.001)\nSistem gecikmelerinde (ping ms) ondalık hassasiyet hayati önem taşır.", "gorsel": {"type": "image", "query": "decimal point precision latency ping network metrics"}}, {"baslik": "Ondalık Sayılarda Dört İşlem Adımları", "altbaslik": "Virgül Hizalama ve Basamak Tamamlama", "icerik": "Toplama/Çıkarma: Virgüller mutlaka alt alta hizalanmalıdır. Boş basamaklara 0 yazılır.\nÖrnek: 12.50 + 3.85 = 16.35 ms\nÇarpma: Virgül yokmuş gibi çarpılır, çarpanların toplam ondalık basamak sayısı kadar sola virgül konur.\nÖrnek: 2.5 x 4.2 = 10.50", "gorsel": {"type": "image", "query": "decimal numbers arithmetic calculations steps"}}, {"baslik": "Bilişimde Veri Ölçü Birimleri", "altbaslik": "Bit, Byte ve Katları", "icerik": "Temel Tanımlar:\n- 1 Bit (b): En küçük veri birimi (0 veya 1)\n- 1 Byte (B): 8 bit (1 karakterlik depolama alanı)\n- 1 KiloByte (KB): 1024 Byte (veya SI standardında 1000 Byte)\n- 1 MegaByte (MB): 1024 KB\n- 1 GigaByte (GB): 1024 MB\n- 1 TeraByte (TB): 1024 GB", "gorsel": {"type": "image", "query": "data storage units byte kilobyte megabyte gigabyte diagram"}}, {"baslik": "1000 Tabanı (SI) vs 1024 Tabanı (İkili)", "altbaslik": "Üretici Kapasitesi ile İşletim Sistemi Farkı", "icerik": "Disk Üreticileri (Desimal/SI): 1 GB = 1,000,000,000 Byte\nİşletim Sistemleri (Binary/GiB): 1 GiB = 1024 x 1024 x 1024 = 1,073,741,824 Byte\nSonuç: 500 GB olarak satın alınan disk, işletim sisteminde ~465.6 GB görünür. Bu durum bir hata değil, taban farkıdır.", "gorsel": {"type": "image", "query": "hard drive disk space operating system capacity comparison"}}, {"baslik": "Birim Dönüşüm Merdiveni", "altbaslik": "Büyük Birimden Küçüğe, Küçükten Büyüğe Geçiş", "icerik": "Dönüşüm Kuralı:\n- Büyük birimden küçük birime giderken CARP (TB -> GB -> MB -> KB -> Byte)\n  * 2 GB = 2 x 1024 = 2048 MB\n- Küçük birimden büyük birime giderken BOL (Byte -> KB -> MB -> GB -> TB)\n  * 4096 KB = 4096 / 1024 = 4 MB", "gorsel": {"type": "image", "query": "data conversion ladder multiplying dividing arrows"}}, {"baslik": "Çözümlü Uygulama 1: Basit Depolama Toplamı", "altbaslik": "Seviye: Başlangıç (Dört İşlem)", "icerik": "Soru: Bir sunucuda 3 farklı güvenlik log dosyası vardır:\n- A.log: 450 MB\n- B.log: 820 MB\n- C.log: 730 MB\nToplam log boyutu kaç MB'dır? Kaç GB'a karşılık gelir (1 GB = 1000 MB varsayımıyla)?\nÇözüm:\nToplam = 450 + 820 + 730 = 2000 MB\nGB Cinsi = 2000 / 1000 = 2 GB.", "gorsel": {"type": "image", "query": "log files data calculation step by step solution"}}, {"baslik": "Çözümlü Uygulama 2: Günlük SOC Log Üretimi", "altbaslik": "Seviye: Kolay (Çarpma ve Birim Dönüşümü)", "icerik": "Soru: Bir firewall cihazı saatte 250 MB log üretmektedir. 24 saatlik bir günde toplam kaç GB log birikir (1 GB = 1024 MB)?\nAdım 1: Günlük MB hesabı = 250 x 24 = 6000 MB\nAdım 2: GB'a dönüşüm = 6000 / 1024 = 5.859 GB\nYorum: Günlük depolama ihtiyacı yaklaşık 5.86 GB'tır.", "gorsel": {"type": "image", "query": "firewall network traffic logs daily volume chart"}}, {"baslik": "Çözümlü Uygulama 3: Disk Dolma Süresi", "altbaslik": "Seviye: Orta (Bölme ve Zaman Planlama)", "icerik": "Soru: 500 GB boş alana sahip bir log sunucusuna günde ortalama 12.5 GB veri yazılmaktadır. Sunucu diski kaç gün sonra tamamen dolar?\nÇözüm Formülü: Süre = Toplam Alan / Günlük Artış\nİşlem: 500 / 12.5 = 5000 / 125 = 40 gün.\nOperasyonel Karar: 35. günde arşivleme veya disk genişletme yapılmalıdır.", "gorsel": {"type": "image", "query": "server disk usage timeline monitoring alert"}}, {"baslik": "Çözümlü Uygulama 4: Ağ Yedekleme ve Paketleme", "altbaslik": "Seviye: Orta (Ondalık İşlem ve Birim Tutarlılığı)", "icerik": "Soru: 1.8 TB boyutundaki veri tabanı yedeği, her biri 64 GB kapasiteli USB belleklere aktarılacaktır. En az kaç bellek gerekir?\nAdım 1: TB'ı GB'a çevir = 1.8 x 1024 = 1843.2 GB\nAdım 2: Bellek sayısını bul = 1843.2 / 64 = 28.8 adet\nAdım 3: Tam sayıya yuvarlama: 28 bellek yetmez, en az 29 bellek gereklidir.", "gorsel": {"type": "image", "query": "backup storage usb flash drives database migration"}}, {"baslik": "Çözümlü Uygulama 5: Bant Genişliği vs Dosya Boyutu", "altbaslik": "Seviye: Orta-İleri (Bit ve Byte Ayrımı)", "icerik": "Dikkat: Ağ hızı Megabit (Mbps), dosya boyutu MegaByte (MB) olarak verilir!\n1 Byte = 8 Bit\nSoru: 80 Mbps hızındaki internet bağlantısıyla 600 MB boyutundaki bir ISO dosyası teorik olarak kaç saniyede iner?\nAdım 1: 600 MB = 600 x 8 = 4800 Megabit\nAdım 2: Süre = 4800 / 80 = 60 saniye (1 dakika).", "gorsel": {"type": "image", "query": "network speed test megabits megabytes download transfer"}}, {"baslik": "Çözümlü Uygulama 6: Sunucu Yanıt Süresi Ortalaması", "altbaslik": "Seviye: İleri (Ondalık Dört İşlem)", "icerik": "Soru: Bir web sunucusuna gelen 4 isteğin gecikme süreleri:\n- İstek 1: 14.25 ms\n- İstek 2: 18.70 ms\n- İstek 3: 12.15 ms\n- İstek 4: 22.90 ms\nOrtalama yanıt süresi kaç ms'dir?\nToplam = 14.25 + 18.70 + 12.15 + 22.90 = 68.00 ms\nOrtalama = 68.00 / 4 = 17.00 ms.", "gorsel": {"type": "image", "query": "server response time latency metrics graph monitor"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar", "altbaslik": "Aritmetik ve Birim Tuzakları", "icerik": "1. Bit (b) ile Byte (B) sembollerini karıştırmak (8 kat hata yaratır).\n2. Virgüllü sayılarda virgülden sonra basamak eşitlemeden çıkarma yapmak (Örn: 10.5 - 2.25 işleminde 10.50 yazılmalıdır).\n3. 1024 ile 1000 katsayılarını karıştırmak.\n4. Kalanlı bölmede yuvarlama yönünü yanlış seçmek (Kapasite hesaplarında her zaman yukarı yuvarlanır).", "gorsel": {"type": "image", "query": "warning caution error signs checklist technical"}}, {"baslik": "Sektörel Vaka Analizi: E-Ticaret Log Krizi", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Senaryo: 'Black Friday' indiriminde bir e-ticaret sitesinin log sunucusu beklenmedik şekilde kilitlendi.\nİnceleme: Normalde saatte 200 MB log üreten sistem, kampanya anında 10 kat log üretmiştir.\nAnaliz: 200 x 10 = 2000 MB/saat (Yaklaşık 2 GB/saat).\nDiskte 30 GB boş yer vardı. 30 / 2 = 15 saat sonra disk dolup çökmüştür.", "gorsel": {"type": "image", "query": "e-commerce black friday server crash analytics dashboard"}}, {"baslik": "Vaka Çözüm Planı ve İyileştirme", "altbaslik": "Krizden Çıkarılan Mühendislik Dersi", "icerik": "Alınan Aksiyonlar:\n1. Log rotasyonu ve sıkıştırma (Gzip ile %80 tasarruf: 2000 MB -> 400 MB/saat).\n2. Otomatik uyarı eşiği: Disk doluluğu %80'e ulaştığında alarm üretilmesi.\n3. Matematiksel modelleme ile kampanya öncesi disk kapasitesinin 100 GB'a çıkarılması.", "gorsel": {"type": "image", "query": "system administrator log compression automation dashboard"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Basamak Değeri", "icerik": "Soru: 8405 sayısındaki '4' rakamının basamak değeri nedir?\nA) 4\nB) 40\nC) 400\nD) 4000\n\nDoğru Cevap: C (Yüzler basamağında olduğu için 4 x 100 = 400)", "gorsel": {"type": "image", "query": "multiple choice quiz question exam classroom"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Ondalık İşlem", "icerik": "Soru: 15.4 - 3.75 işleminin sonucu kaçtır?\nA) 11.65\nB) 12.35\nC) 11.35\nD) 12.65\n\nDoğru Cevap: A (15.40 - 3.75 = 11.65)", "gorsel": {"type": "image", "query": "subtraction with decimals mathematics quiz question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Birim Dönüşümü", "icerik": "Soru: 4096 MB kaç GB eder (1 GB = 1024 MB)?\nA) 2 GB\nB) 4 GB\nC) 8 GB\nD) 16 GB\n\nDoğru Cevap: B (4096 / 1024 = 4 GB)", "gorsel": {"type": "image", "query": "computer data memory storage calculation quiz"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Ağ İndirme Hesabı", "icerik": "Soru: 16 Mbps bağlantı hızıyla 16 MB'lık dosya kaç saniyede indirilir?\nA) 1 saniye\nB) 8 saniye\nC) 16 saniye\nD) 64 saniye\n\nDoğru Cevap: B (16 MB = 128 Mb; 128 / 16 = 8 saniye)", "gorsel": {"type": "image", "query": "network bandwidth speed test transfer calculation"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Kendi Yedekleme Planınızı Yapın", "icerik": "Soru: Akıllı telefonunuzda 128 GB hafıza var. 1 fotoğraf ortalama 4 MB yer kaplıyor.\n1. Telefona sadece fotoğraf çekilseydi en fazla kaç fotoğraf sığardı?\n2. Sistem dosyaları 24 GB yer tutuyorsa gerçek kapasite ne olur?\nİşlemleri defterinizde adımlarıyla yazınız.", "gorsel": {"type": "image", "query": "students discussing mobile phone storage problem classroom"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- 10'luk sistemde taban 10'dur ve her basamak 10'un kuvvetiyle çarpılır.\n- Ondalık işlemlerde virgül hizalaması ve basamak tamamlama kritik kuraldır.\n- Bilişimde veri birimleri 1024 katları üzerinden yükselir (Byte -> KB -> MB -> GB -> TB).\n- Bit (hız) ile Byte (depolama) ayrımı 8 katsayısı ile yönetilir.", "gorsel": {"type": "image", "query": "summary concept map mindmap mathematics technology"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 2: İkili (Binary), Sekizli ve On Altılık Sistemler", "icerik": "Ön Hazırlık:\n- Bilgisayarlar elektrik sinyallerini (0 ve 1) nasıl okur?\n- IP adresleri ve MAC adresleri neden farklı sayı tabanları kullanır?\n- Gelecek hafta ikili sistem ve hex dönüşümlerini kodlama mantığıyla öğreneceğiz.", "gorsel": {"type": "image", "query": "binary code hexadecimal matrix digital background"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir güvenlik kamerası günde 4.5 GB video kaydetmektedir. 1 TB'lık (1024 GB) sabit diske en fazla kaç tam günlük kesintisiz kayıt sığdırılabilir?'\n\nCevabınızı ve işlem basamaklarınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "cctv security camera video surveillance storage"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

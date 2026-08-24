@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 10 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 10</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 33 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-09.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 33</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (33 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 10", "altbaslik": "SQLAlchemy ORM ve Kalıcı CRUD Operasyonları", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: SQLite, SQLAlchemy ORM, Tablo Modelleri, Session ve Tam CRUD (Create, Read, Update, Delete)\nUygulama Teması: Kütüphane Kitap Envanter Sistemi (Tam CRUD)", "gorsel": {"type": "image", "query": "database crud operations sqlite sqlalchemy python orm"}}, {"baslik": "Motivasyon: Sunucu Yeniden Başlayınca Veriler Nerede?", "altbaslik": "Geçici Bellek (RAM) vs. Kalıcı Disk (Database)", "icerik": "Önceki haftalarda listelere veri ekledik ama sunucuyu durdurup açtığımızda hepsi silindi!\n- Gerçek hayatta hiçbir banka veya e-ticaret sitesi sunucu kapandı diye verileri kaybetmez.\n- Verileri kalıcı olarak diske yazmak için Veritabanı (Database) kullanırız.\n- Bugün kalıcı SQLite veritabanımızı kuracağız.", "gorsel": {"type": "image", "query": "database server persistence hard drive storage"}}, {"baslik": "CRUD Nedir? (Yazılımcının 4 Temel Hareketi)", "altbaslik": "Tüm Dünyadaki Yazılımların %90'ı", "icerik": "1. Create (Oluştur / Ekle) -> `POST` (Yeni kitap ekle)\n2. Read (Oku / Listele) -> `GET` (Kitapları getir, ID ile ara)\n3. Update (Güncelle) -> `PUT / PATCH` (Kitap bilgilerini değiştir)\n4. Delete (Sil) -> `DELETE` (Kitabı sistemden sil)\n\nBu 4 işlemi yapan yazılımcı sektöre hazırdır!", "gorsel": {"type": "image", "query": "crud acronym create read update delete diagram"}}, {"baslik": "ORM (Object-Relational Mapping) Nedir?", "altbaslik": "SQL Yazmadan Nesnelerle Veritabanı Yönetmek", "icerik": "Geleneksel Yöntem: `INSERT INTO kitaplar VALUES ('Nutuk', 600)` gibi karmaşık SQL cümleleri yazmaktır.\nORM Yöntemi (SQLAlchemy):\n`yeni_kitap = Kitap(baslik='Nutuk', sayfa=600)`\n`db.add(yeni_kitap)`\n`db.commit()`\nPython nesneleri otomatik olarak SQL tablolarına dönüşür!", "gorsel": {"type": "image", "query": "object relational mapping orm python objects to database tables"}}, {"baslik": "Veritabanı Seçimimiz: SQLite", "altbaslik": "Hafif, Dosya Tabanlı ve Kurulum Gerektirmeyen Güç", "icerik": "Neden SQLite?\n- Ayrı bir veritabanı sunucusu (MySQL/PostgreSQL) kurma zahmeti yoktur.\n- Tek bir dosya (`kutuphane.db`) halinde proje klasörünüzde yaşar.\n- Python içinde yerleşik gelir.\n- İleride PostgreSQL'e geçmek sadece bağlantı metnini değiştirmek kadar kolaydır.", "gorsel": {"type": "image", "query": "sqlite database file lightweight storage icon"}}, {"baslik": "İki Model Paradigması: Pydantic vs. SQLAlchemy", "altbaslik": "Şema (schemas.py) vs. Tablo (models.py)", "icerik": "1. Pydantic Modeli (schemas.py):\n- Kapıdaki bekçidir. Gelen JSON veriyi doğrular (min_length, gt=0).\n\n2. SQLAlchemy Modeli (models.py):\n- Veritabanındaki fiziksel tablodur (Column, Integer, String).\n\nİkisi el ele çalışır: Pydantic veriyi onaylar, SQLAlchemy diske kaydeder!", "gorsel": {"type": "image", "query": "two models schema vs database table architecture"}}, {"baslik": "Gerekli Kurulum: SQLAlchemy", "altbaslik": "PyCharm Terminalinde", "icerik": "Terminalde çalıştırın:\n\n`pip install sqlalchemy`", "gorsel": {"type": "image", "query": "terminal pip install sqlalchemy python"}}, {"baslik": "Adım 1: database.py (Bağlantı ve Oturum)", "altbaslik": "Veritabanı Motorunu Kurmak", "icerik": "from sqlalchemy import create_engine\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy.orm import sessionmaker\n\nURL = 'sqlite:///./kutuphane.db'\nengine = create_engine(URL, connect_args={'check_same_thread': False})\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()", "gorsel": {"type": "image", "query": "database connection session engine python code"}}, {"baslik": "Adım 2: models.py (SQLAlchemy Tablosu)", "altbaslik": "Kitap Tablosunu Tasarlamak", "icerik": "from sqlalchemy import Column, Integer, String, Boolean\nfrom database import Base\n\nclass KitapModel(Base):\n    __tablename__ = 'kitaplar'\n\n    id = Column(Integer, primary_key=True, index=True)\n    baslik = Column(String, index=True)\n    yazar = Column(String)\n    sayfa_sayisi = Column(Integer)\n    odunc_alindi_mi = Column(Boolean, default=False)", "gorsel": {"type": "image", "query": "database table columns schema relational"}}, {"baslik": "Adım 3: schemas.py (Pydantic Doğrulama)", "altbaslik": "İstemciden Gelen ve İstemciye Giden Şemalar", "icerik": "from pydantic import BaseModel\n\nclass KitapOlustur(BaseModel):\n    baslik: str\n    yazar: str\n    sayfa_sayisi: int\n\nclass KitapYanit(KitapOlustur):\n    id: int\n    odunc_alindi_mi: bool\n\n    class Config:\n        from_attributes = True", "gorsel": {"type": "image", "query": "pydantic schema data transfer object dto"}}, {"baslik": "1. CREATE: POST /kitaplar", "altbaslik": "Veritabanına Yeni Kitap Yazma", "icerik": "@app.post('/kitaplar', response_model=KitapYanit, status_code=201)\ndef kitap_ekle(kitap: KitapOlustur, db: Session = Depends(get_db)):\n    db_kitap = KitapModel(\n        baslik=kitap.baslik,\n        yazar=kitap.yazar,\n        sayfa_sayisi=kitap.sayfa_sayisi\n    )\n    db.add(db_kitap)\n    db.commit()        # Diske yaz!\n    db.refresh(db_kitap) # ID'sini al\n    return db_kitap", "gorsel": {"type": "image", "query": "database commit insert record success"}}, {"baslik": "2. READ ALL: GET /kitaplar", "altbaslik": "Tüm Kitapları Listeleme", "icerik": "from typing import List\n\n@app.get('/kitaplar', response_model=List[KitapYanit])\ndef kitaplari_listele(db: Session = Depends(get_db)):\n    # SELECT * FROM kitaplar\n    return db.query(KitapModel).all()", "gorsel": {"type": "image", "query": "sql query select all database records list"}}, {"baslik": "3. READ ONE: GET /kitaplar/{kitap_id}", "altbaslik": "Tek Bir Kitabı ID ile Bulma", "icerik": "@app.get('/kitaplar/{kitap_id}', response_model=KitapYanit)\ndef tek_kitap_getir(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    return kitap", "gorsel": {"type": "image", "query": "search find single record database 404"}}, {"baslik": "4. UPDATE: PUT /kitaplar/{kitap_id}/odunc-al", "altbaslik": "Durum Güncelleme", "icerik": "@app.put('/kitaplar/{kitap_id}/odunc-al', response_model=KitapYanit)\ndef odunc_al(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    \n    kitap.odunc_alindi_mi = True\n    db.commit()\n    db.refresh(kitap)\n    return kitap", "gorsel": {"type": "image", "query": "update record checkbox boolean state change"}}, {"baslik": "5. DELETE: DELETE /kitaplar/{kitap_id}", "altbaslik": "Veritabanından Kayıt Silme", "icerik": "@app.delete('/kitaplar/{kitap_id}')\ndef kitap_sil(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    \n    db.delete(kitap)\n    db.commit()\n    return {'mesaj': f'\"{kitap.baslik}\" başarıyla silindi.'}", "gorsel": {"type": "image", "query": "delete record trash can database remove"}}, {"baslik": "Laboratuvar Döngüsü 1: Veritabanı Tablosu Oluşturma", "altbaslik": "create_all() Büyüsü", "icerik": "`models.Base.metadata.create_all(bind=database.engine)` satırı sayesinde:\n- Uygulama ilk çalıştığında `kutuphane.db` dosyası yoksa otomatik oluşturur.\n- `kitaplar` tablosunu sıfırdan kurar.\n- PyCharm sol panelde `kutuphane.db` dosyasını gördüğünüzü doğrulayın.", "gorsel": {"type": "image", "query": "sqlite db file creation in project tree"}}, {"baslik": "Laboratuvar Döngüsü 2: Swagger'dan İlk Kitabı Kaydetme", "altbaslik": "POST İsteği ve Commit", "icerik": "- `/docs` ekranında `POST /kitaplar` açın.\n- 'Nutuk', 'Mustafa Kemal Atatürk', 600 yazıp Execute deyin.\n- Dönen JSON'da `id: 1` ve `odunc_alindi_mi: false` olduğunu görün.", "gorsel": {"type": "image", "query": "swagger ui execute post request success response"}}, {"baslik": "Laboratuvar Döngüsü 3: Kalıcılık Testi (Büyük İspat!)", "altbaslik": "Sunucuyu Kapatıp Açınca Ne Olur?", "icerik": "1. PyCharm terminalinde `CTRL + C` yaparak sunucuyu durdurun!\n2. `uvicorn main:app --reload` ile sunucuyu yeniden başlatın.\n3. `/docs` sayfasında `GET /kitaplar` çağırın.\n4. Eklediğiniz kitabın SİLİNMEDEN orada durduğunu görün!\nİşte kalıcılık (persistence) budur!", "gorsel": {"type": "image", "query": "server reboot data preserved success test"}}, {"baslik": "Laboratuvar Döngüsü 4: Ödünç Alma ve Silme", "altbaslik": "PUT ve DELETE Testleri", "icerik": "- `PUT /kitaplar/1/odunc-al` çağırın -> `odunc_alindi_mi: true` oldu.\n- `DELETE /kitaplar/1` çağırın -> Kitap silindi.\n- Tekrar `GET /kitaplar/1` çağırın -> `404 Not Found` hatasını görün.", "gorsel": {"type": "image", "query": "put delete testing swagger endpoints"}}, {"baslik": "Çözümlü Uygulama: Öğrenci Not Tablosu", "altbaslik": "İkinci Bir Tablo Tasarımı", "icerik": "class OgrenciModel(Base):\n    __tablename__ = 'ogrenciler'\n\n    id = Column(Integer, primary_key=True)\n    ad_soyad = Column(String)\n    vize = Column(Float)\n    final = Column(Float)", "gorsel": {"type": "image", "query": "student grades database table structure"}}, {"baslik": "Sayfalama (Pagination): skip ve limit", "altbaslik": "1 Milyon Kitabı Tek Seferde Çekmemek", "icerik": "@app.get('/kitaplar/sayfala')\ndef sayfali_getir(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):\n    return db.query(KitapModel).offset(skip).limit(limit).all()", "gorsel": {"type": "image", "query": "pagination 1 2 3 next previous web page"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod:\ndb.add(yeni_kitap)\n# db.commit() yazılmadı!\n\nProblem Nedir?\n`commit()` çağrılmazsa değişiklikler kalıcı olarak veritabanı dosyasına yazılmaz ve kaybolur!", "gorsel": {"type": "image", "query": "missing commit database rollback data loss"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "kitap = db.query(KitapModel).filter(KitapModel.id == 999).first()\nprint(kitap)\n\nÇıktı: `None` (999 nolu kitap olmadığı için None döner, bu yüzden `if not kitap:` kontrolü yapılır).", "gorsel": {"type": "image", "query": "null none record query search"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "SQLAlchemy'de 3 Kritik Hata", "icerik": "1. `db.commit()` yapmayı unutmak.\n2. Veritabanı oturumunu `Depends(get_db)` ile kapatmamak (Bellek sızıntısı yapar).\n3. Var olmayan bir kaydı silmeye veya güncellemeye çalışıp 404 kontrolü yapmamak.", "gorsel": {"type": "image", "query": "warning caution database checklist"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "CRUD ve HTTP", "icerik": "Soru: Bir kaydı güncellemek (Update) için en uygun HTTP metodu hangisidir?\nA) GET\nB) POST\nC) PUT\nD) DELETE\n\nDoğru Cevap: C (PUT / PATCH).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "SQLAlchemy Commit", "icerik": "Soru: Yapılan değişiklikleri veritabanı dosyasına kalıcı olarak işleyen komut hangisidir?\nA) db.save()\nB) db.commit()\nC) db.write()\nD) db.push()\n\nDoğru Cevap: B (db.commit()).", "gorsel": {"type": "image", "query": "database commit transaction concept"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "HTTP 404", "icerik": "Soru: Aranan kitap veritabanında bulunamadığında dönülmesi gereken en doğru durum kodu nedir?\nA) 200 OK\nB) 404 Not Found\nC) 500 Internal Error\nD) 400 Bad Request\n\nDoğru Cevap: B (404 Not Found).", "gorsel": {"type": "image", "query": "404 not found error webpage"}}, {"baslik": "Sektörel Vaka: Gerçek Hayatta PostgreSQL Geçişi", "altbaslik": "SQLAlchemy'nin Gücü", "icerik": "Şirketiniz SQLite'tan 50 milyon kullanıcılı PostgreSQL'e geçtiğinde:\n- Yazdığınız CRUD endpoint'lerinin TEK BİR SATIRINI BİLE DEĞİŞTİRMEZSİNİZ!\n- Sadece database.py içindeki URL'yi `postgresql://user:pass@localhost/db` yaparsınız.\nİşte ORM kullanmanın sektörel değeri budur.", "gorsel": {"type": "image", "query": "postgresql database migration enterprise server"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Kütüphane Kitap İade Endpoint'i Yazma", "icerik": "Göreviniz:\n1. Kütüphane projenize `PUT /kitaplar/{kitap_id}/iade-et` endpoint'i ekleyin.\n2. Bu endpoint çağrıldığında kitabın `odunc_alindi_mi` alanını `False` yapsın ve `commit` etsin.\n3. Swagger UI üzerinden bir kitabı ödünç alıp ardından başarıyla iade edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "book return library counter mission task"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "@app.put('/kitaplar/{kitap_id}/iade-et', response_model=KitapYanit)\ndef iade_et(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap yok!')\n    kitap.odunc_alindi_mi = False\n    db.commit()\n    db.refresh(kitap)\n    return kitap", "gorsel": {"type": "image", "query": "hints blueprint solution code help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- SQLite ve SQLAlchemy ile verilerimiz kalıcı disk ortamına taşındı.\n- Pydantic şemaları ile SQLAlchemy ORM tabloları el ele çalışır.\n- Tam CRUD mimarisi (POST, GET, PUT, DELETE) başarıyla kuruldu.\n- Sunucu kapansa bile verilerimizin güvende kaldığı kanıtlandı.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 11: API'den API'ye İletişim (httpx)", "icerik": "Ön Hazırlık:\n- Dış dünyadaki açık API'lerden (Canlı Hava Durumu, Döviz Kuru, Açık Kütüphane) kendi Python kodumuzla nasıl veri çekeriz?\n- httpx kütüphanesi ve async/await mantığı!", "gorsel": {"type": "image", "query": "api to api communication network cloud httpx"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'SQLAlchemy'de veritabanına yeni oluşturulan bir nesneyi ekleyip diske kaydeden 2 satırlık kodu (add ve commit) kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

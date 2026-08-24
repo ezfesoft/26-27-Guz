@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "İlaç Geliştirme ve Klinik Araştırmalarda YZ",
+    "altbaslik": "Molekül Taramadan Klinik Denemelere ve İstatistiksel Kanıta",
+    "icerik": "- Kapsam: Geleneksel ilaç keşfinin zorlukları, yapay zeka ile sanal tarama (Virtual Screening).\n- İlaç Yeniden Konumlandırma (Drug Repurposing): Mevcut ilaçların yeni hastalıklar için kullanımı.\n- Klinik Araştırma Fazları: Faz I, II, III ve IV aşamalarında YZ ve veri yönetimi.\n- İstatistiksel Temeller: Hipotez testleri, p-değeri, Tip I/II hata ve %95 Güven Aralığı okuryazarlığı.",
+    "gorsel": {
+      "type": "image",
+      "query": "drug discovery molecular docking clinical trials pharmaceutical research"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "10. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Geleneksel ilaç keşfi ile YZ destekli ilaç tasarım süreçlerini karşılaştırır.\n- ÖÇ2: Klinik araştırma fazlarının (Faz 1-4) amaçlarını ve veri gereksinimlerini açıklar.\n- ÖÇ3: Bilimsel bir araştırma raporundaki p-değeri ve güven aralığı ifadelerini doğru yorumlar.\n- ÖÇ4: YZ'nin klinik araştırmalarda hasta seçimi ve eşleştirmedeki rolünü değerlendirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives clinical trials biostatistics drug development"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: İlaç Geliştirmenin Devasa Maliyeti",
+    "altbaslik": "10-15 Yıl ve 2.5 Milyar Dolar!",
+    "icerik": "- Klasik Süreç: 10.000 aday molekülden sadece 1 tanesi tüm fazları geçip eczane rafına ulaşabilir.\n- Yüksek Başarısızlık: Laboratuvarda başarılı olan binlerce molekül insanda toksik çıktığı için elenir.\n- YZ Devrimi: AlphaFold ve üretici yapay zeka modelleri protein yapılarını dakikalar içinde modelleyebilir.\n- Amaç: Molekül tarama süresini 5 yıldan birkaç aya indirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "drug development timeline cost pipeline attrition funnel"
+    }
+  },
+  {
+    "baslik": "Sanal Tarama (Virtual Screening) ve Moleküler Kenetlenme",
+    "altbaslik": "Bilgisayarda Milyonlarca Molekülü Test Etmek",
+    "icerik": "- Moleküler Kenetlenme (Molecular Docking): İlaç molekülünün hedef proteinin cebine anahtar-kilit gibi oturma simülasyonu.\n- YZ'nin Rolü: Milyonlarca kimyasal bileşiğin bağlanma afinitesini ve toksisitesini tahmin etme.\n- Üretici Kimya (Generative Chemistry): Doğada hiç bulunmayan, hedefe özel yeni kimyasal yapılar tasarlama (De novo design).",
+    "gorsel": {
+      "type": "image",
+      "query": "molecular docking protein ligand binding simulation AI"
+    }
+  },
+  {
+    "baslik": "İlaç Yeniden Konumlandırma (Drug Repurposing)",
+    "altbaslik": "Eski İlaçlara Yeni Görevler Bulmak",
+    "icerik": "- Tanım: Güvenliği ve yan etkileri zaten kanıtlanmış ruhsatlı bir ilacın başka bir hastalıkta kullanılması.\n- Avantaj: Faz I güvenlik testleri zaten tamamlanmış olduğu için yıllar süren zaman tasarrufu sağlar.\n- Örnek: COVID-19 pandemisinde mevcut antiviral ve antiinflamatuar ilaçların YZ ile taranması.\n- Tıbbi Veri Teknikeri: Hastane veri tabanlarında ilaç yan etki ve beklenmedik iyileşme kayıtlarını taramak.",
+    "gorsel": {
+      "type": "image",
+      "query": "drug repurposing new indication existing pharmaceutical"
+    }
+  },
+  {
+    "baslik": "Klinik Araştırma Fazları (Clinical Trial Phases)",
+    "altbaslik": "İlacın İnsandaki Güvenlik ve Etkinlik Basamakları",
+    "icerik": "- Faz I (20-80 Sağlıklı Gönüllü): İlacın güvenliği, güvenli doz aralığı ve yan etkileri araştırılır.\n- Faz II (100-300 Hasta): İlacın hedeflenen hastalık üzerindeki etkinliği test edilir.\n- Faz III (1.000-3.000+ Hasta): Geniş popülasyonda plasebo veya mevcut standart tedaviyle karşılaştırma (Ruhsat onayı öncesi son adım).\n- Faz IV (Pazar Sonrası Gözlem): İlaç piyasaya çıktıktan sonraki uzun vadeli ve nadir yan etkilerin izlemi (Farmakovijilans).",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical trial phases Phase I Phase II Phase III Phase IV diagram"
+    }
+  },
+  {
+    "baslik": "Randomize Kontrollü Çalışmalar (RCT)",
+    "altbaslik": "Kanıta Dayalı Tıbbın Altın Standardı",
+    "icerik": "- Randomizasyon: Hastaların deney (ilaç) ve kontrol (plasebo) grubuna kura ile rastgele atanması.\n- Çift Kör (Double-Blind): Ne hastanın ne de hekimin hastaya hangi ilacın verildiğini bilmemesi.\n- Amaç: Plasebo etkisini ve hekimin taraflı gözlemini (bias) tamamen ortadan kaldırmak.\n- YZ'nin Rolü: Gruplar arasındaki yaş, cinsiyet ve hastalık şiddeti dağılımını mükemmel dengelemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "randomized controlled trial double blind study placebo diagram"
+    }
+  },
+  {
+    "baslik": "YZ ile Klinik Araştırmalara Hasta Seçimi",
+    "altbaslik": "Çalışmaların %80'i Yetersiz Hasta Yüzünden Gecikir!",
+    "icerik": "- Problem: Klinik protokollerde onlarca dahil etme/dışlama kriteri vardır (Ör. 'Son 6 ayda kanama geçirmemiş, kreatinin < 1.5 olan').\n- NLP Çözümü: YZ, binlerce hasta epikrizini saniyeler içinde tarayarak araştırmaya tam uygun hasta adaylarını listeler.\n- Sonuç: Klinik araştırmaya hasta dahil etme sürecinin hızlanması ve maliyetin düşmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical trial patient matching NLP electronic health records"
+    }
+  },
+  {
+    "baslik": "İstatistiksel Temeller: Hipotez Testi ve p-Değeri",
+    "altbaslik": "'Bu Başarı Şans Eseri mi, Gerçek mi?'",
+    "icerik": "- Sıfır Hipotezi (H0): İlaç ile plasebo arasında hiçbir fark yoktur.\n- Alternatif Hipotez (H1): Yeni ilaç plaseboya göre anlamlı derecede daha etkilidir.\n- p-Değeri (p-value): Sıfır hipotezi doğruyken bu sonucun şans eseri ortaya çıkma olasılığı.\n- Kritik Eşik (p < 0.05): Eğer p < 0.05 ise sonuç 'İstatistiksel Olarak Anlamlıdır' denir ve şans faktörü reddedilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "null hypothesis testing p-value bell curve normal distribution"
+    }
+  },
+  {
+    "baslik": "Güven Aralığı (95% Confidence Interval - CI)",
+    "altbaslik": "Tek Sayıya Değil, Aralığa Bakmak",
+    "icerik": "- Tanım: Gerçek klinik etkinliğin %95 olasılıkla içinde bulunduğu alt ve üst sınırlar.\n- Örnek A: İlaç ağrıyı %50 azaltır [95% CI: %48 - %52] -> Çok dar, güvenilir ve net kanıt.\n- Örnek B: İlaç ağrıyı %50 azaltır [95% CI: %5 - %95] -> Çok geniş, belirsiz ve zayıf kanıt.\n- Kural: Makale okurken sadece ortalama etkiye değil, güven aralığının genişliğine bakılmalıdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "confidence interval forest plot clinical trial statistics"
+    }
+  },
+  {
+    "baslik": "Faz IV ve Farmakovijilans: YZ ile Yan Etki Taraması",
+    "altbaslik": "Piyasaya Çıkan İlacın Güvenlik Nöbeti",
+    "icerik": "- Farmakovijilans: İlaçların piyasadaki kullanımında ortaya çıkan advers (zararlı) etkilerin tespiti ve bildirimi (TÜFAM).\n- YZ Taraması: Sosyal medya, hasta forumları ve HBYS doktor notlarından otomatik yan etki sinyali yakalama.\n- Erken Uyarı: Milyonda bir görülen nadir bir kalp yan etkisinin aylar içinde fark edilip ilacın geri çekilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "pharmacovigilance adverse drug event monitoring safety"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Klinik Araştırmalardaki Rolü (CRC)",
+    "altbaslik": "Klinik Araştırma Koordinatörlüğü",
+    "icerik": "- 1. CRF (Case Report Form) Doldurma: Araştırma hastalarının laboratuvar ve vizit verilerini uluslararası EDC sistemine girmek.\n- 2. Protokol Uyumu: Hastanın tetkiklerinin belirlenen takvime uygun yapılmasını koordine etmek.\n- 3. Yan Etki Bildirimi: Beklenmeyen advers olayları (SAE) 24 saat içinde etik kurula ve sponsora iletmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical research coordinator data entry electronic data capture"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 10. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- YZ, ilaç adayı molekül tarama süresini dramatik biçimde kısaltır ve maliyetleri düşürür.\n- Klinik araştırmalar Faz I'den Faz IV'e kadar katı bilimsel ve etik denetimlerden geçer.\n- p < 0.05 istatistiksel anlamlılığı gösterir; ancak klinik anlamlılık güven aralığı ile değerlendirilir.\n- Tıbbi veri teknikeri, klinik araştırma veri yönetimi ve advers etki bildiriminde kritik köprüdür.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept map clinical trials biostatistics drug development"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "İstatistik ve Faz Bilgisi Kontrolü",
+    "icerik": "- Soru 1: Bir ilacın piyasaya çıktıktan sonra geniş halk kitlelerindeki nadir yan etkilerinin izlendiği aşama hangisidir?\n  Cevap: Faz IV (Pazar Sonrası Gözlem / Farmakovijilans).\n- Soru 2: Bir araştırmada p = 0.03 bulunması ne anlama gelir?\n  Cevap: Sonucun şans eseri ortaya çıkma olasılığı %3'tür; fark istatistiksel olarak anlamlı kabul edilir (p < 0.05).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions clinical trials statistics p-value"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Güven Aralığı Yorumlama",
+    "altbaslik": "Klinik Makale Analizi",
+    "icerik": "- Senaryo: Yeni bir tansiyon ilacının tansiyonu 15 mmHg düşürdüğü [95% CI: -2 ile +32 mmHg] raporlanmıştır.\n- Soru: Bu sonuç güvenilir bir klinik başarı mıdır? Neden?\n- Cevap: Hayır, güvenilir değildir! Çünkü güven aralığı sıfırı (ve negatif değeri) kapsamaktadır; yani ilaç bazı hastalarda tansiyonu artırmış veya hiç değiştirmemiş olabilir (Etki belirsizdir).",
+    "gorsel": {
+      "type": "image",
+      "query": "confidence interval crossing zero line forest plot"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 10. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Bir ilacın klinik araştırmasında p < 0.05 olduğu halde güven aralığı çok genişse ilaca neden şüpheyle yaklaşılır?\n- 2. İlaç yeniden konumlandırma (Drug Repurposing) neden pandemi gibi kriz anlarında hayat kurtarır?\n- 3. Gelecek hafta konusu: Sağlıkta Veri Mahremiyeti, KVKK ve Anonimleştirme Teknikleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "11. Hafta: Veri Mahremiyeti ve Anonimleştirme",
+    "icerik": "- Konu: KVKK, GDPR ve HIPAA uyumu, hasta verilerinin korunması ve siber güvenlik.\n- Odak: İsim/TC maskeleme, k-anonimlik (k-anonymity), l-çeşitlilik (l-diversity) ve diferansiyel gizlilik.\n- Hazırlık: KVKK kapsamındaki 'Özel Nitelikli Kişisel Veri' kavramını araştırınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "data privacy healthcare cybersecurity KVKK GDPR preview"
+    }
+  },
+  {
+    "baslik": "İlaç Keşfinde QSAR Modelleri",
+    "altbaslik": "Kantitatif Yapı-Aktivite İlişkileri",
+    "icerik": "- QSAR (Quantitative Structure-Activity Relationship): Kimyasal molekülün 2D/3D yapısı ile biyolojik etkisi arasındaki matematiksel ilişki.\n- Regresyon ve YSA: Molekülün çözünürlüğü, hücre zarından geçişi ve toksisitesinin ML ile tahmini.\n- Tasarruf: Laboratuvarda sentezlenmesi aylar sürecek zararlı bileşiklerin bilgisayarda saniyeler içinde elenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "QSAR molecular structure activity machine learning chemistry"
+    }
+  },
+  {
+    "baslik": "De Novo İlaç Tasarımı: Üretici YZ (Generative AI)",
+    "altbaslik": "Moleküllerin ChatGPT'si",
+    "icerik": "- Üretici Modeller (GAN / VAE / Diffusion): Sıfırdan daha önce doğada hiç görülmemiş yeni molekül çizimleri üretmek.\n- SMILES Formatı: Kimyasal yapıların tek satır metin olarak kodlanması (Ör. CC(=O)OC1=CC=CC=C1C(=O)O Aspirin).\n- NLP Çözümü: SMILES dizilerini bir dil gibi öğrenip hedefe kilitlenen yeni kimyasal cümleler yazmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "generative AI drug design diffusion molecular SMILES string"
+    }
+  },
+  {
+    "baslik": "Hedef Doğrulama (Target Validation) ve CRISPR",
+    "altbaslik": "Hastalığa Neden Olan Proteini Kesinleştirmek",
+    "icerik": "- Hedef Protein Nedir?: Hastalığın ilerlemesini sağlayan enzim veya reseptör (Ör. Kanser hücresi çoğalma sinyali).\n- CRISPR-Cas9 ile YZ İşbirliği: Gen susturma deneyleriyle hedefin doğrulanması.\n- Yan Etki Tahmini: İlacın hedeflenen protein dışında vücuttaki diğer hayati proteinlere (Off-target) yapışıp yapışmayacağını YZ ile simüle etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "target validation CRISPR cas9 protein binding off target"
+    }
+  },
+  {
+    "baslik": "Klinik Araştırmalarda Sentetik Kontrol Kolları (Synthetic Control Arms)",
+    "altbaslik": "Plasebo Yerine Geçmiş Veriyi Kullanmak",
+    "icerik": "- Etik İkilem: Ölümcül nadir kanser hastalarına plasebo (boş ilaç) vermek etik olarak çok zordur.\n- Sentetik Kontrol: Geçmiş hastane EHR verilerindeki benzer hastaların dijital ikizlerinden (Digital Twins) kontrol grubu oluşturmak.\n- Fayda: Tüm katılımcılara gerçek ilaç verilirken, bilimsel karşılaştırma sentetik grupla yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "synthetic control arm digital twins clinical trials EHR"
+    }
+  },
+  {
+    "baslik": "İstatistiksel Güç (Power) ve Örneklem Boyutu",
+    "altbaslik": "'Kaç Hasta ile Çalışmalıyız?'",
+    "icerik": "- İstatistiksel Güç (1 - Beta): Gerçekte var olan bir ilaç etkisini araştırmanın yakalayabilme olasılığı (Standart: %80 veya %90).\n- Tip II Hata (Beta): İlaç gerçekten etkiliyken araştırmanın 'etkisizdir' sonucuna varması.\n- Örneklem Hesabı: Yetersiz hasta ile yapılan çalışma hem bütçe israfıdır hem de etkili ilacın çöpe gitmesine yol açar.",
+    "gorsel": {
+      "type": "image",
+      "query": "statistical power sample size calculation bell curve clinical trial"
+    }
+  },
+  {
+    "baslik": "Tip I Hata (Alfa) vs Tip II Hata (Beta)",
+    "altbaslik": "İstatistikte Yanılmanın İki Yolu",
+    "icerik": "- Tip I Hata (Alfa / Yanlış Pozitif): Etkisiz bir ilaca 'etkilidir' demek (Sahte umut -> Maksimum %5 izin verilir, p<0.05).\n- Tip II Hata (Beta / Yanlış Negatif): Etkili bir ilacı fark edemeyip 'etkisizdir' demek (Kaçırılan fırsat -> Maksimum %20 izin verilir).\n- Tıbbi Veri Teknikeri Notu: Regülasyon kurumları (FDA/TİTCK) en çok Tip I hatadan (etkisiz ilacın piyasaya çıkmasından) korkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "type I vs type II error matrix statistics medical research"
+    }
+  },
+  {
+    "baslik": "Göreceli Risk (Relative Risk - RR) ve Odds Oranı (OR)",
+    "altbaslik": "İlaç Riski Ne Kadar Azaltıyor?",
+    "icerik": "- Göreceli Risk (RR): İlaç alan gruptaki hastalık oranının plasebo grubuna oranı.\n- RR = 1.0: İlacın hiçbir etkisi yoktur.\n- RR = 0.60: İlaç hastalık riskini %40 oranında azaltmıştır (Koruyucu etki).\n- RR = 1.80: İlaç yan etki riskini %80 artırmıştır.\n- Güven Aralığı ile Birlikte: 'RR = 0.60 [95% CI: 0.45 - 0.78]' -> İstatistiksel olarak anlamlı koruma!",
+    "gorsel": {
+      "type": "image",
+      "query": "relative risk odds ratio statistics forest plot medical"
+    }
+  },
+  {
+    "baslik": "Elektronik Veri Yakalama Sistemleri (EDC - REDCap)",
+    "altbaslik": "Klinik Araştırma Veritabanı Standartı",
+    "icerik": "- REDCap (Research Electronic Data Capture): Dünya çapında klinik araştırmalarda veri toplamak için kullanılan HIPAA uyumlu platform.\n- Özellikleri: Otomatik veri aralık kontrolü, denetim izi (Audit trail), çift veri girişi doğrulaması.\n- Veri Teknikeri Görevi: REDCap e-CRF formlarını tasarlamak ve saha verilerini eksiksiz girmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "REDCap electronic data capture clinical research software interface"
+    }
+  },
+  {
+    "baslik": "Klinik Araştırmalarda Protokol Sapması (Protocol Deviation)",
+    "altbaslik": "Veri Bütünlüğünü Bozan Hatalar",
+    "icerik": "- Sapma Örneği: İlacın sabah aç karnına verilmesi gerekirken hastanın akşam tok karnına alması.\n- Zaman Sapması: 14. gün kan tahlilinin 20. günde yapılması.\n- Raporlama: Tüm sapmalar araştırma veri tabanında etiketlenmeli ve sponsor izleme raporuna yazılmalıdır.\n- Sonuç: Ağır protokol ihlalleri o hastanın tüm verisinin çalışmadan çıkarılmasına (Drop-out) neden olur.",
+    "gorsel": {
+      "type": "image",
+      "query": "protocol deviation monitoring clinical trials audit compliance"
+    }
+  },
+  {
+    "baslik": "DSMB (Veri ve Güvenlik İzleme Kurulu) Rolü",
+    "altbaslik": "Klinik Denemeyi Durdurma Yetkisi",
+    "icerik": "- DSMB Nedir?: Araştırmadan tamamen bağımsız hekim ve biyoistatistikçilerden oluşan denetim paneli.\n- Erken Durdurma:\n  * Üstün Başarı: İlaç o kadar etkilidir ki plasebo grubuna haksızlık olmasın diye çalışma erken bitirilir.\n  * Beklenmeyen Toksisite: İlaç grubunda ani ölümler artarsa çalışma derhal iptal edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "data safety monitoring board DSMB clinical trial governance"
+    }
+  },
+  {
+    "baslik": "Biyo-Eşdeğerlik (Bioequivalence) ve Jenerik İlaçlar",
+    "altbaslik": "Orijinal İlaç vs Muadil İlaç",
+    "icerik": "- Jenerik İlaç: Patent süresi (20 yıl) dolan orijinal ilacın aynı etken maddeyle üretilen yerli muadili.\n- Biyo-Eşdeğerlik Testi: Sağlıklı gönüllülerde jenerik ilacın kandaki emilim eğrisinin (AUC) orijinal ilaçla %80-%125 aralığında birebir örtüşmesi.\n- Veri Yönetimi: Kan konsantrasyon-zaman eğrilerinin hassas farmakokinetik analizi.",
+    "gorsel": {
+      "type": "image",
+      "query": "bioequivalence curve AUC plasma concentration generic drug"
+    }
+  },
+  {
+    "baslik": "TÜFAM (Türkiye Farmakovijilans Merkezi)",
+    "altbaslik": "Ulusal İlaç Güvenlik Ağı",
+    "icerik": "- Kurum: Sağlık Bakanlığı TİTCK bünyesindeki resmi farmakovijilans otoritesi.\n- 'Sarı Form': Hekim, eczacı veya sağlık teknikerinin şüpheli ilaç yan etkilerini bildirdiği resmi form.\n- YZ Entegrasyonu: Binlerce sarı formun NLP ile taranarak Türkiye genelindeki ilaç partisi (batch) bozukluklarının erken tespiti.",
+    "gorsel": {
+      "type": "image",
+      "query": "pharmacovigilance yellow card adverse event report turkey TITCK"
+    }
+  },
+  {
+    "baslik": "Klinik Araştırma Raporu Eleştirel Okuma Kılavuzu",
+    "altbaslik": "CONSORT Standartları",
+    "icerik": "- CONSORT Bildirgesi: Randomize klinik araştırmaların şeffaf raporlanması için 25 maddelik uluslararası standart.\n- Akış Şeması (Flow Diagram): Kaç kişi tarandı -> Kaç kişi elendi -> Kaç kişi randomize edildi -> Kaç kişi analize dahil edildi?\n- Şeffaflık: Analizden çıkarılan kayıp hastaların neden çıkarıldığı açıkça yazılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "CONSORT flow diagram randomized clinical trial reporting"
+    }
+  },
+  {
+    "baslik": "İlaç Sektöründe Tıbbi Veri Uzmanlığı Kariyeri",
+    "altbaslik": "Global İlaç Şirketlerinde İş Fırsatları",
+    "icerik": "- Pozisyonlar: Clinical Data Associate (CDA), Farmakovijilans Asistanı, e-CRF Yöneticisi.\n- Aranan Nitelikler: GCP (İyi Klinik Uygulamalar) sertifikası, REDCap bilgisi, temel biyoistatistik okuryazarlığı.\n- Katma Değer: İlaç ruhsatlandırma dosyalarının uluslararası standartta hazırlanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical data manager pharmaceutical career laboratory global"
+    }
+  }
+]

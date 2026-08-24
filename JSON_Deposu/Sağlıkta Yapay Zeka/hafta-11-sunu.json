@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Sağlıkta Veri Mahremiyeti ve Anonimleştirme",
+    "altbaslik": "KVKK, GDPR, HIPAA ve Anonimleştirme Teknikleri",
+    "icerik": "- Odak: Hasta verilerinin gizliliği, yasal düzenlemeler ve etik sorumluluklar.\n- Yasal Mevzuat: 6698 sayılı KVKK (Türkiye), GDPR (Avrupa Birliği) ve HIPAA (ABD).\n- Teknik Yöntemler: Doğrudan ve dolaylı kimliksizleştirme (De-identification), Maskeleme, k-Anonimlik.\n- Mesleki Rol: Tıbbi veri teknikerinin yasal veri koruma sorumluluğu ve ceza yaptırımları.",
+    "gorsel": {
+      "type": "image",
+      "query": "data privacy healthcare KVKK GDPR cybersecurity shield lock"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "11. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Sağlık verilerinin 'Özel Nitelikli Kişisel Veri' statüsünü ve yasal koruma ilkelerini açıklar.\n- ÖÇ2: Doğrudan (Direct) ve Dolaylı (Quasi) kimlik belirleyicileri ayırt eder.\n- ÖÇ3: Örnek bir hasta tablosuna maskeleme, genelleştirme ve k-anonimlik uygular.\n- ÖÇ4: Mahremiyet ihlali senaryolarında hukuki ve mesleki riskleri değerlendirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives data privacy medical ethics legal compliance"
+    }
+  },
+  {
+    "baslik": "Yasal Çerçeve: KVKK'da Özel Nitelikli Kişisel Veri",
+    "altbaslik": "Sağlık Verisi Neden En Üst Düzeyde Korunur?",
+    "icerik": "- KVKK Madde 6: Kişilerin sağlık, genetik, biyometrik, cinsel hayat vb. verileri 'Özel Nitelikli Kişisel Veri'dir.\n- Açık Rıza Kuralı: İlgili kişinin açık rızası olmaksızın işlenmesi ve aktarılması kanunen yasaktır.\n- İstisnalar: Kamu sağlığının korunması, koruyucu hekimlik ve tıbbi teşhis hizmetleri (Sır saklama yükümlülüğü altında).\n- Yaptırımlar: Ağır idari para cezaları ve Türk Ceza Kanunu kapsamında hapis cezası.",
+    "gorsel": {
+      "type": "image",
+      "query": "KVKK GDPR sensitive personal data medical legal code"
+    }
+  },
+  {
+    "baslik": "Kimlik Belirleyiciler (Identifiers)",
+    "altbaslik": "Doğrudan vs Yarı (Dolaylı) Kimlik Belirleyiciler",
+    "icerik": "- Doğrudan Belirleyiciler (Direct Identifiers): Kişiyi tek başına doğrudan ele veren alanlar (TC Kimlik No, Ad Soyad, Telefon, E-posta, Dosya No).\n- Yarı Kimlik Belirleyiciler (Quasi-Identifiers): Bir araya geldiğinde kişiyi tespit eden alanlar (Doğum Tarihi, Posta Kodu, Cinsiyet, Meslek).\n- Çarpıcı Gerçek: ABD nüfusunun %87'si yalnızca {Doğum Tarihi, Cinsiyet, 5 Haneli Posta Kodu} üçlüsüyle tekil olarak tespit edilebilir!",
+    "gorsel": {
+      "type": "image",
+      "query": "direct vs quasi identifiers data privacy re-identification"
+    }
+  },
+  {
+    "baslik": "Anonimleştirme vs Sözde Anonimleştirme (Pseudonymization)",
+    "altbaslik": "Geri Döndürülebilir mi, Döndürülemez mi?",
+    "icerik": "- Sözde Anonimleştirme (Maskeleme/Takma Ad): İsimlerin yerine ID_84920 gibi kodlar verilmesi; ancak anahtar eşleme tablosunun hastanede saklanması (Geri döndürülebilir -> Halen kişisel veridir!).\n- Tam Anonimleştirme: Verinin hiçbir teknik yöntemle ve harici kaynakla eşleştirilerek hastaya geri döndürülemeyecek hale getirilmesi (Kişisel veri vasfını kaybeder -> Araştırmada serbesttir).",
+    "gorsel": {
+      "type": "image",
+      "query": "pseudonymization vs anonymization irreversible data transformation"
+    }
+  },
+  {
+    "baslik": "HIPAA Safe Harbor Yöntemi (18 Yasaklı Alan)",
+    "altbaslik": "Uluslararası Anonimleştirme Standardı",
+    "icerik": "- 1. İsimler ve akraba isimleri\n- 2. Posta kodunun ilk 3 hanesi hariç tüm coğrafi detaylar\n- 3. Yıl hariç tüm tarihler (Doğum tarihi, yatış/çıkış tarihi)\n- 4. Telefon, faks, e-posta adresleri\n- 5. Sosyal güvenlik ve TC kimlik numaraları\n- 6. Tıbbi kayıt ve hesap numaraları\n- 7. Biyometrik veriler (Parmak izi, ses kaydı, tam yüz fotoğrafları)",
+    "gorsel": {
+      "type": "image",
+      "query": "HIPAA safe harbor 18 direct identifiers checklist"
+    }
+  },
+  {
+    "baslik": "k-Anonimlik (k-Anonymity) Modeli",
+    "altbaslik": "Kalabalığın İçinde Saklanma Prensibi",
+    "icerik": "- Tanım: Bir tablodaki her bir yarı kimlik belirleyici kombinasyonunun en az k adet hastada birebir aynı olması.\n- k=3 Anonimlik: Tabloda '30-40 yaş arası, Kadın, Kadıköy' profilinde en az 3 hasta bulunmalıdır.\n- Teknikler: Genelleştirme (Yaşı 34 yerine '30-40' yazmak) ve Baskılama/Gizleme (Posta kodunun son 2 hanesini '**' yapmak).",
+    "gorsel": {
+      "type": "image",
+      "query": "k-anonymity table generalization suppression quasi identifiers"
+    }
+  },
+  {
+    "baslik": "l-Çeşitlilik (l-Diversity) ve Homojenlik Saldırısı",
+    "altbaslik": "k-Anonimlik Neden Yetmeyebilir?",
+    "icerik": "- Homojenlik Saldırısı: Eğer k=4 olan gruptaki 4 hastanın dördünün de tanısı 'HIV Pozitif' ise, o grupta olduğu bilinen komşunun HIV olduğu kesinleşir!\n- l-Çeşitlilik Çözümü: Her k grubunun içindeki hassas tanının (hastalığın) en az l farklı çeşitlilik içermesi zorunluluğu.\n- Kural: Grup içinde farklı hastalıkların dağılmış olması gerekir.",
+    "gorsel": {
+      "type": "image",
+      "query": "l-diversity homogeneity attack medical dataset privacy"
+    }
+  },
+  {
+    "baslik": "Diferansiyel Gizlilik (Differential Privacy)",
+    "altbaslik": "Veriye Matematiksel Gürültü Eklemek",
+    "icerik": "- Prensip: Veritabanına tek bir hasta eklense veya çıkarılsa bile yapılan sorgu sonucunun neredeyse hiç değişmemesini garanti eden matematiksel yöntem.\n- Gürültü Mekanizması: İstatistiksel sorgulara kontrollü Laplace gürültüsü eklenir.\n- Kullanım: Büyük araştırma havuzlarında araştırmacılara ham veriyi vermeden sadece diferansiyel gizlilik korumalı istatistikler sunmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "differential privacy laplace noise epsilon guarantee healthcare"
+    }
+  },
+  {
+    "baslik": "Atölye: Python ile Hasta Verisi Maskeleme",
+    "altbaslik": "Adım Adım Anonimleştirme Pipeline'ı",
+    "icerik": "- Adım 1: Pandas ile hasta tablosunu yükleme.\n- Adım 2: TC Kimlik No ve İsim sütunlarını tamamen silme (Drop).\n- Adım 3: Doğum tarihini sadece 'Yaş' sütununa dönüştürüp 10 yıllık aralıklara gruplama (Binning).\n- Adım 4: Posta kodunun son 2 hanesini 'XX' olarak maskeleme.\n- Sonuç: YZ araştırmacılarına verilecek güvenli ve yasal veri seti.",
+    "gorsel": {
+      "type": "image",
+      "query": "python pandas dataframe masking anonymization code pipeline"
+    }
+  },
+  {
+    "baslik": "Tıbbi Görüntülerde Gizli Kimlik Tehlikesi",
+    "altbaslik": "Röntgen Köşesindeki Yazılar ve DICOM Başlıkları",
+    "icerik": "- DICOM Header: Görüntü dosyasının içine gömülü hasta adı, TC ve protokol numarası (Özel yazılımla temizlenmeli).\n- Yanık Piksel (Burned-in Annotation): Çekim sırasında filmin üzerine grafik olarak basılmış hasta ismi!\n- OCR Taraması: YZ veri setine girmeden önce tüm görüntülerin optik karakter tanıma (OCR) ile taranıp yazıların siyah bantla kapatılması zorunludur.",
+    "gorsel": {
+      "type": "image",
+      "query": "dicom header metadata scrubbing burned-in text removal radiology"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Yasal Sorumluluk Rehberi",
+    "altbaslik": "Ceza Kanunu ve Meslek Etiği",
+    "icerik": "- TCK Madde 136: Kişisel verileri hukuka aykırı olarak veren, yayan veya ele geçiren kişi 2 yıldan 4 yıla kadar hapis cezası ile cezalandırılır.\n- Disiplin Cezaları: Hastane bilgi sisteminden yetkisiz hasta dosyası açmak doğrudan iş akdi feshine yol açar.\n- Temel Prensip: 'Görevin gerektirdiği kadar, yetkili olduğun kadar gör!' (Need to know prensibi).",
+    "gorsel": {
+      "type": "image",
+      "query": "medical legal compliance data breach cybersecurity hospital law"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 11. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Sağlık verisi KVKK kapsamında en hassas 'Özel Nitelikli' veri kategorisindedir.\n- Yalnızca ismi silmek anonimleştirme değildir; yarı belirleyiciler de maskelenmelidir.\n- k-Anonimlik ve l-çeşitlilik yeniden kimliklendirme saldırılarına karşı temel kalkandır.\n- Tıbbi veri teknikeri, veri paylaşımı öncesinde yasal ve teknik filtreleri uygulayan koruyucudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary infographic health data privacy KVKK HIPAA"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Mahremiyet ve Yöntem Kontrolü",
+    "icerik": "- Soru 1: Bir tablodaki her yarı-belirleyici kombinasyonunun en az 5 kişide aynı olmasını sağlayan teknik nedir?\n  Cevap: k-Anonimlik (k=5).\n- Soru 2: Bir hastanenin veri setindeki isimleri silip yerine barkod numarası vermesi ve anahtar listeyi saklaması ne tür bir işlemdir?\n  Cevap: Sözde Anonimleştirme (Pseudonymization).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions data privacy k-anonymity KVKK"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Yasal Sorumluluk Vakası",
+    "altbaslik": "Mesleki Karar",
+    "icerik": "- Senaryo: Bir akademisyen, hastane yöneticisinin sözlü izniyle USB belleğe 1.000 hastanın detaylı epikrizlerini kopyalayıp YZ eğitimi için evine götürmek istemiştir.\n- Soru: Tıbbi veri teknikeri bu talebe karşı ne yapmalıdır?\n- Cevap: Talep derhal reddedilmelidir! Veriler Etik Kurul Onayı, KVKK Veri İşleme Sözleşmesi ve tam anonimleştirme süreci olmadan kurum dışına çıkarılamaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital data breach usb drive legal compliance warning"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 11. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Sağlık verisinde 'Sözde anonimleştirme' ile 'Tam anonimleştirme' arasındaki en temel fark nedir?\n- 2. Posta kodu ve doğum tarihi gibi yarı-belirleyicileri neden tek başına bırakmamalıyız?\n- 3. Gelecek hafta konusu: Algoritmik Yanlılık (Bias) ve Yapay Zekanın Sınırları.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "12. Hafta: Algoritmik Yanlılık (Bias) ve YZ'nin Sınırları",
+    "icerik": "- Konu: YZ modellerinin belirli yaş, cinsiyet veya etnik gruplarda neden hata yaptığı.\n- Odak: Veri temsil adaleti, algoritmik adillik (Fairness) ve Açıklanabilir YZ (XAI).\n- Hazırlık: Yapay zekanın tarafsız olup olmadığını tartışmak üzere örnek vakalar düşününüz.",
+    "gorsel": {
+      "type": "image",
+      "query": "algorithmic bias fairness healthcare ethics AI preview"
+    }
+  },
+  {
+    "baslik": "t-Yakınlık (t-Closeness) Modeli",
+    "altbaslik": "Hassas Veri Dağılımının Korunması",
+    "icerik": "- l-Çeşitliliğin Açığı (Eğriltme Saldırısı): Toplumda HIV oranı %1 iken, grupta HIV oranı %50 ise komşunun HIV olma ihtimali aşırı yükselir.\n- t-Yakınlık Prensipi: Anonimleştirilmiş gruptaki hassas tanı dağılımının, tüm veri tabanındaki genel dağılıma t mesafesinden daha uzak olmaması zorunluluğu.\n- En İleri Standart: Yeniden kimliklendirmeyi matematiksel olarak imkansıza yakın kılar.",
+    "gorsel": {
+      "type": "image",
+      "query": "t-closeness earth mover distance privacy healthcare"
+    }
+  },
+  {
+    "baslik": "Siber Saldırılar ve Sağlıkta Fidye Yazılımları (Ransomware)",
+    "altbaslik": "Hastane Sistemlerinin Kilitlenmesi",
+    "icerik": "- Tehdit: Bilgisayar korsanlarının hastane HBYS veritabanını şifreleyip milyonlarca dolar fidye istemesi.\n- Klinik Risk: Ameliyatların durması, kan grubu bilgilerine ulaşılamaması ve hasta ölümleri.\n- Savunma: Düzenli çevrimdışı (Cold Backup) yedekleme, çok faktörlü kimlik doğrulama (MFA) ve personel siber farkındalık eğitimi.",
+    "gorsel": {
+      "type": "image",
+      "query": "ransomware cyberattack hospital cybersecurity padlock locked screen"
+    }
+  },
+  {
+    "baslik": "Kişisel Sağlık Verileri Hakkında Yönetmelik (Türkiye)",
+    "altbaslik": "Sağlık Bakanlığı Özel Mevzuatı",
+    "icerik": "- Kapsam: Türkiye'deki kamu ve özel tüm sağlık kuruluşlarında tutulan sağlık verilerinin işlenmesi, saklanması ve aktarımı kuralları.\n- Veri Sorumlusu Yükümlülüğü: Sağlık tesisleri başhekimlikleri kişisel sağlık verilerinin güvenliğinden birinci derece sorumludur.\n- e-Nabız Yetkilendirmesi: Vatandaşın kendi verisine hangi hekimin ne kadar süreyle erişebileceğini e-Nabız üzerinden yönetme hakkı.",
+    "gorsel": {
+      "type": "image",
+      "query": "republic of turkey ministry of health data protection regulation"
+    }
+  },
+  {
+    "baslik": "Veri Sızıntısı Durumunda Kriz Yönetimi (72 Saat Kuralı)",
+    "altbaslik": "KVKK Kuruluna ve Hastalara Bildirim",
+    "icerik": "- Yasal Zorunluluk: Bir hastanede veri sızıntısı (hacklenme/çalınma) tespit edildiği andan itibaren en geç 72 saat içinde Kişisel Verileri Koruma Kurulu'na resmi bildirim yapılmalıdır.\n- İlgili Kişilere Duyuru: Verisi sızdırılan hastalara durum açıkça bildirilmeli ve riskler açıklanmalıdır.\n- İdari Cezalar: Bildirilmeyen sızıntılarda cezalar iki katına çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "data breach notification 72 hour countdown KVKK GDPR"
+    }
+  },
+  {
+    "baslik": "Etik Kurul Onay Süreçleri ve Veri Kullanım İzinleri",
+    "altbaslik": "YZ Araştırmalarında İlk Zorunlu Adım",
+    "icerik": "- Etik Kurul Nedir?: Tıp hekimleri, hukukçular, biyoistatistikçiler ve halk temsilcilerinden oluşan bağımsız onay kurulu.\n- Başvuru Dosyası: Hangi verilerin toplanacağı, nasıl anonimleştirileceği ve nerede saklanacağı detaylıca yazılmalıdır.\n- İlke: Etik kurul onayı alınmamış hiçbir hastane verisi bilimsel yayında veya YZ modelinde kullanılamaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "ethics committee approval medical research stamped document"
+    }
+  },
+  {
+    "baslik": "Aydınlatılmış Onam (Informed Consent) ve Açık Rıza",
+    "altbaslik": "Hastaya Haklarını Açıklamak",
+    "icerik": "- Aydınlatılmış Onam: Hastaya uygulanacak teşhis ve tedavinin risklerinin anlatılarak onayının alınması.\n- YZ İçin Ek Rıza: 'Verilerinizin anonimleştirilerek yapay zeka algoritmalarının geliştirilmesinde kullanılmasına izin veriyor musunuz?' maddesi.\n- Geri Çekme Hakkı: Hasta verdiği rızayı dilediği zaman geri çekebilir; verileri eğitim havuzundan silinmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "informed consent form patient signing medical ethics"
+    }
+  },
+  {
+    "baslik": "Rol Tabanlı Erişim Kontrolü (RBAC - Role-Based Access)",
+    "altbaslik": "Kim, Neyi, Ne Zaman Görebilir?",
+    "icerik": "- En Az Yetki Prensibi (Principle of Least Privilege): Personele sadece görevini yapmasına yetecek kadar veri görme yetkisi verilmesi.\n- Doktor: Kendi servisindeki hastaların tüm tıbbi detaylarını görür.\n- Tıbbi Sekreter / Tekniker: Dosya açma, randevu, faturalandırma ve kodlama alanlarını görür; gereksiz psikiyatri notlarını göremez.\n- IT Personeli: Sistem loglarını görür; ham tıbbi içeriği göremez.",
+    "gorsel": {
+      "type": "image",
+      "query": "role based access control RBAC hierarchy hospital software"
+    }
+  },
+  {
+    "baslik": "Denetim İzi (Audit Trail) ve Log Kayıtları",
+    "altbaslik": "HBYS'de Yapılan Her Tıklama Kaydedilir!",
+    "icerik": "- Log İçeriği: Kullanıcı ID, Hasta ID, İşlem Türü (Görüntüleme, Yazdırma, Güncelleme, Silme), IP Adresi, Tarih ve Saat.\n- 'Ünlü Hasta' Vakaları: Hastaneye yatan ünlü bir sanatçının veya siyasetçinin dosyasını merak edip yetkisiz açan 40 personelin log kayıtlarıyla anında tespit edilip işten çıkarılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "audit trail log file access monitoring hospital cybersecurity"
+    }
+  },
+  {
+    "baslik": "Veri İmha Politikaları: Silme, Yok Etme ve Anonimleştirme",
+    "altbaslik": "Süresi Dolan Sağlık Kayıtları Ne Yapılır?",
+    "icerik": "- Saklama Süresi: Sağlık mevzuatına göre hasta dosyaları en az 20 yıl fiziksel ve dijital arşivde saklanır.\n- Süre Sonunda İmha:\n  * Dijital Silme: Üzerine rastgele veriler yazılarak kurtarılamaz hale getirme (Degaussing / Secure Erase).\n  * Fiziksel İmha: Kağıt dosyaların endüstriyel kırpma makinelerinde un ufak edilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "secure data disposal shredding hard drive degaussing"
+    }
+  },
+  {
+    "baslik": "Büyük Sağlık Şirketlerinin Gizlilik İhlali Vakaları",
+    "altbaslik": "Google Nightingale Projesi ve Dersler",
+    "icerik": "- Olay (2019): Google ve ABD'li dev sağlık ağı Ascension, 50 milyon hastanın isim ve teşhis bilgilerini hastaların haberi olmadan paylaştı.\n- Toplumsal Tepki: Basına sızan anlaşma sonrası kongre soruşturması ve büyük itibar kaybı.\n- Çıkarım: Sağlıkta YZ projeleri ne kadar faydalı olursa olsun, hasta onayı ve şeffaflık olmadan kamuoyu desteğini kaybeder.",
+    "gorsel": {
+      "type": "image",
+      "query": "google nightingale ascension privacy controversy newspaper"
+    }
+  },
+  {
+    "baslik": "Sentetik Veri Üretimi ve Mahremiyet Koruması",
+    "altbaslik": "Gerçek Hastasız YZ Eğitimi",
+    "icerik": "- Üretici Düşman Ağlar (GAN): Gerçek hasta popülasyonunun istatistiksel dağılımını öğrenip tamamen sıfırdan yapay hasta kayıtları üretmek.\n- Avantaj: Sentetik hastaların gerçek dünyada TC kimliği veya ismi yoktur; KVKK kısıtlamalarına takılmadan global araştırmacılarla paylaşılabilir.\n- Kalite Testi: Sentetik veriyle eğitilen modelin gerçek veriyle eğitilen model kadar yüksek başarım vermesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "synthetic health data GAN generative adversarial network"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Gizlilik Yemini",
+    "altbaslik": "Hipokrat Yemini Kadar Kutsal Bir Meslek İlkesi",
+    "icerik": "- 'Görevim sırasında öğrendiğim tüm hasta sırlarını, tanılarını ve özel bilgilerini meslekten ayrılsam dahi ömür boyu saklayacağıma namusum ve şerefim üzerine ant içerim.'\n- Mesleki Onur: Tıbbi veri teknikerliği sadece bir bilgisayar operatörlüğü değil, hasta mahremiyetinin resmi muhafızlığıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical ethics oath confidentiality pledge healthcare professional"
+    }
+  },
+  {
+    "baslik": "Hastanede Veri Güvenliği Denetim Simülasyonu",
+    "altbaslik": "Atölye Masası: Güvenlik Açıklarını Bulun",
+    "icerik": "- Senaryo 1: Bankodaki bilgisayarın ekran koruyucusuz açık bırakılması.\n- Senaryo 2: Hekim şifresinin klavyenin altına sarı post-it ile yapıştırılması.\n- Senaryo 3: Çöp kutusuna atılmış hasta barkodlu kan tüpleri ve rapor çıktıları.\n- Görev: Bu 3 ihlale karşı anında alınacak operasyonel düzeltici faaliyetleri raporlayınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital security audit sticky note password physical security"
+    }
+  },
+  {
+    "baslik": "Bölüm Özeti: Mahremiyet Olmadan Güven Olmaz!",
+    "altbaslik": "11. Haftanın Altın Kuralı",
+    "icerik": "- Hastalar sağlık sistemine en mahrem sırlarını güvendikleri için teslim ederler.\n- Bir kez sızdırılan genetik veya sağlık verisi geri alınamaz.\n- Tıbbi veri teknikeri, teknolojiyi kullanırken hukukun ve ahlakın çizdiği sınırların dışına asla çıkmaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "trust and privacy in healthcare doctor patient handshake shield"
+    }
+  }
+]

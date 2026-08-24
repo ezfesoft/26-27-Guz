@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 9",
+    "altbaslik": "Hafta 9: Temel Permütasyon ve Kombinasyon",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Sayma İlkeleri ve Kombinatorik\nHaftalık Odak: Parola Karmaşıklığı, Brute-Force Deneme Uzayı, Faktöriyel, Permütasyon ve Kombinasyon\nHedef: Siber güvenlikte parola uzayı ve saldırı zorluklarını kombinatorik yöntemlerle hesaplamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "password security complexity permutation combination combinations lock"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: NIST Parola Güvenliği Standartları",
+    "icerik": "Sadece 4 haneli PIN kodu (10^4 = 10,000 olasılık) kaç saniyede kırılır?\n8 karakterli, büyük/küçük harf, rakam ve özel karakter içeren bir parolanın deneme uzayı nedir (94^8 ~ 6 x 10^15)?\nBu hesaplama, şirket parola politikalarının ve brute-force saldırı dayanıklılığının matematiksel temelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "brute force attack password cracking complexity matrix"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. Toplama ve Çarpma yoluyla sayma ilkelerini açıklar.\n2. Faktöriyel kavramını hesaplar.\n3. Sıralama (Permütasyon) ile Seçim (Kombinasyon) farkını ayırt eder.\n4. Parola uzayı büyüklüğünü ve kaba kuvvet (brute-force) deneme süresini hesaplar.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Temel Sayma İlkeleri: Toplama Kuralı",
+    "altbaslik": "Ayrık Olayların Sayılması (VEYA Durumu)",
+    "icerik": "Tanım: Bir işlem A farklı yolla VEYA B farklı yolla yapılabiliyorsa, toplam yol sayısı = A + B'dir.\nÖrnek:\nBir SOC merkezinde 5 Linux sunucu ve 4 Windows sunucu varsa, incelenecek 1 sunucu 5 + 4 = 9 farklı şekilde seçilebilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "addition principle counting discrete math"
+    }
+  },
+  {
+    "baslik": "Temel Sayma İlkeleri: Çarpma Kuralı",
+    "altbaslik": "Ardışık ve Bağımsız Aşamalar (VE Durumu)",
+    "icerik": "Tanım: Birinci aşama A farklı yolla VE ikinci aşama B farklı yolla yapılabiliyorsa, toplam durum = A x B'dir.\nÖrnek:\nBir sistemde 3 farklı kimlik doğrulama yöntemi ve 4 farklı şifreleme algoritması varsa, 3 x 4 = 12 farklı güvenlik konfigürasyonu kurulabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "multiplication principle counting tree diagram"
+    }
+  },
+  {
+    "baslik": "Faktöriyel Kavramı (n!)",
+    "altbaslik": "1'den n'e Kadar Sayıların Çarpımı",
+    "icerik": "Tanım: n! = n x (n-1) x (n-2) x ... x 2 x 1\nÖzel Kural: 0! = 1 ve 1! = 1\nÖrnekler:\n- 3! = 3 x 2 x 1 = 6\n- 4! = 4 x 3 x 2 x 1 = 24\n- 5! = 120\n- 6! = 720\nFaktöriyel, n adet farklı nesnenin yan yana kaç farklı sırada dizilebileceğini gösterir.",
+    "gorsel": {
+      "type": "image",
+      "query": "factorial formula mathematics chalkboard"
+    }
+  },
+  {
+    "baslik": "Permütasyon vs Kombinasyon Ayrımı",
+    "altbaslik": "Sıra Önemli mi, Değil mi?",
+    "icerik": "- PERMÜTASYON (Sıralama - Sıra ÖNEMLİ): Parolalar, sıralı listeler, yarışma dereceleri.\n  * Örnek: '1234' parolası ile '4321' parolası AYNI DEĞİLDİR.\n- KOMBİNASYON (Seçim / Grup - Sıra ÖNEMSİZ): Ekip oluşturma, sunucu havuzu seçimi.\n  * Örnek: {Sunucu A, Sunucu B} seçimi ile {Sunucu B, Sunucu A} AYNIDIR.",
+    "gorsel": {
+      "type": "image",
+      "query": "permutation vs combination comparison diagram"
+    }
+  },
+  {
+    "baslik": "Permütasyon Formülü: P(n, r)",
+    "altbaslik": "n Elemandan r Tanesini Sıralama",
+    "icerik": "Formül: P(n, r) = n! / (n - r)!\nÖrnek: 5 firewall kuralından 3 tanesi kaç farklı öncelik sırasıyla dizilebilir?\nP(5, 3) = 5! / (5 - 3)! = 5! / 2! = (5 x 4 x 3 x 2 x 1) / (2 x 1) = 60 farklı sıralama.",
+    "gorsel": {
+      "type": "image",
+      "query": "permutation formula calculation steps"
+    }
+  },
+  {
+    "baslik": "Kombinasyon Formülü: C(n, r)",
+    "altbaslik": "n Elemandan r Tanesini Seçme",
+    "icerik": "Formül: C(n, r) = n! / (r! * (n - r)!)\nÖrnek: 6 analist arasından 2 kişilik nöbetçi ekibi kaç farklı şekilde seçilir?\nC(6, 2) = 6! / (2! * 4!) = (6 x 5) / (2 x 1) = 15 farklı ekip.",
+    "gorsel": {
+      "type": "image",
+      "query": "combination formula calculation steps math"
+    }
+  },
+  {
+    "baslik": "Tekrarlı Sayma ve Parola Uzayı Formülü",
+    "altbaslik": "Olasılık Uzayı = (Karakter Havuzu)^(Uzunluk)",
+    "icerik": "Karakter Havuzları (C):\n- Sadece Rakamlar (0-9): 10 sembol\n- Küçük Harfler (a-z): 26 sembol\n- Büyük + Küçük Harf: 52 sembol\n- Harf + Rakam + Özel Karakter (~!@#$%...): ~94 sembol\nL uzunluğundaki bir parolanın toplam deneme sayısı = C^L",
+    "gorsel": {
+      "type": "image",
+      "query": "password space formula character pool length"
+    }
+  },
+  {
+    "baslik": "Brute-Force Kırma Süresi Hesabı",
+    "altbaslik": "Süre = Toplam Kombinasyon / Saniyedeki Deneme Hızı",
+    "icerik": "Formül: t = C^L / H\n- C^L: Toplam parola uzayı\n- H: Saldırganın donanım hızı (Hash/sn)\nÖrnek: 10^8 kombinasyon / 10^6 hash/sn = 100 saniye.\nUzunluk 1 karakter arttığında süre C katına çıkar!",
+    "gorsel": {
+      "type": "image",
+      "query": "brute force cracking time estimation formula"
+    }
+  },
+  {
+    "baslik": "Kombinasyonun Özellikleri ve Simetri",
+    "altbaslik": "C(n, r) = C(n, n-r)",
+    "icerik": "Önemli Özellikler:\n- C(n, 0) = 1 (Hiç seçmeme)\n- C(n, n) = 1 (Hepsini seçme)\n- C(n, 1) = n\n- C(n, r) = C(n, n - r)  [Örn: C(10, 8) = C(10, 2) = (10x9)/2 = 45]\nBu simetri büyük kombinasyon hesaplarını çok hızlandırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "pascal triangle combination symmetry properties"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: PIN Kodu Kombinasyonu",
+    "altbaslik": "Seviye: Başlangıç (Tekrarlı Sayma)",
+    "icerik": "Soru: 4 basamaklı bir PIN kodu rakamlar (0-9) kullanılarak oluşturulacaktır.\na) Rakamlar tekrarlı kaç PIN yazılabilir?\nb) Rakamları tekrarsız (farklı) kaç PIN yazılabilir?\nÇözüm:\na) 10 x 10 x 10 x 10 = 10^4 = 10,000 farklı PIN\nb) 10 x 9 x 8 x 7 = 5040 farklı PIN.",
+    "gorsel": {
+      "type": "image",
+      "query": "pin code keypad combination counting"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Permütasyon ile Sunucu Sıralaması",
+    "altbaslik": "Seviye: Kolay (P(n, r))",
+    "icerik": "Soru: 6 farklı yedekleme sunucusundan 3 tanesi öncelik sırasına göre (1. Birincil, 2. İkincil, 3. Üçüncül) kaç farklı şekilde seçilip dizilebilir?\nİşlem: P(6, 3) = 6! / (6 - 3)! = 6! / 3!\n= 6 x 5 x 4 = 120 farklı sıralama.",
+    "gorsel": {
+      "type": "image",
+      "query": "server backup priority ranking permutation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Kombinasyon ile Güvenlik Ekibi Seçimi",
+    "altbaslik": "Seviye: Orta (C(n, r))",
+    "icerik": "Soru: 8 siber güvenlik analisti arasından olay müdahale için 3 kişilik bir ekip kaç farklı şekilde seçilebilir?\nÇözüm (Sıra önemsiz olduğu için Kombinasyon):\nC(8, 3) = (8 x 7 x 6) / (3 x 2 x 1) = 336 / 6 = 56 farklı ekip seçilebilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security incident response team selection"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Parola Uzayı Karşılaştırması",
+    "altbaslik": "Seviye: Orta (6 Haneli vs 8 Haneli)",
+    "icerik": "Soru: Sadece küçük harf (26 sembol) içeren 6 karakterli bir parola ile 8 karakterli bir parolanın uzayını karşılaştırınız.\n- 6 Karakter: 26^6 = 308,915,776 (~308 Milyon)\n- 8 Karakter: 26^8 = 208,827,064,576 (~208 Milyar)\nOran: 26^8 / 26^6 = 26^2 = 676 kat daha fazla deneme gerekir!",
+    "gorsel": {
+      "type": "image",
+      "query": "password length entropy comparison graph"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Şartlı Kombinasyon (Kıdemli + Stajyer)",
+    "altbaslik": "Seviye: Orta-İleri (Çarpma Kuralı)",
+    "icerik": "Soru: Bir şirkette 4 kıdemli uzman ve 6 stajyer vardır. 1 kıdemli ve 2 stajyerden oluşan 3 kişilik bir nöbet ekibi kaç farklı şekilde kurulabilir?\nİşlem: C(4, 1) x C(6, 2)\n- C(4, 1) = 4\n- C(6, 2) = (6 x 5) / 2 = 15\nToplam Ekip = 4 x 15 = 60 farklı ekip.",
+    "gorsel": {
+      "type": "image",
+      "query": "team composition senior junior analysts combinations"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Brute-Force Kırma Süresi Hesabı",
+    "altbaslik": "Seviye: İleri (GPU Hızı ile Modelleme)",
+    "icerik": "Soru: Saniyede 1 milyar (10^9) MD5 hash deneyen bir RTX 4090 GPU, 8 haneli sadece rakamlardan oluşan bir PIN hash'ini ve 8 haneli karmaşık (94 sembollü) parolayı en fazla ne kadar sürede kırar?\n1. PIN (10^8): 100,000,000 / 10^9 = 0.1 saniye (Anında kırılır!)\n2. Karmaşık (94^8 ~ 6.09 x 10^15): 6.09 x 10^15 / 10^9 = 6,095,689 saniye = ~70.5 gün sürer.",
+    "gorsel": {
+      "type": "image",
+      "query": "gpu hash cracking speed benchmarks time chart"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Ağ Port Taraması Sıralaması",
+    "altbaslik": "Seviye: İleri (Permütasyon)",
+    "icerik": "Soru: Bir saldırgan tespit edilmemek için 4 farklı portu (21, 22, 80, 443) rastgele bir sırayla taramak istiyor. Kaç farklı tarama sırası izleyebilir?\nİşlem: 4 nesnenin tam permütasyonu = 4! = 4 x 3 x 2 x 1 = 24 farklı sıra.",
+    "gorsel": {
+      "type": "image",
+      "query": "port scan sequence permutation network"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Permütasyon ve Kombinasyon Karışıklığı",
+    "icerik": "1. Sıranın önemli olduğu (parola) durumlarda kombinasyon kullanmak (Parola sıralı olduğu için C(n,r) değil, çarpma/permütasyon kullanılır).\n2. Sıranın önemsiz olduğu (komite seçimi) durumlarda permütasyon kullanıp aynı grubu tekrar saymak.\n3. Faktöriyelde 0! = 0 zannetmek (0! = 1'dir).",
+    "gorsel": {
+      "type": "image",
+      "query": "combinatorics mistakes caution warning"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "Parola Güvenliği Yanılgıları",
+    "icerik": "1. 'Parolaya sadece 1 rakam eklemek güvenliği çok artırır' sanmak (Uzunluğu artırmak, karakter havuzunu artırmaktan çok daha etkilidir: L üsttedir!).\n2. Tekrarlı durumlarda (aynı harf tekrar edebilir) C^L yerine faktöriyel kullanmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "password security myth vs fact"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Şirket Parola Politikası Revizyonu",
+    "altbaslik": "Güvenlik Denetimi Senaryosu",
+    "icerik": "Vaka: Bir bankada mevcut politika '6 karakter sadece rakam' şeklindeydi.\nDenetçi Raporu: 10^6 = 1,000,000 kombinasyon saniyenin binde birinde çözülebilir.\nYeni Politika: 'En az 10 karakter, Büyük+Küçük harf + Rakam + Özel Sembol'.\nYeni Uzay: 94^10 ~ 5.38 x 10^19 kombinasyon.\nSonuç: Kaba kuvvet saldırılarına karşı sistem matematiksel olarak tam korumaya alınmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "banking password policy compliance audit"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve Hesap Kilitleme",
+    "altbaslik": "Oran Tabanlı Hız Sınırlama (Rate Limiting)",
+    "icerik": "Ek Güvenlik Katmanı:\n1. 5 hatalı denemede hesabın 15 dakika kilitlenmesi (Account Lockout).\n2. Matematiksel hesap: Kilit varken saldırgan günde en fazla 480 deneme yapabilir (10^19 deneme için evrenin ömrü yetmez).",
+    "gorsel": {
+      "type": "image",
+      "query": "account lockout policy rate limiting security"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Faktöriyel",
+    "icerik": "Soru: 5! / 3! işleminin sonucu nedir?\nA) 10\nB) 15\nC) 20\nD) 60\n\nDoğru Cevap: C (5 x 4 = 20)",
+    "gorsel": {
+      "type": "image",
+      "query": "factorial division math quiz question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Kombinasyon",
+    "icerik": "Soru: C(5, 2) ifadesinin değeri kaçtır?\nA) 10\nB) 20\nC) 25\nD) 60\n\nDoğru Cevap: A ( (5 x 4) / 2 = 10 )",
+    "gorsel": {
+      "type": "image",
+      "query": "combination math question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "PIN Uzayı",
+    "icerik": "Soru: 3 basamaklı rakamları farklı kaç şifre oluşturulabilir?\nA) 1000\nB) 720\nC) 504\nD) 900\n\nDoğru Cevap: B (10 x 9 x 8 = 720)",
+    "gorsel": {
+      "type": "image",
+      "query": "counting principle digits test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Parola Uzayı",
+    "icerik": "Soru: 10 farklı karakterin kullanılabildiği 4 haneli bir parolanın toplam olası kombinasyon sayısı kaçtır?\nA) 40\nB) 1000\nC) 5040\nD) 10,000\n\nDoğru Cevap: D (10^4 = 10,000)",
+    "gorsel": {
+      "type": "image",
+      "query": "password space calculation question"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Sayma ilkeleri (Toplama ve Çarpma) olası durum uzayını belirler.\n- Permütasyon sıranın önemli olduğu durumları (P=n!/(n-r)!), Kombinasyon seçimi (C=n!/(r!(n-r)!)) modeller.\n- Parola uzayı büyüklüğü C^L formülüyle hesaplanır ve üstel artar.\n- Parola güvenliğinde en kritik faktör uzunluktur (L).",
+    "gorsel": {
+      "type": "image",
+      "query": "summary combinations permutations cybersecurity"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 10: Temel Olasılık",
+    "icerik": "Gelecek Konular:\n- Olay, Örnek Uzay ve Olasılık Tanımı P(E) = n(E) / n(S)\n- Ayrık ve Bağımsız Olaylar\n- Spam E-posta Filtreleme ve Hata Olasılıkları\n- Güvenlik Risk Olasılıkları.",
+    "gorsel": {
+      "type": "image",
+      "query": "probability dice cards spam filter mathematics"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Bir güvenlik sertifikasyon sınavında 10 sorudan 7 tanesi seçilerek cevaplanacaktır. Bir öğrenci bu 7 soruyu kaç farklı şekilde seçebilir?'\n\nFormülü ve işlem sonucunu kağıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam questions combination selection exit ticket"
+    }
+  }
+]

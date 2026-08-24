@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sağlıkta Yapay Zeka - Hafta 10 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #10b981;
+            --accent-glow: #10b98140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🏥</span>
+            <span>Sağlıkta Yapay Zeka</span>
+            <span class="badge-pill">Hafta 10</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Medikal YZ & Teşhis</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-09.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "İlaç Geliştirme ve Klinik Araştırmalarda YZ", "altbaslik": "Molekül Taramadan Klinik Denemelere ve İstatistiksel Kanıta", "icerik": "- Kapsam: Geleneksel ilaç keşfinin zorlukları, yapay zeka ile sanal tarama (Virtual Screening).\n- İlaç Yeniden Konumlandırma (Drug Repurposing): Mevcut ilaçların yeni hastalıklar için kullanımı.\n- Klinik Araştırma Fazları: Faz I, II, III ve IV aşamalarında YZ ve veri yönetimi.\n- İstatistiksel Temeller: Hipotez testleri, p-değeri, Tip I/II hata ve %95 Güven Aralığı okuryazarlığı.", "gorsel": {"type": "image", "query": "drug discovery molecular docking clinical trials pharmaceutical research"}}, {"baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)", "altbaslik": "10. Hafta Hedefleri", "icerik": "- ÖÇ1: Geleneksel ilaç keşfi ile YZ destekli ilaç tasarım süreçlerini karşılaştırır.\n- ÖÇ2: Klinik araştırma fazlarının (Faz 1-4) amaçlarını ve veri gereksinimlerini açıklar.\n- ÖÇ3: Bilimsel bir araştırma raporundaki p-değeri ve güven aralığı ifadelerini doğru yorumlar.\n- ÖÇ4: YZ'nin klinik araştırmalarda hasta seçimi ve eşleştirmedeki rolünü değerlendirir.", "gorsel": {"type": "image", "query": "learning objectives clinical trials biostatistics drug development"}}, {"baslik": "Klinik Bağlam: İlaç Geliştirmenin Devasa Maliyeti", "altbaslik": "10-15 Yıl ve 2.5 Milyar Dolar!", "icerik": "- Klasik Süreç: 10.000 aday molekülden sadece 1 tanesi tüm fazları geçip eczane rafına ulaşabilir.\n- Yüksek Başarısızlık: Laboratuvarda başarılı olan binlerce molekül insanda toksik çıktığı için elenir.\n- YZ Devrimi: AlphaFold ve üretici yapay zeka modelleri protein yapılarını dakikalar içinde modelleyebilir.\n- Amaç: Molekül tarama süresini 5 yıldan birkaç aya indirmek.", "gorsel": {"type": "image", "query": "drug development timeline cost pipeline attrition funnel"}}, {"baslik": "Sanal Tarama (Virtual Screening) ve Moleküler Kenetlenme", "altbaslik": "Bilgisayarda Milyonlarca Molekülü Test Etmek", "icerik": "- Moleküler Kenetlenme (Molecular Docking): İlaç molekülünün hedef proteinin cebine anahtar-kilit gibi oturma simülasyonu.\n- YZ'nin Rolü: Milyonlarca kimyasal bileşiğin bağlanma afinitesini ve toksisitesini tahmin etme.\n- Üretici Kimya (Generative Chemistry): Doğada hiç bulunmayan, hedefe özel yeni kimyasal yapılar tasarlama (De novo design).", "gorsel": {"type": "image", "query": "molecular docking protein ligand binding simulation AI"}}, {"baslik": "İlaç Yeniden Konumlandırma (Drug Repurposing)", "altbaslik": "Eski İlaçlara Yeni Görevler Bulmak", "icerik": "- Tanım: Güvenliği ve yan etkileri zaten kanıtlanmış ruhsatlı bir ilacın başka bir hastalıkta kullanılması.\n- Avantaj: Faz I güvenlik testleri zaten tamamlanmış olduğu için yıllar süren zaman tasarrufu sağlar.\n- Örnek: COVID-19 pandemisinde mevcut antiviral ve antiinflamatuar ilaçların YZ ile taranması.\n- Tıbbi Veri Teknikeri: Hastane veri tabanlarında ilaç yan etki ve beklenmedik iyileşme kayıtlarını taramak.", "gorsel": {"type": "image", "query": "drug repurposing new indication existing pharmaceutical"}}, {"baslik": "Klinik Araştırma Fazları (Clinical Trial Phases)", "altbaslik": "İlacın İnsandaki Güvenlik ve Etkinlik Basamakları", "icerik": "- Faz I (20-80 Sağlıklı Gönüllü): İlacın güvenliği, güvenli doz aralığı ve yan etkileri araştırılır.\n- Faz II (100-300 Hasta): İlacın hedeflenen hastalık üzerindeki etkinliği test edilir.\n- Faz III (1.000-3.000+ Hasta): Geniş popülasyonda plasebo veya mevcut standart tedaviyle karşılaştırma (Ruhsat onayı öncesi son adım).\n- Faz IV (Pazar Sonrası Gözlem): İlaç piyasaya çıktıktan sonraki uzun vadeli ve nadir yan etkilerin izlemi (Farmakovijilans).", "gorsel": {"type": "image", "query": "clinical trial phases Phase I Phase II Phase III Phase IV diagram"}}, {"baslik": "Randomize Kontrollü Çalışmalar (RCT)", "altbaslik": "Kanıta Dayalı Tıbbın Altın Standardı", "icerik": "- Randomizasyon: Hastaların deney (ilaç) ve kontrol (plasebo) grubuna kura ile rastgele atanması.\n- Çift Kör (Double-Blind): Ne hastanın ne de hekimin hastaya hangi ilacın verildiğini bilmemesi.\n- Amaç: Plasebo etkisini ve hekimin taraflı gözlemini (bias) tamamen ortadan kaldırmak.\n- YZ'nin Rolü: Gruplar arasındaki yaş, cinsiyet ve hastalık şiddeti dağılımını mükemmel dengelemek.", "gorsel": {"type": "image", "query": "randomized controlled trial double blind study placebo diagram"}}, {"baslik": "YZ ile Klinik Araştırmalara Hasta Seçimi", "altbaslik": "Çalışmaların %80'i Yetersiz Hasta Yüzünden Gecikir!", "icerik": "- Problem: Klinik protokollerde onlarca dahil etme/dışlama kriteri vardır (Ör. 'Son 6 ayda kanama geçirmemiş, kreatinin < 1.5 olan').\n- NLP Çözümü: YZ, binlerce hasta epikrizini saniyeler içinde tarayarak araştırmaya tam uygun hasta adaylarını listeler.\n- Sonuç: Klinik araştırmaya hasta dahil etme sürecinin hızlanması ve maliyetin düşmesi.", "gorsel": {"type": "image", "query": "clinical trial patient matching NLP electronic health records"}}, {"baslik": "İstatistiksel Temeller: Hipotez Testi ve p-Değeri", "altbaslik": "'Bu Başarı Şans Eseri mi, Gerçek mi?'", "icerik": "- Sıfır Hipotezi (H0): İlaç ile plasebo arasında hiçbir fark yoktur.\n- Alternatif Hipotez (H1): Yeni ilaç plaseboya göre anlamlı derecede daha etkilidir.\n- p-Değeri (p-value): Sıfır hipotezi doğruyken bu sonucun şans eseri ortaya çıkma olasılığı.\n- Kritik Eşik (p < 0.05): Eğer p < 0.05 ise sonuç 'İstatistiksel Olarak Anlamlıdır' denir ve şans faktörü reddedilir.", "gorsel": {"type": "image", "query": "null hypothesis testing p-value bell curve normal distribution"}}, {"baslik": "Güven Aralığı (95% Confidence Interval - CI)", "altbaslik": "Tek Sayıya Değil, Aralığa Bakmak", "icerik": "- Tanım: Gerçek klinik etkinliğin %95 olasılıkla içinde bulunduğu alt ve üst sınırlar.\n- Örnek A: İlaç ağrıyı %50 azaltır [95% CI: %48 - %52] -> Çok dar, güvenilir ve net kanıt.\n- Örnek B: İlaç ağrıyı %50 azaltır [95% CI: %5 - %95] -> Çok geniş, belirsiz ve zayıf kanıt.\n- Kural: Makale okurken sadece ortalama etkiye değil, güven aralığının genişliğine bakılmalıdır!", "gorsel": {"type": "image", "query": "confidence interval forest plot clinical trial statistics"}}, {"baslik": "Faz IV ve Farmakovijilans: YZ ile Yan Etki Taraması", "altbaslik": "Piyasaya Çıkan İlacın Güvenlik Nöbeti", "icerik": "- Farmakovijilans: İlaçların piyasadaki kullanımında ortaya çıkan advers (zararlı) etkilerin tespiti ve bildirimi (TÜFAM).\n- YZ Taraması: Sosyal medya, hasta forumları ve HBYS doktor notlarından otomatik yan etki sinyali yakalama.\n- Erken Uyarı: Milyonda bir görülen nadir bir kalp yan etkisinin aylar içinde fark edilip ilacın geri çekilmesi.", "gorsel": {"type": "image", "query": "pharmacovigilance adverse drug event monitoring safety"}}, {"baslik": "Tıbbi Veri Teknikerinin Klinik Araştırmalardaki Rolü (CRC)", "altbaslik": "Klinik Araştırma Koordinatörlüğü", "icerik": "- 1. CRF (Case Report Form) Doldurma: Araştırma hastalarının laboratuvar ve vizit verilerini uluslararası EDC sistemine girmek.\n- 2. Protokol Uyumu: Hastanın tetkiklerinin belirlenen takvime uygun yapılmasını koordine etmek.\n- 3. Yan Etki Bildirimi: Beklenmeyen advers olayları (SAE) 24 saat içinde etik kurula ve sponsora iletmek.", "gorsel": {"type": "image", "query": "clinical research coordinator data entry electronic data capture"}}, {"baslik": "Haftalık Özet: 10. Haftanın Ana Fikirleri", "altbaslik": "Akılda Kalması Gerekenler", "icerik": "- YZ, ilaç adayı molekül tarama süresini dramatik biçimde kısaltır ve maliyetleri düşürür.\n- Klinik araştırmalar Faz I'den Faz IV'e kadar katı bilimsel ve etik denetimlerden geçer.\n- p < 0.05 istatistiksel anlamlılığı gösterir; ancak klinik anlamlılık güven aralığı ile değerlendirilir.\n- Tıbbi veri teknikeri, klinik araştırma veri yönetimi ve advers etki bildiriminde kritik köprüdür.", "gorsel": {"type": "image", "query": "summary concept map clinical trials biostatistics drug development"}}, {"baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)", "altbaslik": "İstatistik ve Faz Bilgisi Kontrolü", "icerik": "- Soru 1: Bir ilacın piyasaya çıktıktan sonra geniş halk kitlelerindeki nadir yan etkilerinin izlendiği aşama hangisidir?\n  Cevap: Faz IV (Pazar Sonrası Gözlem / Farmakovijilans).\n- Soru 2: Bir araştırmada p = 0.03 bulunması ne anlama gelir?\n  Cevap: Sonucun şans eseri ortaya çıkma olasılığı %3'tür; fark istatistiksel olarak anlamlı kabul edilir (p < 0.05).", "gorsel": {"type": "image", "query": "quiz questions clinical trials statistics p-value"}}, {"baslik": "Ölçme-Değerlendirme: Güven Aralığı Yorumlama", "altbaslik": "Klinik Makale Analizi", "icerik": "- Senaryo: Yeni bir tansiyon ilacının tansiyonu 15 mmHg düşürdüğü [95% CI: -2 ile +32 mmHg] raporlanmıştır.\n- Soru: Bu sonuç güvenilir bir klinik başarı mıdır? Neden?\n- Cevap: Hayır, güvenilir değildir! Çünkü güven aralığı sıfırı (ve negatif değeri) kapsamaktadır; yani ilaç bazı hastalarda tansiyonu artırmış veya hiç değiştirmemiş olabilir (Etki belirsizdir).", "gorsel": {"type": "image", "query": "confidence interval crossing zero line forest plot"}}, {"baslik": "Çıkış Kartı: 10. Hafta Geri Bildirimi", "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız", "icerik": "- 1. Bir ilacın klinik araştırmasında p < 0.05 olduğu halde güven aralığı çok genişse ilaca neden şüpheyle yaklaşılır?\n- 2. İlaç yeniden konumlandırma (Drug Repurposing) neden pandemi gibi kriz anlarında hayat kurtarır?\n- 3. Gelecek hafta konusu: Sağlıkta Veri Mahremiyeti, KVKK ve Anonimleştirme Teknikleri.", "gorsel": {"type": "image", "query": "exit ticket student classroom reflection medical"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "11. Hafta: Veri Mahremiyeti ve Anonimleştirme", "icerik": "- Konu: KVKK, GDPR ve HIPAA uyumu, hasta verilerinin korunması ve siber güvenlik.\n- Odak: İsim/TC maskeleme, k-anonimlik (k-anonymity), l-çeşitlilik (l-diversity) ve diferansiyel gizlilik.\n- Hazırlık: KVKK kapsamındaki 'Özel Nitelikli Kişisel Veri' kavramını araştırınız.", "gorsel": {"type": "image", "query": "data privacy healthcare cybersecurity KVKK GDPR preview"}}, {"baslik": "İlaç Keşfinde QSAR Modelleri", "altbaslik": "Kantitatif Yapı-Aktivite İlişkileri", "icerik": "- QSAR (Quantitative Structure-Activity Relationship): Kimyasal molekülün 2D/3D yapısı ile biyolojik etkisi arasındaki matematiksel ilişki.\n- Regresyon ve YSA: Molekülün çözünürlüğü, hücre zarından geçişi ve toksisitesinin ML ile tahmini.\n- Tasarruf: Laboratuvarda sentezlenmesi aylar sürecek zararlı bileşiklerin bilgisayarda saniyeler içinde elenmesi.", "gorsel": {"type": "image", "query": "QSAR molecular structure activity machine learning chemistry"}}, {"baslik": "De Novo İlaç Tasarımı: Üretici YZ (Generative AI)", "altbaslik": "Moleküllerin ChatGPT'si", "icerik": "- Üretici Modeller (GAN / VAE / Diffusion): Sıfırdan daha önce doğada hiç görülmemiş yeni molekül çizimleri üretmek.\n- SMILES Formatı: Kimyasal yapıların tek satır metin olarak kodlanması (Ör. CC(=O)OC1=CC=CC=C1C(=O)O Aspirin).\n- NLP Çözümü: SMILES dizilerini bir dil gibi öğrenip hedefe kilitlenen yeni kimyasal cümleler yazmak.", "gorsel": {"type": "image", "query": "generative AI drug design diffusion molecular SMILES string"}}, {"baslik": "Hedef Doğrulama (Target Validation) ve CRISPR", "altbaslik": "Hastalığa Neden Olan Proteini Kesinleştirmek", "icerik": "- Hedef Protein Nedir?: Hastalığın ilerlemesini sağlayan enzim veya reseptör (Ör. Kanser hücresi çoğalma sinyali).\n- CRISPR-Cas9 ile YZ İşbirliği: Gen susturma deneyleriyle hedefin doğrulanması.\n- Yan Etki Tahmini: İlacın hedeflenen protein dışında vücuttaki diğer hayati proteinlere (Off-target) yapışıp yapışmayacağını YZ ile simüle etmek.", "gorsel": {"type": "image", "query": "target validation CRISPR cas9 protein binding off target"}}, {"baslik": "Klinik Araştırmalarda Sentetik Kontrol Kolları (Synthetic Control Arms)", "altbaslik": "Plasebo Yerine Geçmiş Veriyi Kullanmak", "icerik": "- Etik İkilem: Ölümcül nadir kanser hastalarına plasebo (boş ilaç) vermek etik olarak çok zordur.\n- Sentetik Kontrol: Geçmiş hastane EHR verilerindeki benzer hastaların dijital ikizlerinden (Digital Twins) kontrol grubu oluşturmak.\n- Fayda: Tüm katılımcılara gerçek ilaç verilirken, bilimsel karşılaştırma sentetik grupla yapılır.", "gorsel": {"type": "image", "query": "synthetic control arm digital twins clinical trials EHR"}}, {"baslik": "İstatistiksel Güç (Power) ve Örneklem Boyutu", "altbaslik": "'Kaç Hasta ile Çalışmalıyız?'", "icerik": "- İstatistiksel Güç (1 - Beta): Gerçekte var olan bir ilaç etkisini araştırmanın yakalayabilme olasılığı (Standart: %80 veya %90).\n- Tip II Hata (Beta): İlaç gerçekten etkiliyken araştırmanın 'etkisizdir' sonucuna varması.\n- Örneklem Hesabı: Yetersiz hasta ile yapılan çalışma hem bütçe israfıdır hem de etkili ilacın çöpe gitmesine yol açar.", "gorsel": {"type": "image", "query": "statistical power sample size calculation bell curve clinical trial"}}, {"baslik": "Tip I Hata (Alfa) vs Tip II Hata (Beta)", "altbaslik": "İstatistikte Yanılmanın İki Yolu", "icerik": "- Tip I Hata (Alfa / Yanlış Pozitif): Etkisiz bir ilaca 'etkilidir' demek (Sahte umut -> Maksimum %5 izin verilir, p<0.05).\n- Tip II Hata (Beta / Yanlış Negatif): Etkili bir ilacı fark edemeyip 'etkisizdir' demek (Kaçırılan fırsat -> Maksimum %20 izin verilir).\n- Tıbbi Veri Teknikeri Notu: Regülasyon kurumları (FDA/TİTCK) en çok Tip I hatadan (etkisiz ilacın piyasaya çıkmasından) korkar.", "gorsel": {"type": "image", "query": "type I vs type II error matrix statistics medical research"}}, {"baslik": "Göreceli Risk (Relative Risk - RR) ve Odds Oranı (OR)", "altbaslik": "İlaç Riski Ne Kadar Azaltıyor?", "icerik": "- Göreceli Risk (RR): İlaç alan gruptaki hastalık oranının plasebo grubuna oranı.\n- RR = 1.0: İlacın hiçbir etkisi yoktur.\n- RR = 0.60: İlaç hastalık riskini %40 oranında azaltmıştır (Koruyucu etki).\n- RR = 1.80: İlaç yan etki riskini %80 artırmıştır.\n- Güven Aralığı ile Birlikte: 'RR = 0.60 [95% CI: 0.45 - 0.78]' -> İstatistiksel olarak anlamlı koruma!", "gorsel": {"type": "image", "query": "relative risk odds ratio statistics forest plot medical"}}, {"baslik": "Elektronik Veri Yakalama Sistemleri (EDC - REDCap)", "altbaslik": "Klinik Araştırma Veritabanı Standartı", "icerik": "- REDCap (Research Electronic Data Capture): Dünya çapında klinik araştırmalarda veri toplamak için kullanılan HIPAA uyumlu platform.\n- Özellikleri: Otomatik veri aralık kontrolü, denetim izi (Audit trail), çift veri girişi doğrulaması.\n- Veri Teknikeri Görevi: REDCap e-CRF formlarını tasarlamak ve saha verilerini eksiksiz girmek.", "gorsel": {"type": "image", "query": "REDCap electronic data capture clinical research software interface"}}, {"baslik": "Klinik Araştırmalarda Protokol Sapması (Protocol Deviation)", "altbaslik": "Veri Bütünlüğünü Bozan Hatalar", "icerik": "- Sapma Örneği: İlacın sabah aç karnına verilmesi gerekirken hastanın akşam tok karnına alması.\n- Zaman Sapması: 14. gün kan tahlilinin 20. günde yapılması.\n- Raporlama: Tüm sapmalar araştırma veri tabanında etiketlenmeli ve sponsor izleme raporuna yazılmalıdır.\n- Sonuç: Ağır protokol ihlalleri o hastanın tüm verisinin çalışmadan çıkarılmasına (Drop-out) neden olur.", "gorsel": {"type": "image", "query": "protocol deviation monitoring clinical trials audit compliance"}}, {"baslik": "DSMB (Veri ve Güvenlik İzleme Kurulu) Rolü", "altbaslik": "Klinik Denemeyi Durdurma Yetkisi", "icerik": "- DSMB Nedir?: Araştırmadan tamamen bağımsız hekim ve biyoistatistikçilerden oluşan denetim paneli.\n- Erken Durdurma:\n  * Üstün Başarı: İlaç o kadar etkilidir ki plasebo grubuna haksızlık olmasın diye çalışma erken bitirilir.\n  * Beklenmeyen Toksisite: İlaç grubunda ani ölümler artarsa çalışma derhal iptal edilir.", "gorsel": {"type": "image", "query": "data safety monitoring board DSMB clinical trial governance"}}, {"baslik": "Biyo-Eşdeğerlik (Bioequivalence) ve Jenerik İlaçlar", "altbaslik": "Orijinal İlaç vs Muadil İlaç", "icerik": "- Jenerik İlaç: Patent süresi (20 yıl) dolan orijinal ilacın aynı etken maddeyle üretilen yerli muadili.\n- Biyo-Eşdeğerlik Testi: Sağlıklı gönüllülerde jenerik ilacın kandaki emilim eğrisinin (AUC) orijinal ilaçla %80-%125 aralığında birebir örtüşmesi.\n- Veri Yönetimi: Kan konsantrasyon-zaman eğrilerinin hassas farmakokinetik analizi.", "gorsel": {"type": "image", "query": "bioequivalence curve AUC plasma concentration generic drug"}}, {"baslik": "TÜFAM (Türkiye Farmakovijilans Merkezi)", "altbaslik": "Ulusal İlaç Güvenlik Ağı", "icerik": "- Kurum: Sağlık Bakanlığı TİTCK bünyesindeki resmi farmakovijilans otoritesi.\n- 'Sarı Form': Hekim, eczacı veya sağlık teknikerinin şüpheli ilaç yan etkilerini bildirdiği resmi form.\n- YZ Entegrasyonu: Binlerce sarı formun NLP ile taranarak Türkiye genelindeki ilaç partisi (batch) bozukluklarının erken tespiti.", "gorsel": {"type": "image", "query": "pharmacovigilance yellow card adverse event report turkey TITCK"}}, {"baslik": "Klinik Araştırma Raporu Eleştirel Okuma Kılavuzu", "altbaslik": "CONSORT Standartları", "icerik": "- CONSORT Bildirgesi: Randomize klinik araştırmaların şeffaf raporlanması için 25 maddelik uluslararası standart.\n- Akış Şeması (Flow Diagram): Kaç kişi tarandı -> Kaç kişi elendi -> Kaç kişi randomize edildi -> Kaç kişi analize dahil edildi?\n- Şeffaflık: Analizden çıkarılan kayıp hastaların neden çıkarıldığı açıkça yazılmalıdır.", "gorsel": {"type": "image", "query": "CONSORT flow diagram randomized clinical trial reporting"}}, {"baslik": "İlaç Sektöründe Tıbbi Veri Uzmanlığı Kariyeri", "altbaslik": "Global İlaç Şirketlerinde İş Fırsatları", "icerik": "- Pozisyonlar: Clinical Data Associate (CDA), Farmakovijilans Asistanı, e-CRF Yöneticisi.\n- Aranan Nitelikler: GCP (İyi Klinik Uygulamalar) sertifikası, REDCap bilgisi, temel biyoistatistik okuryazarlığı.\n- Katma Değer: İlaç ruhsatlandırma dosyalarının uluslararası standartta hazırlanması.", "gorsel": {"type": "image", "query": "clinical data manager pharmaceutical career laboratory global"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Medikal YZ & Teşhis`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

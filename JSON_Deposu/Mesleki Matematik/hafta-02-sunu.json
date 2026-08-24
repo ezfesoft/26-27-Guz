@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 2",
+    "altbaslik": "İkili (Binary), Sekizli (Octal) ve On Altılık (Hexadecimal) Sayı Sistemleri",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Sayı Tabanları ve Taban Dönüşümleri\nHaftalık Odak: 2, 8 ve 16 Tabanlı Sistemler, Bit Maskeleme, MAC ve Renk Kodları\nHedef: Donanım ve ağ seviyesinde veri temsilini anlamak ve dönüştürmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "binary numbers code matrix glowing blue background"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Donanım ve Güvenlik Seviyesinde Veri",
+    "icerik": "Modern bilgisayarlar ve ağ donanımları desimal (10'luk) düşünmez.\n- İşlemci transistörleri: Açık (1) / Kapalı (0)\n- MAC Adresi: 00:1A:2B:3C:4D:5E (Hex)\n- Linux Dosya İzinleri: chmod 755 (Octal)\nBu dilleri bilmeyen bir siber güvenlik uzmanı ağ paketlerini ve bellek dump'larını analiz edemez.",
+    "gorsel": {
+      "type": "image",
+      "query": "packet analysis wireshark hex dump cyber security"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Ders Çıktıları",
+    "icerik": "1. İkili (2), Sekizli (8) ve On Altılık (16) tabanların matematiksel yapısını açıklar.\n2. 10'luk tabandan 2, 8 ve 16'lık tabanlara dönüştürme yapar.\n3. 2'lik tabandaki sayıyı 16'lık tabana pratik kümeleme (4-bit nibble) ile çevirir.\n4. MAC adresleri, renk kodları ve dosya izinlerinde taban mantığını yorumlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "binary conversion hexadecimal flowchart education"
+    }
+  },
+  {
+    "baslik": "İkili (Binary - Taban 2) Sayı Sistemi",
+    "altbaslik": "Bilişimin Temel Alfabesi",
+    "icerik": "Semboller: Sadece 0 ve 1.\nBasamak Değerleri (Sağdan sola 2'nin kuvvetleri):\n... 2^7=128 | 2^6=64 | 2^5=32 | 2^4=16 | 2^3=8 | 2^2=4 | 2^1=2 | 2^0=1\nHer basamağa 1 Bit adı verilir. 8 bit birleşerek 1 Byte (Oktet) oluşturur.",
+    "gorsel": {
+      "type": "image",
+      "query": "binary place values powers of two diagram"
+    }
+  },
+  {
+    "baslik": "İkili Sayıyı Desimale (10'luk) Çevirme",
+    "altbaslik": "Kuvvetler Yöntemi ile Çözümleme",
+    "icerik": "Örnek: (10110101)_2 sayısını 10'luk tabana çevirelim.\n- 1x128 + 0x64 + 1x32 + 1x16 + 0x8 + 1x4 + 0x2 + 1x1\n= 128 + 0 + 32 + 16 + 0 + 4 + 0 + 1\n= 181\nSonuç: (10110101)_2 = (181)_10",
+    "gorsel": {
+      "type": "image",
+      "query": "binary to decimal conversion calculation step by step"
+    }
+  },
+  {
+    "baslik": "Desimal Sayıyı İkiliye (Taban 2) Çevirme",
+    "altbaslik": "Ardışık 2'ye Bölme Yöntemi",
+    "icerik": "Kural: Sayı 2'ye bölünür. Kalanlar (0 veya 1) not edilir. Bölüm 0 olana kadar devam edilir. Kalanlar sondan başa doğru yazılır.\nÖrnek: 25 sayısını ikiliye çevirelim:\n- 25 / 2 = 12 (Kalan: 1)\n- 12 / 2 = 6 (Kalan: 0)\n- 6 / 2 = 3 (Kalan: 0)\n- 3 / 2 = 1 (Kalan: 1)\n- 1 / 2 = 0 (Kalan: 1)\nSondan başa kalanlar: 11001 -> (25)_10 = (11001)_2",
+    "gorsel": {
+      "type": "image",
+      "query": "successive division algorithm decimal to binary"
+    }
+  },
+  {
+    "baslik": "Pratik İkili Çevirme: Çıkarma Tablosu",
+    "altbaslik": "Ağ Uzmanlarının Hızlı Yöntemi",
+    "icerik": "Standart 8-bit cetveli: [128, 64, 32, 16, 8, 4, 2, 1]\nÖrnek: 170 sayısı için cetvelden büyükten küçüğe sığanları çıkar:\n- 170 >= 128 ? EVET (1 yaz, kalan: 170-128 = 42)\n- 42 >= 64 ? HAYIR (0 yaz)\n- 42 >= 32 ? EVET (1 yaz, kalan: 42-32 = 10)\n- 10 >= 16 ? HAYIR (0 yaz)\n- 10 >= 8 ? EVET (1 yaz, kalan: 10-8 = 2)\n- 2 >= 4 ? HAYIR (0 yaz)\n- 2 >= 2 ? EVET (1 yaz, kalan: 2-2 = 0)\n- 0 >= 1 ? HAYIR (0 yaz) -> Sonuç: 10101010",
+    "gorsel": {
+      "type": "image",
+      "query": "binary subtraction table method fast network calculation"
+    }
+  },
+  {
+    "baslik": "Sekizli (Octal - Taban 8) Sayı Sistemi",
+    "altbaslik": "Semboller ve Kullanım Alanı",
+    "icerik": "Semboller: 0, 1, 2, 3, 4, 5, 6, 7 (Toplam 8 sembol).\nBasamak Değerleri: 8^0=1, 8^1=8, 8^2=64, 8^3=512...\nKullanım Alanı: Linux/Unix dosya izinleri (rwx).\nÖzellik: 2^3 = 8 olduğundan, 1 sekizli basamağı tam 3 ikili bite (3-bit) eşittir.",
+    "gorsel": {
+      "type": "image",
+      "query": "octal number system linux permissions chmod visual"
+    }
+  },
+  {
+    "baslik": "Linux Dosya İzinlerinde Octal Mantığı",
+    "altbaslik": "chmod 755 Ne Anlama Gelir?",
+    "icerik": "İzinler 3-bit binary olarak kodlanır:\n- r (Read/Okuma) = 4 (100_2)\n- w (Write/Yazma) = 2 (010_2)\n- x (Execute/Çalıştırma) = 1 (001_2)\n7 = 4+2+1 (rwx - Tam yetki: 111_2)\n5 = 4+0+1 (r-x - Okuma ve çalıştırma: 101_2)\nchmod 755: Sahibi(7-rwx), Grubu(5-r-x), Diğerleri(5-r-x).",
+    "gorsel": {
+      "type": "image",
+      "query": "linux terminal chmod file permissions octal binary"
+    }
+  },
+  {
+    "baslik": "On Altılık (Hexadecimal - Taban 16) Sistem",
+    "altbaslik": "Bilişimde En Yaygın Kompakt Gösterim",
+    "icerik": "Semboller: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\nHarflerin Karşılıkları:\n- A = 10 | B = 11 | C = 12 | D = 13 | E = 14 | F = 15\nBasamak Değerleri: 16^0=1, 16^1=16, 16^2=256, 16^3=4096...\nÖzellik: 2^4 = 16 olduğu için, 1 Hex karakter tam 4 bite (1 Nibble) karşılık gelir.",
+    "gorsel": {
+      "type": "image",
+      "query": "hexadecimal table symbols values A to F chart"
+    }
+  },
+  {
+    "baslik": "Hexadecimal Sayıyı Desimale Çevirme",
+    "altbaslik": "16'nın Kuvvetleri ile Çözümleme",
+    "icerik": "Örnek: (2F3)_16 sayısını 10'luk tabana çevirelim.\n- 2 x 16^2 = 2 x 256 = 512\n- F x 16^1 = 15 x 16 = 240\n- 3 x 16^0 = 3 x 1 = 3\nToplam = 512 + 240 + 3 = 755\nSonuç: (2F3)_16 = (755)_10",
+    "gorsel": {
+      "type": "image",
+      "query": "hexadecimal to decimal conversion mathematics working"
+    }
+  },
+  {
+    "baslik": "Desimal Sayıyı Hexadecimal'e Çevirme",
+    "altbaslik": "16'ya Bölme Kuralı",
+    "icerik": "Örnek: 438 sayısını 16'lık tabana çevirelim:\n- 438 / 16 = 27 (Kalan: 6)\n- 27 / 16 = 1 (Kalan: 11 -> Hex karşılığı 'B')\n- 1 / 16 = 0 (Kalan: 1)\nSondan başa kalanlar: 1 B 6\nSonuç: (438)_10 = (1B6)_16",
+    "gorsel": {
+      "type": "image",
+      "query": "successive division by 16 hexadecimal algorithm"
+    }
+  },
+  {
+    "baslik": "Binary <-> Hexadecimal Doğrudan Dönüşüm",
+    "altbaslik": "En Hızlı ve En Önemli Dönüşüm Tekniği",
+    "icerik": "Kural: Sayı sağdan sola 4'erli gruplara (nibble) ayrılır. Her 4 bitin 16'lık karşılığı yazılır.\nTablo:\n0000=0, 0001=1, 0010=2, 0011=3, 0100=4, 0101=5, 0110=6, 0111=7,\n1000=8, 1001=9, 1010=A, 1011=B, 1100=C, 1101=D, 1110=E, 1111=F.\nÖrnek: 11010110_2 -> [1101] [0110] -> D6_16",
+    "gorsel": {
+      "type": "image",
+      "query": "binary to hex 4-bit nibble grouping conversion"
+    }
+  },
+  {
+    "baslik": "Hexadecimal Kullanım Alanı: MAC Adresleri",
+    "altbaslik": "Ağ Donanım Kimliği",
+    "icerik": "MAC Adresi 48 bitlik fiziksel donanım adresidir.\n- 48 bit = 6 Byte = 12 Hex karakteri\n- Gösterim: B4:2E:99:A1:0F:7C\n- İlk 24 bit (3 Byte): Üretici Kodu (OUI)\n- Son 24 bit (3 Byte): Cihaz Seri Numarası\nHex kullanımı, 48 adet 0 ve 1'i sadece 12 karaktere indirgeyerek okunabilir kılar.",
+    "gorsel": {
+      "type": "image",
+      "query": "MAC address structure hexadecimal network interface card"
+    }
+  },
+  {
+    "baslik": "Hexadecimal Kullanım Alanı: Web Renk Kodları",
+    "altbaslik": "RGB Modeli ve Hex Gösterimi",
+    "icerik": "Web renkleri RGB (Red-Green-Blue) 24-bit renk formatında kodlanır:\n- #RRGGBB formatı (Her renk kanalı 1 Byte / 2 Hex karakter / 0-255)\n- #FF0000 -> Kırmızı: 255, Yeşil: 0, Mavi: 0 (Saf Kırmızı)\n- #00FF00 -> Saf Yeşil\n- #0000FF -> Saf Mavi\n- #FFFFFF -> Beyaz (255, 255, 255)\n- #000000 -> Siyah (0, 0, 0)",
+    "gorsel": {
+      "type": "image",
+      "query": "hex color palette rgb color codes web design"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Basit Binary Toplamı",
+    "altbaslik": "Seviye: Başlangıç",
+    "icerik": "Soru: İki binary sayıyı toplayınız: 1010_2 + 0101_2\nİşlem Adımları:\n  1010 (Desimal karşılığı = 10)\n+ 0101 (Desimal karşılığı = 5)\n------\n  1111 (Desimal karşılığı = 15)\nDoğrulama: 10 + 5 = 15 = 1111_2. İşlem doğrudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "binary addition step by step carry rules"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: IP Oktetini Binary'ye Çevirme",
+    "altbaslik": "Seviye: Kolay (Ağ İhtiyacı)",
+    "icerik": "Soru: 192.168.1.1 IP adresinin '192' oktetini binary olarak yazınız.\nÇözüm (Cetvel Yöntemi: 128, 64, 32, 16, 8, 4, 2, 1):\n- 192 >= 128 ? EVET (Kalan: 192 - 128 = 64) -> Bit: 1\n- 64 >= 64 ? EVET (Kalan: 64 - 64 = 0) -> Bit: 1\n- Kalan sıfır olduğu için diğer tüm bitler 0'dır.\nSonuç: 192 = 11000000_2",
+    "gorsel": {
+      "type": "image",
+      "query": "IP address octet binary conversion networking"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: IPv6 Adres Bloğu Hex Analizi",
+    "altbaslik": "Seviye: Orta (Hexadecimal - Binary Dönüşümü)",
+    "icerik": "Soru: IPv6 adresindeki '2001:0DB8' bloğundaki 'DB8' kısmını binary'ye çeviriniz.\nÇözüm (Her karakter 4 bit):\n- D = 13 = 1101_2\n- B = 11 = 1011_2\n- 8 = 8  = 1000_2\nBirleştirme: [1101] [1011] [1000]\nSonuç: DB8_16 = 110110111000_2 (12 bit)",
+    "gorsel": {
+      "type": "image",
+      "query": "IPv6 address hex to binary structure representation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Linux Dosya İzin Problemi",
+    "altbaslik": "Seviye: Orta (Octal - Yetkilendirme)",
+    "icerik": "Soru: Bir web sunucusunda gizli bir konfigürasyon dosyasının izinleri şöyledir:\n- Sahibi: Okuma + Yazma (r-w-)\n- Grubu: Sadece Okuma (r--)\n- Diğerleri: Hiçbir yetki yok (---)\nBu dosya için verilmesi gereken chmod octal kodu nedir?\nÇözüm:\n- Sahip: r(4) + w(2) = 6 (110_2)\n- Grup: r(4) = 4 (100_2)\n- Diğer: 0 (000_2)\nSonuç Komutu: chmod 640 dosya.conf",
+    "gorsel": {
+      "type": "image",
+      "query": "linux file permissions chmod 640 security policy"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Bellek Adresi Hesaplama",
+    "altbaslik": "Seviye: İleri (Hex Toplama ve Offset)",
+    "icerik": "Soru: Bir zararlı yazılım bellekte 0x00401000 adresine yerleşmiştir. 0x200 Byte (Desimal 512 Byte) uzunluğundaysa bittiği adres nedir?\nİşlem: 0x00401000 + 0x00000200\nBasamak basamak hex toplama:\n  00401000\n+ 00000200\n----------\n  00401200\nZararlı kod bloğu 0x00401000 ile 0x00401200 adres aralığındadır.",
+    "gorsel": {
+      "type": "image",
+      "query": "memory address hex offset disassembly malware analysis"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Wireshark Paket Başlığı Ayrıştırma",
+    "altbaslik": "Seviye: İleri (Hex - Desimal Yorumlama)",
+    "icerik": "Soru: Ağ paketinde TTL (Time To Live) alanında Hex olarak '40' okunmuştur. Paketin desimal TTL değeri kaçtır?\nÇözüm:\nTTL = 4 x 16^1 + 0 x 16^0 = 64 + 0 = 64\nYorum: TTL = 64, tipik bir Linux çekirdeği varsayılan paketidir (Windows genellikle 128 kullanır).",
+    "gorsel": {
+      "type": "image",
+      "query": "wireshark protocol analyzer packet header ttl field"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Dikkat Noktaları",
+    "altbaslik": "Taban Dönüşüm Tuzakları",
+    "icerik": "1. Hex harflerini unutmak (A=10, B=11, C=12, D=13, E=14, F=15).\n2. Binary'den Hex'e geçerken 4'lü gruplamayı soldan başlatmak (HATA!). Gruplama MUTLAKA SAĞDAN (en küçük basamaktan) başlatılır.\n3. Octal sistemde 8 ve 9 rakamlarını kullanmaya çalışmak (Taban 8'de en büyük rakam 7'dir).\n4. 4 bitlik nibble'da baştaki sıfırları yazmamak (Örn: 3 sayısını 11 yazıp sola sıfır koymamak kaymaya neden olur; 0011 yazılmalıdır).",
+    "gorsel": {
+      "type": "image",
+      "query": "error warning attention programming math pitfalls"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Şüpheli Ağ Paketi İncelemesi",
+    "altbaslik": "SOC Olay Müdahale Senaryosu",
+    "icerik": "Olay: SOC analisti, şüpheli bir TCP paketinin kaynak port alanında hex olarak '0050' değerini yakaladı.\nAnaliz:\n- 0x0050 = 0x16^3 + 0x16^2 + 5x16^1 + 0x16^0 = 80\n- Port 80 = Standart HTTP web trafiğidir.\nKarar: Paket şifresiz web trafiğidir ve içeriği hemen derinlemesine (DPI) taranmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber incident response packet inspection port 80"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Binary - Desimal",
+    "icerik": "Soru: (1101)_2 ikili sayısının 10'luk tabandaki karşılığı nedir?\nA) 11\nB) 12\nC) 13\nD) 15\n\nDoğru Cevap: C (8 + 4 + 0 + 1 = 13)",
+    "gorsel": {
+      "type": "image",
+      "query": "binary quiz question on screen"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Hex - Binary",
+    "icerik": "Soru: Hexadecimal 'A5' sayısının 8-bit binary karşılığı nedir?\nA) 10100101\nB) 10101010\nC) 11000101\nD) 10010101\n\nDoğru Cevap: A (A = 1010, 5 = 0101 -> 10100101)",
+    "gorsel": {
+      "type": "image",
+      "query": "hexadecimal conversion question exam"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Octal İzin",
+    "icerik": "Soru: Bir dosyanın izinleri 'rwxr-xr--' ise octal karşılığı nedir?\nA) 777\nB) 754\nC) 644\nD) 755\n\nDoğru Cevap: B (rwx=7, r-x=5, r--=4 -> 754)",
+    "gorsel": {
+      "type": "image",
+      "query": "linux permissions chmod 754 quiz"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Hexadecimal Toplama",
+    "icerik": "Soru: 0x0A + 0x05 işleminin sonucu nedir?\nA) 0x0F\nB) 0x10\nC) 0x15\nD) 0x0E\n\nDoğru Cevap: A (10 + 5 = 15 = F -> 0x0F)",
+    "gorsel": {
+      "type": "image",
+      "query": "hexadecimal addition arithmetic test"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Büyük Resim",
+    "icerik": "- İkili sistem (2 tabanı) donanım ve transistörlerin ana dilidir.\n- Sekizli sistem (8 tabanı) 3-bit blokları temsil eder ve Linux izinlerinde kullanılır.\n- On altılık sistem (16 tabanı) 4-bit nibble'ları temsil eder; MAC, IPv6, bellek adresleri ve renklerde kullanılır.\n- 4-bit gruplama kuralı ile ikili ve hex arasında doğrudan ve hızlı geçiş yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "number systems summary infographical diagram"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 3: Üslü Sayılar ve Kökler",
+    "icerik": "Ön Bakış:\n- Kriptografide 256-bit anahtarlar ne kadar güçlüdür (2^256)?\n- RAM ve disk boyutları neden hep 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 şeklinde artar?\n- Üslü sayılar ve karekök mantığını bilişim güvenliği uygulamalarıyla işleyeceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exponential growth cryptography math formula technology"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Kendi bilgisayarınızın IP adresindeki 255.255.255.0 alt ağ maskesini (Subnet Mask) hem ikili (binary) hem de hexadecimal olarak yazınız.'\n\nCevabınızı kâğıda yazıp çıkışta kutuya bırakınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "subnet mask network configuration exit ticket"
+    }
+  }
+]

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 04 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 04</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 35 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-03.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 35</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (35 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 4", "altbaslik": "Bellek Yönetimi, Değişkenler ve string Veri Tipi", "icerik": "Program: Bilgisayar Programcılığı\nModül: Temel Programlama ve Bellek Yapıları\nHaftalık Odak: Değişken Kavramı, RAM Analojisi, string Tipi, Clean Code Kuralları\nHedef: Bilgileri bellekte güvenle saklayıp biçimlendiren uygulamalar geliştirmek.", "gorsel": {"type": "image", "query": "computer memory variables storage data concepts"}}, {"baslik": "Neden Değişken Kullanırız?", "altbaslik": "Sektörel Bağlam: Veriyi Geçici Saklama İhtiyacı", "icerik": "Bir hesap makinesinde sayı girdiğinizde, e-ticaret sepetinize ürün eklediğinizde veya oyunda skor yaptığınızda bu bilgilerin bir yerde saklanması gerekir.\n- Programlama dillerinde geçici bilgileri bilgisayarın ana hafızasında (RAM) saklamak için Değişkenler (Variables) kullanılır.", "gorsel": {"type": "image", "query": "shopping cart data temporary storage ecommerce"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Değişken kavramını ve RAM belleğin çalışma mantığını açıklar.\n2. string veri tipinin özelliklerini ve kullanım kurallarını tanımlar.\n3. Değişken tanımlama (deklarasyon) ve değer atama sentaksını hatasız yazar.\n4. CamelCase ve Clean Code isimlendirme standartlarını uygular.\n5. 'E-Ticaret Kargo ve Teslimat Fişi' uygulamasını üretir.", "gorsel": {"type": "image", "query": "learning targets goals programming data types"}}, {"baslik": "Değişken (Variable) Nedir?", "altbaslik": "Bellekteki İsimlendirilmiş Odalar", "icerik": "Değişken, bilgisayarın geçici ana belleğinde (RAM) verileri saklamak amacıyla ayrılan, tipi ve adı olan depolama alanıdır.\n- Program çalıştığı sürece bu alanın içindeki değer değiştirilebilir.\n- Program kapandığında RAM'deki değişkenler tamamen silinir.", "gorsel": {"type": "image", "query": "computer ram memory chips hardware close up"}}, {"baslik": "Somut Analoji: Etiketli Ayakkabı Kutuları", "altbaslik": "Değişkenleri Zihinde Somutlaştırmak", "icerik": "Bir ayakkabı kutusu düşünün:\n1. Kutu: RAM bellekteki depolama hücresi.\n2. Kutunun Üzerindeki Etiket: Değişken Adı (Örn: musteriAdi).\n3. Kutunun İçindeki Eşya: Değişken Değeri (Örn: 'Mehmet').\n4. Kural: Kutunun içine yeni bir şey koyarsanız, eski eşya çöpe gider!", "gorsel": {"type": "image", "query": "labeled storage boxes shelves warehouse organization"}}, {"baslik": "Veri Tipi (Data Type) Kavramı", "altbaslik": "Kutunun İçine Ne Koyabiliriz?", "icerik": "Kutuların şekli içine konacak eşyayı belirler:\n- Ayakkabı kutusuna su dolduramazsınız; su için şişe gerekir.\n- C# strongly-typed (katı tipli) bir dildir.\n- Bir değişken tanımlarken içine sayı mı, metin mi, tarih mi koyacağınızı önceden bildirmek ZORUNDASINIZ.", "gorsel": {"type": "image", "query": "sorting different shaped objects types data structure"}}, {"baslik": "string Veri Tipi Nedir?", "altbaslik": "Metinsel Karakter Zinciri", "icerik": "string, harfleri, kelimeleri, cümleleri ve alfanümerik metinleri saklamak için kullanılan veri tipidir.\n- C# dilinde string değerler MUTLAKA çift tırnak (\" \") içinde yazılır.\n\nÖrnek:\nstring sehir = \"Giresun\";\nstring mesaj = \"Hoş geldiniz!\";", "gorsel": {"type": "image", "query": "text typography letters alphabet string coding"}}, {"baslik": "Değişken Tanımlama ve Değer Atama", "altbaslik": "C# Sentaks Kalıpları", "icerik": "1. Yöntem: Tanımla ve Sonra Değer Ver\nstring musteriAdi;\nmusteriAdi = \"Ahmet Yılmaz\";\n\n2. Yöntem: Tek Satırda Tanımla ve Değer Ver (En Yaygın)\nstring musteriAdi = \"Ahmet Yılmaz\";\n\nKalıp: VeriTipi DegiskenAdi = Deger;", "gorsel": {"type": "image", "query": "code snippet variable declaration and assignment"}}, {"baslik": "Değişkenlerin Kapsamı (Scope)", "altbaslik": "Değişken Nerede Yaşar?", "icerik": "- Bir butonun süslü parantezleri { } içinde tanımlanan değişken YEREL (Local) değişkendir.\n- Sadece o butonun içinde yaşar, başka bir butondan ona erişilemez.\n- Form seviyesinde (tüm metotların üstünde) tanımlanan değişken GENEL (Global) değişkendir ve tüm butonlar görebilir.", "gorsel": {"type": "image", "query": "scope boundary curly braces local global variable"}}, {"baslik": "Temiz Kod: Değişken İsimlendirme Kuralları", "altbaslik": "Clean Code ve Yazılımcı Standartları", "icerik": "1. Rakamla Başlayamaz: 1sayi (HATA!) -> sayi1 (DOĞRU)\n2. Boşluk İçeremez: musteri adi (HATA!) -> musteriAdi (DOĞRU)\n3. Özel Sembol İçeremez: ad-soyad (HATA!) -> adSoyad (DOĞRU)\n4. Türkçe Karakter Kullanmayın: ş, ç, ğ, ı, ö, ü kullanmaktan kaçının -> musteriYasi\n5. C# Anahtar Kelimeleri Olamaz: string, class, void gibi kelimeler değişken adı yapılamaz.", "gorsel": {"type": "image", "query": "clean code checklist software development rules"}}, {"baslik": "camelCase Standardı", "altbaslik": "Deve Sırtı Yazım Kuralı", "icerik": "Değişken isimlerinde birden fazla kelime varsa:\n- İlk kelimenin tüm harfleri küçük yazılır.\n- Sonraki her kelimenin ilk harfi BÜYÜK yazılır.\n\nÖrnekler:\n- kullaniciAdi\n- teslimatAdresi\n- siparisToplamTutari", "gorsel": {"type": "image", "query": "camel silhouette typography camelCase writing style"}}, {"baslik": "Daktiloculuğu Önleyen 'Tahmin Et & Çalıştır'", "altbaslik": "Kutuların İçeriği Nasıl Değişir?", "icerik": "Aşağıdaki kod çalıştığında sehir1 kutusunda ne yazar?\n\nstring sehir1 = \"Trabzon\";\nstring sehir2 = \"Ordu\";\nsehir1 = sehir2;\nsehir2 = \"Samsun\";\n\nCevap: 'Ordu' yazar! Çünkü 'sehir1 = sehir2' satırında sehir2'nin o anki kopyası (Ordu) sehir1'e aktarılmıştır. Sonradan sehir2'nin değişmesi sehir1'i etkilemez.", "gorsel": {"type": "image", "query": "mental puzzle logic riddle programming variable state"}}, {"baslik": "Günün Büyük Uygulaması: E-Ticaret Kargo Fişi", "altbaslik": "Senaryo ve Arayüz Tasarımı", "icerik": "Senaryo: Trendyol / Hepsiburada kargo lojistik merkezinde koli üzerine basılan profesyonel sevk irsaliye etiketi.\n- Kullanıcı Alıcı Adı, Telefonu, Şehri ve Sipariş Edilen Ürünü girer.\n- 'Kargo Fişi Kes' butonuna basar.\n- Çok satırlı çıktı alanında monospaced düzenli teslimat fişi oluşur.", "gorsel": {"type": "image", "query": "shipping label barcode package delivery ecommerce"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi ve Özellikler", "icerik": "Girdi Kutuları:\n- txtMusteri (Alıcı Ad-Soyad)\n- txtTelefon (İletişim Tel)\n- txtSehir (Teslimat İli)\n- txtUrun (Sipariş İçeriği)\n\nButon: btnFisKes ('📦 Kargo Fişi Oluştur')\nÇıktı: txtFis (TextBox: Multiline = true, ReadOnly = true, Font = Courier New 10pt)", "gorsel": {"type": "image", "query": "form design layout shipping form fields"}}, {"baslik": "Uygulama Kodları (Tam Çözüm)", "altbaslik": "Değişkenlerle Metin İnşa Etmek", "icerik": "private void btnFisKes_Click(object sender, EventArgs e)\n{\n    // 1. Kutulardaki metinleri değişkenlere al\n    string alici = txtMusteri.Text;\n    string tel = txtTelefon.Text;\n    string sehir = txtSehir.Text;\n    string urun = txtUrun.Text;\n\n    // 2. Formatlı kargo metni oluştur (\\n ile)\n    string kargoMetni = \"================================\" + \"\\n\" +\n                        \"     ARAS KARGO SEVKİYAT FİŞİ    \" + \"\\n\" +\n                        \"================================\" + \"\\n\" +\n                        \"Alıcı Adı : \" + alici + \"\\n\" +\n                        \"Telefon   : \" + tel + \"\\n\" +\n                        \"Varış İli : \" + sehir + \"\\n\" +\n                        \"Ürün      : \" + urun + \"\\n\" +\n                        \"================================\" + \"\\n\" +\n                        \"Durum     : Dağıtıma Hazır ✔\";\n\n    // 3. Fiş alanına aktar\n    txtFis.Text = kargoMetni;\n}", "gorsel": {"type": "image", "query": "csharp code receipt generation string formatting"}}, {"baslik": "TextBox Multiline ve ReadOnly Özellikleri", "altbaslik": "Çıktı Alanını Güvenceye Almak", "icerik": "txtFis için uyguladığımız özel ayarlar:\n- Multiline = true: Kutuya birden çok satır yazılmasını ve fareyle yüksekliğinin ayarlanabilmesini sağlar.\n- ReadOnly = true: Kullanıcının yanlışlıkla fiş üzerindeki yazıları klavyeyle silmesini/bozmasını engeller (Sadece okunabilir yapar).", "gorsel": {"type": "image", "query": "readonly text box ui settings visual studio"}}, {"baslik": "Sabit Değerler: const Anahtar Kelimesi", "altbaslik": "Asla Değişmeyen Bilgiler", "icerik": "Değeri program boyunca asla değişmeyecek veriler için 'const' kullanılır:\n\nconst string SirketAdi = \"Giresun Kargo A.Ş.\";\nconst double KdvOrani = 0.20;\n\nYanlışlıkla değiştirilmek istenirse derleyici hata verir.", "gorsel": {"type": "image", "query": "lock constant immutable value security"}}, {"baslik": "Sık Karşılaşılan Değişken Hataları", "altbaslik": "Yazılımcı Tuzakları", "icerik": "1. Tanımlanmamış Değişkeni Kullanmak:\n   ad = \"Ali\"; (Başına string yazılmadıysa derlenmez).\n2. Değer Atanmamış Değişkeni Okumak:\n   string sehir; lblSonuc.Text = sehir; (Use of unassigned local variable hatası).\n3. Tırnak işaretini unutmak:\n   string il = Ankara; (Ankara'yı değişken sanır).", "gorsel": {"type": "image", "query": "error debugging unassigned variable compiler"}}, {"baslik": "Sektörel Vaka: E-Fatura Sistemi", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Kurumsal bir ERP yazılımında fatura kesilirken:\n- musteriVergiNo, sirketUnvani, faturaTarihi string değişkenlerde toplanır.\n- E-Fatura XML şablonuna bu değişkenler aktarılır.\nDeğişkenler olmadan hiçbir ticari veri transferi yapılamaz.", "gorsel": {"type": "image", "query": "electronic invoice erp accounting digital software"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Değişken İsimlendirme", "icerik": "Soru: Aşağıdaki değişken tanımlamalarından hangisi C# kurallarına göre GEÇERLİDİR?\n\nA) string 1.ogrenci = \"Ali\";\nB) string ogrenci adi = \"Ali\";\nC) string ogrenciAdi = \"Ali\";\nD) string ogrenci-adi = \"Ali\";\n\nDoğru Cevap: C (camelCase kuralına uygun, boşluksuz ve geçerli isimlendirme).", "gorsel": {"type": "image", "query": "multiple choice exam quiz correct answer test"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "RAM ve Değişkenler", "icerik": "Soru: Program kapatıldığında RAM bellekteki değişkenlere ne olur?\n\nA) Sabit diske kaydedilirler.\nB) Tamamen silinirler.\nC) Çöp kutusuna taşınırlar.\nD) Gizli dosyaya dönüşürler.\n\nDoğru Cevap: B (RAM geçici bellektir, bilgisayar kapandığında veya program sonlandığında veriler silinir).", "gorsel": {"type": "image", "query": "ram memory data erasure concept technology"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Değişken Kapsamı", "icerik": "Soru: Bir butonun süslü parantezleri { } içinde tanımlanan bir değişkene formdaki diğer butonlar erişebilir mi?\n\nA) Evet, tüm butonlar erişebilir.\nB) Hayır, sadece tanımlandığı buton erişebilir (Local Scope).\nC) Sadece form kapanırken erişir.\nD) Sadece F5'e basınca erişir.\n\nDoğru Cevap: B (Blok içinde tanımlanan yerel değişkenler dışarıdan görünmez).", "gorsel": {"type": "image", "query": "variable scope private local block quiz"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Reçete / Sipariş Kartı Tasarlayın", "icerik": "Görev:\n- İlaç Adı, Dozaj (Sabah/Akşam) ve Kullanım Süresi için 3 değişken tanımlayın.\n- 'Reçete Yaz' butonuna basınca Multiline kutuda formatlı doktor reçetesi oluşturun.", "gorsel": {"type": "image", "query": "doctor medical prescription paper form pharmacy"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Bu Haftanın Anahtar Terimleri", "icerik": "- Variable (Değişken): Bellekteki isimlendirilmiş veri saklama alanı.\n- Declaration (Tanımlama): Değişkenin tipini ve adını sisteme bildirme.\n- Assignment (Atama): Değişkene = ile değer yükleme.\n- camelCase: Değişken isimlendirme standardı (kullaniciAdi).\n- Local Scope: Değişkenin sadece tanımlandığı blokta geçerli olması.", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Değişkenlerin RAM'deki depolama kutuları olduğunu öğrendik.\n- string veri tipini ve çift tırnak kuralını kavradık.\n- camelCase ve Clean Code isimlendirme standartlarını uyguladık.\n- Multiline TextBox ve değişkenler ile profesyonel bir kargo fişi ürettik.", "gorsel": {"type": "image", "query": "achievement summary success programming course"}}, {"baslik": "Değişken Yaşam Döngüsü (Lifecycle)", "altbaslik": "Doğum, Yaşam ve Çöp Toplayıcı (GC)", "icerik": "1. Doğum: 'string ad = \"Ali\";' dendiğinde RAM'de yer ayrılır.\n2. Kullanım: Buton çalıştığı sürece işlem yapılır.\n3. Ölüm: Butonun { } süslü parantezi bittiğinde yerel değişken yok edilir.\n4. Çöp Toplayıcı (Garbage Collector): Kullanılmayan RAM alanlarını otomatik temizler.", "gorsel": {"type": "image", "query": "garbage collection memory lifecycle programming"}}, {"baslik": "Değişken Türü: char vs string", "altbaslik": "Tek Harf ile Kelime Ayrımı", "icerik": "- char: Yalnızca TEK BİR karakter saklar ve tek tırnakla yazılır: char harf = 'A';\n- string: Kelimeler veya cümleler saklar ve çift tırnakla yazılır: string metin = \"Ahmet\";\nPasswordChar özelliğinde tek tırnak '*' kullanılmasının sebebi budur.", "gorsel": {"type": "image", "query": "character vs string alphabet letters typography"}}, {"baslik": "Kurumsal Kodlama Standartları", "altbaslik": "Kodun Okunabilirliği ve Bakımı", "icerik": "Büyük yazılım şirketlerinde kod yazarken:\n- Tek harfli anlamsız isimler (a, b, x, y) YASAKTIR.\n- Her değişken adından ne sakladığı net anlaşılmalıdır (örn: musteriTeslimatIlcesi).\n- Kodunuzu 6 ay sonra okuduğunuzda hemen anlayabilmelisiniz.", "gorsel": {"type": "image", "query": "clean code readability software engineering standards"}}, {"baslik": "Metin Uzunluğu: .Length Özelliği", "altbaslik": "Kutuda Kaç Harf Var?", "icerik": "Bir string değişkenin içinde toplam kaç harf olduğunu öğrenmek için .Length kullanılır:\n\nstring sifre = txtSifre.Text;\nint uzunluk = sifre.Length;\nlblKarakterSayisi.Text = \"Karakter: \" + uzunluk;\n\nŞifre uzunluk kontrolü için idealdir.", "gorsel": {"type": "image", "query": "string length ruler measuring text characters"}}, {"baslik": "Değişken Yaşam Döngüsü (Lifecycle)", "altbaslik": "Doğum, Yaşam ve Çöp Toplayıcı (GC)", "icerik": "1. Doğum: 'string ad = \"Ali\";' dendiğinde RAM'de yer ayrılır.\n2. Kullanım: Buton çalıştığı sürece işlem yapılır.\n3. Ölüm: Butonun { } süslü parantezi bittiğinde yerel değişken yok edilir.\n4. Çöp Toplayıcı (Garbage Collector): Kullanılmayan RAM alanlarını otomatik temizler.", "gorsel": {"type": "image", "query": "garbage collection memory lifecycle programming"}}, {"baslik": "Değişken Türü: char vs string", "altbaslik": "Tek Harf ile Kelime Ayrımı", "icerik": "- char: Yalnızca TEK BİR karakter saklar ve tek tırnakla yazılır: char harf = 'A';\n- string: Kelimeler veya cümleler saklar ve çift tırnakla yazılır: string metin = \"Ahmet\";\nPasswordChar özelliğinde tek tırnak '*' kullanılmasının sebebi budur.", "gorsel": {"type": "image", "query": "character vs string alphabet letters typography"}}, {"baslik": "Kurumsal Kodlama Standartları", "altbaslik": "Kodun Okunabilirliği ve Bakımı", "icerik": "Büyük yazılım şirketlerinde kod yazarken:\n- Tek harfli anlamsız isimler (a, b, x, y) YASAKTIR.\n- Her değişken adından ne sakladığı net anlaşılmalıdır (örn: musteriTeslimatIlcesi).\n- Kodunuzu 6 ay sonra okuduğunuzda hemen anlayabilmelisiniz.", "gorsel": {"type": "image", "query": "clean code readability software engineering standards"}}, {"baslik": "Metin Uzunluğu: .Length Özelliği", "altbaslik": "Kutuda Kaç Harf Var?", "icerik": "Bir string değişkenin içinde toplam kaç harf olduğunu öğrenmek için .Length kullanılır:\n\nstring sifre = txtSifre.Text;\nint uzunluk = sifre.Length;\nlblKarakterSayisi.Text = \"Karakter: \" + uzunluk;\n\nŞifre uzunluk kontrolü için idealdir.", "gorsel": {"type": "image", "query": "string length ruler measuring text characters"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'string plaka = \"28 AB 123\"; satırında Veri Tipi nedir, Değişken Adı nedir, Değer nedir?'\n\nCevabınızı 3 madde halinde kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket question paper classroom"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 5: Sayısal Değişkenler ve Matematiksel İşlemler", "icerik": "Gelecek Hafta Neler Yapacağız?\n- Matematik korkusunu yeniyoruz: int ve double sayı tipleri.\n- 4 İşlem (+, -, *, /) ve mod alma (%).\n- Sayıları ekrana yazdırma köprüsü: .ToString()\n- Kampüs Kantini Hızlı Adisyon Otomasyonu projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "mathematics calculator numbers preview next week"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

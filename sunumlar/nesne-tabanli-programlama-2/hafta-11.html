@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 11 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 11</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 11", "altbaslik": "API'den API'ye İletişim ve Asenkron HTTP İstemcileri", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Dış API Tüketimi, httpx Kütüphanesi, Asenkron Programlama (async/await) ve Veri Zenginleştirme\nUygulama Teması: Canlı Hava Durumu & Açık Kütüphane Kitap Arama Asistanı", "gorsel": {"type": "image", "query": "api integration microservices http async await httpx python"}}, {"baslik": "Motivasyon: Her Veriyi Kendimiz mi Üreteceğiz?", "altbaslik": "Dünyadaki Milyonlarca Açık API'yi Kullanmak", "icerik": "Bir hava durumu, döviz takip veya kitap arama uygulaması yazarken tüm dünyadaki sensörleri biz kuramayız!\n- Başka kurumların (Meteoroloji, Merkez Bankası, Açık Kütüphaneler) sunduğu açık API'lere bağlanırız.\n- Kendi FastAPI sunucumuz, bu servislerden veri çeken bir istemciye (client) dönüşür.\n- Buna Veri Zenginleştirme (Data Enrichment) denir.", "gorsel": {"type": "image", "query": "global data network weather currency api integration"}}, {"baslik": "Senkron (requests) vs. Asenkron (httpx)", "altbaslik": "Neden httpx ve async/await Kullanıyoruz?", "icerik": "1. requests (Senkron/Bloklayan):\n- Dış sunucuya istek attığında yanıt gelene kadar (2 saniye) tüm sunucuyu kilitler. Diğer kullanıcılar beklemek zorunda kalır.\n\n2. httpx (Asenkron/Non-blocking):\n- `async/await` desteği sunar. Yanıt beklenirken diğer gelen kullanıcı isteklerini işlemeye devam eder.\n- FastAPI'nin yüksek hızına tam uyumludur.", "gorsel": {"type": "image", "query": "synchronous vs asynchronous multitasking event loop"}}, {"baslik": "Gerekli Kurulum: httpx", "altbaslik": "PyCharm Terminalinde", "icerik": "Terminalde çalıştırın:\n\n`pip install httpx`", "gorsel": {"type": "image", "query": "pip install httpx python terminal"}}, {"baslik": "Asenkron Fonksiyon Mantığı: async def ve await", "altbaslik": "Olay Döngüsü (Event Loop)", "icerik": "- `async def`: Bu fonksiyonun arka planda bekleme yapabilen bir Coroutine olduğunu belirtir.\n- `await`: Ağ isteği gibi uzun sürecek işlemin başında kullanılır: 'Bu yanıt gelene kadar işlemciyi meşgul etme, başka işlere bak' der.", "gorsel": {"type": "image", "query": "async await coroutine python concurrency"}}, {"baslik": "İlk Dış API İsteğimiz: Canlı Giresun Hava Durumu", "altbaslik": "Open-Meteo Ücretsiz Uydu API'si", "icerik": "from fastapi import FastAPI\nimport httpx\n\napp = FastAPI()\n\nAPI_URL = 'https://api.open-meteo.com/v1/forecast?latitude=40.91&longitude=38.38&current=temperature_2m,relative_humidity_2m'\n\n@app.get('/kampus/hava-durumu')\nasync def hava_durumu():\n    async with httpx.AsyncClient(timeout=5.0) as client:\n        yanit = await client.get(API_URL)\n        veri = yanit.json()\n        \n        sicaklik = veri['current']['temperature_2m']\n        return {'sehir': 'Giresun', 'sicaklik_celsius': sicaklik, 'durum': 'Canlı Uydu Verisi 🌤️'}", "gorsel": {"type": "image", "query": "weather forecast satellite temperature map"}}, {"baslik": "Açık Kütüphane Kitap Arama (OpenLibrary API)", "altbaslik": "Dünya Çapında Kitap Arama", "icerik": "@app.get('/kutuphane/ara/{kitap_adi}')\nasync def internetten_ara(kitap_adi: str):\n    url = f'https://openlibrary.org/search.json?q={kitap_adi}&limit=2'\n    \n    async with httpx.AsyncClient() as client:\n        yanit = await client.get(url)\n        data = yanit.json()\n        \n        kitaplar = []\n        for doc in data.get('docs', []):\n            kitaplar.append({\n                'baslik': doc.get('title'),\n                'yazar': doc.get('author_name', ['Bilinmiyor'])[0]\n            })\n        return {'arama': kitap_adi, 'sonuclar': kitaplar}", "gorsel": {"type": "image", "query": "open library book search digital archive"}}, {"baslik": "Harici API Hata Yönetimi ve Timeout", "altbaslik": "İnternet Koparsa Ne Olur?", "icerik": "Dış servisler çökebilir veya internet kopabilir. Sistemimizin kilitlenmemesi için Timeout ve try-except koymalıyız:\n\ntry:\n    async with httpx.AsyncClient(timeout=3.0) as client:\n        res = await client.get(url)\n        res.raise_for_status()  # 4xx veya 5xx hatası varsa fırlatır\nexcept httpx.TimeoutException:\n    raise HTTPException(status_code=504, detail='Dış API zaman aşımına uğradı!')\nexcept httpx.RequestError:\n    raise HTTPException(status_code=503, detail='Dış API servisine ulaşılamıyor!')", "gorsel": {"type": "image", "query": "network timeout error connection failed"}}, {"baslik": "Laboratuvar Döngüsü 1: Canlı Hava Durumu Testi", "altbaslik": "Adım Adım Kodluyoruz", "icerik": "1. `pip install httpx` yapın.\n2. `main.py` içine hava durumu endpoint'ini yazın.\n3. `uvicorn main:app --reload` başlatın.\n4. `/docs` sayfasında çalıştırıp Giresun'un şu anki gerçek sıcaklığını canlı görün!", "gorsel": {"type": "image", "query": "live weather test terminal browser response"}}, {"baslik": "Laboratuvar Döngüsü 2: İstediğimiz Şehrin Havasını Çekme", "altbaslik": "Koordinat Parametresi", "icerik": "@app.get('/hava/{enlem}/{boylam}')\nasync def sehir_havasi(enlem: float, boylam: float):\n    url = f'https://api.open-meteo.com/v1/forecast?latitude={enlem}&longitude={boylam}&current=temperature_2m'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        return res.json()['current']", "gorsel": {"type": "image", "query": "gps coordinates world map climate"}}, {"baslik": "Laboratuvar Döngüsü 3: Günün Tavsiyesi API'si", "altbaslik": "Rastgele Veri Çekmek", "icerik": "@app.get('/gunun-tavsiyesi')\nasync def tavsiye_al():\n    url = 'https://api.adviceslip.com/advice'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        # Gelen JSON: {'slip': {'id': 1, 'advice': '...'}}\n        return {'tavsiye': res.json()['slip']['advice']}", "gorsel": {"type": "image", "query": "motivational advice quote lightbulb wisdom"}}, {"baslik": "Laboratuvar Döngüsü 4: Dış Veriyi Kendi DB'miz ile Birleştirme", "altbaslik": "Veritabanına Harici Bilgi Kaydetme", "icerik": "Kitap eklerken OpenLibrary'den sayfa sayısını otomatik çekip veritabanına kaydetme senaryosu:\n- Kullanıcı sadece kitap adını girer.\n- Sunucumuz dış API'den yazarı bulur.\n- Kendi SQLite veritabanımıza tam kayıt atar.", "gorsel": {"type": "image", "query": "enriching database records with external api"}}, {"baslik": "Çözümlü Uygulama 1: Canlı Döviz Kuru API'si", "altbaslik": "Açık Kur Servisi", "icerik": "@app.get('/doviz/usd')\nasync def dolar_kuru():\n    url = 'https://open.er-api.com/v6/latest/USD'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        rates = res.json().get('rates', {})\n        return {'USD_TRY': rates.get('TRY', 0.0), 'guncelleme': 'Canlı'}", "gorsel": {"type": "image", "query": "currency exchange rate dollar try finance"}}, {"baslik": "Çözümlü Uygulama 2: IP Konum Bulma", "altbaslik": "Açık GeoIP Servisi", "icerik": "@app.get('/ip-bilgisi')\nasync def ip_ogren():\n    url = 'https://ipapi.co/json/'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        data = res.json()\n        return {'ip': data.get('ip'), 'sehir': data.get('city'), 'ulke': data.get('country_name')}", "gorsel": {"type": "image", "query": "ip address location geolocation map"}}, {"baslik": "Çözümlü Uygulama 3: Rastgele Kullanıcı Üretici", "altbaslik": "RandomUser API", "icerik": "@app.get('/rastgele-kullanici')\nasync def rastgele_user():\n    url = 'https://randomuser.me/api/'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        user = res.json()['results'][0]\n        return {'isim': f\"{user['name']['first']} {user['name']['last']}\", 'email': user['email']}", "gorsel": {"type": "image", "query": "avatar profile random user photo"}}, {"baslik": "Çözümlü Uygulama 4: GitHub Profil Bilgisi Çekme", "altbaslik": "GitHub Public API", "icerik": "@app.get('/github/{kullanici}')\nasync def github_profil(kullanici: str):\n    url = f'https://api.github.com/users/{kullanici}'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        d = res.json()\n        return {'kullanici': d.get('login'), 'repo_sayisi': d.get('public_repos'), 'takipci': d.get('followers')}", "gorsel": {"type": "image", "query": "github octocat profile developer portfolio"}}, {"baslik": "API Anahtarı (API Key) Güvenliği", "altbaslik": "Şifreleri Koda Sert Yazmayın (.env)", "icerik": "Ücretli veya üyelikli API'ler bir anahtar (API Key) verir.\n- Altın Kural: API anahtarları koda sert yazılmaz (`api_key = 'xyz123'` YANLIŞTIR).\n- `.env` dosyasında tutulur ve `os.getenv()` ile okunur.\n- Git'e yüklenmesi engellenir.", "gorsel": {"type": "image", "query": "api key authentication lock secret env file"}}, {"baslik": "Connection Pooling (Bağlantı Havuzu)", "altbaslik": "httpx.AsyncClient'ın Performans Avantajı", "icerik": "`async with httpx.AsyncClient() as client:` yapısı:\n- Her istekte sıfırdan TCP el sıkışması yapmak yerine açık bağlantıyı yeniden kullanır.\n- Sunucunuzun hızını 5 kat artırır ve bellek tüketimini düşürür.", "gorsel": {"type": "image", "query": "tcp connection pooling network optimization"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod:\n@app.get('/hava')\ndef hava():\n    res = await httpx.get('https://...')\n\nProblem Nedir?\n`await` kelimesi sadece `async def` ile tanımlanan fonksiyonların içinde kullanılabilir! (SyntaxError: 'await' outside async function).", "gorsel": {"type": "image", "query": "syntax error await outside async function code"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "res = client.get('https://.../users/1')\nprint(res.status_code)\n\nÇıktı: `200` (İstek başarılı bir şekilde ulaştı ve yanıt döndü).", "gorsel": {"type": "image", "query": "http status 200 ok green badge"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "Dış API Çağrılarında 3 Hata", "icerik": "1. `timeout` belirtmemek (Dış servis çökerse sunucunuz sonsuza kadar donup kalabilir).\n2. `async def` yazıp `await client.get(...)` ifadesindeki `await`'i unutmak.\n3. Dış servisten gelen JSON'daki anahtar isimlerini kontrol etmeden doğrudan okumaya çalışmak (KeyError).", "gorsel": {"type": "image", "query": "warning caution checklist software bugs"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Asenkron Kütüphane", "icerik": "Soru: Python'da asenkron (async/await) HTTP istekleri atmak için en modern kütüphane hangisidir?\nA) urllib\nB) httpx\nC) socket\nD) http.server\n\nDoğru Cevap: B (httpx).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "await Anahtar Kelimesi", "icerik": "Soru: await anahtar kelimesinin görevi nedir?\nA) Programı sonlandırmak\nB) Uzun sürecek ağ yanıtını beklerken kontrolü olay döngüsüne bırakmak\nC) Veritabanını silmek\nD) Yeni dosya açmak\n\nDoğru Cevap: B (Beklerken olay döngüsünü serbest bırakmak).", "gorsel": {"type": "image", "query": "concept question test exam"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Zaman Aşımı", "icerik": "Soru: Dış API'nin yanıt vermesi çok uzun sürdüğünde sunucunun kilitlenmesini önlemek için hangi parametre ayarlanır?\nA) retry\nB) timeout\nC) limit\nD) delay\n\nDoğru Cevap: B (timeout).", "gorsel": {"type": "image", "query": "hourglass timer timeout symbol"}}, {"baslik": "Sektörel Vaka: E-Ticaret Kargo Takibi", "altbaslik": "Yurtiçi ve Aras Kargo API'leri", "icerik": "Gerçek Hayatta:\nTrendyol veya Hepsiburada kargo takip numarasını kargo firmalarının API'sine asenkron olarak sorar.\nKullanıcı sayfayı yenilediğinde canlı kargo konumu anında ekrana basılır.\nTüm e-ticaret sektörü bu entegrasyonla çalışır.", "gorsel": {"type": "image", "query": "cargo shipment delivery tracking integration api"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Canlı Kampüs Bilgi ve Tavsiye Panosu", "icerik": "Göreviniz:\n1. `GET /kampus/canli-ozet` endpoint'i yazın.\n2. Bu endpoint aynı anda:\n   - Open-Meteo'dan anlık hava sıcaklığını,\n   - AdviceSlip'ten günün tavsiyesini çeksin.\n3. Tek bir JSON içinde kullanıcıya şık bir şekilde sunsun.\n4. Swagger UI üzerinden canlı test edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "dashboard live information display mission task"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "@app.get('/kampus/canli-ozet')\nasync def canli_ozet():\n    async with httpx.AsyncClient() as client:\n        # Hava durumunu çekin\n        # Tavsiyeyi çekin\n        # İkisini tek JSON'da birleştirip dönün...\n        pass", "gorsel": {"type": "image", "query": "hints blueprint solution code help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- API'ler sadece veri sunmaz, başka API'lerden veri de tüketir.\n- httpx ve async/await ile sunucu kilitlenmeden yüksek hızlı ağ istekleri atılır.\n- Timeout ile dış servis arızalarında sistem güvenliği sağlanır.\n- Canlı hava durumu ve döviz gibi gerçek veriler sistemimize başarıyla bağlandı.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 12: API Güvenliği, Şifreli Giriş ve JWT Token", "icerik": "Ön Hazırlık:\n- Herkes her öğrencinin notunu görebilir mi? Hayır!\n- Şifreleme ve Hash (bcrypt) mantığı.\n- Dijital Bilet (JWT Token) ile kilitli kapıları açacağız!", "gorsel": {"type": "image", "query": "jwt token security lock authentication digital badge"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'httpx ile timeout süresi 4 saniye olan bir AsyncClient bloğu açıp GET isteği atan 3 satırlık Python kodunu kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

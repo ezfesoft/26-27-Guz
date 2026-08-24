@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 03 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 03</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 32 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-02.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 32</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-04.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (32 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 3", "altbaslik": "Şifreleme Teknikleri ve Steganografi Yöntemleri", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Kriptoloji ve Veri Gizleme\nHaftalık Odak: Klasik Şifreler, AES, RSA, Hash ve Steghide ile Resme Veri Gömme\nHedef: Kriptografik algoritmaları ve steganografik veri gizleme tekniklerini uygulamak.", "gorsel": {"type": "image", "query": "cryptography encryption ciphers steganography digital lock"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Veri Mahremiyeti ve Güvenli İletişim", "icerik": "İnternette akan tüm banka şifreleri, WhatsApp mesajları ve e-ticaret işlemleri kriptoloji ile korunur.\n- Şifrelenmemiş veri açıkta gezen sır gibidir.\n- Kriptografi mesajın içeriğini okunamaz yapar.\n- Steganografi ise mesajın varlığını tamamen gizler.", "gorsel": {"type": "image", "query": "secure communications encrypted data stream binary"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Kriptoloji, Kriptografi ve Kriptoanaliz kavramlarını açıklar.\n2. Sezar ve Vigenère gibi klasik şifreleme modellerini çözer.\n3. Simetrik (AES) ve Asimetrik (RSA/ECC) şifreleme farklarını kavrar.\n4. OpenSSL ile AES-256 dosya şifreleme ve deşifreleme yapar.\n5. Steghide aracıyla bir JPG resmi içine gizli metin gömüp çıkarır.", "gorsel": {"type": "image", "query": "learning outcomes education cybersecurity shield"}}, {"baslik": "Kriptoloji ve Temel Kavramlar", "altbaslik": "Şifre Biliminin Ağacı", "icerik": "Kriptoloji: Şifreleme ve şifre çözme biliminin genel adıdır.\n- Kriptografi: Veriyi gizli anahtarlarla okunamaz hale getirme yöntemleri.\n- Kriptoanaliz: Anahtar olmadan şifreli metinleri çözme ve analiz etme sanatı.\nTemel Bileşenler: Düz Metin (P), Şifreli Metin (C), Anahtar (K), Şifreleme (E), Deşifreleme (D).", "gorsel": {"type": "image", "query": "cryptology branches cryptography cryptanalysis diagram"}}, {"baslik": "Kriptografinin Temel Hedefleri", "altbaslik": "4 Temel Güvenlik İlkesi", "icerik": "1. Gizlilik (Confidentiality): Yetkisiz kişilerin okumasını engellemek.\n2. Bütünlük (Integrity): Verinin değiştirilmediğini kanıtlamak.\n3. Kimlik Doğrulama (Authentication): Mesajın iddia edilen kişiden geldiğini teyit etmek.\n4. İnkâr Edilemezlik (Non-Repudiation): İşlemi yapanın bunu sonradan reddedememesini sağlamak.", "gorsel": {"type": "image", "query": "four pillars of information security authentication integrity non-repudiation"}}, {"baslik": "Klasik Kriptografi: Sezar Şifrelemesi", "altbaslik": "Tarihin İlk Yerine Koyma Şifresi", "icerik": "M.Ö. Jül Sezar tarafından ordusuyla haberleşmek için kullanılmıştır.\nKural: Alfabedeki her harfi n basamak ileri kaydır.\nŞifreleme: E(x) = (x + 3) mod 29\nDeşifreleme: D(x) = (x - 3) mod 29\nZayıflığı: Alfabede sadece 29 deneme ile veya harf frekans analiziyle saniyeler içinde kırılır.", "gorsel": {"type": "image", "query": "caesar cipher wheel substitution cryptography ancient"}}, {"baslik": "Vigenère Şifrelemesi: Çoklu Alfabe", "altbaslik": "Tekrarlanan Anahtar Kelime Yöntemi", "icerik": "Sezar'ın tek harf kaydırma açığını kapatmak için geliştirilmiştir.\n- Bir anahtar kelime seçilir (Örn: 'KALE').\n- Metindeki her harf anahtarın sıradaki harfine göre farklı miktarda kaydırılır.\n- Kasiski yöntemi ve frekans analizinin gelişmesiyle bu şifre de çözülmüştür.", "gorsel": {"type": "image", "query": "vigenere cipher table grid square cryptography"}}, {"baslik": "Modern Kriptografi: Simetrik Şifreleme", "altbaslik": "Tek ve Gizli Anahtar Modeli", "icerik": "Şifreleme ve deşifreleme işlemleri için AYNI gizli anahtar kullanılır.\n[Düz Metin] -> [AES Şifreleme (Gizli Anahtar)] -> [Şifreli Metin] -> [AES Deşifreleme (Gizli Anahtar)] -> [Düz Metin]\nAvantajı: Çok hızlıdır, gigabaytlarca veriyi saniyeler içinde şifreler.\nDezavantajı: Gizli anahtarı karşı tarafa güvenle iletmek zordur (Anahtar Dağıtım Problemi).", "gorsel": {"type": "image", "query": "symmetric encryption single secret key diagram"}}, {"baslik": "Popüler Simetrik Algoritmalar", "altbaslik": "DES'ten AES'e Gelişim", "icerik": "- DES (Data Encryption Standard): 56-bit anahtar kullanır. Günümüzde güvensizdir ve kırılmıştır.\n- 3DES: DES'i 3 kez uygular, yavaştır.\n- AES (Advanced Encryption Standard): Günümüzün dünya standardıdır.\n  * 128, 192 ve 256-bit anahtar uzunluklarını destekler.\n  * Kaba kuvvetle kırılması evrenin yaşından daha uzun sürer!", "gorsel": {"type": "image", "query": "AES encryption standard block cipher security"}}, {"baslik": "Blok Şifreleme Modları: ECB vs CBC", "altbaslik": "Şifreleme Modlarının Önemi", "icerik": "- ECB (Electronic Codebook): Her 128-bitlik veri bloğu birbirinden bağımsız şifrelenir. Aynı girdiler aynı çıktıyı üretir, resim şifrelendiğinde deseni görünür kalır!\n- CBC (Cipher Block Chaining): Her blok bir önceki blokla XOR işlemine tabi tutulur. Başlangıç Vektörü (IV) kullanılır, son derece güvenlidir.", "gorsel": {"type": "image", "query": "ecb vs cbc mode linux tux penguin comparison encryption"}}, {"baslik": "Asimetrik (Açık Anahtarlı) Kriptografi", "altbaslik": "Çift Anahtar Mucizesi", "icerik": "İki farklı matematiksel anahtar kullanılır:\n1. Açık Anahtar (Public Key): Herkesle paylaşılır, veriyi şifrelemek için kullanılır.\n2. Gizli Anahtar (Private Key): Sadece sahibinde kalır, şifreyi çözmek için kullanılır.\n[Düz Metin] -> [Alıcının Açık Anahtarı ile Şifrele] -> [Şifreli Metin] -> [Alıcının Gizli Anahtarı ile Çöz] -> [Düz Metin]", "gorsel": {"type": "image", "query": "asymmetric encryption public private key pair diagram"}}, {"baslik": "Asimetrik Algoritmalar: RSA ve ECC", "altbaslik": "Asal Sayıların Gücü", "icerik": "- RSA: İki çok büyük asal sayının çarpımını çarpanlarına ayırmanın zorluğuna dayanır (2048 / 4096-bit).\n- ECC (Elliptic Curve Cryptography): Eliptik eğriler üzerindeki noktalara dayanır.\n  * 256-bit ECC, 3072-bit RSA ile aynı güvenliği sağlar!\n  * Mobil cihazlarda ve kripto paralarda tercih edilir.", "gorsel": {"type": "image", "query": "elliptic curve cryptography mathematics graph RSA"}}, {"baslik": "Hibrit Kriptografi: HTTPS Nasıl Çalışır?", "altbaslik": "En İyilerin Birleşimi", "icerik": "Asimetrik şifreleme güvenlidir ama yavaştır. Simetrik şifreleme hızlıdır ama anahtar paylaşımı zordur.\nHTTPS Çözümü:\n1. Tarayıcı ile sunucu RSA/ECC kullanarak güvenli bir ortak oturum anahtarı paylaşır (Asimetrik El Sıkışma).\n2. Sayfa içeriği ve veri transferi AES-256 ile ışık hızında şifrelenir (Simetrik).", "gorsel": {"type": "image", "query": "https ssl tls handshake padlock browser security"}}, {"baslik": "Steganografi Nedir? (Veri Gizleme)", "altbaslik": "Görünmeyeni Saklama Sanatı", "icerik": "Kriptografi: Mesaj okunamaz ama herkes şifreli bir dosya olduğunu anlar.\nSteganografi: Mesajın VARLIĞI gizlenir. Dışarıdan bakan kişi sadece sıradan bir kedi fotoğrafı veya şarkı görür.\nTarihte: Görünmez mürekkepler, kölelerin kazınmış kafasına yazılan dövmeler.\nDijitalde: Resim, ses ve video dosyalarının piksellerine veri gizleme.", "gorsel": {"type": "image", "query": "steganography hidden message inside image concept"}}, {"baslik": "LSB (Least Significant Bit) Yöntemi", "altbaslik": "En Az Değerli Bit Tekniği", "icerik": "Dijital resimler RGB piksellerinden (0-255 arası baytlar) oluşur.\nPiksel Baytı: 1 1 0 1 0 0 1 [0] <- En sağdaki bit LSB'dir.\nEn sağdaki bu 1 biti değiştirmek piksel renginde insan gözünün ayırt edemeyeceği yüzde 0.4'lük bir ton farkı yaratır.\nGizli mesajın bitleri sırayla resmin LSB bitlerine yazılır.", "gorsel": {"type": "image", "query": "least significant bit LSB pixel byte diagram steganography"}}, {"baslik": "Uygulama Laboratuvarı: OpenSSL ve Steghide", "altbaslik": "Uygulama Adımlarımız", "icerik": "Laboratuvarımızda:\n1. OpenSSL ile AES-256 simetrik dosya şifreleyeceğiz.\n2. Şifreli dosyanın okunamaz olduğunu doğrulayacağız.\n3. Steghide aracıyla bir JPG fotoğrafı içine gizli metin gömüp çıkaracağız.", "gorsel": {"type": "image", "query": "cyber security lab students terminal cryptography practice"}}, {"baslik": "Uygulama 1: OpenSSL ile Dosya Şifreleme", "altbaslik": "AES-256-CBC ile Gizli Rapor Kilitleme", "icerik": "Adım 1: Gizli bir dosya oluşturalım:\necho \"Gizli Proje Raporu: GRU2026\" > rapor.txt\nAdım 2: OpenSSL ile AES-256 şifreleyelim:\nopenssl enc -aes-256-cbc -salt -in rapor.txt -out rapor.enc -pbkdf2\nTerminal sizden bir parola isteyecektir (Örn: siber123).", "gorsel": {"type": "image", "query": "openssl encryption terminal command line linux"}}, {"baslik": "Uygulama 2: Şifreli Dosyayı İnceleme ve Çözme", "altbaslik": "Deşifreleme Adımı", "icerik": "Adım 1: Şifreli dosyayı okumayı deneyin:\ncat rapor.enc\nSonuç: Anlamsız karakterler ve semboller göreceksiniz.\nAdım 2: Dosyayı orijinal haline geri çözelim:\nopenssl enc -d -aes-256-cbc -in rapor.enc -out cozulmus.txt -pbkdf2\ncat cozulmus.txt", "gorsel": {"type": "image", "query": "decrypted text output terminal success checkmark"}}, {"baslik": "Uygulama 3: Steghide ile Resme Veri Gömme", "altbaslik": "Gizli Mesajı Fotoğrafa Saklama", "icerik": "Adım 1: Test resmi ve gizli mesaj hazırlayalım:\nwget http://192.168.1.10/sample.jpg -O resim.jpg\necho \"BULUSMA: SAAT 15:00 LAB-2\" > gizli.txt\nAdım 2: Steghide ile mesajı resme gömelim:\nsteghide embed -cf resim.jpg -ef gizli.txt\nParola belirleyin (Örn: gizli123).", "gorsel": {"type": "image", "query": "steghide embedding process terminal image linux"}}, {"baslik": "Uygulama 4: Gizli Mesajı Resimden Çıkarma", "altbaslik": "Extract İşlemi", "icerik": "Adım 1: Orijinal gizli.txt dosyasını silelim:\nrm gizli.txt\nAdım 2: Resmi açıp bakın, görüntü tamamen normaldir:\nxdg-open resim.jpg\nAdım 3: Resmin içindeki gizli metni kurtaralım:\nsteghide extract -sf resim.jpg\ncat gizli.txt", "gorsel": {"type": "image", "query": "steghide extraction recovered message terminal"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Kriptoloji ve Steganografi Tuzakları", "icerik": "1. Format Hatası: Steghide PNG formatını desteklemez; mutlaka JPG veya BMP kullanılmalıdır.\n2. Parola Görünmüyor Endişesi: Linux terminallerinde parola yazarken yıldız veya imleç çıkmaz, yazıp Enter'a basılmalıdır.\n3. Yanlış Şifre Çözme: OpenSSL'de şifrelerken pbkdf2 kullandıysanız çözerken de -pbkdf2 parametresini unutmamalısınız.", "gorsel": {"type": "image", "query": "troubleshooting warning checklist error screen"}}, {"baslik": "Sektörel Vaka: Silk Road Operasyonu", "altbaslik": "Kriptoloji ve Adli Bilişim", "icerik": "Vaka: Karanlık ağdaki (Darknet) Silk Road pazar yerinin yöneticisi yakalandığında dizüstü bilgisayarı açıktı.\nİnceleme: Bilgisayar kapansaydı tüm disk TrueCrypt ile tam şifreli (AES) olduğu için FBI verilere asla ulaşamayacaktı.\nSonuç: Kriptografi matematiksel olarak kusursuz olsa bile fiziksel güvenlik ve insan hatası sistemi ele verir.", "gorsel": {"type": "image", "query": "fbi cyber forensics seized laptop darknet investigation"}}, {"baslik": "Vaka Analizi: Steganaliz Nasıl Yapılır?", "altbaslik": "Gizli Veriyi Tespit Etme Teknikleri", "icerik": "Steganaliz (Steganalysis): Şüpheli resimlerin steganografi içerip içermediğini anlama bilimidir.\nYöntemler:\n1. Histogram Analizi: Resim piksellerinin renk dağılımındaki matematiksel anomalileri arar.\n2. Dosya Boyutu ve İkili Farklılık Taraması.", "gorsel": {"type": "image", "query": "steganalysis histogram chart pixel frequency analysis"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Kriptografi Türleri", "icerik": "Soru: Şifreleme ve şifre çözme işlemlerinde AYNI gizli anahtarın kullanıldığı sistemlere ne ad verilir?\nA) Asimetrik Şifreleme\nB) Simetrik Şifreleme\nC) Steganografi\nD) Özetleme (Hash)\n\nDoğru Cevap: B (Simetrik)", "gorsel": {"type": "image", "query": "quiz test examination question mark classroom"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Algoritma Eşleştirme", "icerik": "Soru: Günümüzde dünya çapında kullanılan en popüler ve güvenli simetrik blok şifreleme standardı hangisidir?\nA) DES\nB) Sezar\nC) AES\nD) MD5\n\nDoğru Cevap: C (AES)", "gorsel": {"type": "image", "query": "encryption standard question multiple choice"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Asimetrik Anahtarlar", "icerik": "Soru: Bir kullanıcıya gizli bir mesaj gönderirken mesajı şifrelemek için kime ait hangi anahtar kullanılır?\nA) Göndericinin Gizli Anahtarı\nB) Alıcının Açık Anahtarı (Public Key)\nC) Alıcının Gizli Anahtarı\nD) Ortak Wifi Şifresi\n\nDoğru Cevap: B (Alıcının Açık Anahtarı)", "gorsel": {"type": "image", "query": "public key encryption security question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Steganografi Mantığı", "icerik": "Soru: Steganografinin kriptografiden en temel farkı nedir?\nA) Steganografi mesajın varlığını gizler, kriptografi içeriği okunamaz yapar.\nB) Steganografi sadece ses dosyalarında çalışır.\nC) Steganografi şifre çözülemez.\nD) Steganografi yasal değildir.\n\nDoğru Cevap: A", "gorsel": {"type": "image", "query": "steganography vs cryptography comparison quiz"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Şifreleme Modları", "icerik": "Soru: Her veri bloğunu birbirinden bağımsız şifrelediği için desenleri gizleyemeyen ve önerilmeyen simetrik blok şifre modu hangisidir?\nA) CBC\nB) ECB\nC) GCM\nD) CTR\n\nDoğru Cevap: B (ECB)", "gorsel": {"type": "image", "query": "block cipher mode evaluation quiz"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Kendi Stego Mesajınızı Paylaşın", "icerik": "Uygulama Görevi:\nBir resme arkadaşınızın adı ve gizli bir parola gömün. Resmi arkadaşınıza USB veya ağ paylaşımı ile gönderin.\nArkadaşınız doğru parolayla mesajınızı çıkarsın.\nEkranda mesajı gören gruplar el kaldırsın!", "gorsel": {"type": "image", "query": "students collaborating computer lab sharing files"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Simetrik şifreleme (AES) hızlıdır; Asimetrik şifreleme (RSA/ECC) anahtar değişimini güvenli kılar.\n- HTTPS protokolü her iki yöntemi birleştiren hibrit bir modeldir.\n- Steganografi LSB tekniği ile resim piksellerine görünmez mesajlar saklar.\n- OpenSSL ve Steghide sektörde temel komut satırı araçlarıdır.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 4: Kali Linux ve Temel Komut Satırı Yönetimi", "icerik": "Ön Hazırlık:\n- Linux dosya sistemi (FHS) hiyerarşisi nasıl çalışır?\n- chmod 755 veya 644 izinleri ne anlama gelir?\n- Arka planda gizlice çalışan süreçler (Process) nasıl tespit edilip sonlandırılır?", "gorsel": {"type": "image", "query": "linux operating system command line matrix"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Neden bankacılık işlemlerinde sadece RSA kullanmak yerine RSA ile AES anahtarı paylaşılıp veriler AES ile şifrelenir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket classroom paper feedback"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

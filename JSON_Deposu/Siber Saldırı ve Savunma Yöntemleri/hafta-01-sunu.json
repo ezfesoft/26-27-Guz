@@ -1,0 +1,308 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 1",
+    "altbaslik": "Siber Güvenliğe Giriş, Temel Kavramlar ve Bilişim Hukuku",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Temel Güvenlik ve Hukuki Sorumluluklar\nHaftalık Odak: Siber Tehdit Ortamı, Hacker Türleri, CIA Üçlüsü ve TCK Bilişim Suçları\nHedef: Dijital varlıkları koruma bilinci kazanmak ve yasal sorumlulukları kavramak.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security operations center blue light technology network"
+    }
+  },
+  {
+    "baslik": "Neden Bu Dersi Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Dijital Tehdit Çağı",
+    "icerik": "Günümüzde tüm bankacılık, kamu hizmetleri ve kritik altyapılar dijital ağlar üzerindedir.\n- Her gün yüz binlerce yeni zararlı yazılım ve siber saldırı tespit edilmektedir.\n- Bir güvenlik açığı, kurumların milyonlarca lira zarar etmesine ve itibar kaybına yol açar.\nSiber güvenlik uzmanlığı, bu tehditlere karşı savunma hattı oluşturma mesleğidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security threats hacker attacking digital infrastructure"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Siber güvenliğin temel hedeflerini ve aktörlerini açıklar.\n2. Hacker türlerini (Beyaz, Siyah, Gri Şapka) ve motivasyonlarını ayırt eder.\n3. 5237 Sayılı TCK ve 6698 Sayılı KVKK kapsamındaki yasal sorumlulukları bilir.\n4. CIA Üçlüsü (Gizlilik, Bütünlük, Erişilebilirlik) prensiplerini analiz eder.\n5. Kali Linux ve Windows ortamında temel bütünlük ve hash kontrollerini uygular.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives checklist technology education student"
+    }
+  },
+  {
+    "baslik": "Siber Güvenlik Nedir?",
+    "altbaslik": "Kavramsal Tanım ve Kapsam",
+    "icerik": "Siber güvenlik; bilişim sistemlerini, ağları, donanımları ve verileri yetkisiz erişim, tahrifat veya imhadan koruma sürecidir.\n- Yalnızca antivirüs kullanmak değildir; insan, süreç ve teknolojinin bir bütünüdür.\n- Amacı: Dijital dünyada iş sürekliliğini ve veri gizliliğini kesintisiz sağlamaktır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security shield lock protection data digital"
+    }
+  },
+  {
+    "baslik": "Hacker Kavramının Doğuşu ve Evrimi",
+    "altbaslik": "1960'lardan Günümüze Anlam Değişimi",
+    "icerik": "1960'lar (MIT): Sistemleri kurcalayan, sınırlarını zorlayan ve geliştiren vizyoner yazılımcılar.\nTDK Tanımı: Bilgisayar bilgisini yetkisiz erişim ve zarar vermek için kullanan kimse.\nGünümüz: Hacking eylemi, amaca ve izin durumuna göre yasal veya yasadışı olarak ayrılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "retro computer vintage programming hacker terminal"
+    }
+  },
+  {
+    "baslik": "Hacker Türleri ve Şapka Renkleri",
+    "altbaslik": "Kimin Tarafındasınız?",
+    "icerik": "1. Beyaz Şapkalı (White Hat): Kurumların izniyle zafiyet bulan ve kapatan Etik Hacker.\n2. Siyah Şapkalı (Black Hat): Maddi çıkar ve zarar amacıyla izinsiz sızan siber suçlu.\n3. Gri Şapkalı (Grey Hat): İzin almadan açık arayan, iyi niyetli olsa da yasayı çiğneyen kişi.\n4. Kırmızı Şapkalı (Red Hat): Savunma amaçlı saldırı simülasyonu yapan saldırı timi.",
+    "gorsel": {
+      "type": "image",
+      "query": "ethical hacking white hat black hat cybersecurity concept"
+    }
+  },
+  {
+    "baslik": "Diğer Tehdit Aktörleri",
+    "altbaslik": "Script Kiddie, Hacktivist ve APT Grupları",
+    "icerik": "- Script Kiddie: Başkalarının yazdığı hazır araçları ne yaptığını tam bilmeden çalıştıran amatörler.\n- Hacktivist: Siyasi, dini veya ideolojik mesaj vermek için siteleri hackleyen gruplar.\n- APT (Advanced Persistent Threat): Devlet destekli, aylarca gizlenerek casusluk yapan profesyonel ekipler.",
+    "gorsel": {
+      "type": "image",
+      "query": "anonymous hacker mask cyber warfare advanced persistent threat"
+    }
+  },
+  {
+    "baslik": "Bilişim Etiği ve Mesleki Sorumluluk",
+    "altbaslik": "Teknik Gücün Ahlaki Sınırları",
+    "icerik": "Siber güvenlik uzmanı geniş teknik yetkilere sahiptir. Bu yetkiler katı etik kurallarla sınırlandırılmalıdır:\n- Karşılaşılan kişisel verilerin gizliliğini koşulsuz korumak.\n- Çıkar çatışması ve şantaj gibi eylemlerden kesinlikle kaçınmak.\n- Açıkları yalnızca kurum yetkililerine ve resmi kanallara bildirmek.\n- Testleri yalnızca sözleşme ve izin sınırları dahilinde gerçekleştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "ethics compliance law scale digital privacy shield"
+    }
+  },
+  {
+    "baslik": "Bilişim Hukuku: 5237 Sayılı TCK",
+    "altbaslik": "Türk Ceza Kanununda Bilişim Suçları",
+    "icerik": "Madde 243 (Bilişim Sistemine Girme): Hukuka aykırı olarak bir sisteme giren veya kalan kişiye 1 yıla kadar hapis cezası verilir.\nMadde 244 (Sistemi Bozma ve Verileri Yok Etme): Sistemi engelleyen veya veriyi bozan kişiye 1 yıldan 5 yıla kadar hapis cezası verilir.\nMadde 245: Banka veya kredi kartlarını kötüye kullananlara 3 ila 8 yıl hapis uygulanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "law hammer courtroom digital justice cyber crime"
+    }
+  },
+  {
+    "baslik": "KVKK (Kişisel Verilerin Korunması Kanunu)",
+    "altbaslik": "6698 Sayılı Kanun ve Veri Güvenliği",
+    "icerik": "Kişisel Veri: Kimliği belirli veya belirlenebilir gerçek kişiye ait her türlü bilgi (T.C. No, IP adresi, parmak izi, telefon, fotoğraf).\n- Veri Sorumlusu: Verileri işleyen kurumun güvenlik tedbirlerini alma zorunluluğu vardır.\n- İhlal Durumu: Verilerin sızdırılması durumunda milyonlarca liralık idari para ve hapis cezası öngörülür.",
+    "gorsel": {
+      "type": "image",
+      "query": "data protection GDPR privacy personal information security"
+    }
+  },
+  {
+    "baslik": "İzinsiz Tarama Suç Mudur?",
+    "altbaslik": "Laboratuvar Dışı Uygulamaların Hukuki Boyutu",
+    "icerik": "Önemli Hukuki Kural:\nBir web sitesine veya sunucuya izinsiz port taraması (Nmap), zafiyet testi veya paket gönderimi yapmak TCK 243 kapsamında suç unsuru teşkil edebilir.\n- Derste öğrendiğimiz tüm araçlar YALNIZCA izole laboratuvar ortamımızda kullanılacaktır.\n- İnternet üzerindeki gerçek hedeflere izinsiz test yapmak kesinlikle yasaktır.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning sign cyber law restricted access police"
+    }
+  },
+  {
+    "baslik": "Bilgi Güvenliğinin Kalbi: CIA Üçlüsü",
+    "altbaslik": "Temel Güvenlik Modeli",
+    "icerik": "Bilgi güvenliği üç temel sütun üzerine inşa edilmiştir:\n1. Gizlilik (Confidentiality): Veriyi sadece yetkilisi okusun.\n2. Bütünlük (Integrity): Veri yolda veya diskte değiştirilmesin.\n3. Erişilebilirlik (Availability): İhtiyaç duyulduğunda sistem çalışır olsun.",
+    "gorsel": {
+      "type": "image",
+      "query": "CIA triad triangle confidentiality integrity availability cybersecurity"
+    }
+  },
+  {
+    "baslik": "1. Sütun: Gizlilik (Confidentiality)",
+    "altbaslik": "Yetkisiz Gözlerden Korumak",
+    "icerik": "Tanım: Bilginin yetkisiz kişilerin, süreçlerin veya cihazların eline geçmesinin engellenmesidir.\nNasıl Sağlanır?\n- Güçlü Şifreleme (AES-256, RSA)\n- Çok Faktörlü Kimlik Doğrulama (2FA/MFA)\n- Rol Tabanlı Erişim Kontrolü (RBAC)\nİhlal Örneği: Bir hastanenin hasta kayıtlarının sızdırılıp internette yayınlanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "data privacy encryption password key padlock digital"
+    }
+  },
+  {
+    "baslik": "2. Sütun: Bütünlük (Integrity)",
+    "altbaslik": "Doğruluk ve Değişmezlik Garantisi",
+    "icerik": "Tanım: Verinin yetkisiz kişilerce silinmediğinin, değiştirilmediğinin veya tahrif edilmediğinin garanti edilmesidir.\nNasıl Sağlanır?\n- Kriptografik Özet Fonksiyonları (SHA-256 Hash)\n- Dijital İmzalar ve Sertifikalar\n- Versiyon Kontrol Sistemleri\nİhlal Örneği: Banka transferinde 500 TL gönderilirken saldırganın araya girip tutarı 50.000 TL yapması.",
+    "gorsel": {
+      "type": "image",
+      "query": "data integrity digital signature hash verification checkmark"
+    }
+  },
+  {
+    "baslik": "3. Sütun: Erişilebilirlik (Availability)",
+    "altbaslik": "Kesintisiz Hizmet Güvencesi",
+    "icerik": "Tanım: Yetkili kullanıcıların ihtiyaç duydukları her an sisteme ve verilere kesintisiz ulaşabilmesidir.\nNasıl Sağlanır?\n- Yedekli Sunucular ve Yük Dengeleme (Load Balancing)\n- Kesintisiz Güç Kaynakları ve RAID Disk Yapıları\n- DoS/DDoS Koruma Sistemleri\nİhlal Örneği: Üniversite sınav kayıt gününde sitenin saldırı alıp çökmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "server uptime data center high availability 24 7 support"
+    }
+  },
+  {
+    "baslik": "Özet (Hash) Fonksiyonu Nedir?",
+    "altbaslik": "Bütünlüğün Matematiksel Parmak İzi",
+    "icerik": "Hash fonksiyonu, herhangi bir boyuttaki veriyi girdi olarak alıp sabit uzunlukta benzersiz bir metin üreten tek yönlü matematiksel işlemdir.\n- Tek yönlüdür: Çıktıdan girdi elde edilemez.\n- Hızlıdır: Saniyeler içinde hesaplanır.\n- En popüler algoritmalar: MD5 (Eski/Zayıf), SHA-1 (Eski), SHA-256 (Güncel ve Güvenli).",
+    "gorsel": {
+      "type": "image",
+      "query": "cryptographic hash algorithm SHA256 binary code math"
+    }
+  },
+  {
+    "baslik": "Çığ Etkisi (Avalanche Effect)",
+    "altbaslik": "1 Bitlik Değişimin Yarattığı Fırtına",
+    "icerik": "Güvenli bir hash fonksiyonunda girdideki tek bir harf veya nokta değiştiğinde, üretilen hash değeri en az yüzde 50 oranında tamamen değişir.\n- Girdi: 'Giresun' -> SHA-256: d823e...\n- Girdi: 'giresun' -> SHA-256: 4a19b...\nBu özellik sayesinde dosyada 1 baytlık tahrifat yapılsa bile anında yakalanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "avalanche effect data mutation comparison cybersecurity"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarına Giriş",
+    "altbaslik": "Laboratuvar Mimarimiz ve Kurallarımız",
+    "icerik": "Laboratuvarımızda:\n- 2 adet Xeon işlemcili Windows Server 2019 ana sunucu (192.168.1.10 ve 192.168.1.20)\n- 60 adet Kali Linux yüklü istemci bilgisayar bulunmaktadır.\nTüm öğrenciler Kali terminallerini açsın ve adımları projeksiyondan takip etsin!",
+    "gorsel": {
+      "type": "image",
+      "query": "computer science lab students terminals linux screens"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Kendi Cihazını Tanıma",
+    "altbaslik": "Kali Linux Terminalinde IP Bulma",
+    "icerik": "Adım 1: Terminali açın ve şu komutu yazın:\nip a\nAdım 2: eth0 veya ens33 arayüzü altındaki IP adresinizi bulun (Örn: 192.168.1.105).\nAdım 3: Bu IP adresini bir kenara not edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "linux terminal command line ip address screen prompt"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Sunucuya Canlılık Sinyali Gönderme",
+    "altbaslik": "Ping Komutu ile Ağ Kontrolü",
+    "icerik": "Adım 1: Windows Server 2019 sunucumuza 4 adet paket gönderelim:\nping -c 4 192.168.1.10\nBeklenen Çıktı:\n4 packets transmitted, 4 received, 0% packet loss\nBu çıktı sunucu ile aranızdaki fiziksel ve mantıksal bağlantının sağlam olduğunu gösterir.",
+    "gorsel": {
+      "type": "image",
+      "query": "network ping test terminal packet transfer packets"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Belge Oluşturma ve Hash Alma",
+    "altbaslik": "SHA-256 ile Dosya Parmak İzi Çıkarma",
+    "icerik": "Adım 1: Masaüstünde orijinal bir not dosyası oluşturalım:\necho \"Giresun Universitesi Guvenlik Sinav Notu: 100\" > notum.txt\nAdım 2: Dosyanın SHA-256 özetini alalım:\nsha256sum notum.txt\nEkranda 64 karakterli parmak izini göreceksiniz. Bu değeri not edin!",
+    "gorsel": {
+      "type": "image",
+      "query": "sha256 checksum terminal hash code validation"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Saldırgan Simülasyonu ve Tahrifat",
+    "altbaslik": "Bütünlük İhlalinin Kanıtı",
+    "icerik": "Adım 1: Saldırgan gibi araya girip notu değiştirelim:\necho \"Giresun Universitesi Guvenlik Sinav Notu: 050\" > notum.txt\nAdım 2: Tekrar hash değerini hesaplayalım:\nsha256sum notum.txt\nSonuç: Hash tamamen değişti! Sistem dosyanın tahrif edildiğini anında tespit etti.",
+    "gorsel": {
+      "type": "image",
+      "query": "data tampering hacker file modification alert error"
+    }
+  },
+  {
+    "baslik": "Uygulama 5: Windows PowerShell Tarafı",
+    "altbaslik": "Windows Server 2019'da Hash Doğrulama",
+    "icerik": "Windows PowerShell (Yönetici) ekranında aynı mantık şu komutla çalışır:\nSet-Content -Path C:\\test.txt -Value \"Siber Guvenlik 2026\"\nGet-FileHash -Path C:\\test.txt -Algorithm SHA256\nWindows işletim sistemi de aynı matematiksel SHA-256 algoritmasını kullanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "windows powershell command line scripting blue screen"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Terminalde Dikkat Edilecek Noktalar",
+    "icerik": "1. Dosya Bulunamadı Hatası: echo komutunu çalıştırmadan sha256sum yazarsanız 'No such file' hatası alırsınız.\n2. Büyük/Küçük Harf Duyarlılığı: Linux'ta 'Notum.txt' ile 'notum.txt' tamamen farklı dosyalardır.\n3. Ping Yanıt Vermiyorsa: IP adresini yanlış yazmış olabilirsiniz, tekrar kontrol edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "error troubleshooting terminal checklist warning"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Sahte Yazılım Güncellemesi",
+    "altbaslik": "Tedarik Zinciri Saldırısı",
+    "icerik": "Senaryo: Bir finans kurumu resmi web sitesinden popüler bir FTP programı indirdi. Ancak saldırganlar sunucuyu ele geçirip yazılımın içine Truva Atı (Trojan) gizlemişti.\nİhmal: Sistem yöneticisi üreticinin yayınladığı resmi SHA-256 hash değeri ile indirdiği dosyanın hashini karşılaştırmamıştı.\nSonuç: Kurum ağına arka kapı açıldı ve veri sızıntısı yaşandı.",
+    "gorsel": {
+      "type": "image",
+      "query": "malware download trojan virus cybersecurity breach"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Hash Kontrolü Hayat Kurtarır",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Savunma Adımı:\n1. İnternetten indirilen her işletim sistemi ISO'su ve yazılım paketi üretici hash değeri ile doğrulanmalıdır.\n2. Eğer 'sha256sum kali.iso' sonucu üretici sitesindeki değerle birebir uyuşmuyorsa dosya kesinlikle çalıştırılmamalıdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "secure download verification checkmark security shield"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Hacker Sınıflandırması",
+    "icerik": "Soru: Kurumların izni ve sözleşmesi dahilinde güvenlik açıklarını bulup raporlayan uzmana ne ad verilir?\nA) Siyah Şapkalı Hacker\nB) Beyaz Şapkalı Hacker (Etik Hacker)\nC) Script Kiddie\nD) Hacktivist\n\nDoğru Cevap: B (Beyaz Şapkalı)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination question mark classroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Hukuki Yaptırımlar",
+    "icerik": "Soru: 5237 Sayılı TCK Madde 243'e göre bir bilişim sistemine izinsiz girmenin cezası nedir?\nA) Yalnızca uyarı\nB) 1 yıla kadar hapis veya adli para cezası\nC) 10 yıl hapis\nD) Ceza uygulanmaz\n\nDoğru Cevap: B",
+    "gorsel": {
+      "type": "image",
+      "query": "law code justice legal penalty courtroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "CIA Prensipleri",
+    "icerik": "Soru: Bir öğrencinin sınav notunun veritabanında izinsiz olarak 50'den 100'e yükseltilmesi CIA ilkelerinden hangisini doğrudan ihlal eder?\nA) Gizlilik (Confidentiality)\nB) Bütünlük (Integrity)\nC) Erişilebilirlik (Availability)\nD) İnkâr Edilemezlik\n\nDoğru Cevap: B (Bütünlük)",
+    "gorsel": {
+      "type": "image",
+      "query": "data alteration integrity test question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Hash Özellikleri",
+    "icerik": "Soru: Girdideki tek bir harf değiştiğinde hash özetinin tamamen değişmesi özelliğine ne denir?\nA) Simetrik Şifreleme\nB) Çığ Etkisi (Avalanche Effect)\nC) Port Yönlendirme\nD) Tersine Mühendislik\n\nDoğru Cevap: B",
+    "gorsel": {
+      "type": "image",
+      "query": "algorithm mathematical function quiz board"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Kendi Parolanızın Güvenliği",
+    "icerik": "Tartışma Konusu:\nKendi belirlediğiniz bir metin dosyasının SHA-256 hashini alın. Dosyanın sonuna sadece bir adet boşluk karakteri ekleyip tekrar hash alın.\n- İki hash arasında kaç karakterlik benzerlik kaldı?\n- Çığ etkisini kendi gözlerinizle teyit ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "students discussing cybersecurity laboratory computer screens"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Siber güvenlik etik kurallar ve TCK 243/244 yasaları çerçevesinde yürütülür.\n- CIA Üçlüsü (Gizlilik, Bütünlük, Erişilebilirlik) savunma mimarisinin temel taşıdır.\n- SHA-256 hash fonksiyonu tek yönlüdür ve veri bütünlüğünü kanıtlar.\n- Çığ etkisi sayesinde en ufak tahrifatlar dahi gizlenemez.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map technology review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 2: Siber Saldırı Yaşam Döngüsü ve Ağ Güvenliği",
+    "icerik": "Ön Hazırlık:\n- Saldırganlar bir hedefe saldırırken hangi 7 aşamadan (Cyber Kill Chain) geçer?\n- Firewall ve IDS/IPS cihazları ağın neresinde konumlandırılır?\n- Gelecek hafta ağ protokollerini ve Netcat ile açık metin iletişim riskini inceleyeceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber kill chain network security firewall concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir şirketin e-ticaret web sitesi Black Friday indirim gününde aşırı trafik sebebiyle çökmüş ve müşteriler 4 saat boyunca siteye girememiştir. Bu durum CIA üçlüsünün hangi ilkesinin ihlalidir ve şirket bunu önlemek için ne yapmalıdır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket classroom feedback evaluation student"
+    }
+  }
+]

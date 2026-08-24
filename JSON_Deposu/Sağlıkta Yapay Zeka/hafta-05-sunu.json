@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "HBYS/EHR ve Sağlık Veri Standartları",
+    "altbaslik": "Birlikte Çalışabilirlik, HL7 ve FHIR Ekosistemi",
+    "icerik": "- Kapsam: Hastane Bilgi Yönetim Sistemleri (HBYS), Elektronik Sağlık Kayıtları (EHR/EMR).\n- Birlikte Çalışabilirlik (Interoperability): Farklı sistemlerin birbiriyle hatasız veri alışverişi yapabilmesi.\n- Standartlar: HL7 v2, HL7 v3 ve modern JSON tabanlı HL7 FHIR (Fast Healthcare Interoperability Resources).\n- Türkiye Entegrasyonu: SağlıkBilisim standartları, e-Nabız ve USVS (Ulusal Sağlık Veri Sözlüğü).",
+    "gorsel": {
+      "type": "image",
+      "query": "electronic health record interoperability HL7 FHIR hospital data"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "5. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: HBYS/EHR sistemlerinin YZ altyapısıyla nasıl entegre olduğunu açıklar.\n- ÖÇ2: HL7 ve FHIR standartlarının mimari farklarını ve amaçlarını karşılaştırır.\n- ÖÇ3: JSON formatındaki temel bir FHIR kaynak (Resource) belgesini okur ve yorumlar.\n- ÖÇ4: Standartlaşmamış verinin hastane operasyonunda ve YZ projelerinde yaratacağı riskleri değerlendirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives healthcare data standards HL7 FHIR"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Sağlıkta Veri Siloları (Data Silos)",
+    "altbaslik": "Birbiriyle Konuşamayan Hastane Sistemleri",
+    "icerik": "- Problem: Laboratuvar (LBYS), Radyoloji (PACS), Eczane ve Klinik Servis sistemlerinin ayrı diller konuşması.\n- Sonuç: Hastanın bir servisteki alerji bilgisi diğer servisteki hekimin ekranında görünmeyebilir!\n- YZ'ye Etkisi: Veriler standart bir formatta birleşmediğinde yapay zeka modelleri eğitilemez ve çalışamaz.\n- Çözüm: Ortak sağlık veri iletişim protokolleri ve standartlaştırılmış veri havuzları.",
+    "gorsel": {
+      "type": "image",
+      "query": "data silos healthcare isolated hospital systems integration"
+    }
+  },
+  {
+    "baslik": "Birlikte Çalışabilirlik (Interoperability) Düzeyleri",
+    "altbaslik": "Teknikten Anlamsal Uyuma 4 Seviye",
+    "icerik": "- 1. Teknik (Foundational): İki sistemin kablo/ağ üzerinden birbirine veri paketi gönderebilmesi.\n- 2. Yapısal (Structural): Veri formatının ve alanlarının (ör. JSON/XML şeması) tanımlı olması.\n- 3. Anlamsal (Semantic): Verinin içeriğinin her iki tarafta da aynı tıbbi anlama gelmesi (Ör. SNOMED-CT).\n- 4. Organizasyonel: Kurumlar arası yasal, etik ve iş akışı uyumu.",
+    "gorsel": {
+      "type": "image",
+      "query": "semantic interoperability healthcare data layers diagram"
+    }
+  },
+  {
+    "baslik": "HL7'nin Evrimi: v2, v3 ve FHIR",
+    "altbaslik": "Boru Hatlarından Modern Web Servislerine",
+    "icerik": "- HL7 v2 (1989): Boru (|) ve şapka (^) karakterleriyle ayrılmış metin mesajları (Halen yaygın, ancak okunması zor).\n- HL7 v3: XML tabanlı, aşırı karmaşık ve hantal model (Sektörde adaptasyonu düşük kaldı).\n- HL7 FHIR (2014+): Modern RESTful API, JSON ve XML desteğiyle web geliştiricilerinin kolayca kullandığı yeni standart.",
+    "gorsel": {
+      "type": "image",
+      "query": "HL7 v2 vs HL7 FHIR evolution JSON REST API healthcare"
+    }
+  },
+  {
+    "baslik": "FHIR'ın Temel Yapı Taşı: Kaynaklar (Resources)",
+    "altbaslik": "Modüler Tıbbi Veri Nesneleri",
+    "icerik": "- Tanım: Sağlıkla ilgili her bir kavramın bağımsız bir 'Kaynak' (Resource) olarak modellenmesi.\n- Temel Kaynak Örnekleri:\n  * Patient (Hasta kimlik ve demografik bilgileri)\n  * Observation (Laboratuvar sonucu, tansiyon, nabız vb. ölçümler)\n  * Condition (Tanı ve hastalıklar)\n  * MedicationRequest (İlaç reçetesi ve istemi)\n  * Encounter (Hasta viziti ve muayene kaydı)",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR resources patient observation condition modular healthcare"
+    }
+  },
+  {
+    "baslik": "Örnek FHIR JSON Yapısı: Patient Kaynağı",
+    "altbaslik": "Hasta Nesnesinin JSON İncelemesi",
+    "icerik": "- resourceType: 'Patient'\n- identifier: Hasta TC veya Dosya Numarası\n- name: [{ 'family': 'Yılmaz', 'given': ['Ahmet'] }]\n- gender: 'male'\n- birthDate: '1985-06-15'\n- address: İl, ilçe ve posta kodu bilgileri\n- Tıbbi Veri Teknikeri Notu: JSON hiyerarşisi net, anahtar-değer (key-value) çiftleri şeffaftır.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR JSON patient resource code snippet healthcare schema"
+    }
+  },
+  {
+    "baslik": "Örnek FHIR JSON Yapısı: Observation Kaynağı",
+    "altbaslik": "Laboratuvar Ölçümünün JSON İncelemesi",
+    "icerik": "- resourceType: 'Observation'\n- status: 'final'\n- code: LOINC Kodu (Ör. 15074-8 Glukoz [Serum])\n- subject: { 'reference': 'Patient/12345' }\n- valueQuantity: { 'value': 126, 'unit': 'mg/dL', 'system': 'http://unitsofmeasure.org' }\n- referenceRange: Normal referans aralığı (70-100 mg/dL)\n- Anlamsal Güvenlik: Ölçü birimi (unit) standart kodla tanımlanmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR observation JSON lab result blood glucose LOINC"
+    }
+  },
+  {
+    "baslik": "LOINC ve UCUM Standartları",
+    "altbaslik": "Laboratuvar ve Ölçü Birimi Evrensel Kodları",
+    "icerik": "- LOINC (Logical Observation Identifiers Names and Codes): Laboratuvar testleri ve klinik gözlemlerin evrensel kodu.\n- UCUM (Unified Code for Units of Measure): Ölçü birimlerinin standart yazımı (Ör. mg/dL, mmol/L, mm[Hg]).\n- YZ Faydası: Farklı hastanelerdeki 'Açlık Kan Şekeri' testleri LOINC kodu sayesinde tek bir ortak veri sütununda birleşir.",
+    "gorsel": {
+      "type": "image",
+      "query": "LOINC coding laboratory informatics UCUM units measurement"
+    }
+  },
+  {
+    "baslik": "Standartsız Verinin Yarattığı 3 Büyük Kriz",
+    "altbaslik": "Sahada Karşılaşılan Kaos Senaryoları",
+    "icerik": "- 1. Birim Karmaşası: Bir laboratuvarın mg/dL, diğerinin mmol/L girmesi sonucu YZ'nin zehirlenme teşhisi koyması.\n- 2. Eşanlamlılık (Synonym) Kaosu: 'Şeker Hastalığı', 'Diyabet', 'DM Tip 2', 'NIDDM' ifadelerinin ayrı hastalık sanılması.\n- 3. Tarih Formatı Hatası: '04/05/2024' ifadesinin 4 Mayıs mı yoksa 5 Nisan mı olduğunun anlaşılamaması.",
+    "gorsel": {
+      "type": "image",
+      "query": "healthcare data confusion unit mismatch medical error"
+    }
+  },
+  {
+    "baslik": "Türkiye'de Sağlık Veri Standartları ve e-Nabız",
+    "altbaslik": "Merkezi Ulusal Sağlık Sistemi Entegrasyonu",
+    "icerik": "- USVS (Ulusal Sağlık Veri Sözlüğü): Sağlık Bakanlığı tarafından tanımlanan zorunlu veri setleri.\n- SKRS (Sağlık Kodlama Referans Sunucusu): Tanı, işlem, ilaç ve birim kodlarının merkezi sunucusu.\n- e-Nabız Mimarisi: Tüm kamu, özel ve üniversite hastanelerinden akan verilerin tek vatandaş portalında toplanması.\n- Veri Teknikeri Görevi: HBYS'den e-Nabız'a veri gönderim paketlerinin hata loglarını denetlemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "e-nabiz national health records turkey healthcare informatics"
+    }
+  },
+  {
+    "baslik": "Python ile FHIR JSON Verisi Okuma Atölyesi",
+    "altbaslik": "Pratik Veri Ayrıştırma (Parsing)",
+    "icerik": "- Adım 1: JSON dosyasını Python json kütüphanesiyle yükleme.\n- Adım 2: 'resourceType' kontrolü yapma.\n- Adım 3: 'valueQuantity' altındaki sayısal değer ve birimi çekme.\n- Adım 4: Hasta ID'si ile eşleştirerek temiz bir pandas DataFrame oluşturma.\n- Sonuç: YZ modeline beslenecek temiz ve yapılandırılmış tablo çıktısı.",
+    "gorsel": {
+      "type": "image",
+      "query": "python parsing JSON FHIR data jupyter notebook table"
+    }
+  },
+  {
+    "baslik": "HBYS-YZ Entegrasyon Modelleri",
+    "altbaslik": "Yapay Zeka Hastane Sistemine Nasıl Bağlanır?",
+    "icerik": "- 1. Batch (Toplu) Entegrasyon: Gece saatlerinde günün tüm verilerinin YZ sunucusuna aktarılıp analiz edilmesi.\n- 2. Gerçek Zamanlı (Real-time API): Hekim HBYS'de 'Kaydet'e bastığı an FHIR JSON paketiyle YZ'ye gidip anında öneri dönmesi.\n- 3. PACS Entegrasyonu: Radyoloji çekiminin doğrudan YZ sunucusuna kopyalanıp DICOM SR raporu olarak geri dönmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital IT architecture real time API integration AI"
+    }
+  },
+  {
+    "baslik": "SMART on FHIR Mimarisi",
+    "altbaslik": "Sağlık Uygulamalarının 'App Store'u",
+    "icerik": "- SMART on FHIR Nedir?: Herhangi bir sağlık uygulamasının, HBYS yazılımını değiştirmeden bir eklenti (plugin) gibi güvenle çalışabilmesi.\n- OAuth2 Güvenliği: Hekimin HBYS kullanıcı şifresiyle YZ uygulamasına güvenli giriş yapması.\n- Evrensel Uyumluluk: Bir kez geliştirilen YZ modülünün Epic, Cerner veya yerli HBYS sistemlerinin hepsinde çalışabilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "smart on fhir architecture medical app integration oauth2"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Standart Yönetimindeki Rolü",
+    "altbaslik": "Sistem Sağlığının Bekçisi",
+    "icerik": "- 1. SKRS Kod Eşleme: Hastanede açılan yeni laboratuvar testlerinin bakanlık SKRS kodlarıyla eşleştirilmesi.\n- 2. Gönderim Hata Denetimi: e-Nabız veri paketlerindeki 'Zorunlu alan eksik' veya 'Geçersiz kod' hatalarını tespit edip düzeltmek.\n- 3. FHIR Şema Kontrolü: YZ projelerine aktarılacak JSON kaynaklarının veri bütünlüğünü test etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "health data specialist monitoring e-nabiz dashboard error logs"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 5. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Birlikte çalışabilirlik olmadan sağlıkta yapay zeka sürdürülebilir olamaz.\n- HL7 FHIR; hafif, modüler ve JSON tabanlı yapısıyla küresel sağlık standardı haline gelmiştir.\n- Tıbbi kodlama sistemleri (LOINC, SNOMED, ICD) verinin anlamsal bütünlüğünü sağlar.\n- Tıbbi veri teknikeri, veri standartlarına uygunluk ve e-Nabız gönderim süreçlerinin kilit sorumlusudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept map HL7 FHIR medical standards"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Standartlar ve JSON Bilgi Kontrolü",
+    "icerik": "- Soru 1: Bir kan şekeri tahlil sonucunu taşımak için en uygun FHIR Kaynağı (Resource) hangisidir?\n  Cevap: Observation kaynağı.\n- Soru 2: İki farklı hastane HBYS'sinin aynı tahlil sonucunu farklı birimlerde kaydetmesi hangi birlikte çalışabilirlik seviyesinin eksikliğidir?\n  Cevap: Anlamsal (Semantic) birlikte çalışabilirlik eksikliği.",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions FHIR JSON interoperability"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Vaka Analizi",
+    "altbaslik": "Operasyonel Veri Riski",
+    "icerik": "- Senaryo: Özel bir hastane HBYS güncellemesi sonrası e-Nabız sistemine tansiyon verilerini 'mm-Hg' yerine 'KPa' biriminde göndermiştir.\n- Soru: Bu durum merkezi YZ erken uyarı sistemlerinde ne tür bir hataya yol açar?\n- Cevap: Değerler sayısal olarak çok küçük görüneceğinden sistem tüm hastaları 'şok/ağır hipotansiyon' sanarak yanlış alarmlar üretecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "blood pressure unit conversion medical risk"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 5. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. JSON formatındaki bir FHIR Observation kaynağında en kritik alan sizce hangisidir?\n- 2. e-Nabız sisteminde standart kodlar kullanılmasaydı ne gibi sorunlar yaşanırdı?\n- 3. Gelecek hafta konusu: Veri Kalitesinin YZ Performansına Etkisi ve Eksik Veri Doldurma.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "6. Hafta: Veri Kalitesinin YZ Performansına Etkisi",
+    "icerik": "- Konu: Eksik veri doldurma (Imputation), gürültü temizleme, normalizasyon ve aykırı değerler.\n- Odak: Veri temizliğinin model doğruluğu ve klinik güvenilirlik üzerindeki doğrudan etkisi.\n- Hazırlık: Geçen dönem gördüğünüz eksik veri tamamlama yöntemlerini (ortalama, medyan, KNN) hatırlayınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "data preprocessing quality imputation preview"
+    }
+  },
+  {
+    "baslik": "FHIR Condition Kaynağı (Tanılar ve Teşhisler)",
+    "altbaslik": "Hastalıkların Standart JSON Yapısı",
+    "icerik": "- resourceType: 'Condition'\n- clinicalStatus: 'active' veya 'resolved'\n- code: ICD-10 veya SNOMED Kodu (Ör. I10 Esansiyel Hipertansiyon)\n- subject: { 'reference': 'Patient/12345' }\n- onsetDateTime: Hastalığın başlangıç tarihi\n- Önemi: YZ modeli hastanın geçmiş kronik hastalık geçmişini bu kaynaktan okur.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR condition resource JSON schema diagnosis code"
+    }
+  },
+  {
+    "baslik": "FHIR MedicationRequest Kaynağı (İlaç İstemleri)",
+    "altbaslik": "Reçetelerin Standart Veri Mimarisi",
+    "icerik": "- resourceType: 'MedicationRequest'\n- status: 'active'\n- medicationCodeableConcept: RxNorm veya SKRS İlaç Kodu\n- dosageInstruction: Doz miktarı (500 mg), sıklığı (2x1), kullanım yolu (Oral)\n- authoredOn: Reçete yazılış tarihi ve hekim bilgisi\n- CDSS Entegrasyonu: İlaç etkileşim kuralları bu kaynak tetiklendiğinde çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR medication request JSON prescription code"
+    }
+  },
+  {
+    "baslik": "FHIR Encounter Kaynağı (Klinik Vizitler)",
+    "altbaslik": "Hasta Yatış, Taburculuk ve Muayene Kaydı",
+    "icerik": "- resourceType: 'Encounter'\n- class: 'inpatient' (Yatan), 'outpatient' (Ayaktan), 'emergency' (Acil)\n- period: Başlangıç ve bitiş zamanı (Yatış-çıkış süresi)\n- reasonCode: Başvuru şikayeti\n- serviceProvider: Hastane ve klinik birim bilgisi\n- YZ Kullanımı: Hastanede kalış süresi (Length of Stay - LOS) tahmin modelleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR encounter JSON hospital admission discharge"
+    }
+  },
+  {
+    "baslik": "FHIR Bundle Yapısı: Tüm Dosyayı Tek Pakette Taşımak",
+    "altbaslik": "Kaynakların Koleksiyon Paketi",
+    "icerik": "- Bundle Nedir?: Hasta, tahlil, reçete ve tanı kaynaklarının tek bir büyük JSON belgesinde paketlenmesi.\n- type: 'transaction' veya 'searchset'\n- entry: İçindeki tüm kaynakların listesi\n- Kullanım: e-Nabız'a veya merkezi YZ analiz motoruna tüm vizit verisini tek API çağrısıyla göndermek.",
+    "gorsel": {
+      "type": "image",
+      "query": "FHIR bundle JSON collection multiple resources"
+    }
+  },
+  {
+    "baslik": "RESTful API ve Sağlıkta CRUD İşlemleri",
+    "altbaslik": "Web Protokolleriyle Sağlık Verisi Yönetimi",
+    "icerik": "- GET /Patient/12345: 12345 nolu hastanın verilerini çek.\n- POST /Observation: Yeni bir laboratuvar tahlil sonucu kaydet.\n- PUT /Condition/987: Mevcut bir tanıyı güncelle (Ör. Aktiften İyileşmişe).\n- DELETE: Hatalı mükerrer kaydı silme.\n- Standartlık: Dünyanın her yerindeki FHIR sunucuları aynı HTTP komutlarıyla çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "REST API HTTP GET POST PUT DELETE healthcare architecture"
+    }
+  },
+  {
+    "baslik": "Sağlık Bilişimi Ağ Güvenliği ve HTTPS",
+    "altbaslik": "Kablodaki Verinin Şifrelenmesi (TLS/SSL)",
+    "icerik": "- Tehlike: Ağ üzerinden geçen şifresiz HL7 mesajlarının kötü niyetli kişilerce dinlenmesi (Sniffing).\n- Standart: Tüm FHIR ve HBYS iletişimleri zorunlu olarak TLS 1.3 / HTTPS şifrelemesiyle yapılmalıdır.\n- API Key & JWT Token: Sadece yetkili hastane ve YZ sunucularının veri çekebilmesini sağlayan dijital kimlik kartları.",
+    "gorsel": {
+      "type": "image",
+      "query": "cybersecurity HTTPS TLS encryption health data network"
+    }
+  },
+  {
+    "baslik": "Sağlık Veri Ambarı (Data Warehouse) ve OMOP CDM",
+    "altbaslik": "Büyük Sağlık Araştırmaları Veri Modeli",
+    "icerik": "- OMOP CDM (Observational Medical Outcomes Partnership): Farklı hastanelerin verilerini tek bir ortak analitik şemada birleştiren küresel standart.\n- OHDSI Ağı: Dünyada yüz milyonlarca hastanın verisi üzerinde güvenli YZ araştırmaları yapmayı sağlar.\n- Fark: FHIR operasyonel iletişim içindir; OMOP büyük veri analitiği içindir.",
+    "gorsel": {
+      "type": "image",
+      "query": "OMOP CDM common data model OHDSI analytics relational schema"
+    }
+  },
+  {
+    "baslik": "e-Nabız Entegrasyon Hata Kodları ve Çözümleri",
+    "altbaslik": "Teknikerin Günlük Takip Listesi",
+    "icerik": "- Hata 101: 'Hasta TC Kimlik Numarası MERNİS ile Doğrulanamadı' -> Nüfus bilgisi kontrolü.\n- Hata 204: 'SKRS Tıbbi İşlem Kodu Geçersiz veya Pasif' -> SKRS tablosunu güncelle.\n- Hata 305: 'Zorunlu Alan Boş (Birim veya Değer Eksik)' -> HBYS giriş formuna validasyon ekle.\n- Çözüm: Hatalı paketlerin derhal düzeltilip tekrar kuyruğa alınması.",
+    "gorsel": {
+      "type": "image",
+      "query": "error log monitor dashboard e-nabiz transmission failure"
+    }
+  },
+  {
+    "baslik": "Açık Sağlık Veri Havuzları ve Sentetik Veri (Synthea)",
+    "altbaslik": "Öğrenci ve Araştırmacılar İçin Gerçekçi Veriler",
+    "icerik": "- Synthea Aracı: Biyolojik kurallara uygun olarak tamamen yapay fakat %100 gerçekçi FHIR hasta kayıtları üreten simülatör.\n- Faydası: Hiçbir gerçek hastanın mahremiyetini ihlal etmeden milyonlarca yapay hasta verisiyle YZ modelleri eğitmek.\n- Standart: Synthea çıktıları doğrudan FHIR JSON formatındadır.",
+    "gorsel": {
+      "type": "image",
+      "query": "synthea synthetic patient health data generator FHIR"
+    }
+  },
+  {
+    "baslik": "HBYS Veri Tabanı Mimarisi: İlişkisel Tablolardan JSON'a",
+    "altbaslik": "SQL vs NoSQL Sağlık Veritabanları",
+    "icerik": "- SQL (İlişkisel): Hasta Tablosu, Tahlil Tablosu, Reçete Tablosu (Foreign Key ile bağlı).\n- NoSQL / Doküman Tabanlı: Tüm hasta geçmişinin tek bir FHIR JSON dokümanı olarak saklanması.\n- Hibrit Yaklaşım: Modern HBYS'ler hem SQL ilişkisel tabloları hem de hızlı JSON sütunlarını birlikte kullanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "SQL relational database vs NoSQL JSON document healthcare"
+    }
+  },
+  {
+    "baslik": "Standartların Geleceği: Yapay Zeka Odaklı Sağlık Ağları",
+    "altbaslik": "Veri Taşımadan Model Eğitme (Federated Learning)",
+    "icerik": "- Klasik Model: Verileri tek bir merkezi sunucuya toplamak (Yasal ve güvenlik kısıtları vardır).\n- Federe Öğrenme (Federated Learning): YZ algoritmasının hastaneleri gezmesi; verinin hastaneden hiç çıkmaması.\n- Standart Şartı: Federe öğrenmenin çalışabilmesi için tüm hastanelerin FHIR/OMOP standardında olması şarttır!",
+    "gorsel": {
+      "type": "image",
+      "query": "federated learning healthcare distributed AI privacy hospitals"
+    }
+  }
+]

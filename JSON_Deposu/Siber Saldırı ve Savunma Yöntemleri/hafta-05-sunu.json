@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 5",
+    "altbaslik": "Bilgi Toplama Yöntemleri (Reconnaissance) ve Nmap",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Keşif ve Zafiyet Analizi\nHaftalık Odak: Pasif Keşif (OSINT, Shodan, Google Dorking) ve Aktif Keşif (Nmap)\nHedef: Hedef sistem hakkında iz bırakmadan ve aktif olarak istihbarat toplamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "network reconnaissance hacker searching target nmap shodan"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Savaş Keşifle Kazanılır",
+    "icerik": "Siber saldırıların ve sızma testlerinin yüzde 70'i bilgi toplama aşamasıdır.\n- Hedefin IP'sini, açık portlarını ve çalışan servis sürümlerini bilmeden saldırı yapılamaz.\n- Hatalı bilgi toplamak yanlış exploit seçilmesine ve sistemin çökmesine neden olur.",
+    "gorsel": {
+      "type": "image",
+      "query": "soc analyst threat intelligence dashboard map"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Pasif ve Aktif bilgi toplama arasındaki teknik/yasal farkları açıklar.\n2. Whois ve DNS sorgulama araçlarını (dig, host) yetkin kullanır.\n3. Google Dorking ve Shodan IoT arama motoru ile özel aramalar yapar.\n4. Nmap port durumlarını (Open, Closed, Filtered) analiz eder.\n5. Nmap ile ağ taraması, servis versiyonu (-sV) ve işletim sistemi (-O) tespiti yapar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives checklist reconnaissance"
+    }
+  },
+  {
+    "baslik": "Bilgi Toplama: Pasif vs Aktif Keşif",
+    "altbaslik": "İz Bırakan ve Bırakmayan Yöntemler",
+    "icerik": "Pasif Keşif: Hedef sunucuya doğrudan paket GÖNDERİLMEZ. Herkese açık kaynaklar (OSINT, Whois, Arama Motorları) taranır. Hedef fark edemez.\nAktif Keşif: Hedef sunucuya doğrudan paketler GÖNDERİLİR (Nmap, Zafiyet Taraması). Hedefin Güvenlik Duvarı ve IDS loglarına düşer.",
+    "gorsel": {
+      "type": "image",
+      "query": "passive vs active reconnaissance comparison diagram"
+    }
+  },
+  {
+    "baslik": "OSINT (Açık Kaynak İstihbaratı) Nedir?",
+    "altbaslik": "Halka Açık Bilgilerin Gücü",
+    "icerik": "Herkesin erişimine açık internet verilerinden istihbarat çıkarma sanatıdır.\n- Şirketin iş ilanları (Hangi firewall ve veritabanını kullandıklarını ele verir!)\n- Çalışanların LinkedIn ve GitHub paylaşımları (Kodların içine unutulan API şifreleri)\n- Sosyal medya fotoğraflarındaki şirket içi panolar ve kimlik kartları.",
+    "gorsel": {
+      "type": "image",
+      "query": "osint open source intelligence globe network nodes"
+    }
+  },
+  {
+    "baslik": "Whois ve DNS İstihbaratı",
+    "altbaslik": "Alan Adı Kimin Elinde?",
+    "icerik": "- Whois: Bir domainin kime ait olduğunu, kayıt ve bitiş tarihini, sorumlu e-postalarını listeler.\n- DNS Sorguları: Alan adının arkasındaki IP'leri, Mail (MX) sunucularını ve alt alan adlarını (subdomain) ortaya çıkarır.\nAraçlar: whois, dig, host, nslookup.",
+    "gorsel": {
+      "type": "image",
+      "query": "dns server domain name lookup diagram networking"
+    }
+  },
+  {
+    "baslik": "DNS Kayıt Türleri ve Anlamları",
+    "altbaslik": "A, AAAA, MX, TXT ve NS",
+    "icerik": "- A Kaydı: Domain adını IPv4 adresine eşler.\n- AAAA Kaydı: Domain adını IPv6 adresine eşler.\n- MX Kaydı: Kurumun e-posta sunucularını gösterir.\n- TXT Kaydı: SPF, DKIM gibi güvenlik doğrulama metinlerini tutar.\n- NS Kaydı: Alan adının yetkili Name Server sunucularını listeler.",
+    "gorsel": {
+      "type": "image",
+      "query": "dns record types table a mx txt ns diagram"
+    }
+  },
+  {
+    "baslik": "Google Dorking (Google Hacking)",
+    "altbaslik": "Arama Motorlarını Güvenlik Açığı İçin Kullanmak",
+    "icerik": "Google'ın gelişmiş operatörleriyle gizli dosya ve panelleri bulma yöntemidir:\n- site:hedef.edu.tr : Sadece ilgili domainde arar.\n- filetype:pdf veya filetype:sql : Dosya uzantısına göre süzer.\n- inurl:admin veya inurl:login : URL içinde admin sayfası arar.\n- intitle:\"index of /\" : Sunucuda dizin listelemesi açık olan klasörleri yakalar.",
+    "gorsel": {
+      "type": "image",
+      "query": "google search bar hacking dorking advanced search"
+    }
+  },
+  {
+    "baslik": "Shodan: IoT ve Cihaz Arama Motoru",
+    "altbaslik": "İnternetin Karanlık Röntgeni",
+    "icerik": "Web sitelerini değil, internete bağlı TÜM cihazları (IP Kameralar, Trafik Işıkları, SCADA, Sunucular) tarayan motordur.\nÖrnek Filtreler:\n- port:3389 country:\"TR\" (Türkiye'deki açık Uzak Masaüstü sunucuları)\n- product:\"Microsoft IIS httpd\"\n- city:\"Giresun\" webcam",
+    "gorsel": {
+      "type": "image",
+      "query": "shodan search engine iot connected devices world map"
+    }
+  },
+  {
+    "baslik": "Aktif Keşfin Lideri: Nmap (Network Mapper)",
+    "altbaslik": "Ağ Haritalama Standardı",
+    "icerik": "Nmap, açık kaynaklı en gelişmiş ağ tarama aracıdır.\nNeler Yapar?\n- Ağda ayakta olan canlı cihazları bulur.\n- Cihazlardaki açık portları ve arkasında çalışan servisleri listeler.\n- Servislerin kesin sürüm numaralarını (Apache 2.4.41 vb.) yakalar.\n- Hedefin işletim sistemini (Windows/Linux) tespit eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap network mapper terminal matrix hacking screen"
+    }
+  },
+  {
+    "baslik": "Nmap Port Durumlarının Anlamı",
+    "altbaslik": "Open, Closed ve Filtered Farkı",
+    "icerik": "1. Open (Açık): Port arkasında bir servis dinliyor ve bağlantıyı kabul etti.\n2. Closed (Kapalı): Port arkasında çalışan servis yok; hedef RST paketiyle reddetti.\n3. Filtered (Filtreli): Güvenlik Duvarı (Firewall) paketi düşürdü (Drop), yanıt dönmedi.",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap port states open closed filtered firewall diagram"
+    }
+  },
+  {
+    "baslik": "TCP 3'lü El Sıkışma ve Tarama Türleri",
+    "altbaslik": "SYN vs Connect Taraması",
+    "icerik": "- TCP Connect Taraması (-sT): 3'lü el sıkışmayı (SYN -> SYN-ACK -> ACK) tamamlar. Loglarda görünür, yavaştır.\n- TCP SYN Taraması (-sS): Gizli (Stealth) taramadır. SYN gönderir, SYN-ACK gelince bağlantıyı tamamlamadan RST atıp kapatır!\n  * Çok hızlıdır, varsayılan tarama yöntemidir ve root yetkisi gerektirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "tcp three way handshake syn syn-ack ack diagram"
+    }
+  },
+  {
+    "baslik": "Temel Nmap Parametreleri",
+    "altbaslik": "Komut Satırı Sözdizimi",
+    "icerik": "- -sn : Ping taraması (Sadece ayaktaki IP'leri bulur)\n- -sS : TCP SYN gizli tarama\n- -sV : Servis sürüm tespiti (Version Detection)\n- -O : İşletim sistemi tespiti (OS Detection)\n- -p 80,443,3389 : Sadece belirli portları tara\n- -p- : 1'den 65535'e kadar TÜM portları tara\n- -T4 : Hızlı tarama modu (T0 yavaş, T5 agresif)",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap cheat sheet command line parameters options"
+    }
+  },
+  {
+    "baslik": "Nmap Script Engine (NSE) Nedir?",
+    "altbaslik": "Gelişmiş Zafiyet Taraması",
+    "icerik": "Nmap sadece port taramaz; bünyesindeki Lua scriptleri ile zafiyetleri de denetler.\n- --script=vuln : Hedefteki bilinen güvenlik açıklarını (CVE) otomatik tarar.\n- --script=banner : Portun karşılama mesajını (banner) çeker.\n- --script=smb-vuln-ms17-010 : EternalBlue açığını test eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap script engine nse lua vulnerability scanning"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Nmap Taramaları",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n1. Whois ve DNS sorguları yapacağız.\n2. Tüm laboratuvar ağındaki canlı IP'leri bulacağız (Ping Sweep).\n3. Windows Server 2019 hedefimize yönelik detaylı port ve servis taraması koşturacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "students working in computer network laboratory terminals"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Whois ve DNS Sorgulama",
+    "altbaslik": "Alan Adı Bilgilerini Çekme",
+    "icerik": "Terminalde şu komutları sırayla çalıştırın:\nwhois giresun.edu.tr\nhost -t a giresun.edu.tr\nhost -t mx giresun.edu.tr\ndig giresun.edu.tr ANY\nİnceleyin: Alan adının IP karşılığını ve sorumlu mail sunucularını not edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "whois dig dns terminal output network"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Ağdaki Canlı Cihazları Bulma",
+    "altbaslik": "Nmap Ping Sweep (-sn)",
+    "icerik": "Laboratuvar subnetimizdeki (192.168.1.0/24) tüm açık cihazları listeleyelim:\nsudo nmap -sn 192.168.1.0/24\nBeklenen Çıktı:\nNmap scan report for 192.168.1.10 (Host is up)\nNmap scan report for 192.168.1.101 (Host is up)\n...\n60 adet Kali ve 2 adet sunucunun ayakta olduğunu göreceksiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap ping sweep terminal output live hosts"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Windows Server 2019 Taraması",
+    "altbaslik": "Servis ve Versiyon Keşfi (-sV -O)",
+    "icerik": "Windows Server 2019 (192.168.1.10) üzerindeki servisleri tarayalım:\nsudo nmap -sS -sV -O -p 80,445,3389 192.168.1.10\nBeklenen Çıktı:\n80/tcp   open  http          Microsoft IIS httpd 10.0\n445/tcp  open  microsoft-ds  Microsoft Windows Server 2019\n3389/tcp open  ms-wbt-server Microsoft Terminal Services",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap version detection scan output terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Hızlı Port Taraması (-F)",
+    "altbaslik": "En Popüler 100 Port",
+    "icerik": "Zaman kısıtlı olduğunda en çok kullanılan 100 portu hızlıca taramak için:\nsudo nmap -F 192.168.1.10\nSonuç birkaç saniye içinde ekrana gelecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "fast port scan nmap terminal speed"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Nmap Taramalarında Dikkat Edilecekler",
+    "icerik": "1. 'Root privileges required' Hatası: TCP SYN (-sS) ve OS (-O) taramaları ham soket kullandığı için başına 'sudo' konulmalıdır.\n2. Taramanın Donması: Çok geniş ağlarda -p- kullanmak saatler sürebilir; önce -p 1-1000 veya -F ile hızlı tarama yapılmalıdır.\n3. Küçük/Büyük Harf: -sV sürüm tespiti yaparken, -sv yazarsanız hata verir.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting nmap errors sudo checklist"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Equifax Skandalı",
+    "altbaslik": "Versiyon Tespiti Neden Hayatidir?",
+    "icerik": "Vaka: Kredi derecelendirme devi Equifax'tan 147 milyon kişinin verisi çalındı.\nİnceleme: Saldırganlar Nmap ve zafiyet tarayıcılarıyla sunucuda 'Apache Struts' yazılımının eski ve yamalanmamış bir sürümünün çalıştığını tespit etti.\nSonuç: Bu versiyona ait CVE-2017-5638 açığı istismar edilerek tüm veritabanı sızdırıldı.",
+    "gorsel": {
+      "type": "image",
+      "query": "data breach equifax scandal cyber investigation"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Zafiyet Yönetimi",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Ders: Nmap ile elde edilen versiyon bilgisi doğrudan Exploit-DB ve Ulusal Zafiyet Veritabanı (NVD) ile karşılaştırılmalıdır.\nEğer sunucuda eski bir IIS veya Apache sürümü görünüyorsa, saldırganlardan önce yama uygulanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "vulnerability assessment patch management security"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Keşif Yöntemleri",
+    "icerik": "Soru: Hedef sunucuya hiçbir paket göndermeden, arama motorları ve Whois kayıtları üzerinden yapılan bilgi toplamaya ne denir?\nA) Aktif Bilgi Toplama\nB) Pasif Bilgi Toplama\nC) DoS Saldırısı\nD) SQL Injection\n\nDoğru Cevap: B (Pasif Bilgi Toplama)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Nmap Port Durumları",
+    "icerik": "Soru: Nmap taramasında bir portun durumu 'filtered' olarak görünüyorsa bunun en olası sebebi nedir?\nA) Portta servis çalışmıyordur.\nB) Güvenlik Duvarı (Firewall) paketi engellemiştir.\nC) Sunucu kapalıdır.\nD) IP adresi yanlıştır.\n\nDoğru Cevap: B (Güvenlik Duvarı Engeli)",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall filtered port test question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Nmap Parametreleri",
+    "icerik": "Soru: Hedefteki portta çalışan servisin marka ve kesin sürüm numarasını (Örn: Apache 2.4.41) tespit eden Nmap parametresi hangisidir?\nA) -sS\nB) -O\nC) -sV\nD) -sn\n\nDoğru Cevap: C (-sV)",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap parameters version detection question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Arama Motorları",
+    "icerik": "Soru: İnternete bağlı IP kameraları, endüstriyel kontrol sistemlerini ve açık portları listeleyen IoT arama motoru hangisidir?\nA) Google\nB) Shodan\nC) Yahoo\nD) Yandex\n\nDoğru Cevap: B (Shodan)",
+    "gorsel": {
+      "type": "image",
+      "query": "shodan search engine question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "TCP Taraması",
+    "icerik": "Soru: Bağlantıyı tamamlamadan SYN-ACK gelince RST paketi atarak kapatan gizli Nmap tarama modu hangisidir?\nA) -sT (Connect)\nB) -sS (SYN Stealth)\nC) -sU (UDP)\nD) -sn (Ping)\n\nDoğru Cevap: B (-sS)",
+    "gorsel": {
+      "type": "image",
+      "query": "tcp syn scan question multiple choice"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Nmap Çıktısı Analizi",
+    "icerik": "Uygulama Görevi:\nEğitmen hedef makinede gizli bir port açtı.\n- sudo nmap -p 1-5000 192.168.1.10 komutunu çalıştırın.\n- Açık portu ve servisi ilk bulan öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Bilgi toplama siber saldırıların temelidir; pasif keşif iz bırakmaz, aktif keşif hedefe dokunur.\n- OSINT, Google Dorking ve Shodan hedef yüzeyini anlamayı sağlar.\n- Nmap -sS ile gizli tarar, -sV ile servis sürümünü, -O ile işletim sistemini yakalar.\n- Port durumları (Open/Closed/Filtered) güvenlik duvarı mimarisini ele verir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 6: Siber Güvenlikte Parola Kırma Teknikleri",
+    "icerik": "Ön Hazırlık:\n- MD5 ve SHA-256 hashleri nasıl kırılır?\n- Crunch ile hedefe özel kelime listesi (Wordlist) nasıl üretilir?\n- John the Ripper aracıyla parola kırma laboratuvarı yapacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "password cracking hashcat john the ripper matrix"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Nmap taramasında -sV parametresinin sızma testlerindeki hayati önemini tek bir cümleyle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

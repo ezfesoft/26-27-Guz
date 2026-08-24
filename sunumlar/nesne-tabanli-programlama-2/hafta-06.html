@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 06 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 06</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-07.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 6", "altbaslik": "Dunder (Sihirli) Metotlar ve Hata Yönetimi", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Dunder Metotlar (__str__, __len__, __repr__), try-except Blokları ve Güvenli Kodlama\nUygulama Teması: Kütüphane Kitaplığı ve Güvenli ATM Para Çekme Konsolu", "gorsel": {"type": "image", "query": "magic methods dunder python exception handling try except"}}, {"baslik": "Motivasyon: print(kitap) Deyince Ne Görüyoruz?", "altbaslik": "Çirkin Bellek Adreslerinden Türkçe Açıklamalara", "icerik": "Bir nesneyi ekrana yazdırdığımızda <__main__.Kitap object at 0x000001B...> görmek kullanıcıya hiçbir şey anlatmaz.\n- Biz 'Suç ve Ceza - Dostoyevski (600 Sayfa)' görmek isteriz.\n- Ayrıca kullanıcı harf girdiğinde programın kırmızı hata verip aniden kapanmasını istemeyiz.\n- Bugün kodlarımızı hem kullanıcı dostu hem de kurşun geçirmez yapacağız!", "gorsel": {"type": "image", "query": "console error stack trace debug clean display"}}, {"baslik": "Dunder (Double Underscore) Metotlar Nedir?", "altbaslik": "Python'ın Sihirli Metotları", "icerik": "Dunder metotlar, isimleri çift alt çizgiyle başlayıp biten özel metotlardır:\n- `__init__`: Nesne doğarken çalışır.\n- `__str__`: print() dendiğinde çalışır.\n- `__len__`: len() çağrıldığında çalışır.\n- `__repr__`: Geliştirici için teknik temsil metnidir.\nPython'ın yerleşik kurallarını kendi sınıflarımıza kazandırırlar.", "gorsel": {"type": "image", "query": "magic wand wizard python double underscore code"}}, {"baslik": "__str__() Metodu ile Güzel Yazdırma", "altbaslik": "Son Kullanıcı İçin Açıklama", "icerik": "class Kitap:\n    def __init__(self, baslik, yazar, sayfa):\n        self.baslik = baslik\n        self.yazar = yazar\n        self.sayfa = sayfa\n\n    def __str__(self):  # print(kitap) dendiğinde otomatik çalışır!\n        return f'📖 \"{self.baslik}\" - {self.yazar} ({self.sayfa} sayfa)'\n\nk = Kitap('Nutuk', 'Mustafa Kemal Atatürk', 600)\nprint(k)  # 📖 \"Nutuk\" - Mustafa Kemal Atatürk (600 sayfa)", "gorsel": {"type": "image", "query": "open book library bookmark reading reading"}}, {"baslik": "__len__() Metodu", "altbaslik": "Kendi Nesnelerimize len() Desteği Vermek", "icerik": "class Kitaplik:\n    def __init__(self):\n        self.kitaplar = []\n\n    def ekle(self, kitap):\n        self.kitaplar.append(kitap)\n\n    def __len__(self):  # len(kitaplik) çağrılınca çalışır!\n        return len(self.kitaplar)\n\nraf = Kitaplik()\nraf.ekle('Kitap 1')\nraf.ekle('Kitap 2')\nprint('Kitap Sayısı:', len(raf))  # 2", "gorsel": {"type": "image", "query": "bookshelf organizing books library measurement"}}, {"baslik": "__repr__() Metodu", "altbaslik": "Geliştirici ve Debugging İçin Temsil", "icerik": "class Kitap:\n    # ...\n    def __repr__(self):\n        return f'Kitap(baslik=\"{self.baslik}\", sayfa={self.sayfa})'\n\n# Bir liste içindeki nesneler ekrana basıldığında __repr__ çalışır:\nliste = [Kitap('A', 'X', 100), Kitap('B', 'Y', 200)]\nprint(liste)\n# [Kitap(baslik=\"A\", sayfa=100), Kitap(baslik=\"B\", sayfa=200)]", "gorsel": {"type": "image", "query": "debugging tool software developer inspect code"}}, {"baslik": "__eq__() ile Nesne Eşitlik Karşılaştırması", "altbaslik": "İki Kitap Aynı mı?", "icerik": "class Kitap:\n    def __init__(self, isbn, baslik):\n        self.isbn = isbn\n        self.baslik = baslik\n\n    def __eq__(self, diger):\n        return self.isbn == diger.isbn\n\nk1 = Kitap('978-1', 'Nutuk')\nk2 = Kitap('978-1', 'Nutuk')\nprint(k1 == k2)  # True (ISBN numaraları eşit olduğu için)", "gorsel": {"type": "image", "query": "equality comparison scales balance object"}}, {"baslik": "Hata Yönetimi: Program Neden Çöker?", "altbaslik": "Çalışma Zamanı Hataları (Runtime Exceptions)", "icerik": "1. ValueError: Sayı beklenirken harf girilmesi (int('abc'))\n2. ZeroDivisionError: Bir sayının 0'a bölünmeye çalışılması (10 / 0)\n3. IndexError: Listede var olmayan bir sıranın çağrılması (liste[99])\n4. KeyError: Sözlükte olmayan bir anahtarın istenmesi\n5. FileNotFoundError: Dosyanın bulunamaması", "gorsel": {"type": "image", "query": "crash error warning computer screen alert"}}, {"baslik": "try - except Bloğu Mantığı", "altbaslik": "Hatanın Önüne Güvenlik Ağı Çekmek", "icerik": "try bloğundaki kodda bir hata çıkarsa program çökmez; anında except bloğuna atlar:\n\ntry:\n    sayi = int(input('Lütfen bir sayı girin: '))\n    print('Karesi:', sayi * sayi)\nexcept ValueError:\n    print('⚠️ HATA: Sayı yerine geçersiz karakter girdiniz!')\n\nProgram çalışmaya güvenle devam eder.", "gorsel": {"type": "image", "query": "safety net circus acrobat error protection"}}, {"baslik": "Birden Fazla Hatayı Yakalama", "altbaslik": "Her Hataya Ayrı Uyarı", "icerik": "try:\n    tutar = float(input('Hesap Tutarı: '))\n    kisi = int(input('Kişi Sayısı: '))\n    kisi_basi = tutar / kisi\n    print(f'Kişi Başı: {kisi_basi:.2f} TL')\nexcept ValueError:\n    print('⚠️ Geçersiz sayı formatı!')\nexcept ZeroDivisionError:\n    print('⚠️ Kişi sayısı 0 olamaz!')", "gorsel": {"type": "image", "query": "split bill dining cafe calculator restaurant"}}, {"baslik": "finally ve else Blokları", "altbaslik": "Her Koşulda Çalışan Kodlar", "icerik": "try:\n    # Riskli kodlar\n    sonuc = 10 / 2\nexcept ZeroDivisionError:\n    print('Hata!')\nelse:\n    print('Tebrikler! Hiç hata çıkmadı. Sonuç:', sonuc)\nfinally:\n    print('İşlem tamamlandı (Her zaman çalışır).')", "gorsel": {"type": "image", "query": "flowchart workflow decision programming"}}, {"baslik": "Kendi Hatamızı Fırlatma: raise", "altbaslik": "Kurallara Uymayana Hata Çıkarmak", "icerik": "Bazen Python kendisi hata vermez ama bizim iş kuralımız gereği hata fırlatmamız gerekir:\n\ndef para_cek(bakiye, miktar):\n    if miktar > bakiye:\n        raise ValueError('Yetersiz Bakiye! Çekilemez.')\n    return bakiye - miktar\n\ntry:\n    yeni_bakiye = para_cek(100, 250)\nexcept ValueError as e:\n    print(f'Reddedildi: {e}')", "gorsel": {"type": "image", "query": "referee red card penalty soccer exception"}}, {"baslik": "Laboratuvar Döngüsü 1: Kitap Sınıfında __str__", "altbaslik": "Adım Adım Kodluyoruz", "icerik": "class Kitap:\n    def __init__(self, baslik, yazar, sayfa):\n        self.baslik = baslik\n        self.yazar = yazar\n        self.sayfa = sayfa\n\n    def __str__(self):\n        return f'📚 {self.baslik} ({self.yazar}) - {self.sayfa} Sayfa'\n\nk1 = Kitap('Simyacı', 'Paulo Coelho', 184)\nprint(k1)", "gorsel": {"type": "image", "query": "book cover printing visual terminal"}}, {"baslik": "Laboratuvar Döngüsü 2: Kitaplık Rafı ve __len__", "altbaslik": "Koleksiyon Sınıfı Tasarımı", "icerik": "class Kitaplik:\n    def __init__(self):\n        self.raf = []\n\n    def ekle(self, kitap):\n        self.raf.append(kitap)\n\n    def __len__(self):\n        return len(self.raf)\n\nkutuphanem = Kitaplik()\nkutuphanem.ekle(k1)\nprint(f'Kitaplıkta {len(kutuphanem)} kitap var.')", "gorsel": {"type": "image", "query": "library archive shelf inventory books"}}, {"baslik": "Laboratuvar Döngüsü 3: Güvenli ATM Para Girişi", "altbaslik": "try-except ile Sonsuz Döngüde Doğru Sayı Alma", "icerik": "while True:\n    try:\n        tutar = float(input('Yatırılacak Tutar (TL): '))\n        if tutar <= 0:\n            print('Pozitif bir tutar giriniz!')\n            continue\n        print(f'{tutar:.2f} TL başarıyla yatırıldı.')\n        break\n    except ValueError:\n        print('Lütfen sadece sayısal değer giriniz!')", "gorsel": {"type": "image", "query": "atm touchscreen cash deposit machine"}}, {"baslik": "Laboratuvar Döngüsü 4: Liste İndeks Hatasını Engelleme", "altbaslik": "IndexError Yakalama", "icerik": "menu = ['Çay', 'Kahve', 'Tost']\n\ntry:\n    secim = int(input('Seçiminiz (1-3): ')) - 1\n    print(f'Seçilen Ürün: {menu[secim]}')\nexcept IndexError:\n    print('⚠️ Geçersiz menü numarası seçtiniz!')\nexcept ValueError:\n    print('⚠️ Lütfen bir rakam tuşlayınız!')", "gorsel": {"type": "image", "query": "cafe menu order selection terminal"}}, {"baslik": "Çözümlü Uygulama 1: Dosya Okuma Güvenliği", "altbaslik": "FileNotFoundError Yakalama", "icerik": "try:\n    with open('notlar.txt', 'r', encoding='utf-8') as f:\n        icerik = f.read()\nexcept FileNotFoundError:\n    print('⚠️ notlar.txt dosyası bulunamadı! Yeni dosya oluşturuluyor...')\n    with open('notlar.txt', 'w', encoding='utf-8') as f:\n        f.write('Başlangıç Notu\\n')", "gorsel": {"type": "image", "query": "file not found error folder document"}}, {"baslik": "Çözümlü Uygulama 2: Sıcaklık Dönüştürücü", "altbaslik": "Celsius -> Fahrenheit Güvenli Çeviri", "icerik": "def c_to_f(c_str):\n    try:\n        c = float(c_str)\n        return (c * 9/5) + 32\n    except ValueError:\n        return None\n\nprint('25 C =', c_to_f('25'), 'F')\nprint('Geçersiz =', c_to_f('yirmi beş'))", "gorsel": {"type": "image", "query": "thermometer temperature weather conversion"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Kod:\nsözlük = {'ad': 'Ali'}\nprint(sözlük['yas'])\n\nProblem Nedir?\n'yas' anahtarı sözlükte olmadığı için KeyError fırlatılır!\nÇözüm:\ntry:\n    print(sözlük['yas'])\nexcept KeyError:\n    print('Yaş bilgisi bulunamadı.')", "gorsel": {"type": "image", "query": "key error python dictionary debugging"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "class Kutu:\n    def __len__(self):\n        return 5\n\nk = Kutu()\nprint(len(k) * 2)\n\nÇıktı: 10 (len(k) __len__ metodundan 5 döner, 5 * 2 = 10 olur).", "gorsel": {"type": "image", "query": "cardboard box length measurement package"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "Hata Yönetiminde 3 Kritik Yanlış", "icerik": "1. Çıplak except kullanmak (except: pass diyerek tüm hataları yutmak hataları gizler).\n2. __str__ metodunda return yerine print() kullanmak (None döner ve bozulur).\n3. try bloğunun içine 100 satır gereksiz kod koymak (Sadece hata çıkabilecek riskli satırları koyun).", "gorsel": {"type": "image", "query": "warning caution software quality checklist"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Dunder Metotlar", "icerik": "Soru: print(nesne) çağrıldığında tetiklenen dunder metot hangisidir?\nA) __print__\nB) __str__\nC) __main__\nD) __init__\n\nDoğru Cevap: B (__str__ metodu çalışır).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Hata Yakalama", "icerik": "Soru: int('abc') satırı hangi hata türünü fırlatır?\nA) TypeError\nB) KeyError\nC) ValueError\nD) ZeroDivisionError\n\nDoğru Cevap: C (Geçersiz değer tip dönüşümü -> ValueError).", "gorsel": {"type": "image", "query": "error type testing classroom test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "finally Bloğu", "icerik": "Soru: finally bloğunun özelliği nedir?\nA) Sadece hata çıkarsa çalışır\nB) Sadece hata çıkmazsa çalışır\nC) Hata çıksa da çıkmasa da HER ZAMAN çalışır\nD) Programı durdurur\n\nDoğru Cevap: C (Her zaman çalışır).", "gorsel": {"type": "image", "query": "workflow sequence finalization step"}}, {"baslik": "Sektörel Vaka: Bankacılık ATM Çökmesi", "altbaslik": "try-except Olmazsa Ne Olur?", "icerik": "Gerçek Yaşam Vakası:\nBir banka ATM'sinde kullanıcı kartı çekmeden önce harf tuşlamış ve yazılım çökmüştür.\nATM yeniden başlarken kullanıcının kartı cihazın içinde kilitli kalmıştır.\nEğer try-except ValueError kullanılsaydı ekran sadece 'Geçersiz tuş' uyarısı verecekti.", "gorsel": {"type": "image", "query": "atm machine error blue screen out of order"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Çökmeyen Kütüphane Kitap Arama Konsolu", "icerik": "Göreviniz:\n1. Kitap sınıfı oluşturun (__str__ metodu olsun).\n2. 4 adet kitap nesnesini bir listeye koyun.\n3. Kullanıcıdan aramak istediği kitap sıra numarasını isteyin.\n4. Eğer kullanıcı harf girerse ValueError, 1-4 aralığı dışında girerse IndexError yakalayın.\n5. Program hiçbir koşulda kırmızı hata verip çökmemelidir.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "bulletproof solid code programming mission"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "kitaplar = [\n    Kitap('Nutuk', 'Atatürk', 600),\n    Kitap('Simyacı', 'Coelho', 180)\n]\n\ntry:\n    sira = int(input('Kitap No (1-2): ')) - 1\n    print('Bulunan:', kitaplar[sira])\nexcept (ValueError, IndexError):\n    print('⚠️ Geçersiz bir seçim yaptınız!')", "gorsel": {"type": "image", "query": "hints blueprint code solution help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- __str__ nesnelerin insan dilinde güzel yazdırılmasını sağlar.\n- __len__ nesnelere len() yeteneği kazandırır.\n- try-except beklenmedik hataları yakalayarak programın çökmesini engeller.\n- raise ile kendi iş kurallarımız gereği özel hatalar fırlatabiliriz.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 7: Modüler Proje Yönetimi ve venv/pip", "icerik": "Ön Hazırlık:\n- Kodlarımızı modeller.py, servisler.py ve main.py olarak 3 ayrı dosyaya böleceğiz.\n- PyCharm üzerinde sanal ortamları (venv) ve pip paket yöneticisini öğreneceğiz.\n- Renkli konsol kütüphaneleri kuracağız!", "gorsel": {"type": "image", "query": "modular software structure folders files python"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir Urun sınıfı yazın. __str__ metodu içinde 'Ürün: {self.ad} - {self.fiyat} TL' döndürsün. 2 satırlık test kodunu da ekleyerek kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

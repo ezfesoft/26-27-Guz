@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 10 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 10</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 37 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-09.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 37</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (37 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 10", "altbaslik": "switch-case ve Timer ile Animasyonlu Durum Makineleri", "icerik": "Program: Bilgisayar Programcılığı\nModül: Durum Yönetimi ve Zamanlayıcılar\nHaftalık Odak: switch-case, break, default, Timer Kontrolü (Tick Olayı)\nHedef: Zamanla otomatik değişen animasyonlu görsel simülasyonlar üretmek.", "gorsel": {"type": "image", "query": "stopwatch timer traffic lights switch case state machine"}}, {"baslik": "Neden switch-case Kullanırız?", "altbaslik": "Sektörel Bağlam: TV Kumandası Hızı", "icerik": "Tek bir değişkenin belirli sabit değerlerle (1, 2, 3, 'A', 'B') birebir eşitliğini kontrol ederken if-else zinciri yazmak yorucudur.\n- switch-case tek bir hamlede ilgili değere zıplar (Jump Table).\n- Kod çok daha temiz, okunaklı ve düzenli olur.", "gorsel": {"type": "image", "query": "tv remote control buttons channels switch"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. switch-case yapısının kullanım amaçlarını ve if-else'ten farkını açıklar.\n2. switch, case, break ve default anahtar kelimelerini hatasız kullanır.\n3. Timer (Zamanlayıcı) kontrolünü ve Interval/Tick mekanizmasını yönetir.\n4. Durum Makinesi (State Machine) mantığıyla adım adım çalışan sistem kurar.\n5. 'Animasyonlu Akıllı Trafik Lambası' projesini üretir.", "gorsel": {"type": "image", "query": "learning targets goals state machine automation"}}, {"baslik": "Somut Analoji: Televizyon Kumandası", "altbaslik": "switch-case'i Zihinde Canlandırmak", "icerik": "- switch (secilenTus): Kumandayı elinize aldınız.\n- case 1: 1. Tuşa basıldıysa TRT1'i aç.\n- break;: İşi bitir, diğer tuşlara bakma!\n- case 2: 2. Tuşa basıldıysa ATV'yi aç.\n- default: Tanımsız bir tuşa basıldıysa 'Geçersiz Kanal' uyarısı ver.", "gorsel": {"type": "image", "query": "remote control channel selection television screen"}}, {"baslik": "switch-case Temel Sentaksı", "altbaslik": "C# Söz Dizimi ve Kuralları", "icerik": "switch (kontrol_edilen_degisken)\n{\n    case 1:\n        // 1 ise çalışacak kod\n        break; // Zorunlu çıkış kapısı\n    case 2:\n        // 2 ise çalışacak kod\n        break;\n    default:\n        // Hiçbiri değilse çalışacak varsayılan kod\n        break;\n}", "gorsel": {"type": "image", "query": "csharp switch case code block syntax"}}, {"baslik": "break; Komutunun Hayati Rolü", "altbaslik": "Kapıyı Kilitleyip Dışarı Çıkmak", "icerik": "C# dilinde her case bloğunun sonuna MUTLAKA 'break;' yazılmalıdır.\n- break; komutu, eşleşen işlem bittiğinde switch parantezinden dışarı fırlatır.\n- break; unutulursa C# derleyicisi 'Control cannot fall through' hatası verir ve kodu çalıştırmaz!", "gorsel": {"type": "image", "query": "exit door lock break barrier sign concept"}}, {"baslik": "Case Gruplama (Fall-Through Mantığı)", "altbaslik": "Birden Çok Değerin Aynı İşi Yapması", "icerik": "Örnek: Mevsim belirleme (12, 1, 2 ayları Kış mevsimidir):\n\nswitch (ayNo)\n{\n    case 12:\n    case 1:\n    case 2:\n        lblMevsim.Text = \"Kış\";\n        break;\n    case 3:\n    case 4:\n    case 5:\n        lblMevsim.Text = \"İlkbahar\";\n        break;\n}", "gorsel": {"type": "image", "query": "grouping categories seasons winter spring logic"}}, {"baslik": "Zamanın Efendisi: Timer Kontrolü", "altbaslik": "Kendi Kendine Çalışan Saat Mekanizması", "icerik": "Toolbox'tan forma sürüklenir. Formun üstünde değil alt gri tepside yer alır.\n- Interval (Aralık): Milisaniye cinsinden hız (1000 ms = 1 saniye).\n- Enabled (true/false): Saati başlatır veya durdurur.\n- Tick Olayı: Süre her dolduğunda (her 1 saniyede bir) otomatik çalışan metottur.", "gorsel": {"type": "image", "query": "stopwatch clock ticking timer interval visual studio"}}, {"baslik": "Durum Makinesi (State Machine) Nedir?", "altbaslik": "Adım Adım İlerleyen Sistemler", "icerik": "Birçok sistem döngüsel adımlarla çalışır:\n- Adım 1: Kırmızı Işık (DUR)\n- Adım 2: Kırmızı + Sarı Işık (HAZIRLAN)\n- Adım 3: Yeşil Işık (GEÇ)\n- Adım 4: Sarı Işık (DİKKAT)\n- Adım 5: Tekrar Adım 1'e dön!\nHer saniye adımı 1 artırıp switch(adim) ile kontrol edeceğiz.", "gorsel": {"type": "image", "query": "finite state machine diagram steps transition"}}, {"baslik": "Günün Büyük Uygulaması: Animasyonlu Trafik Lambası", "altbaslik": "Senaryo ve Arayüz Tasarımı", "icerik": "Senaryo: Gerçekçi bir kavşak trafik lambası simülasyonu.\n- Formda 3 adet Panel (Kırmızı, Sarı, Yeşil kutular) bulunur.\n- 'Sistemi Başlat' butonuna basınca Timer devreye girer.\n- Her saniye renkler ve ekrandaki sürücü uyarı yazısı otomatik değişir.", "gorsel": {"type": "image", "query": "traffic signal intersection red yellow green lights"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi", "icerik": "Paneller: pnlKirmizi, pnlSari, pnlYesil (80x80 piksel)\nButonlar: btnBaslat ('🚦 Başlat'), btnDurdur ('🛑 Durdur')\nZamanlayıcı: timer1 (Interval = 1000, Enabled = false)\nDurum Etiketi: lblDurum (18pt Bold)", "gorsel": {"type": "image", "query": "ui layout traffic lights panels buttons visual studio"}}, {"baslik": "Uygulama Kodları: Başlat ve Durdur", "altbaslik": "Timer'ı Kontrol Etmek", "icerik": "int adim = 0; // Form seviyesinde durum sayacı\n\nprivate void btnBaslat_Click(object sender, EventArgs e)\n{\n    timer1.Start(); // veya timer1.Enabled = true;\n    lblDurum.Text = \"Trafik Işığı Devrede...\";\n}\n\nprivate void btnDurdur_Click(object sender, EventArgs e)\n{\n    timer1.Stop(); // veya timer1.Enabled = false;\n    lblDurum.Text = \"Sistem Durduruldu!\";\n}", "gorsel": {"type": "image", "query": "start stop timer buttons code controls"}}, {"baslik": "Uygulama Kodları: timer1_Tick Olayı", "altbaslik": "switch-case ile Işıkları Yönetmek", "icerik": "private void timer1_Tick(object sender, EventArgs e)\n{\n    adim++;\n    switch (adim)\n    {\n        case 1: // KIRMIZI\n            pnlKirmizi.BackColor = Color.Red;\n            pnlSari.BackColor = Color.Gray;\n            pnlYesil.BackColor = Color.Gray;\n            lblDurum.Text = \"🛑 DUR!\";\n            break;\n        case 2: // SARI\n            pnlKirmizi.BackColor = Color.Red;\n            pnlSari.BackColor = Color.Yellow;\n            pnlYesil.BackColor = Color.Gray;\n            lblDurum.Text = \"⚠️ HAZIRLAN!\";\n            break;\n        case 3: // YEŞİL\n            pnlKirmizi.BackColor = Color.Gray;\n            pnlSari.BackColor = Color.Gray;\n            pnlYesil.BackColor = Color.LimeGreen;\n            lblDurum.Text = \"🟢 GEÇ!\";\n            break;\n        default:\n            adim = 0; // Başa dön\n            break;\n    }\n}", "gorsel": {"type": "image", "query": "csharp switch case code traffic lights color update"}}, {"baslik": "if-else ile switch-case Karşılaştırması", "altbaslik": "Hangisini Ne Zaman Kullanmalıyız?", "icerik": "- if-else: Büyüktür, küçüktür gibi aralık kontrollerinde (> 50, < 100) ZORUNLUDUR.\n- switch-case: Sabit eşitlik durumlarında (case 1, case 'A', case \"admin\") çok daha hızlı ve okunaklıdır.\n- Geleneksel switch ile 'case > 50:' yazılamaz!", "gorsel": {"type": "image", "query": "comparison table switch case vs if else"}}, {"baslik": "Sektörel Vaka: Asansör Kontrol Yazılımı", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "10 katlı bir binanın asansör motoru:\nswitch (hedefKat)\n{\n    case 0: ZeminKattaDur(); break;\n    case 1: BirinciKattaDur(); break;\n    case 5: BesinciKattaDur(); break;\n}\nAsansör sistemleri klasik durum makinesi mantığıyla switch-case üzerinden yönetilir.", "gorsel": {"type": "image", "query": "elevator buttons floor indicator digital panel"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "switch-case Kuralları", "icerik": "Soru: switch-case bloğunda her case'in sonundan çıkışı sağlayan zorunlu kelime hangisidir?\n\nA) exit\nB) stop\nC) break\nD) continue\n\nDoğru Cevap: C (break komutu case bloğunu sonlandırıp switch'ten çıkmayı sağlar).", "gorsel": {"type": "image", "query": "quiz test examination correct answer test"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Timer Özellikleri", "icerik": "Soru: Timer kontrolünün her 2 saniyede bir tetiklenmesi için Interval değeri kaç yapılmalıdır?\n\nA) 2\nB) 20\nC) 200\nD) 2000\n\nDoğru Cevap: D (Interval milisaniye cinsindendir. 1 saniye = 1000 ms, 2 saniye = 2000 ms).", "gorsel": {"type": "image", "query": "timer clock milliseconds quiz calculation"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "default Bloğu", "icerik": "Soru: switch yapısında hiçbir case değeri eşleşmediğinde hangi blok çalışır?\n\nA) else\nB) default\nC) catch\nD) finally\n\nDoğru Cevap: B (default bloğu hiçbir case uymadığında çalışan varsayılan daldır).", "gorsel": {"type": "image", "query": "default fallback case option quiz"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Haftanın Günü Bulucu", "icerik": "Görev:\n- Kutuya 1-7 arası gün numarası girilsin.\n- switch-case ile 1->Pazartesi, 6/7->Hafta Sonu tatili mesajı versin.", "gorsel": {"type": "image", "query": "calendar week days Monday Friday weekend"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Bu Haftanın Anahtar Terimleri", "icerik": "- switch-case: Çoklu sabit eşleşme karar yapısı.\n- break: Case bloğundan zorunlu çıkış anahtarı.\n- default: Eşleşme olmadığında devreye giren varsayılan blok.\n- Timer: Milisaniye cinsinden tekrarlayan zamanlayıcı bileşen.\n- Interval: Timer'ın iki çalışma arasındaki bekleme süresi (ms).", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- switch-case yapısını, break ve default anahtar kelimelerini kavradık.\n- Timer kontrolünün Interval ve Tick mekanizmasını öğrendik.\n- Durum makinesi (State Machine) mantığıyla adım adım çalışan bir sistem kurduk.\n- Animasyonlu Trafik Lambası projesini başarıyla tamamladık.", "gorsel": {"type": "image", "query": "summary roadmap knowledge learning complete"}}, {"baslik": "Modern C#: Switch Expressions (C# 8.0+)", "altbaslik": "Tek Satırda Değer Döndüren switch", "icerik": "Yeni nesil C# sürümlerinde switch ifadesi lambda (=>) ile çok daha kısa yazılabilir:\n\nstring mevsim = ay switch\n{\n    12 or 1 or 2 => \"Kış\",\n    3 or 4 or 5  => \"İlkbahar\",\n    6 or 7 or 8  => \"Yaz\",\n    _            => \"Geçersiz Ay\"\n};\nBu sentaks kod satır sayısını yarı yarıya azaltır.", "gorsel": {"type": "image", "query": "modern csharp switch expression lambda arrow"}}, {"baslik": "Pattern Matching (Desen Eşleme)", "altbaslik": "Gelişmiş switch-case Yetenekleri", "icerik": "C# 7.0 ile birlikte switch içine tip kontrolleri ve 'when' şartları eklenebilmiştir:\n\nswitch (nesne)\n{\n    case int i when i > 100: lblSonuc.Text = \"Büyük Sayı\"; break;\n    case string s: lblSonuc.Text = \"Metin: \" + s; break;\n}", "gorsel": {"type": "image", "query": "pattern matching csharp advanced features"}}, {"baslik": "Timer ile Kronometre Yapımı", "altbaslik": "Saniye ve Dakika Sayacı", "icerik": "int saniye = 0;\nint dakika = 0;\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    saniye++;\n    if (saniye == 60) { dakika++; saniye = 0; }\n    lblKronometre.Text = dakika.ToString(\"00\") + \":\" + saniye.ToString(\"00\");\n}", "gorsel": {"type": "image", "query": "digital stopwatch minutes seconds timer screen"}}, {"baslik": "Timer ile Form Hareketi (Animasyon)", "altbaslik": "Pikselleri Hareket Ettirmek", "icerik": "Bir butonu veya paneli sağa doğru kaydırmak için:\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    btnAraba.Left += 5; // Her saniye 5 piksel sağa kaydır\n    if (btnAraba.Left > this.Width) btnAraba.Left = 0; // Başa dön\n}", "gorsel": {"type": "image", "query": "animation movement pixels moving car sprite game"}}, {"baslik": "Sık Yapılan switch-case Hataları", "altbaslik": "Yazılımcı Tuzakları", "icerik": "1. case ifadelerine değişken yazmak (case x: HATA! Yalnızca sabit değerler yazılabilir).\n2. İki farklı case'e aynı değeri vermek (case 1: ve tekrar case 1: -> Derleme hatası).\n3. break; komutunu unutmak.", "gorsel": {"type": "image", "query": "compiler error duplicate case visual studio"}}, {"baslik": "Sektörel Vaka: Akıllı Çamaşır Makinesi", "altbaslik": "Program Seçim Düğmesi", "icerik": "Çamaşır makinesinin yuvarlak ayar düğmesi:\nswitch (secilenProgram)\n{\n    case \"Pamuklu\": Sure = 120; Sicaklik = 60; break;\n    case \"Hızlı 15'\": Sure = 15; Sicaklik = 30; break;\n    case \"Sıkma\": Sure = 10; SıkmaDevri = 1000; break;\n}\nGömülü sistemlerin program seçim mekanizması switch-case ile kurulur.", "gorsel": {"type": "image", "query": "washing machine control dial programs panel"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "switch Kısıtlaması", "icerik": "Soru: Geleneksel switch-case yapısında aşağıdakilerden hangisi doğrudan kontrol EDİLEMEZ?\n\nA) Sayının 5'e eşit olması (case 5:)\nB) Metnin 'admin' olması (case \"admin\":)\nC) Sayının 50'den büyük olması (case > 50:)\nD) Harfin 'A' olması (case 'A':)\n\nDoğru Cevap: C (Geleneksel switch yalnızca sabit eşitlikleri kontrol eder, aralık kontrolleri yapılamaz).", "gorsel": {"type": "image", "query": "quiz test choice switch limitation logic"}}, {"baslik": "Modern C#: Switch Expressions (C# 8.0+)", "altbaslik": "Tek Satırda Değer Döndüren switch", "icerik": "Yeni nesil C# sürümlerinde switch ifadesi lambda (=>) ile çok daha kısa yazılabilir:\n\nstring mevsim = ay switch\n{\n    12 or 1 or 2 => \"Kış\",\n    3 or 4 or 5  => \"İlkbahar\",\n    6 or 7 or 8  => \"Yaz\",\n    _            => \"Geçersiz Ay\"\n};\nBu sentaks kod satır sayısını yarı yarıya azaltır.", "gorsel": {"type": "image", "query": "modern csharp switch expression lambda arrow"}}, {"baslik": "Pattern Matching (Desen Eşleme)", "altbaslik": "Gelişmiş switch-case Yetenekleri", "icerik": "C# 7.0 ile birlikte switch içine tip kontrolleri ve 'when' şartları eklenebilmiştir:\n\nswitch (nesne)\n{\n    case int i when i > 100: lblSonuc.Text = \"Büyük Sayı\"; break;\n    case string s: lblSonuc.Text = \"Metin: \" + s; break;\n}", "gorsel": {"type": "image", "query": "pattern matching csharp advanced features"}}, {"baslik": "Timer ile Kronometre Yapımı", "altbaslik": "Saniye ve Dakika Sayacı", "icerik": "int saniye = 0;\nint dakika = 0;\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    saniye++;\n    if (saniye == 60) { dakika++; saniye = 0; }\n    lblKronometre.Text = dakika.ToString(\"00\") + \":\" + saniye.ToString(\"00\");\n}", "gorsel": {"type": "image", "query": "digital stopwatch minutes seconds timer screen"}}, {"baslik": "Timer ile Form Hareketi (Animasyon)", "altbaslik": "Pikselleri Hareket Ettirmek", "icerik": "Bir butonu veya paneli sağa doğru kaydırmak için:\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    btnAraba.Left += 5; // Her saniye 5 piksel sağa kaydır\n    if (btnAraba.Left > this.Width) btnAraba.Left = 0; // Başa dön\n}", "gorsel": {"type": "image", "query": "animation movement pixels moving car sprite game"}}, {"baslik": "Sık Yapılan switch-case Hataları", "altbaslik": "Yazılımcı Tuzakları", "icerik": "1. case ifadelerine değişken yazmak (case x: HATA! Yalnızca sabit değerler yazılabilir).\n2. İki farklı case'e aynı değeri vermek (case 1: ve tekrar case 1: -> Derleme hatası).\n3. break; komutunu unutmak.", "gorsel": {"type": "image", "query": "compiler error duplicate case visual studio"}}, {"baslik": "Sektörel Vaka: Akıllı Çamaşır Makinesi", "altbaslik": "Program Seçim Düğmesi", "icerik": "Çamaşır makinesinin yuvarlak ayar düğmesi:\nswitch (secilenProgram)\n{\n    case \"Pamuklu\": Sure = 120; Sicaklik = 60; break;\n    case \"Hızlı 15'\": Sure = 15; Sicaklik = 30; break;\n    case \"Sıkma\": Sure = 10; SıkmaDevri = 1000; break;\n}\nGömülü sistemlerin program seçim mekanizması switch-case ile kurulur.", "gorsel": {"type": "image", "query": "washing machine control dial programs panel"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "switch Kısıtlaması", "icerik": "Soru: Geleneksel switch-case yapısında aşağıdakilerden hangisi doğrudan kontrol EDİLEMEZ?\n\nA) Sayının 5'e eşit olması (case 5:)\nB) Metnin 'admin' olması (case \"admin\":)\nC) Sayının 50'den büyük olması (case > 50:)\nD) Harfin 'A' olması (case 'A':)\n\nDoğru Cevap: C (Geleneksel switch yalnızca sabit eşitlikleri kontrol eder, aralık kontrolleri yapılamaz).", "gorsel": {"type": "image", "query": "quiz test choice switch limitation logic"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Timer kontrolünün her yarım saniyede bir (0.5 sn) çalışması için Interval özelliğine kaç yazılmalıdır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 11: Tekrarlı İşlemler ve for Döngüsü", "icerik": "Gelecek Hafta Neler Yapacağız?\n- 1000 satır kodu 2 satırda halletmek: for döngüsü.\n- Stadyum turu analojisi ve i sayacı.\n- ListBox kontrolü ile verileri alt alta listeleme.\n- Süper Sayı Matik & Çarpım Tablosu projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "loops repetition for loop runner stadium preview"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

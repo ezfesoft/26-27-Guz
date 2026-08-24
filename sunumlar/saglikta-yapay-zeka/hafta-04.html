@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sağlıkta Yapay Zeka - Hafta 04 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #10b981;
+            --accent-glow: #10b98140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🏥</span>
+            <span>Sağlıkta Yapay Zeka</span>
+            <span class="badge-pill">Hafta 04</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Medikal YZ & Teşhis</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-03.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Klinik Karar Destek Sistemleri (CDSS)", "altbaslik": "Mimariler, Veri Girdileri ve Uyarı Mekanizmaları", "icerik": "- Tanım: Klinik karar alma süreçlerinde sağlık personeline kişiselleştirilmiş bilgi ve öneri sunan sistemler.\n- Türler: Kural tabanlı (Rule-based) ve Makine öğrenmesi tabanlı (ML-based) sistemler.\n- Mesleki Rol: Tıbbi veri teknikerinin veri kalitesi, kural tanımlama ve sistem denetimindeki sorumluluğu.\n- Hedef: CDSS'nin hekimin yerine geçmeyen bir 'destek ve güvenlik ağı' olduğunu kavramak.", "gorsel": {"type": "image", "query": "clinical decision support systems hospital screen alerts doctors"}}, {"baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)", "altbaslik": "4. Hafta Hedefleri", "icerik": "- ÖÇ1: CDSS'nin temel bileşenlerini ve veri akış mimarisini açıklar.\n- ÖÇ2: Veri kalitesi eksikliklerinin karar önerilerine nasıl yansıdığını örneklendirir.\n- ÖÇ3: Basit kural tabanlı bir risk skoru algoritması ve karar tablosu tasarlar.\n- ÖÇ4: Yanlış alarmların ve alarm yorgunluğunun (Alert Fatigue) klinik risklerini değerlendirir.", "gorsel": {"type": "image", "query": "learning goals clinical decision support healthcare workflow"}}, {"baslik": "Klinik Bağlam: Hekim Neden Karar Desteğe İhtiyaç Duyar?", "altbaslik": "Tıbbi Bilginin Hızlı Artışı ve Karmaşıklık", "icerik": "- Bilgi Patlaması: Her gün binlerce yeni tıbbi makale ve ilaç etkileşimi yayınlanmaktadır.\n- İlaç-İlaç Etkileşimleri: Bir hastanın kullandığı 8 farklı ilacın çapraz yan etkilerini akılda tutmak imkansızdır.\n- Kritik Durumlar: Sepsis gibi saatler içinde ölüme götüren tabloların erken tespiti.\n- CDSS'nin Rolü: Arka planda 7/24 çalışarak gözden kaçabilecek ölümcül riskleri hatırlatmak.", "gorsel": {"type": "image", "query": "doctor overwhelmed with clinical data patient safety alerts"}}, {"baslik": "CDSS Mimarisi: 3 Temel Bileşen", "altbaslik": "Sistemin İç Yapısı Nasıl Çalışır?", "icerik": "- 1. Bilgi Tabanı (Knowledge Base): Tıbbi kılavuzlar, kural setleri, ilaç veritabanları veya eğitilmiş modeller.\n- 2. Çıkarım Motoru (Inference Engine): Hasta verilerini bilgi tabanıyla eşleştiren mantıksal motor.\n- 3. İletişim Arayüzü (User Interface): Hekimin ekranına çıkan uyarı, öneri veya bilgi formu.", "gorsel": {"type": "image", "query": "CDSS architecture knowledge base inference engine user interface"}}, {"baslik": "Algoritma Yanılgısı: 'Yalnızca Derin Öğrenme Değildir'", "altbaslik": "Kural Tabanlı Sistemlerin Gücü", "icerik": "- Yaygın Yanılgı: 'Bir sistemin akıllı olması için mutlaka karmaşık bir yapay sinir ağı gerekir.'\n- Gerçek: Tıptaki CDSS'lerin %70'inden fazlası sağlam if-then (eğer-ise) kurallarına dayanır.\n- Neden?: Kural tabanlı sistemler %100 açıklanabilirdir, şeffaftır ve kanıta dayalı tıp kılavuzlarıyla birebir uyumludur.\n- Örnek: 'Eğer eGFR < 30 ise ve Metformin yazıldıysa -> UYARI: İlaç dozunu azaltın!'", "gorsel": {"type": "image", "query": "rule based if then logic vs machine learning clinical algorithms"}}, {"baslik": "Kural Tabanlı vs Model Tabanlı CDSS", "altbaslik": "İki Yaklaşımın Karşılaştırmalı Analizi", "icerik": "- Kural Tabanlı (Rule-based): Deterministiktir, şeffaftır, bakımı kolaydır; ancak yeni durumlara esnek uyum sağlayamaz.\n- Model Tabanlı (ML-based): Karmaşık doğrusal olmayan ilişkileri çözer, büyük veriden öğrenir; ancak kara kutudur ve hata yapabilir.\n- Hibrit Yaklaşım: Temel güvenlik kuralları (alerji) için kural tabanlı, karmaşık risk tahminleri için ML tabanlı yapı.", "gorsel": {"type": "image", "query": "comparison table rule based vs machine learning decision support"}}, {"baslik": "Tipik CDSS Uyarı Türleri", "altbaslik": "Klinisyenin Karşılaştığı Bildirim Formatları", "icerik": "- Kesintili Uyarı (Interruptive Alert): Ekranı kilitleyen, hekim onaylamadan kapatılamayan uyarı (Ör. Ölümcül İlaç Alerjisi).\n- Kesintisiz Bildirim (Non-interruptive): Ekranın köşesinde beliren pasif bilgi ikonu (Ör. Aşı hatırlatması).\n- Sipariş Setleri (Order Sets): Belirli bir tanı için standart tetkik ve tedavi paketlerinin otomatik önerilmesi.\n- Doz Hesaplayıcıları: Hastanın kilo ve böbrek fonksiyonuna göre antibiyotik dozu hesaplama.", "gorsel": {"type": "image", "query": "hospital computer pop up alert interruptive warning clinical"}}, {"baslik": "İlaç-İlaç ve İlaç-Alerji Etkileşim Uyarıları", "altbaslik": "En Yaygın ve Hayat Kurtaran CDSS Modülü", "icerik": "- İlaç-İlaç Etkileşimi: Birbirinin etkisini yok eden veya toksisiteyi katlayan iki ilacın aynı anda reçete edilmesi (Ör. Varfarin + Aspirin).\n- İlaç-Alerji Etkileşimi: Penisilin alerjisi olan hastaya Amoksisilin yazıldığında sistemin anında kırmızı alarm vermesi.\n- Doz Kontrolü: Pediyatrik hastalarda yaşa ve kiloya göre maksimum doz sınırının aşılması.", "gorsel": {"type": "image", "query": "drug allergy interaction warning hospital screen pharmacy"}}, {"baslik": "Büyük Tehlike: Alarm Yorgunluğu (Alert Fatigue)", "altbaslik": "Çok Fazla Uyarının Doğurduğu Duyarsızlaşma", "icerik": "- Problem: Hekim günde 100 gereksiz uyarı alırsa, uyarılara bakmadan 'Tamam/Geç' butonuna basmaya başlar.\n- Sonuç: Gerçek ve hayati bir uyarı çıktığında da alışkanlıkla kapatılır ve hasta hayatını kaybedebilir.\n- Sektör Verisi: Hastanelerde CDSS uyarılarının %80-95'i hekimler tarafından dikkate alınmadan kapatılmaktadır!\n- Çözüm: Yalnızca yüksek öncelikli ve kişiselleştirilmiş uyarıların gösterilmesi.", "gorsel": {"type": "image", "query": "alert fatigue doctor dismissing computer warning signs hospital"}}, {"baslik": "Veri Kalitesinin Karar Desteğe Etkisi", "altbaslik": "Eksik Kilo veya Yanlış Yaş Nelere Yol Açar?", "icerik": "- Senaryo: Hemşire hasta kilosunu 70 kg yerine sehven 7.0 kg olarak sisteme girdi.\n- CDSS Çıktısı: Sistem hastayı bebek kabul ederek kemoterapi dozunu 10 kat düşük önerdi!\n- Hata Kaynağı: Algoritma doğru çalıştı, ancak veri girişi hatalıydı (Garbage In, Disaster Out).\n- Veri Teknikeri Sorumluluğu: Uç değerlerin (outliers) veri giriş anında sistem tarafından engellenmesini sağlamak.", "gorsel": {"type": "image", "query": "medical data entry error wrong patient weight calculation"}}, {"baslik": "Atölye: Basit Karar Tablosu (Decision Table) Tasarımı", "altbaslik": "Diyabetik Ketoasidoz (DKA) Erken Uyarı Kuralı", "icerik": "- Girdi Değişkenleri: Kan Şekeri (>250 mg/dL), Kan pH (<7.30), İdrarda Keton (Pozitif).\n- Kural 1: Şeker Yüksek + pH Düşük + Keton Pozitif => KIRMIZI ALARM: DKA Protokolünü Başlat!\n- Kural 2: Şeker Yüksek + pH Normal + Keton Negatif => SARI UYARI: Sıvı Tedavisi ve Takip.\n- Kural 3: Tüm değerler normal => YEŞİL: Rutin İzlem.\n- Görev: Bu karar tablosunu spreadsheet veya Python ile test ediniz.", "gorsel": {"type": "image", "query": "clinical decision table logic tree flowchart healthcare"}}, {"baslik": "Python ile Kural Tabanlı Karar Destek Prototipi", "altbaslik": "Mantıksal Kod Örneği", "icerik": "- Kod Mantığı: Fonksiyona hasta laboratuvar değerleri parametre olarak verilir.\n- Koşul Yapısı: if glukoz > 250 and ph < 7.30 and keton == True:\n- Çıktı Üretimi: return 'Kritik Risk: DKA Şüphesi! Acil dahiliye konsültasyonu isteyiniz.'\n- Mesleki Not: Kod tek başına teşhis koymaz; protokol gereği hekime konsültasyon önerir.", "gorsel": {"type": "image", "query": "python code logic if else statement medical decision support"}}, {"baslik": "Sepsis Erken Uyarı Skorları (NEWS2 / qSOFA)", "altbaslik": "Vital Bulgulardan Risk Puanı Hesaplama", "icerik": "- qSOFA Kriterleri: Solunum Sayısı (>=22), Bilinç Değişikliği (GKS <15), Sistolik Tansiyon (<=100 mmHg).\n- Puanlama: Her kriter 1 puan; toplam skor >=2 ise yüksek sepsis mortalite riski!\n- CDSS Entegrasyonu: Hemşire vital bulguları HBYS'ye girdiği anda arka planda skorun otomatik hesaplanması.\n- Zaman Tasarrufu: Yoğun bakım transferini ve antibiyotik tedavisini saatlerce erkene çeker.", "gorsel": {"type": "image", "query": "qsofa score sepsis early warning vital signs hospital"}}, {"baslik": "Saha Hatası: Güncellenmeyen Bilgi Tabanı", "altbaslik": "Eski Tıbbi Kılavuzların Yarattığı Riskler", "icerik": "- Vaka: Hastane CDSS sistemi 2015 yılı hipertansiyon kılavuzuna göre kurgulanmış.\n- Sorun: 2024 yılında değişen hedef tansiyon değerleri sisteme girilmediği için binlerce hasta yanlış kategorize edildi.\n- Yönetim: Tıbbi bilgi tabanları en geç 6 ayda bir uzman komisyon tarafından gözden geçirilip güncellenmelidir.", "gorsel": {"type": "image", "query": "outdated clinical guidelines vs modern evidence based medicine"}}, {"baslik": "CDSS'de Hukuki ve Etik Sorumluluk: Kararı Kim Verir?", "altbaslik": "Yazılım mı, Hekim mi?", "icerik": "- Hukuki İlke: CDSS tıbbi bir danışmandır; nihai klinik ve yasal sorumluluk her zaman reçeteyi yazan ve tedaviyi onaylayan hekime aittir.\n- Gerekçeli Red (Override): Hekim CDSS uyarısına uymama hakkına sahiptir; ancak sistem neden uymadığını (gerekçesini) kaydetmesini talep eder.\n- Log Kayıtları: Hukuki anlaşmazlıklarda mahkemeler CDSS loglarını delil olarak inceler.", "gorsel": {"type": "image", "query": "medical legal liability doctor signature hospital audit"}}, {"baslik": "Tıbbi Veri Teknikerinin CDSS Operasyonundaki Rolü", "altbaslik": "3 Kritik Sorumluluk Alanı", "icerik": "- 1. Veri Doğrulama: Laboratuvar ve anamnez verilerinin sisteme eksiksiz ve birim uyumlu aktarılması.\n- 2. Hata Bildirimi: Hekimlerden gelen 'Bu uyarı anlamsız/hatalı' geri bildirimlerini toplayıp IT ekibine iletmek.\n- 3. Kural Testi: Yeni eklenen bir klinik kuralın eski hasta kayıtlarında simülasyonunu yaparak yanlış alarm oranını ölçmek.", "gorsel": {"type": "image", "query": "health information management specialist testing hospital software"}}, {"baslik": "Haftalık Özet: 4. Haftanın Ana Fikirleri", "altbaslik": "Akılda Kalması Gerekenler", "icerik": "- CDSS, hasta güvenliğini artıran ve klinik hataları önleyen bir destek teknolojisidir.\n- Sistemler sadece karmaşık yapay zeka ile değil, kanıta dayalı basit kurallarla da hayat kurtarır.\n- Alarm yorgunluğu (Alert Fatigue) CDSS'nin en büyük klinik düşmanıdır.\n- Veri girişindeki en küçük hata, CDSS önerisini ölümcül bir riske dönüştürebilir.", "gorsel": {"type": "image", "query": "summary concept CDSS clinical workflow safety"}}, {"baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)", "altbaslik": "CDSS Kavram ve Alarm Kontrolü", "icerik": "- Soru 1: CDSS'de hekimlerin çok sık çıkan anlamsız uyarıları okumadan kapatması durumuna ne ad verilir?\n  Cevap: Alarm Yorgunluğu (Alert Fatigue).\n- Soru 2: CDSS'nin hasta verisi ile tıbbi kuralları karşılaştıran bileşeni hangisidir?\n  Cevap: Çıkarım Motoru (Inference Engine).", "gorsel": {"type": "image", "query": "quiz questions clinical decision support evaluation"}}, {"baslik": "Ölçme-Değerlendirme: Vaka İtiraz Sorusu", "altbaslik": "Veri Kalitesi İncelemesi", "icerik": "- Senaryo: CDSS, 25 yaşındaki bir hastaya 'Geriatrik Yüksek Doz Uyarısı' vermiştir. Yapılan kontrolde hastanın doğum yılının '1924' olarak girildiği görülmüştür.\n- Soru: Tıbbi veri teknikeri bu durumun tekrarlanmaması için sisteme nasıl bir veri kontrol kuralı (validation rule) eklemelidir?\n- Cevap: Kimlik paylaşım sistemi (MERNİS/KPS) ile entegre otomatik doğum tarihi doğrulama ve mantıksal yaş aralığı kontrolü eklenmelidir.", "gorsel": {"type": "image", "query": "patient age validation data entry quality assurance"}}, {"baslik": "Çıkış Kartı: 4. Hafta Geri Bildirimi", "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız", "icerik": "- 1. Alarm yorgunluğunu azaltmak için hastanenizde ne gibi bir kural optimizasyonu önerirsiniz?\n- 2. Kural tabanlı CDSS ile yapay öğrenme tabanlı CDSS arasındaki en büyük fark nedir?\n- 3. Gelecek hafta konusu: HBYS/EHR ve Sağlık Veri Standartları (HL7 & FHIR).", "gorsel": {"type": "image", "query": "exit ticket student classroom reflection medical"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "5. Hafta: HBYS/EHR ve Veri Standartları (HL7 & FHIR)", "icerik": "- Konu: Hastane Bilgi Yönetim Sistemleri (HBYS), birlikte çalışabilirlik (Interoperability).\n- Odak: HL7 ve FHIR standartları, JSON tabanlı sağlık kaynakları, e-Nabız entegrasyonu.\n- Ön Hazırlık: e-Nabız sisteminde tahlil ve randevu verilerinin nasıl listelendiğini inceleyiniz.", "gorsel": {"type": "image", "query": "electronic health record interoperability HL7 FHIR preview"}}, {"baslik": "CDSS'de Çoklu Parametre Risk Skorlaması", "altbaslik": "Kardiyovasküler Risk Hesaplayıcıları (Framingham)", "icerik": "- Framingham Skoru: Yaş, HDL kolesterol, Total kolesterol, Sistolik tansiyon, Sigara ve Diyabet verilerini birleştirir.\n- CDSS Otomasyonu: Laboratuvar ve muayene verisi girildiği anda 10 yıllık kalp krizi risk yüzdesinin hesaplanması.\n- Klinik Öneri: '%20 üzeri yüksek risk: Statin tedavisi ve kardiyoloji konsültasyonu düşününüz.'", "gorsel": {"type": "image", "query": "framingham risk score cardiovascular calculator hospital"}}, {"baslik": "Yoğun Bakım CDSS: Vital Sinyal Entegrasyonu", "altbaslik": "Sürekli Monitörizasyon ve Erken İkaz", "icerik": "- Yoğun Bakım Ortamı: Hasta başında onlarca cihaz (Ventilatör, İnfüzyon pompası, Monitör).\n- Veri Akışı: Her saniye akan nabız, oksijen satürasyonu ve arteriyel tansiyon dalgaları.\n- YZ'nin Rolü: Çoklu parametrelerdeki sinsi bozulmayı (Dekompanzasyon) saatler öncesinden haber vermek.", "gorsel": {"type": "image", "query": "intensive care unit monitor ICU patient vital signs CDSS"}}, {"baslik": "CDSS'de Kural Çakışması (Rule Conflict) Yönetimi", "altbaslik": "İki Kural Birbiriyle Çelişirse Ne Olur?", "icerik": "- Senaryo: Kural A 'Hemen kan sulandırıcı ver' derken, Kural B 'Mide kanaması riski var, kan sulandırıcı verme' uyarısı üretiyor.\n- Çözüm: Öncelik Hiyerarşisi (Priority Matrix) ve hekime çelişkinin nedenlerini açıklayan çift taraflı panel sunmak.\n- Kural: Güvenlik kuralı her zaman etkinlik kuralından önce gelir.", "gorsel": {"type": "image", "query": "rule conflict logic priority matrix healthcare decisions"}}, {"baslik": "Ayaktan Tedavide CDSS: Reçete Denetim Modülleri", "altbaslik": "Poliklinik Hekiminin En Büyük Yardımcısı", "icerik": "- Poliklinik Yoğunluğu: Hekimin hasta başına 5-10 dakika ayırabildiği yoğun ortamlar.\n- Otomatik Kontrol: Reçete yazılırken eşzamanlı karaciğer fonksiyon testlerine (ALT/AST) bakılması.\n- Uyarı: 'Hastanın ALT değeri 3 kat yüksek; reçete ettiğiniz ilaç hepatotoksiktir!'\n- Fayda: Akut karaciğer yetmezliği vakalarının önlenmesi.", "gorsel": {"type": "image", "query": "outpatient clinic doctor prescription drug safety alert"}}, {"baslik": "CDSS Kabul Düzeyi ve Kullanıcı Deneyimi (UX)", "altbaslik": "Hekimler Sistemi Neden Reddeder?", "icerik": "- 1. Arayüzün Karışık Olması: 5 kez tıklamadan kapanmayan pencereler.\n- 2. Hız Düşüşü: Uyarının gelmesi için HBYS'nin 10 saniye donması.\n- 3. Yanlış Alarm Sıklığı: Günde onlarca önemsiz bildirim.\n- İdeal Tasarım: Sade, hızlı, renk kodlu ve hekimin iş akışını bölmeyen ergonomik arayüz.", "gorsel": {"type": "image", "query": "user experience UX hospital software interface design"}}, {"baslik": "Pediatrik Doz Hesaplayıcı CDSS Modülleri", "altbaslik": "Çocuk Hastalarda Sıfır Hata Toleransı", "icerik": "- Zorluk: Çocuklarda tüm ilaçlar kilogram ve yaşa göre miligram/kilogram bazında hesaplanır.\n- Manuel Hesaplama Riski: Virgül kayması sonucu 10 kat yüksek doz verme tehlikesi.\n- CDSS Güvencesi: HBYS'deki güncel kilo bilgisini çekerek mililitre cinsinden şurup dozunu otomatik hesaplama.", "gorsel": {"type": "image", "query": "pediatric dosage calculation syringe medication safety children"}}, {"baslik": "Kanser Tedavisinde CDSS: Onkoloji Protokol Motorları", "altbaslik": "Kemoterapi Şemalarının Standardizasyonu", "icerik": "- Onkoloji Tedavileri: Vücut yüzey alanına (BSA - m2) göre hesaplanan çoklu kemoterapi kürleri.\n- CDSS Kontrolü: Hastanın lökosit ve trombosit sayıları eşik değerin altındaysa kemoterapi istemini kilitlemek.\n- Laboratuvar Entegrasyonu: Kan değerleri düzelmeden ilacın eczaneden çıkışına izin verilmemesi.", "gorsel": {"type": "image", "query": "oncology chemotherapy protocol computer validation hospital"}}, {"baslik": "CDSS Performans Metrikleri: Kabul ve Red Oranları", "altbaslik": "Sistem Sahada Ne Kadar Başarılı?", "icerik": "- Override Oranı: Hekimlerin uyarıyı dikkate almayıp geçme yüzdesi.\n- İdeal Override Oranı: %20-30 civarı (Eğer %90 ise kurallar çok katıdır veya gereksizdir).\n- Klinik Hata Azalma Oranı: CDSS devreye girdikten sonra hastanede meydana gelen ilaç hatalarındaki düşüş.\n- Tekniker Rolü: Aylık override istatistiklerini derleyip klinik komisyona sunmak.", "gorsel": {"type": "image", "query": "dashboard analytics override rate healthcare quality metrics"}}, {"baslik": "Açıklanabilir CDSS: 'Neden Bu Uyarıyı Verdim?'", "altbaslik": "Kılavuz Referansları ve Kanıt Seviyesi", "icerik": "- Şeffaflık İlkesi: Her uyarının altında 'Referans: Sağlık Bakanlığı Kalp Yetersizliği Kılavuzu 2024, Kanıt Düzeyi: Sınıf I, Düzey A' yazmalıdır.\n- Güven İnşası: Hekim uyarının bilimsel dayanağını gördüğünde kurala daha yüksek oranda uyar.\n- Tıbbi Veri Teknikeri Görevi: Kılavuz referans linklerinin güncelliğini kontrol etmek.", "gorsel": {"type": "image", "query": "evidence based medicine clinical guideline reference transparency"}}, {"baslik": "CDSS Bakım ve Güncelleme Döngüsü", "altbaslik": "Yaşayan ve Evrilen Sistemler", "icerik": "- Faz 1: Yeni Tıbbi Bilginin / Kılavuzun İlanı.\n- Faz 2: Kuralın Algoritmaya Dönüştürülmesi (Karar Tablosu).\n- Faz 3: Test Ortamında Simülasyon (Eski hasta verisinde test).\n- Faz 4: Klinik Onay ve Sisteme Yükleme.\n- Faz 5: Sahada Kullanıcı Geri Bildirimi ve Eşik İyileştirme.", "gorsel": {"type": "image", "query": "software maintenance lifecycle continuous improvement hospital"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Medikal YZ & Teşhis`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

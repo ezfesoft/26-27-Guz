@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 13",
+    "altbaslik": "Hafta 13: DGS Karma Problem Çözümü II",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: İleri Düzey Problem Çözme ve Grafik/Geometri Analitiği (İsteğe Bağlı İleri Blok)\nHaftalık Odak: Temel Geometri Yorumları, Fonksiyon Fikri, Güvenlik Trend Grafikleri ve Sınav Stratejileri\nHedef: Grafik ve geometrik modelleri DGS ve teknik karar süreçlerinde hızlıca yorumlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "geometry functions graphs analytics dashboard mathematics"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Güvenlik Panosu Trend Grafikleri ve Fonksiyonel Değişim",
+    "icerik": "Bir SIEM panosundaki saldırı grafiği f(t) fonksiyonu gibi zamanla artan-azalan davranış sergiler.\n- Grafiğin eğimi saldırının hızlanma ivmesini gösterir.\n- Dik üçgen ve Pisagor bağıntısı kablolama ve sinyal menzili hesaplarında kullanılır.\nGeometri ve fonksiyonel düşünme, soyut verileri mekânsal ve zamansal olarak anlamlandırmayı sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "network security operations dashboard trend lines graphs"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. DGS tarzında temel geometri ve fonksiyon sorularını tanır.\n2. Fonksiyonel gösterimi f(x) ve grafik girdi-çıktı ilişkilerini yorumlar.\n3. Alan, çevre ve Pisagor bağıntısını temel seviyede uygular.\n4. Süre baskısı altında zaman yönetimi ve hata azaltma tekniklerini kullanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Fonksiyon Fikri: Girdi - Kural - Çıktı Makinesi",
+    "altbaslik": "f(x) Gösterimi",
+    "icerik": "Tanım: Tanım kümesindeki her bir elemanı, değer kümesinde YALNIZ BİR elemana eşleyen kuraldır.\n- Girdi: x (Örn: Zaman, Kullanıcı sayısı)\n- Kural: f (Fonksiyon formülü)\n- Çıktı: f(x) (Örn: Üretilen log boyutu, CPU sıcaklığı)\nÖrnek: f(x) = 3x + 5 ise f(4) = 3(4) + 5 = 17.",
+    "gorsel": {
+      "type": "image",
+      "query": "function machine input output math diagram"
+    }
+  },
+  {
+    "baslik": "Grafik Okuma ve Eğim (Doğrusal Fonksiyon)",
+    "altbaslik": "Değişim Oranı: Eğim = dy / dx",
+    "icerik": "Doğrusal Grafik: y = mx + n\n- m (Eğim): Birim zamandaki değişim hızı (Trafik artış hızı)\n- Grafikte yukarı doğru eğim: Artan trafik / Yük artışı\n- Grafikte aşağı doğru eğim: Azalan tehdit / İyileşme\n- Grafiğin eksenleri kestiği noktalar başlangıç ve bitiş değerleridir.",
+    "gorsel": {
+      "type": "image",
+      "query": "linear graph slope trend line analysis"
+    }
+  },
+  {
+    "baslik": "Temel Geometri: Dikdörtgen ve Kare Alan/Çevre",
+    "altbaslik": "Veri Merkezi Taban Alanı Hesapları",
+    "icerik": "- Dikdörtgen Çevre: 2 x (a + b)\n- Dikdörtgen Alan: a x b\n- Kare Çevre: 4 x a\n- Kare Alan: a^2\nVeri merkezi kabinet yerleşimi ve zemin yük dağılımında temel alan hesapları doğrudan kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "rectangle square area perimeter geometry diagram"
+    }
+  },
+  {
+    "baslik": "Pisagor Bağıntısı ve Özel Üçgenler",
+    "altbaslik": "a^2 + b^2 = c^2",
+    "icerik": "Dik Üçgen Kuralı: Hipotenüsün karesi dik kenarların kareleri toplamına eşittir.\nÖzel Dik Üçgenler (DGS Sık Çıkanlar):\n- (3 - 4 - 5) Üçgeni ve katları: (6-8-10), (9-12-15)\n- (5 - 12 - 13) Üçgeni\n- (8 - 15 - 17) Üçgeni\n- (7 - 24 - 25) Üçgeni\nBu oranları ezbere bilmek kök almadan saniyeler içinde kenar buldurur.",
+    "gorsel": {
+      "type": "image",
+      "query": "pythagorean theorem special triangles 3 4 5"
+    }
+  },
+  {
+    "baslik": "Bileşke Fonksiyon Prosedürü: (fog)(x)",
+    "altbaslik": "f(g(x)) İç İçe Fonksiyon",
+    "icerik": "Kural: İçteki fonksiyondan başlanır.\nÖrnek: f(x) = 2x + 1 ve g(x) = x^2\n(fog)(3) = f(g(3))\n1. g(3) = 3^2 = 9\n2. f(9) = 2(9) + 1 = 19.\nKriptografik zincirlerde (Hash of Hash) bileşke fonksiyon mantığı çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "composite function math calculation steps"
+    }
+  },
+  {
+    "baslik": "Ters Fonksiyon Bulma Adımları",
+    "altbaslik": "f^(-1)(x)",
+    "icerik": "f(x) = ax + b doğrusal fonksiyonunun tersi:\nf^(-1)(x) = (x - b) / a\nÖrnek: f(x) = 3x - 6 ise tersi = (x + 6) / 3\nŞifreleme fonksiyonunun tersi şifre çözme (Decryption) işlemidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "inverse function algebraic calculation steps"
+    }
+  },
+  {
+    "baslik": "Daire ve Daire Dilimi Alanı",
+    "altbaslik": "Wi-Fi Kapsama Alanı Hesapları",
+    "icerik": "- Daire Alanı: Pi x r^2\n- Daire Çevresi: 2 x Pi x r\n- Access Point (AP) kapsama alanı yarıçapın (r) karesiyle orantılı olarak büyür.\nÖrnek: Yarıçapı 10 metre olan bir antenin kapsama alanı (Pi=3) = 3 x 10^2 = 300 m^2.",
+    "gorsel": {
+      "type": "image",
+      "query": "circle area wifi coverage radius diagram"
+    }
+  },
+  {
+    "baslik": "Sınavda Zaman Yönetimi: Turlama Tekniği",
+    "altbaslik": "DGS İçin 3 Aşamalı Çözüm",
+    "icerik": "1. Tur: İlk bakışta çözümü net olan ve 1 dakikadan kısa sürecek kolay soruları çöz.\n2. Tur: Çözüm yolunu bildiğin ama işlem kalabalığı olan orta zorluktaki soruları çöz.\n3. Tur: Kalan sürede uzun ve karmaşık mantık/geometri sorularına odaklan.\nAsla tek bir soruya takılıp 5-10 dakika harcama!",
+    "gorsel": {
+      "type": "image",
+      "query": "exam time management strategy round technique"
+    }
+  },
+  {
+    "baslik": "Grafik Kesişim Noktası Bulma Prosedürü",
+    "altbaslik": "İki Fonksiyonun Eşitlenmesi: f(x) = g(x)",
+    "icerik": "İki doğrunun kesiştiği nokta, sistemlerin eşitlendiği (başabaş) noktadır.\nÖrnek: f(x) = 2x + 10 ve g(x) = 4x\n2x + 10 = 4x -> 2x = 10 -> x = 5\ny = 4(5) = 20 -> Kesişim Noktası: (5, 20).",
+    "gorsel": {
+      "type": "image",
+      "query": "graph intersection two lines break even point"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Temel Fonksiyon Değeri",
+    "altbaslik": "Seviye: Başlangıç",
+    "icerik": "Soru: f(x) = 4x - 7 olduğuna göre f(5) + f(-2) toplamı kaçtır?\nÇözüm:\n- f(5) = 4(5) - 7 = 20 - 7 = 13\n- f(-2) = 4(-2) - 7 = -8 - 7 = -15\nToplam = 13 + (-15) = -2.",
+    "gorsel": {
+      "type": "image",
+      "query": "function value evaluation math chalkboard"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Bileşke Fonksiyon",
+    "altbaslik": "Seviye: Kolay-Orta",
+    "icerik": "Soru: f(x) = 2x + 3 ve g(x) = 5x - 1 ise (gof)(2) değeri kaçtır?\nÇözüm:\n1. Adım: f(2) = 2(2) + 3 = 7\n2. Adım: g(7) = 5(7) - 1 = 35 - 1 = 34.",
+    "gorsel": {
+      "type": "image",
+      "query": "composite function calculation step by step"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Özel Üçgen ve Ağ Kablosu Uzunluğu",
+    "altbaslik": "Seviye: Orta (Pisagor)",
+    "icerik": "Soru: Bir sunucu odasında tabandan 9 metre yatay ve 12 metre dikey mesafedeki iki switch arasına en kısa mesafeden doğrudan hat çekilecektir. Kablo uzunluğu en az kaç metre olmalıdır?\nÇözüm: Dik kenarlar a = 9, b = 12.\n(3 - 4 - 5) üçgeninin 3 katı:\n- 3 x 3 = 9\n- 4 x 3 = 12\n- 5 x 3 = 15 metre kablo gereklidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "pythagoras triangle 9 12 15 cable length"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Wi-Fi Kapsama Alanı Oranı",
+    "altbaslik": "Seviye: Orta (Daire Alanı)",
+    "icerik": "Soru: Eski Wi-Fi anteninin kapsama yarıçapı 6 metre iken yeni takılan güçlü antenin yarıçapı 12 metredir. Kapsanan alan kaç katına çıkmıştır?\nÇözüm:\n- Eski Alan = Pi x 6^2 = 36 x Pi\n- Yeni Alan = Pi x 12^2 = 144 x Pi\nOran = (144 x Pi) / (36 x Pi) = 4 katına çıkmıştır.\nYarıçap 2 katına çıkınca alan 4 katına (2^2) çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "wifi coverage area radius expansion"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Güvenlik Panosu Grafik Yorumlama",
+    "altbaslik": "Seviye: Orta-İleri (Doğrusal Eğim)",
+    "icerik": "Soru: Bir saldırı grafiğinde t=0 anında 50 istek varken, t=10. dakikada 250 isteğe ulaşılmıştır. Trafik doğrusal arttığına göre t=25. dakikada kaç istek beklenir?\nEğim m = (250 - 50) / (10 - 0) = 200 / 10 = 20 istek/dk\nDenklem: f(t) = 20t + 50\nt = 25 için: f(25) = 20(25) + 50 = 500 + 50 = 550 istek.",
+    "gorsel": {
+      "type": "image",
+      "query": "linear trend line prediction graph"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Fonksiyonun Tersi ve Decryption",
+    "altbaslik": "Seviye: İleri (f^(-1))",
+    "icerik": "Soru: Bir şifreleme algoritması karakter kodlarını f(x) = (3x + 1) / 2 formülüyle şifrelemektedir. Şifreli çıktısı 20 olan orijinal karakter kodu (x) kaçtır?\nÇözüm: f(x) = 20\n(3x + 1) / 2 = 20\n3x + 1 = 40 -> 3x = 39 -> x = 13.",
+    "gorsel": {
+      "type": "image",
+      "query": "algebraic inverse function decryption solution"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Veri Merkezi Zemin Alanı Optimizasyonu",
+    "altbaslik": "Seviye: İleri (Geometri ve Eşitsizlik)",
+    "icerik": "Soru: Çevresi 60 metre olan dikdörtgen biçimindeki bir sistem odasının alanının MAKSİMUM olabilmesi için kenar uzunlukları kaç metre olmalıdır?\nKural: Çevresi sabit dikdörtgenin alanının en büyük olması için kare olması gerekir!\nÇevre = 4a = 60 -> a = 15 metre.\nMaksimum Alan = 15 x 15 = 225 m^2.",
+    "gorsel": {
+      "type": "image",
+      "query": "maximum area optimization geometry rectangle square"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Fonksiyon ve Geometri Hataları",
+    "icerik": "1. (fog)(x) işleminde soldan başlamak (İşlem daima EN İÇTEKİ g(x)'ten başlar!).\n2. Daire alanında yarıçapın karesini almak yerine 2 ile çarpmak (Pi*r^2 yerine 2*Pi*r yazmak).\n3. Dik üçgende Pisagor kuralını sadece dik kenarlara uygulamak (Hipotenüsün en uzun kenar olduğunu unutmamak).",
+    "gorsel": {
+      "type": "image",
+      "query": "geometry function mistake caution sign"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "Grafik ve Süre Tuzakları",
+    "icerik": "1. Grafiğin başlangıç değerini (y-keseni) 0 zannetmek (Grafik orijinden başlamayabilir!).\n2. Sınavda çözülemeyen tek bir soruya inat edip kalan soruları yetiştirememek.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam time pressure stress warning"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Veri Merkezi Kablolama Projesi",
+    "altbaslik": "Mühendislik ve Maliyet Hesabı",
+    "icerik": "Vaka: Bir veri merkezinde ana omurga anahtarı (Core Switch) ile kenar anahtarlar (Edge Switch) arasında fiber optik kablolama yapılacaktır.\nYatay mesafe = 24 metre, Dikey şaft yüksekliği = 7 metre.\nAnaliz: Doğrudan çekilecek kablo için (7 - 24 - 25) özel dik üçgeni kullanılır.\nHipotenüs = 25 metre fiber kablo.\nDuvarları dolaşmak (7+24=31 metre) yerine 25 metre doğrudan hat ile %20 kablo tasarrufu ve daha düşük sinyal zayıflaması (attenuation) elde edilmiştir.",
+    "gorsel": {
+      "type": "image",
+      "query": "data center fiber optic cabling layout geometry"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve Sinyal Kalitesi",
+    "altbaslik": "Optimizasyon Raporu",
+    "icerik": "Mühendislik Değerlendirmesi:\nKısa kablo mesafesi sayesinde optik sinyal kaybı 0.4 dB azaltılmış, 100 Gbps omurga hattında sıfır paket hatası garantilenmiştir.",
+    "gorsel": {
+      "type": "image",
+      "query": "fiber optic signal quality testing report"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Fonksiyon Değeri",
+    "icerik": "Soru: f(x) = 3x - 5 ise f(4) kaçtır?\nA) 7\nB) 12\nC) 17\nD) 20\n\nDoğru Cevap: A ( 3(4) - 5 = 12 - 5 = 7 )",
+    "gorsel": {
+      "type": "image",
+      "query": "function evaluation quiz question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Bileşke Fonksiyon",
+    "icerik": "Soru: f(x) = x + 2 ve g(x) = 2x ise (fog)(3) kaçtır?\nA) 7\nB) 8\nC) 10\nD) 12\n\nDoğru Cevap: B ( g(3) = 6 -> f(6) = 6 + 2 = 8 )",
+    "gorsel": {
+      "type": "image",
+      "query": "composite function test question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Özel Dik Üçgen",
+    "icerik": "Soru: Dik kenarları 6 ve 8 cm olan bir dik üçgenin hipotenüs uzunluğu kaç cm'dir?\nA) 9\nB) 10\nC) 12\nD) 14\n\nDoğru Cevap: B ( 3-4-5 üçgeninin 2 katı: 6-8-10 )",
+    "gorsel": {
+      "type": "image",
+      "query": "pythagorean theorem quiz triangle"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Daire Alanı",
+    "icerik": "Soru: Yarıçapı 4 cm olan dairenin alanı (Pi=3 alınırsa) kaç cm^2'dir?\nA) 24\nB) 36\nC) 48\nD) 64\n\nDoğru Cevap: C ( Pi * r^2 = 3 * 16 = 48 )",
+    "gorsel": {
+      "type": "image",
+      "query": "circle area calculation test"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Fonksiyonlar girdileri çıktılara dönüştüren kural makineleridir; f(x) analitik düşünmenin temelidir.\n- Özel dik üçgenler (3-4-5, 5-12-13, 7-24-25) geometrik problemleri saniyeler içinde çözdürür.\n- Daire alanı yarıçapın karesiyle büyür (Wi-Fi kapsama hesabı).\n- Sınavlarda turlama tekniği ve süre disiplini başarıyı belirler.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary geometry functions dgs strategy"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 14: Genel Tekrar ve Uygulamalı Vaka Çalışması",
+    "icerik": "Gelecek Hafta (Final Modülü):\n- Dönem Boyunca İşlenen Tüm 13 Haftanın Bütünleşik Tekrarı\n- Büyük Ölçekli Ağ, Depolama, Güvenlik ve İstatistik Vaka Analizi\n- Final Sınavı Formatı ve Başarı Kriterleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "final exam comprehensive review technology mathematics"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'f(x) = 2x + k fonksiyonu veriliyor. f(3) = 11 olduğuna göre k sabiti kaçtır ve f(-1) değeri ne olur?'\n\nİşlemlerinizi yazıp kağıdı teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "linear function exit ticket classroom"
+    }
+  }
+]

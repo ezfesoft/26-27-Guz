@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Klinik Karar Destek Sistemleri (CDSS)",
+    "altbaslik": "Mimariler, Veri Girdileri ve Uyarı Mekanizmaları",
+    "icerik": "- Tanım: Klinik karar alma süreçlerinde sağlık personeline kişiselleştirilmiş bilgi ve öneri sunan sistemler.\n- Türler: Kural tabanlı (Rule-based) ve Makine öğrenmesi tabanlı (ML-based) sistemler.\n- Mesleki Rol: Tıbbi veri teknikerinin veri kalitesi, kural tanımlama ve sistem denetimindeki sorumluluğu.\n- Hedef: CDSS'nin hekimin yerine geçmeyen bir 'destek ve güvenlik ağı' olduğunu kavramak.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical decision support systems hospital screen alerts doctors"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "4. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: CDSS'nin temel bileşenlerini ve veri akış mimarisini açıklar.\n- ÖÇ2: Veri kalitesi eksikliklerinin karar önerilerine nasıl yansıdığını örneklendirir.\n- ÖÇ3: Basit kural tabanlı bir risk skoru algoritması ve karar tablosu tasarlar.\n- ÖÇ4: Yanlış alarmların ve alarm yorgunluğunun (Alert Fatigue) klinik risklerini değerlendirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning goals clinical decision support healthcare workflow"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Hekim Neden Karar Desteğe İhtiyaç Duyar?",
+    "altbaslik": "Tıbbi Bilginin Hızlı Artışı ve Karmaşıklık",
+    "icerik": "- Bilgi Patlaması: Her gün binlerce yeni tıbbi makale ve ilaç etkileşimi yayınlanmaktadır.\n- İlaç-İlaç Etkileşimleri: Bir hastanın kullandığı 8 farklı ilacın çapraz yan etkilerini akılda tutmak imkansızdır.\n- Kritik Durumlar: Sepsis gibi saatler içinde ölüme götüren tabloların erken tespiti.\n- CDSS'nin Rolü: Arka planda 7/24 çalışarak gözden kaçabilecek ölümcül riskleri hatırlatmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "doctor overwhelmed with clinical data patient safety alerts"
+    }
+  },
+  {
+    "baslik": "CDSS Mimarisi: 3 Temel Bileşen",
+    "altbaslik": "Sistemin İç Yapısı Nasıl Çalışır?",
+    "icerik": "- 1. Bilgi Tabanı (Knowledge Base): Tıbbi kılavuzlar, kural setleri, ilaç veritabanları veya eğitilmiş modeller.\n- 2. Çıkarım Motoru (Inference Engine): Hasta verilerini bilgi tabanıyla eşleştiren mantıksal motor.\n- 3. İletişim Arayüzü (User Interface): Hekimin ekranına çıkan uyarı, öneri veya bilgi formu.",
+    "gorsel": {
+      "type": "image",
+      "query": "CDSS architecture knowledge base inference engine user interface"
+    }
+  },
+  {
+    "baslik": "Algoritma Yanılgısı: 'Yalnızca Derin Öğrenme Değildir'",
+    "altbaslik": "Kural Tabanlı Sistemlerin Gücü",
+    "icerik": "- Yaygın Yanılgı: 'Bir sistemin akıllı olması için mutlaka karmaşık bir yapay sinir ağı gerekir.'\n- Gerçek: Tıptaki CDSS'lerin %70'inden fazlası sağlam if-then (eğer-ise) kurallarına dayanır.\n- Neden?: Kural tabanlı sistemler %100 açıklanabilirdir, şeffaftır ve kanıta dayalı tıp kılavuzlarıyla birebir uyumludur.\n- Örnek: 'Eğer eGFR < 30 ise ve Metformin yazıldıysa -> UYARI: İlaç dozunu azaltın!'",
+    "gorsel": {
+      "type": "image",
+      "query": "rule based if then logic vs machine learning clinical algorithms"
+    }
+  },
+  {
+    "baslik": "Kural Tabanlı vs Model Tabanlı CDSS",
+    "altbaslik": "İki Yaklaşımın Karşılaştırmalı Analizi",
+    "icerik": "- Kural Tabanlı (Rule-based): Deterministiktir, şeffaftır, bakımı kolaydır; ancak yeni durumlara esnek uyum sağlayamaz.\n- Model Tabanlı (ML-based): Karmaşık doğrusal olmayan ilişkileri çözer, büyük veriden öğrenir; ancak kara kutudur ve hata yapabilir.\n- Hibrit Yaklaşım: Temel güvenlik kuralları (alerji) için kural tabanlı, karmaşık risk tahminleri için ML tabanlı yapı.",
+    "gorsel": {
+      "type": "image",
+      "query": "comparison table rule based vs machine learning decision support"
+    }
+  },
+  {
+    "baslik": "Tipik CDSS Uyarı Türleri",
+    "altbaslik": "Klinisyenin Karşılaştığı Bildirim Formatları",
+    "icerik": "- Kesintili Uyarı (Interruptive Alert): Ekranı kilitleyen, hekim onaylamadan kapatılamayan uyarı (Ör. Ölümcül İlaç Alerjisi).\n- Kesintisiz Bildirim (Non-interruptive): Ekranın köşesinde beliren pasif bilgi ikonu (Ör. Aşı hatırlatması).\n- Sipariş Setleri (Order Sets): Belirli bir tanı için standart tetkik ve tedavi paketlerinin otomatik önerilmesi.\n- Doz Hesaplayıcıları: Hastanın kilo ve böbrek fonksiyonuna göre antibiyotik dozu hesaplama.",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital computer pop up alert interruptive warning clinical"
+    }
+  },
+  {
+    "baslik": "İlaç-İlaç ve İlaç-Alerji Etkileşim Uyarıları",
+    "altbaslik": "En Yaygın ve Hayat Kurtaran CDSS Modülü",
+    "icerik": "- İlaç-İlaç Etkileşimi: Birbirinin etkisini yok eden veya toksisiteyi katlayan iki ilacın aynı anda reçete edilmesi (Ör. Varfarin + Aspirin).\n- İlaç-Alerji Etkileşimi: Penisilin alerjisi olan hastaya Amoksisilin yazıldığında sistemin anında kırmızı alarm vermesi.\n- Doz Kontrolü: Pediyatrik hastalarda yaşa ve kiloya göre maksimum doz sınırının aşılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "drug allergy interaction warning hospital screen pharmacy"
+    }
+  },
+  {
+    "baslik": "Büyük Tehlike: Alarm Yorgunluğu (Alert Fatigue)",
+    "altbaslik": "Çok Fazla Uyarının Doğurduğu Duyarsızlaşma",
+    "icerik": "- Problem: Hekim günde 100 gereksiz uyarı alırsa, uyarılara bakmadan 'Tamam/Geç' butonuna basmaya başlar.\n- Sonuç: Gerçek ve hayati bir uyarı çıktığında da alışkanlıkla kapatılır ve hasta hayatını kaybedebilir.\n- Sektör Verisi: Hastanelerde CDSS uyarılarının %80-95'i hekimler tarafından dikkate alınmadan kapatılmaktadır!\n- Çözüm: Yalnızca yüksek öncelikli ve kişiselleştirilmiş uyarıların gösterilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "alert fatigue doctor dismissing computer warning signs hospital"
+    }
+  },
+  {
+    "baslik": "Veri Kalitesinin Karar Desteğe Etkisi",
+    "altbaslik": "Eksik Kilo veya Yanlış Yaş Nelere Yol Açar?",
+    "icerik": "- Senaryo: Hemşire hasta kilosunu 70 kg yerine sehven 7.0 kg olarak sisteme girdi.\n- CDSS Çıktısı: Sistem hastayı bebek kabul ederek kemoterapi dozunu 10 kat düşük önerdi!\n- Hata Kaynağı: Algoritma doğru çalıştı, ancak veri girişi hatalıydı (Garbage In, Disaster Out).\n- Veri Teknikeri Sorumluluğu: Uç değerlerin (outliers) veri giriş anında sistem tarafından engellenmesini sağlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical data entry error wrong patient weight calculation"
+    }
+  },
+  {
+    "baslik": "Atölye: Basit Karar Tablosu (Decision Table) Tasarımı",
+    "altbaslik": "Diyabetik Ketoasidoz (DKA) Erken Uyarı Kuralı",
+    "icerik": "- Girdi Değişkenleri: Kan Şekeri (>250 mg/dL), Kan pH (<7.30), İdrarda Keton (Pozitif).\n- Kural 1: Şeker Yüksek + pH Düşük + Keton Pozitif => KIRMIZI ALARM: DKA Protokolünü Başlat!\n- Kural 2: Şeker Yüksek + pH Normal + Keton Negatif => SARI UYARI: Sıvı Tedavisi ve Takip.\n- Kural 3: Tüm değerler normal => YEŞİL: Rutin İzlem.\n- Görev: Bu karar tablosunu spreadsheet veya Python ile test ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical decision table logic tree flowchart healthcare"
+    }
+  },
+  {
+    "baslik": "Python ile Kural Tabanlı Karar Destek Prototipi",
+    "altbaslik": "Mantıksal Kod Örneği",
+    "icerik": "- Kod Mantığı: Fonksiyona hasta laboratuvar değerleri parametre olarak verilir.\n- Koşul Yapısı: if glukoz > 250 and ph < 7.30 and keton == True:\n- Çıktı Üretimi: return 'Kritik Risk: DKA Şüphesi! Acil dahiliye konsültasyonu isteyiniz.'\n- Mesleki Not: Kod tek başına teşhis koymaz; protokol gereği hekime konsültasyon önerir.",
+    "gorsel": {
+      "type": "image",
+      "query": "python code logic if else statement medical decision support"
+    }
+  },
+  {
+    "baslik": "Sepsis Erken Uyarı Skorları (NEWS2 / qSOFA)",
+    "altbaslik": "Vital Bulgulardan Risk Puanı Hesaplama",
+    "icerik": "- qSOFA Kriterleri: Solunum Sayısı (>=22), Bilinç Değişikliği (GKS <15), Sistolik Tansiyon (<=100 mmHg).\n- Puanlama: Her kriter 1 puan; toplam skor >=2 ise yüksek sepsis mortalite riski!\n- CDSS Entegrasyonu: Hemşire vital bulguları HBYS'ye girdiği anda arka planda skorun otomatik hesaplanması.\n- Zaman Tasarrufu: Yoğun bakım transferini ve antibiyotik tedavisini saatlerce erkene çeker.",
+    "gorsel": {
+      "type": "image",
+      "query": "qsofa score sepsis early warning vital signs hospital"
+    }
+  },
+  {
+    "baslik": "Saha Hatası: Güncellenmeyen Bilgi Tabanı",
+    "altbaslik": "Eski Tıbbi Kılavuzların Yarattığı Riskler",
+    "icerik": "- Vaka: Hastane CDSS sistemi 2015 yılı hipertansiyon kılavuzuna göre kurgulanmış.\n- Sorun: 2024 yılında değişen hedef tansiyon değerleri sisteme girilmediği için binlerce hasta yanlış kategorize edildi.\n- Yönetim: Tıbbi bilgi tabanları en geç 6 ayda bir uzman komisyon tarafından gözden geçirilip güncellenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "outdated clinical guidelines vs modern evidence based medicine"
+    }
+  },
+  {
+    "baslik": "CDSS'de Hukuki ve Etik Sorumluluk: Kararı Kim Verir?",
+    "altbaslik": "Yazılım mı, Hekim mi?",
+    "icerik": "- Hukuki İlke: CDSS tıbbi bir danışmandır; nihai klinik ve yasal sorumluluk her zaman reçeteyi yazan ve tedaviyi onaylayan hekime aittir.\n- Gerekçeli Red (Override): Hekim CDSS uyarısına uymama hakkına sahiptir; ancak sistem neden uymadığını (gerekçesini) kaydetmesini talep eder.\n- Log Kayıtları: Hukuki anlaşmazlıklarda mahkemeler CDSS loglarını delil olarak inceler.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical legal liability doctor signature hospital audit"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin CDSS Operasyonundaki Rolü",
+    "altbaslik": "3 Kritik Sorumluluk Alanı",
+    "icerik": "- 1. Veri Doğrulama: Laboratuvar ve anamnez verilerinin sisteme eksiksiz ve birim uyumlu aktarılması.\n- 2. Hata Bildirimi: Hekimlerden gelen 'Bu uyarı anlamsız/hatalı' geri bildirimlerini toplayıp IT ekibine iletmek.\n- 3. Kural Testi: Yeni eklenen bir klinik kuralın eski hasta kayıtlarında simülasyonunu yaparak yanlış alarm oranını ölçmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "health information management specialist testing hospital software"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 4. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- CDSS, hasta güvenliğini artıran ve klinik hataları önleyen bir destek teknolojisidir.\n- Sistemler sadece karmaşık yapay zeka ile değil, kanıta dayalı basit kurallarla da hayat kurtarır.\n- Alarm yorgunluğu (Alert Fatigue) CDSS'nin en büyük klinik düşmanıdır.\n- Veri girişindeki en küçük hata, CDSS önerisini ölümcül bir riske dönüştürebilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept CDSS clinical workflow safety"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "CDSS Kavram ve Alarm Kontrolü",
+    "icerik": "- Soru 1: CDSS'de hekimlerin çok sık çıkan anlamsız uyarıları okumadan kapatması durumuna ne ad verilir?\n  Cevap: Alarm Yorgunluğu (Alert Fatigue).\n- Soru 2: CDSS'nin hasta verisi ile tıbbi kuralları karşılaştıran bileşeni hangisidir?\n  Cevap: Çıkarım Motoru (Inference Engine).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions clinical decision support evaluation"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Vaka İtiraz Sorusu",
+    "altbaslik": "Veri Kalitesi İncelemesi",
+    "icerik": "- Senaryo: CDSS, 25 yaşındaki bir hastaya 'Geriatrik Yüksek Doz Uyarısı' vermiştir. Yapılan kontrolde hastanın doğum yılının '1924' olarak girildiği görülmüştür.\n- Soru: Tıbbi veri teknikeri bu durumun tekrarlanmaması için sisteme nasıl bir veri kontrol kuralı (validation rule) eklemelidir?\n- Cevap: Kimlik paylaşım sistemi (MERNİS/KPS) ile entegre otomatik doğum tarihi doğrulama ve mantıksal yaş aralığı kontrolü eklenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "patient age validation data entry quality assurance"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 4. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Alarm yorgunluğunu azaltmak için hastanenizde ne gibi bir kural optimizasyonu önerirsiniz?\n- 2. Kural tabanlı CDSS ile yapay öğrenme tabanlı CDSS arasındaki en büyük fark nedir?\n- 3. Gelecek hafta konusu: HBYS/EHR ve Sağlık Veri Standartları (HL7 & FHIR).",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "5. Hafta: HBYS/EHR ve Veri Standartları (HL7 & FHIR)",
+    "icerik": "- Konu: Hastane Bilgi Yönetim Sistemleri (HBYS), birlikte çalışabilirlik (Interoperability).\n- Odak: HL7 ve FHIR standartları, JSON tabanlı sağlık kaynakları, e-Nabız entegrasyonu.\n- Ön Hazırlık: e-Nabız sisteminde tahlil ve randevu verilerinin nasıl listelendiğini inceleyiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "electronic health record interoperability HL7 FHIR preview"
+    }
+  },
+  {
+    "baslik": "CDSS'de Çoklu Parametre Risk Skorlaması",
+    "altbaslik": "Kardiyovasküler Risk Hesaplayıcıları (Framingham)",
+    "icerik": "- Framingham Skoru: Yaş, HDL kolesterol, Total kolesterol, Sistolik tansiyon, Sigara ve Diyabet verilerini birleştirir.\n- CDSS Otomasyonu: Laboratuvar ve muayene verisi girildiği anda 10 yıllık kalp krizi risk yüzdesinin hesaplanması.\n- Klinik Öneri: '%20 üzeri yüksek risk: Statin tedavisi ve kardiyoloji konsültasyonu düşününüz.'",
+    "gorsel": {
+      "type": "image",
+      "query": "framingham risk score cardiovascular calculator hospital"
+    }
+  },
+  {
+    "baslik": "Yoğun Bakım CDSS: Vital Sinyal Entegrasyonu",
+    "altbaslik": "Sürekli Monitörizasyon ve Erken İkaz",
+    "icerik": "- Yoğun Bakım Ortamı: Hasta başında onlarca cihaz (Ventilatör, İnfüzyon pompası, Monitör).\n- Veri Akışı: Her saniye akan nabız, oksijen satürasyonu ve arteriyel tansiyon dalgaları.\n- YZ'nin Rolü: Çoklu parametrelerdeki sinsi bozulmayı (Dekompanzasyon) saatler öncesinden haber vermek.",
+    "gorsel": {
+      "type": "image",
+      "query": "intensive care unit monitor ICU patient vital signs CDSS"
+    }
+  },
+  {
+    "baslik": "CDSS'de Kural Çakışması (Rule Conflict) Yönetimi",
+    "altbaslik": "İki Kural Birbiriyle Çelişirse Ne Olur?",
+    "icerik": "- Senaryo: Kural A 'Hemen kan sulandırıcı ver' derken, Kural B 'Mide kanaması riski var, kan sulandırıcı verme' uyarısı üretiyor.\n- Çözüm: Öncelik Hiyerarşisi (Priority Matrix) ve hekime çelişkinin nedenlerini açıklayan çift taraflı panel sunmak.\n- Kural: Güvenlik kuralı her zaman etkinlik kuralından önce gelir.",
+    "gorsel": {
+      "type": "image",
+      "query": "rule conflict logic priority matrix healthcare decisions"
+    }
+  },
+  {
+    "baslik": "Ayaktan Tedavide CDSS: Reçete Denetim Modülleri",
+    "altbaslik": "Poliklinik Hekiminin En Büyük Yardımcısı",
+    "icerik": "- Poliklinik Yoğunluğu: Hekimin hasta başına 5-10 dakika ayırabildiği yoğun ortamlar.\n- Otomatik Kontrol: Reçete yazılırken eşzamanlı karaciğer fonksiyon testlerine (ALT/AST) bakılması.\n- Uyarı: 'Hastanın ALT değeri 3 kat yüksek; reçete ettiğiniz ilaç hepatotoksiktir!'\n- Fayda: Akut karaciğer yetmezliği vakalarının önlenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "outpatient clinic doctor prescription drug safety alert"
+    }
+  },
+  {
+    "baslik": "CDSS Kabul Düzeyi ve Kullanıcı Deneyimi (UX)",
+    "altbaslik": "Hekimler Sistemi Neden Reddeder?",
+    "icerik": "- 1. Arayüzün Karışık Olması: 5 kez tıklamadan kapanmayan pencereler.\n- 2. Hız Düşüşü: Uyarının gelmesi için HBYS'nin 10 saniye donması.\n- 3. Yanlış Alarm Sıklığı: Günde onlarca önemsiz bildirim.\n- İdeal Tasarım: Sade, hızlı, renk kodlu ve hekimin iş akışını bölmeyen ergonomik arayüz.",
+    "gorsel": {
+      "type": "image",
+      "query": "user experience UX hospital software interface design"
+    }
+  },
+  {
+    "baslik": "Pediatrik Doz Hesaplayıcı CDSS Modülleri",
+    "altbaslik": "Çocuk Hastalarda Sıfır Hata Toleransı",
+    "icerik": "- Zorluk: Çocuklarda tüm ilaçlar kilogram ve yaşa göre miligram/kilogram bazında hesaplanır.\n- Manuel Hesaplama Riski: Virgül kayması sonucu 10 kat yüksek doz verme tehlikesi.\n- CDSS Güvencesi: HBYS'deki güncel kilo bilgisini çekerek mililitre cinsinden şurup dozunu otomatik hesaplama.",
+    "gorsel": {
+      "type": "image",
+      "query": "pediatric dosage calculation syringe medication safety children"
+    }
+  },
+  {
+    "baslik": "Kanser Tedavisinde CDSS: Onkoloji Protokol Motorları",
+    "altbaslik": "Kemoterapi Şemalarının Standardizasyonu",
+    "icerik": "- Onkoloji Tedavileri: Vücut yüzey alanına (BSA - m2) göre hesaplanan çoklu kemoterapi kürleri.\n- CDSS Kontrolü: Hastanın lökosit ve trombosit sayıları eşik değerin altındaysa kemoterapi istemini kilitlemek.\n- Laboratuvar Entegrasyonu: Kan değerleri düzelmeden ilacın eczaneden çıkışına izin verilmemesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "oncology chemotherapy protocol computer validation hospital"
+    }
+  },
+  {
+    "baslik": "CDSS Performans Metrikleri: Kabul ve Red Oranları",
+    "altbaslik": "Sistem Sahada Ne Kadar Başarılı?",
+    "icerik": "- Override Oranı: Hekimlerin uyarıyı dikkate almayıp geçme yüzdesi.\n- İdeal Override Oranı: %20-30 civarı (Eğer %90 ise kurallar çok katıdır veya gereksizdir).\n- Klinik Hata Azalma Oranı: CDSS devreye girdikten sonra hastanede meydana gelen ilaç hatalarındaki düşüş.\n- Tekniker Rolü: Aylık override istatistiklerini derleyip klinik komisyona sunmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "dashboard analytics override rate healthcare quality metrics"
+    }
+  },
+  {
+    "baslik": "Açıklanabilir CDSS: 'Neden Bu Uyarıyı Verdim?'",
+    "altbaslik": "Kılavuz Referansları ve Kanıt Seviyesi",
+    "icerik": "- Şeffaflık İlkesi: Her uyarının altında 'Referans: Sağlık Bakanlığı Kalp Yetersizliği Kılavuzu 2024, Kanıt Düzeyi: Sınıf I, Düzey A' yazmalıdır.\n- Güven İnşası: Hekim uyarının bilimsel dayanağını gördüğünde kurala daha yüksek oranda uyar.\n- Tıbbi Veri Teknikeri Görevi: Kılavuz referans linklerinin güncelliğini kontrol etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "evidence based medicine clinical guideline reference transparency"
+    }
+  },
+  {
+    "baslik": "CDSS Bakım ve Güncelleme Döngüsü",
+    "altbaslik": "Yaşayan ve Evrilen Sistemler",
+    "icerik": "- Faz 1: Yeni Tıbbi Bilginin / Kılavuzun İlanı.\n- Faz 2: Kuralın Algoritmaya Dönüştürülmesi (Karar Tablosu).\n- Faz 3: Test Ortamında Simülasyon (Eski hasta verisinde test).\n- Faz 4: Klinik Onay ve Sisteme Yükleme.\n- Faz 5: Sahada Kullanıcı Geri Bildirimi ve Eşik İyileştirme.",
+    "gorsel": {
+      "type": "image",
+      "query": "software maintenance lifecycle continuous improvement hospital"
+    }
+  }
+]

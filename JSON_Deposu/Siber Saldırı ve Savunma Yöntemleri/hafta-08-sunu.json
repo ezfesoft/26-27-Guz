@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 8",
+    "altbaslik": "Ağ ve Sistem Güvenliği: Güvenlik Duvarları, IDS/IPS ve Hardening",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Ağ ve Sunucu Savunması\nHaftalık Odak: Güvenlik Duvarı Türleri, Linux UFW, Windows Firewall, DMZ Mimarisi ve Hardening\nHedef: Güvenlik duvarı kurallarını yönetmek ve sunucu sıkılaştırma ilkelerini uygulamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "network security firewall ids ips hardening server"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Kalenin Surlarını Örmek",
+    "icerik": "Güvenlik duvarı (Firewall) olmayan bir sunucu kapısı kilitlenmemiş bir ev gibidir.\n- Saldırganların port taramalarını 'Filtered' ile boşa çıkarmak firewall ile sağlanır.\n- DMZ mimarisi web sunucusu hacklense bile iç ağdaki veritabanını kurtarır.\n- Sistem sıkılaştırma (Hardening) gereksiz tüm kapıları kapatma sanatıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall shield protecting datacenter servers"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Güvenlik Duvarı nesillerini (Paket Filtreleme, Stateful, WAF, NGFW) açıklar.\n2. DMZ (Arındırılmış Bölge) ve VLAN izolasyon mantığını şematize eder.\n3. Linux üzerinde UFW / iptables ile port ve IP bazlı filtreleme kuralları yazar.\n4. Windows Server 2019 üzerinde PowerShell ile güvenlik duvarı kuralları tanımlar.\n5. Sistem sıkılaştırma (Hardening) denetimlerini (ss, netstat) yürütür.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives firewall security checklist"
+    }
+  },
+  {
+    "baslik": "Güvenlik Duvarı (Firewall) Türleri",
+    "altbaslik": "1. Nesilden Yeni Nesle Evrim",
+    "icerik": "1. Paket Filtreleme (Katman 3-4): Sadece IP ve Port bakar. Durum hatırlamaz.\n2. Durumsal (Stateful Inspection): Bağlantının açık/kapalı durumunu takip eder. Giden paketin dönüşüne izin verir.\n3. Web Uygulama Duvarı (WAF - Katman 7): HTTP/HTTPS trafiğindeki SQLi, XSS gibi saldırıları süzer.\n4. Yeni Nesil (NGFW): Derin paket incelemesi (DPI), entegre IPS ve antivirüs içerir.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall generations packet filtering stateful waf ngfw diagram"
+    }
+  },
+  {
+    "baslik": "Temel Firewall Felsefesi",
+    "altbaslik": "Default Allow vs Default Deny",
+    "icerik": "- Default Allow (Varsayılan İzin Ver): Yasaklananlar hariç her şeye izin verir. GÜVENSİZDİR!\n- Default Deny (Varsayılan Reddet): İzin verilenler hariç HER ŞEYİ yasaklar. ALTIN KURALDIR!\nProfesyonel kurumlarda gelen tüm trafik varsayılan olarak reddedilir, sadece ihtiyaç duyulan portlara (örn: 80, 443) tek tek izin verilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "default deny security firewall policy lock shield"
+    }
+  },
+  {
+    "baslik": "Ağ Güvenlik Mimarisi: DMZ (Arındırılmış Bölge)",
+    "altbaslik": "Çift Güvenlik Duvarı Modeli",
+    "icerik": "İnternet -> [Dış Firewall] -> [DMZ BÖLGESİ (Web, Mail, DNS)] -> [İç Firewall] -> [KURUMSAL İÇ AĞ]\nKural:\nDMZ'deki bir sunucu internete açıktır ve hacklenebilir. Ancak İç Firewall sayesinde saldırgan iç şirketin Active Directory ve müşteri veritabanına doğrudan sıçrayamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "dmz demilitarized zone network architecture diagram"
+    }
+  },
+  {
+    "baslik": "Sistem Sıkılaştırma (Hardening) Nedir?",
+    "altbaslik": "Saldırı Yüzeyini Sıfırlamak",
+    "icerik": "Bir işletim sistemini veya sunucuyu dış tehditlere karşı maksimum güvenlikli hale getirme sürecidir.\nTemel Adımlar:\n1. Kullanılmayan tüm port ve servisleri kapatmak.\n2. Varsayılan parolaları (admin, root) değiştirmek.\n3. En Az Yetki İlkesini (Least Privilege) uygulamak.\n4. Güvenlik yamalarını (Patch) eksiksiz yüklemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "system hardening checklist lock server security"
+    }
+  },
+  {
+    "baslik": "Linux Güvenlik Duvarı: UFW ve iptables",
+    "altbaslik": "Uncomplicated Firewall Kolaylığı",
+    "icerik": "iptables güçlü fakat karmaşık bir çekirdek filtresidir. UFW bunu insan dostu hale getirir:\n- sudo ufw status verbose : Durumu gösterir\n- sudo ufw default deny incoming : Gelen tüm trafiği varsayılan reddet\n- sudo ufw allow 22/tcp : SSH portuna izin ver\n- sudo ufw allow from 192.168.1.10 : Sadece bu IP'ye izin ver\n- sudo ufw enable : Güvenlik duvarını açar",
+    "gorsel": {
+      "type": "image",
+      "query": "ufw iptables linux firewall terminal command line"
+    }
+  },
+  {
+    "baslik": "Windows Defender Firewall Kuralları",
+    "altbaslik": "PowerShell ile Yönetim",
+    "icerik": "Windows Server 2019'da PowerShell ile tek satırda gelişmiş kural yazılabilir:\nNew-NetFirewallRule -DisplayName \"Blokla-Port8080\" -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Block\nBu komut 8080 portunu dışarıdan gelen tüm isteklere kapatır.",
+    "gorsel": {
+      "type": "image",
+      "query": "windows defender firewall powershell command line scripting"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Firewall & Hardening",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n1. Linux UFW ile Default Deny kuralı tanımlayacağız.\n2. Belirli portlara izin vereceğiz.\n3. Yanımızdaki arkadaşımızın cihazını Nmap ile tarayarak portun 'filtered' olduğunu doğrulayacağız.\n4. ss -tulpn ile açık portları listeleyeceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "students typing network lab firewall kali linux"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Linux UFW Yapılandırması",
+    "altbaslik": "Varsayılan Politikaları Ayarlama",
+    "icerik": "Terminalde şu komutları sırayla çalıştırın:\nsudo ufw status verbose\nsudo ufw default deny incoming\nsudo ufw default allow outgoing\nsudo ufw allow 22/tcp\nsudo ufw enable\nKontrol: sudo ufw status numbered ile kuralları listeleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "ufw enable command terminal output rules active"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Windows PowerShell ile Kural Yazma",
+    "altbaslik": "Windows Server 2019 Kuralı",
+    "icerik": "Windows PowerShell (Yönetici) ekranında şu komutu çalıştırın:\nNew-NetFirewallRule -DisplayName \"Blokla-Port8080\" -Direction Inbound -LocalPort 8080 -Protocol TCP -Action Block\nKuralı sorgulayalım:\nGet-NetFirewallRule -DisplayName \"Blokla-Port8080\" | Select-Object DisplayName, Enabled, Action",
+    "gorsel": {
+      "type": "image",
+      "query": "powershell new-netfirewallrule command output"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Kuralın Etkisini Nmap ile Doğrulama",
+    "altbaslik": "Port Durumu Testi",
+    "icerik": "Yanınızdaki arkadaşınızın IP adresini tarayın:\nsudo nmap -p 22,8080 192.168.1.xxx\nBeklenen Gözlem:\n- İzin verilen port (22) -> open\n- Engellenen port (8080) -> filtered\nFirewall'un paketleri başarıyla düşürdüğünü kendi gözlerinizle görün!",
+    "gorsel": {
+      "type": "image",
+      "query": "nmap scan port filtered open comparison terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Sistem Sıkılaştırma Denetimi",
+    "altbaslik": "Açık Portları Bulma (ss -tulpn)",
+    "icerik": "Sistemde arka planda dinleyen tüm portları görelim:\nsudo ss -tulpn\nİnceleyin:\nLocal Address:Port sütununda gereksiz çalışan bir Telnet, FTP veya açık servis var mı kontrol edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "ss socket statistics terminal output linux"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Firewall Yönetiminde Dikkat Edilecekler",
+    "icerik": "1. SSH İzni Vermeden UFW Açmak: Uzaktan bağlıysanız bağlantınız anında kopar! Önce 'allow 22' sonra 'enable'.\n2. Ders Bitiminde UFW Açık Bırakmak: Sonraki haftalardaki lab paketlerini engellememek için ders sonunda 'sudo ufw disable' yapılmalıdır.\n3. Kural Sıralaması: Firewall kuralları yukarıdan aşağıya doğru sırayla işletilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting firewall lock out checklist warning"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Capital One Bulut İhlali",
+    "altbaslik": "WAF Yapılandırma Hatası (SSRF)",
+    "icerik": "Vaka: Finans devi Capital One'dan 106 milyon müşterinin kredi kayıtları çalındı.\nİnceleme: Saldırgan, kurumun Web Uygulama Güvenlik Duvarı (WAF) sunucusundaki SSRF zafiyetini kullandı ve WAF'ın yetkili AWS anahtarını çaldı.\nSonuç: Yanlış yapılandırılan güvenlik duvarının kendisi saldırgana geçiş kapısı oldu!",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud breach capital one aws server data leak"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Katmanlı Savunma (Defense in Depth)",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Ders: Asla tek bir güvenlik cihazına veya firewall'a güvenilmemelidir.\nKatmanlı Savunma:\n1. Ağ Firewall\n2. WAF\n3. Sunucu İçi Host Firewall (UFW/iptables)\n4. Veri Tabanı Şifreleme\nBiri aşılsa bile diğeri saldırganı durdurmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "defense in depth onion layers cybersecurity model"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Firewall Politikaları",
+    "icerik": "Soru: İzin verilenler haricindeki tüm gelen bağlantıları varsayılan olarak reddeden temel güvenlik kuralına ne ad verilir?\nA) Default Allow\nB) Default Deny\nC) NAT\nD) DMZ\n\nDoğru Cevap: B (Default Deny)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Ağ Mimarisi",
+    "icerik": "Soru: Web ve e-posta gibi dışarıya açık sunucuları şirket içi veritabanlarından yalıtarak koruyan ara tampon bölgeye ne ad verilir?\nA) LAN\nB) DMZ (Arındırılmış Bölge)\nC) WAN\nD) VPN\n\nDoğru Cevap: B (DMZ)",
+    "gorsel": {
+      "type": "image",
+      "query": "dmz network architecture question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Firewall Türleri",
+    "icerik": "Soru: Web uygulamalarına yönelik SQL Injection ve XSS saldırılarını Katman 7 düzeyinde engelleyen güvenlik duvarı hangisidir?\nA) Paket Filtreleme\nB) WAF (Web Application Firewall)\nC) Hub\nD) Router\n\nDoğru Cevap: B (WAF)",
+    "gorsel": {
+      "type": "image",
+      "query": "waf web application firewall question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Linux Komutları",
+    "icerik": "Soru: Linux'ta UFW güvenlik duvarında 22 numaralı SSH portuna gelen bağlantılara izin vermek için hangi komut yazılır?\nA) sudo ufw allow 22/tcp\nB) sudo ufw block 22\nC) sudo ufw delete 22\nD) sudo ufw reset\n\nDoğru Cevap: A (sudo ufw allow 22/tcp)",
+    "gorsel": {
+      "type": "image",
+      "query": "ufw command line question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Sistem Sıkılaştırma",
+    "icerik": "Soru: Sistemde çalışan dinleme durumundaki tüm TCP/UDP portları ve servisleri listelemek için hangi komut kullanılır?\nA) ping\nB) ss -tulpn\nC) rm -rf\nD) cat /etc/passwd\n\nDoğru Cevap: B (ss -tulpn)",
+    "gorsel": {
+      "type": "image",
+      "query": "socket statistics command question test"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Engelleme ve Açma Yarışı",
+    "icerik": "Uygulama Görevi:\n1. 80 numaralı portu UFW ile kapatın.\n2. Yanınızdaki arkadaşınız Nmap ile tarasın ve 'filtered' gördüğünü onaylasın.\n3. Portu tekrar açıp 'open' görünmesini sağlayın.\nİlk tamamlayan çift el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "Ağ İzolasyonu: VLAN Mantığı",
+    "altbaslik": "Sanal Yerel Ağlar ile Bölümleme",
+    "icerik": "VLAN (Virtual Local Area Network):\nFiziksel tek bir switch'i mantıksal olarak birden fazla bağımsız ağa bölme teknolojisidir.\n- VLAN 10: Muhasebe ve Finans (İzole)\n- VLAN 20: Misafir Wi-Fi (Sadece internete açık)\n- VLAN 30: Sunucular ve Veritabanı\nVLAN'lar arası geçiş sadece Güvenlik Duvarı üzerinden kontrollü yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "vlan virtual local area network segmentation switch diagram"
+    }
+  },
+  {
+    "baslik": "VPN (Sanal Özel Ağ) Teknolojisi",
+    "altbaslik": "Güvenli Uzaktan Erişim Tüneli",
+    "icerik": "İnternet üzerinden şifreli bir tünel (IPsec, OpenVPN, WireGuard) kurarak şirket ağına güvenle bağlanma yöntemidir.\n- Evden veya kafeden çalışan personel şirket sunucularına doğrudan değil, VPN tüneli üzerinden şifreli erişir.\n- Dışarıdaki dinleyiciler sadece anlamsız şifreli paketler görür.",
+    "gorsel": {
+      "type": "image",
+      "query": "vpn encrypted tunnel remote work secure connection"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama: Firewall Kural Sıralaması",
+    "altbaslik": "Kural Çakışmalarını Önleme",
+    "icerik": "Firewall Kuralları Yukarıdan Aşağıya İşletilir!\nÖrnek Senaryo:\nKural 1: 192.168.1.50 IP'sine 80 portu için İZİN VER.\nKural 2: Tüm gelen trafiği ENGELLE (Default Deny).\nEğer Kural 2'yi Kural 1'in üstüne koyarsanız, 192.168.1.50 dahil her şey engellenir!\nKural: Özel izinler en üstte, genel yasaklama en altta olmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall rule order top down processing diagram"
+    }
+  },
+  {
+    "baslik": "Sistem Güncellemeleri ve Yama Yönetimi",
+    "altbaslik": "Zafiyetleri Kapatmanın En Etkin Yolu",
+    "icerik": "Windows Server ve Linux sistemlerde güvenlik yamaları düzenli olarak uygulanmalıdır:\n- Linux: sudo apt update && sudo apt upgrade -y\n- Windows: WSUS (Windows Server Update Services)\nYama yapılmayan her sistem bilinen CVE açıklarına karşı savunmasızdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "software update patch management security shield"
+    }
+  },
+  {
+    "baslik": "Sıkılaştırma Kontrol Listesi (CIS Benchmarks)",
+    "altbaslik": "Dünya Standartlarında Güvenlik",
+    "icerik": "CIS (Center for Internet Security) Sunucu Sıkılaştırma Standartları:\n1. Varsayılan Administrator/root hesap adını değiştirin.\n2. Kullanılmayan USB ve Bluetooth portlarını devre dışı bırakın.\n3. Güvenlik olay günlüklerinin (Event Logs) boyutunu en az 1 GB yapın.\n4. Parola deneme sınırını 5 hatalı girişe ayarlayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "cis benchmarks security compliance checklist"
+    }
+  },
+  {
+    "baslik": "Ağ Güvenliği Tehditleri: IP Spoofing",
+    "altbaslik": "Sahte Kaynak IP ile Aldatma",
+    "icerik": "IP Spoofing: Saldırganın gönderdiği paketin kaynak IP başlığına şirketin güvendiği bir iç IP adresini yazmasıdır.\nSavunma: Anti-Spoofing Kuralları.\nFirewall, dış internet bacağından gelen paketin kaynak adresi bir 'iç IP' (192.168.x.x) ise bu paketi anında sahte kabul edip düşürmelidir (Drop).",
+    "gorsel": {
+      "type": "image",
+      "query": "ip spoofing packet fake source address diagram"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Firewall sistemin ilk kapısıdır; Default Deny politikasıyla yönetilmelidir.\n- DMZ mimarisi şirket içi veritabanlarını internet saldırılarından yalıtır.\n- UFW ve PowerShell ile tek satırda kurallar yazılabilir.\n- Katmanlı savunma (Defense in Depth) ve sistem sıkılaştırma en sağlam kalkandır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 9: Sızma Testleri ve Metasploit Framework",
+    "icerik": "Ön Hazırlık:\n- Pentest süreçleri ve kutu testleri (Black/White/Grey) nelerdir?\n- Metasploit Framework mimarisi (Exploit ve Payload) nasıl çalışır?\n- Hedef sanal makineye Metasploit ile nasıl sızılır?",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit framework penetration testing concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Neden web sunucusunu doğrudan şirket içi muhasebe veritabanıyla aynı yerel ağa koymak yerine DMZ bölgesine koyarız?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

@@ -1,0 +1,335 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 10",
+    "altbaslik": "switch-case ve Timer ile Animasyonlu Durum Makineleri",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Durum Yönetimi ve Zamanlayıcılar\nHaftalık Odak: switch-case, break, default, Timer Kontrolü (Tick Olayı)\nHedef: Zamanla otomatik değişen animasyonlu görsel simülasyonlar üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "stopwatch timer traffic lights switch case state machine"
+    }
+  },
+  {
+    "baslik": "Neden switch-case Kullanırız?",
+    "altbaslik": "Sektörel Bağlam: TV Kumandası Hızı",
+    "icerik": "Tek bir değişkenin belirli sabit değerlerle (1, 2, 3, 'A', 'B') birebir eşitliğini kontrol ederken if-else zinciri yazmak yorucudur.\n- switch-case tek bir hamlede ilgili değere zıplar (Jump Table).\n- Kod çok daha temiz, okunaklı ve düzenli olur.",
+    "gorsel": {
+      "type": "image",
+      "query": "tv remote control buttons channels switch"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. switch-case yapısının kullanım amaçlarını ve if-else'ten farkını açıklar.\n2. switch, case, break ve default anahtar kelimelerini hatasız kullanır.\n3. Timer (Zamanlayıcı) kontrolünü ve Interval/Tick mekanizmasını yönetir.\n4. Durum Makinesi (State Machine) mantığıyla adım adım çalışan sistem kurar.\n5. 'Animasyonlu Akıllı Trafik Lambası' projesini üretir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets goals state machine automation"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Televizyon Kumandası",
+    "altbaslik": "switch-case'i Zihinde Canlandırmak",
+    "icerik": "- switch (secilenTus): Kumandayı elinize aldınız.\n- case 1: 1. Tuşa basıldıysa TRT1'i aç.\n- break;: İşi bitir, diğer tuşlara bakma!\n- case 2: 2. Tuşa basıldıysa ATV'yi aç.\n- default: Tanımsız bir tuşa basıldıysa 'Geçersiz Kanal' uyarısı ver.",
+    "gorsel": {
+      "type": "image",
+      "query": "remote control channel selection television screen"
+    }
+  },
+  {
+    "baslik": "switch-case Temel Sentaksı",
+    "altbaslik": "C# Söz Dizimi ve Kuralları",
+    "icerik": "switch (kontrol_edilen_degisken)\n{\n    case 1:\n        // 1 ise çalışacak kod\n        break; // Zorunlu çıkış kapısı\n    case 2:\n        // 2 ise çalışacak kod\n        break;\n    default:\n        // Hiçbiri değilse çalışacak varsayılan kod\n        break;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp switch case code block syntax"
+    }
+  },
+  {
+    "baslik": "break; Komutunun Hayati Rolü",
+    "altbaslik": "Kapıyı Kilitleyip Dışarı Çıkmak",
+    "icerik": "C# dilinde her case bloğunun sonuna MUTLAKA 'break;' yazılmalıdır.\n- break; komutu, eşleşen işlem bittiğinde switch parantezinden dışarı fırlatır.\n- break; unutulursa C# derleyicisi 'Control cannot fall through' hatası verir ve kodu çalıştırmaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit door lock break barrier sign concept"
+    }
+  },
+  {
+    "baslik": "Case Gruplama (Fall-Through Mantığı)",
+    "altbaslik": "Birden Çok Değerin Aynı İşi Yapması",
+    "icerik": "Örnek: Mevsim belirleme (12, 1, 2 ayları Kış mevsimidir):\n\nswitch (ayNo)\n{\n    case 12:\n    case 1:\n    case 2:\n        lblMevsim.Text = \"Kış\";\n        break;\n    case 3:\n    case 4:\n    case 5:\n        lblMevsim.Text = \"İlkbahar\";\n        break;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "grouping categories seasons winter spring logic"
+    }
+  },
+  {
+    "baslik": "Zamanın Efendisi: Timer Kontrolü",
+    "altbaslik": "Kendi Kendine Çalışan Saat Mekanizması",
+    "icerik": "Toolbox'tan forma sürüklenir. Formun üstünde değil alt gri tepside yer alır.\n- Interval (Aralık): Milisaniye cinsinden hız (1000 ms = 1 saniye).\n- Enabled (true/false): Saati başlatır veya durdurur.\n- Tick Olayı: Süre her dolduğunda (her 1 saniyede bir) otomatik çalışan metottur.",
+    "gorsel": {
+      "type": "image",
+      "query": "stopwatch clock ticking timer interval visual studio"
+    }
+  },
+  {
+    "baslik": "Durum Makinesi (State Machine) Nedir?",
+    "altbaslik": "Adım Adım İlerleyen Sistemler",
+    "icerik": "Birçok sistem döngüsel adımlarla çalışır:\n- Adım 1: Kırmızı Işık (DUR)\n- Adım 2: Kırmızı + Sarı Işık (HAZIRLAN)\n- Adım 3: Yeşil Işık (GEÇ)\n- Adım 4: Sarı Işık (DİKKAT)\n- Adım 5: Tekrar Adım 1'e dön!\nHer saniye adımı 1 artırıp switch(adim) ile kontrol edeceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "finite state machine diagram steps transition"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Animasyonlu Trafik Lambası",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Gerçekçi bir kavşak trafik lambası simülasyonu.\n- Formda 3 adet Panel (Kırmızı, Sarı, Yeşil kutular) bulunur.\n- 'Sistemi Başlat' butonuna basınca Timer devreye girer.\n- Her saniye renkler ve ekrandaki sürücü uyarı yazısı otomatik değişir.",
+    "gorsel": {
+      "type": "image",
+      "query": "traffic signal intersection red yellow green lights"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Paneller: pnlKirmizi, pnlSari, pnlYesil (80x80 piksel)\nButonlar: btnBaslat ('🚦 Başlat'), btnDurdur ('🛑 Durdur')\nZamanlayıcı: timer1 (Interval = 1000, Enabled = false)\nDurum Etiketi: lblDurum (18pt Bold)",
+    "gorsel": {
+      "type": "image",
+      "query": "ui layout traffic lights panels buttons visual studio"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: Başlat ve Durdur",
+    "altbaslik": "Timer'ı Kontrol Etmek",
+    "icerik": "int adim = 0; // Form seviyesinde durum sayacı\n\nprivate void btnBaslat_Click(object sender, EventArgs e)\n{\n    timer1.Start(); // veya timer1.Enabled = true;\n    lblDurum.Text = \"Trafik Işığı Devrede...\";\n}\n\nprivate void btnDurdur_Click(object sender, EventArgs e)\n{\n    timer1.Stop(); // veya timer1.Enabled = false;\n    lblDurum.Text = \"Sistem Durduruldu!\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "start stop timer buttons code controls"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: timer1_Tick Olayı",
+    "altbaslik": "switch-case ile Işıkları Yönetmek",
+    "icerik": "private void timer1_Tick(object sender, EventArgs e)\n{\n    adim++;\n    switch (adim)\n    {\n        case 1: // KIRMIZI\n            pnlKirmizi.BackColor = Color.Red;\n            pnlSari.BackColor = Color.Gray;\n            pnlYesil.BackColor = Color.Gray;\n            lblDurum.Text = \"🛑 DUR!\";\n            break;\n        case 2: // SARI\n            pnlKirmizi.BackColor = Color.Red;\n            pnlSari.BackColor = Color.Yellow;\n            pnlYesil.BackColor = Color.Gray;\n            lblDurum.Text = \"⚠️ HAZIRLAN!\";\n            break;\n        case 3: // YEŞİL\n            pnlKirmizi.BackColor = Color.Gray;\n            pnlSari.BackColor = Color.Gray;\n            pnlYesil.BackColor = Color.LimeGreen;\n            lblDurum.Text = \"🟢 GEÇ!\";\n            break;\n        default:\n            adim = 0; // Başa dön\n            break;\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp switch case code traffic lights color update"
+    }
+  },
+  {
+    "baslik": "if-else ile switch-case Karşılaştırması",
+    "altbaslik": "Hangisini Ne Zaman Kullanmalıyız?",
+    "icerik": "- if-else: Büyüktür, küçüktür gibi aralık kontrollerinde (> 50, < 100) ZORUNLUDUR.\n- switch-case: Sabit eşitlik durumlarında (case 1, case 'A', case \"admin\") çok daha hızlı ve okunaklıdır.\n- Geleneksel switch ile 'case > 50:' yazılamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "comparison table switch case vs if else"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Asansör Kontrol Yazılımı",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "10 katlı bir binanın asansör motoru:\nswitch (hedefKat)\n{\n    case 0: ZeminKattaDur(); break;\n    case 1: BirinciKattaDur(); break;\n    case 5: BesinciKattaDur(); break;\n}\nAsansör sistemleri klasik durum makinesi mantığıyla switch-case üzerinden yönetilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "elevator buttons floor indicator digital panel"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "switch-case Kuralları",
+    "icerik": "Soru: switch-case bloğunda her case'in sonundan çıkışı sağlayan zorunlu kelime hangisidir?\n\nA) exit\nB) stop\nC) break\nD) continue\n\nDoğru Cevap: C (break komutu case bloğunu sonlandırıp switch'ten çıkmayı sağlar).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination correct answer test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Timer Özellikleri",
+    "icerik": "Soru: Timer kontrolünün her 2 saniyede bir tetiklenmesi için Interval değeri kaç yapılmalıdır?\n\nA) 2\nB) 20\nC) 200\nD) 2000\n\nDoğru Cevap: D (Interval milisaniye cinsindendir. 1 saniye = 1000 ms, 2 saniye = 2000 ms).",
+    "gorsel": {
+      "type": "image",
+      "query": "timer clock milliseconds quiz calculation"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "default Bloğu",
+    "icerik": "Soru: switch yapısında hiçbir case değeri eşleşmediğinde hangi blok çalışır?\n\nA) else\nB) default\nC) catch\nD) finally\n\nDoğru Cevap: B (default bloğu hiçbir case uymadığında çalışan varsayılan daldır).",
+    "gorsel": {
+      "type": "image",
+      "query": "default fallback case option quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Haftanın Günü Bulucu",
+    "icerik": "Görev:\n- Kutuya 1-7 arası gün numarası girilsin.\n- switch-case ile 1->Pazartesi, 6/7->Hafta Sonu tatili mesajı versin.",
+    "gorsel": {
+      "type": "image",
+      "query": "calendar week days Monday Friday weekend"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- switch-case: Çoklu sabit eşleşme karar yapısı.\n- break: Case bloğundan zorunlu çıkış anahtarı.\n- default: Eşleşme olmadığında devreye giren varsayılan blok.\n- Timer: Milisaniye cinsinden tekrarlayan zamanlayıcı bileşen.\n- Interval: Timer'ın iki çalışma arasındaki bekleme süresi (ms).",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- switch-case yapısını, break ve default anahtar kelimelerini kavradık.\n- Timer kontrolünün Interval ve Tick mekanizmasını öğrendik.\n- Durum makinesi (State Machine) mantığıyla adım adım çalışan bir sistem kurduk.\n- Animasyonlu Trafik Lambası projesini başarıyla tamamladık.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "Modern C#: Switch Expressions (C# 8.0+)",
+    "altbaslik": "Tek Satırda Değer Döndüren switch",
+    "icerik": "Yeni nesil C# sürümlerinde switch ifadesi lambda (=>) ile çok daha kısa yazılabilir:\n\nstring mevsim = ay switch\n{\n    12 or 1 or 2 => \"Kış\",\n    3 or 4 or 5  => \"İlkbahar\",\n    6 or 7 or 8  => \"Yaz\",\n    _            => \"Geçersiz Ay\"\n};\nBu sentaks kod satır sayısını yarı yarıya azaltır.",
+    "gorsel": {
+      "type": "image",
+      "query": "modern csharp switch expression lambda arrow"
+    }
+  },
+  {
+    "baslik": "Pattern Matching (Desen Eşleme)",
+    "altbaslik": "Gelişmiş switch-case Yetenekleri",
+    "icerik": "C# 7.0 ile birlikte switch içine tip kontrolleri ve 'when' şartları eklenebilmiştir:\n\nswitch (nesne)\n{\n    case int i when i > 100: lblSonuc.Text = \"Büyük Sayı\"; break;\n    case string s: lblSonuc.Text = \"Metin: \" + s; break;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "pattern matching csharp advanced features"
+    }
+  },
+  {
+    "baslik": "Timer ile Kronometre Yapımı",
+    "altbaslik": "Saniye ve Dakika Sayacı",
+    "icerik": "int saniye = 0;\nint dakika = 0;\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    saniye++;\n    if (saniye == 60) { dakika++; saniye = 0; }\n    lblKronometre.Text = dakika.ToString(\"00\") + \":\" + saniye.ToString(\"00\");\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "digital stopwatch minutes seconds timer screen"
+    }
+  },
+  {
+    "baslik": "Timer ile Form Hareketi (Animasyon)",
+    "altbaslik": "Pikselleri Hareket Ettirmek",
+    "icerik": "Bir butonu veya paneli sağa doğru kaydırmak için:\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    btnAraba.Left += 5; // Her saniye 5 piksel sağa kaydır\n    if (btnAraba.Left > this.Width) btnAraba.Left = 0; // Başa dön\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "animation movement pixels moving car sprite game"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan switch-case Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. case ifadelerine değişken yazmak (case x: HATA! Yalnızca sabit değerler yazılabilir).\n2. İki farklı case'e aynı değeri vermek (case 1: ve tekrar case 1: -> Derleme hatası).\n3. break; komutunu unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "compiler error duplicate case visual studio"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Akıllı Çamaşır Makinesi",
+    "altbaslik": "Program Seçim Düğmesi",
+    "icerik": "Çamaşır makinesinin yuvarlak ayar düğmesi:\nswitch (secilenProgram)\n{\n    case \"Pamuklu\": Sure = 120; Sicaklik = 60; break;\n    case \"Hızlı 15'\": Sure = 15; Sicaklik = 30; break;\n    case \"Sıkma\": Sure = 10; SıkmaDevri = 1000; break;\n}\nGömülü sistemlerin program seçim mekanizması switch-case ile kurulur.",
+    "gorsel": {
+      "type": "image",
+      "query": "washing machine control dial programs panel"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "switch Kısıtlaması",
+    "icerik": "Soru: Geleneksel switch-case yapısında aşağıdakilerden hangisi doğrudan kontrol EDİLEMEZ?\n\nA) Sayının 5'e eşit olması (case 5:)\nB) Metnin 'admin' olması (case \"admin\":)\nC) Sayının 50'den büyük olması (case > 50:)\nD) Harfin 'A' olması (case 'A':)\n\nDoğru Cevap: C (Geleneksel switch yalnızca sabit eşitlikleri kontrol eder, aralık kontrolleri yapılamaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test choice switch limitation logic"
+    }
+  },
+  {
+    "baslik": "Modern C#: Switch Expressions (C# 8.0+)",
+    "altbaslik": "Tek Satırda Değer Döndüren switch",
+    "icerik": "Yeni nesil C# sürümlerinde switch ifadesi lambda (=>) ile çok daha kısa yazılabilir:\n\nstring mevsim = ay switch\n{\n    12 or 1 or 2 => \"Kış\",\n    3 or 4 or 5  => \"İlkbahar\",\n    6 or 7 or 8  => \"Yaz\",\n    _            => \"Geçersiz Ay\"\n};\nBu sentaks kod satır sayısını yarı yarıya azaltır.",
+    "gorsel": {
+      "type": "image",
+      "query": "modern csharp switch expression lambda arrow"
+    }
+  },
+  {
+    "baslik": "Pattern Matching (Desen Eşleme)",
+    "altbaslik": "Gelişmiş switch-case Yetenekleri",
+    "icerik": "C# 7.0 ile birlikte switch içine tip kontrolleri ve 'when' şartları eklenebilmiştir:\n\nswitch (nesne)\n{\n    case int i when i > 100: lblSonuc.Text = \"Büyük Sayı\"; break;\n    case string s: lblSonuc.Text = \"Metin: \" + s; break;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "pattern matching csharp advanced features"
+    }
+  },
+  {
+    "baslik": "Timer ile Kronometre Yapımı",
+    "altbaslik": "Saniye ve Dakika Sayacı",
+    "icerik": "int saniye = 0;\nint dakika = 0;\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    saniye++;\n    if (saniye == 60) { dakika++; saniye = 0; }\n    lblKronometre.Text = dakika.ToString(\"00\") + \":\" + saniye.ToString(\"00\");\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "digital stopwatch minutes seconds timer screen"
+    }
+  },
+  {
+    "baslik": "Timer ile Form Hareketi (Animasyon)",
+    "altbaslik": "Pikselleri Hareket Ettirmek",
+    "icerik": "Bir butonu veya paneli sağa doğru kaydırmak için:\n\nprivate void timer1_Tick(object sender, EventArgs e)\n{\n    btnAraba.Left += 5; // Her saniye 5 piksel sağa kaydır\n    if (btnAraba.Left > this.Width) btnAraba.Left = 0; // Başa dön\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "animation movement pixels moving car sprite game"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan switch-case Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. case ifadelerine değişken yazmak (case x: HATA! Yalnızca sabit değerler yazılabilir).\n2. İki farklı case'e aynı değeri vermek (case 1: ve tekrar case 1: -> Derleme hatası).\n3. break; komutunu unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "compiler error duplicate case visual studio"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Akıllı Çamaşır Makinesi",
+    "altbaslik": "Program Seçim Düğmesi",
+    "icerik": "Çamaşır makinesinin yuvarlak ayar düğmesi:\nswitch (secilenProgram)\n{\n    case \"Pamuklu\": Sure = 120; Sicaklik = 60; break;\n    case \"Hızlı 15'\": Sure = 15; Sicaklik = 30; break;\n    case \"Sıkma\": Sure = 10; SıkmaDevri = 1000; break;\n}\nGömülü sistemlerin program seçim mekanizması switch-case ile kurulur.",
+    "gorsel": {
+      "type": "image",
+      "query": "washing machine control dial programs panel"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "switch Kısıtlaması",
+    "icerik": "Soru: Geleneksel switch-case yapısında aşağıdakilerden hangisi doğrudan kontrol EDİLEMEZ?\n\nA) Sayının 5'e eşit olması (case 5:)\nB) Metnin 'admin' olması (case \"admin\":)\nC) Sayının 50'den büyük olması (case > 50:)\nD) Harfin 'A' olması (case 'A':)\n\nDoğru Cevap: C (Geleneksel switch yalnızca sabit eşitlikleri kontrol eder, aralık kontrolleri yapılamaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test choice switch limitation logic"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Timer kontrolünün her yarım saniyede bir (0.5 sn) çalışması için Interval özelliğine kaç yazılmalıdır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 11: Tekrarlı İşlemler ve for Döngüsü",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- 1000 satır kodu 2 satırda halletmek: for döngüsü.\n- Stadyum turu analojisi ve i sayacı.\n- ListBox kontrolü ile verileri alt alta listeleme.\n- Süper Sayı Matik & Çarpım Tablosu projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "loops repetition for loop runner stadium preview"
+    }
+  }
+]

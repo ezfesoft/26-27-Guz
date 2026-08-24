@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 14 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 14</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="#" class="btn-nav" style="text-decoration:none;" disabled>
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 14", "altbaslik": "Hizmet Reddi (DoS) ve Dağıtılmış Hizmet Reddi (DDoS) Atakları", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Ağ Dayanıklılığı ve Servis Dışı Bırakma Tehditleri\nHaftalık Odak: L4 vs L7 Saldırıları, SYN Flood, Slowloris, hping3 ve Savunma (SYN Cookies)\nHedef: DoS/DDoS saldırı mantığını analiz etmek ve sistemleri bu tehditlere karşı savunmak.", "gorsel": {"type": "image", "query": "ddos attack cyber warfare traffic flood server defense"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Erişilebilirliğin Çöküşü", "icerik": "Bir sistem ne kadar güvenli olursa olsun, erişilemez durumdaysa hiçbir değeri yoktur.\n- DDoS saldırıları bankaların, üniversitelerin ve e-ticaret sitelerinin hizmetini durdurur.\n- Dakikalık kesintiler devasa maddi zararlara ve itibar kaybına yol açar.\nGüvenlik uzmanı bu saldırıları analiz edip absorbe etmeyi bilmelidir.", "gorsel": {"type": "image", "query": "server downtime 503 service unavailable error screen"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. DoS (Tek Kaynak) ile DDoS (Zombi Ordu / Botnet) farkını açıklar.\n2. Ağ Katmanı (L4 - SYN Flood) ve Uygulama Katmanı (L7 - Slowloris) saldırılarını modeller.\n3. Botnet mimarisini ve Komuta Kontrol (C2) yapısını kavrar.\n4. hping3 aracı ile kontrollü SYN paket analizi yapar.\n5. SYN Cookies, Rate Limiting ve CDN/Scrubbing savunma stratejilerini uygular.", "gorsel": {"type": "image", "query": "learning objectives ddos mitigation checklist"}}, {"baslik": "DoS vs DDoS: Temel Kavramlar", "altbaslik": "Tek Tabanca vs Zombi Ordusu", "icerik": "DoS (Denial of Service):\nTek bir kaynaktan hedef sunucuya aşırı yük gönderilmesidir. Kaynak IP tespit edilip firewall'dan kolayca engellenir.\nDDoS (Distributed Denial of Service):\nDünyanın dört bir yanına dağılmış yüz binlerce ele geçirilmiş cihazdan (Botnet) eşzamanlı yapılan devasa saldırıdır. Engellenmesi çok daha zordur!", "gorsel": {"type": "image", "query": "dos vs ddos network attack diagram comparison"}}, {"baslik": "Botnet Mimarisi: Zombi Ordusu", "altbaslik": "C2 Sunucuları ve Köle Cihazlar", "icerik": "Saldırgan (Botmaster) -> [C2 Sunucusu (Emir Komuta)]\n                                      |\n        +-----------------------------+-----------------------------+\n        v                             v                             v\n[Zombi 1 (Akıllı TV)]       [Zombi 2 (IP Kamera)]         [Zombi 3 (PC)]\n        |                             |                             |\n        +-----------------------------> <---------------------------+\n                                      v\n                           [HEDEF SUNUCU ÇÖKER!]", "gorsel": {"type": "image", "query": "botnet architecture command and control server zombies diagram"}}, {"baslik": "Ağ Katmanı (L4) Saldırıları: SYN Flood", "altbaslik": "Yarım Kalan El Sıkışma Tuzağı", "icerik": "TCP 3'lü el sıkışma mantığını istismar eder:\n1. Saldırgan sahte IP ile hedefe SYN paketi atar.\n2. Sunucu belleğinde yer ayırıp SYN-ACK yanıtı döner.\n3. Saldırgan son ACK paketini ASLA GÖNDERMEZ!\nSonuç:\nSunucunun bağlantı tablosu (SYN Queue) sahte beklemelerle dolar ve gerçek kullanıcılar sunucuya bağlanamaz!", "gorsel": {"type": "image", "query": "tcp syn flood attack half open connections diagram"}}, {"baslik": "Uygulama Katmanı (L7) Saldırıları: Slowloris", "altbaslik": "Sessiz ve Yavaş Boğma", "icerik": "Büyük bant genişliği gerektirmeyen çok sinsi bir saldırıdır.\nÇalışma Mantığı:\nWeb sunucusuna (Apache vb.) bir HTTP GET isteği başlatır ama başlıkları (Headers) saniyede bir karakter gibi çok yavaş gönderir ve bağlantıyı ASLA kapatmaz.\nSunucu tüm iş parçacıklarını (Threads) bu yavaş bağlantılara ayırır ve kilitlenir!", "gorsel": {"type": "image", "query": "slowloris http attack application layer connection exhaustion"}}, {"baslik": "UDP ve ICMP Flood (Bant Genişliği Boğma)", "altbaslik": "Hacimsel (Volumetric) Saldırılar", "icerik": "Hedef sunucunun internet hattını (örn: 1 Gbps) saniyede 50-100 Gbps sahte UDP veya Ping paketiyle doldurarak fiziksel kabloyu tıkama yöntemidir.\nÖrnekler:\n- DNS Amplification (Yükseltme): 1 baytlık soruya 100 baytlık yanıt ürettirerek hedefe yönlendirme.\n- NTP / Memcached Amplification.", "gorsel": {"type": "image", "query": "volumetric ddos attack bandwidth saturation pipe diagram"}}, {"baslik": "hping3: Ağ Test ve Paket Üretim Aracı", "altbaslik": "Güvenlik Uzmanının İsviçre Çakısı", "icerik": "hping3, özel TCP/IP paketleri üreten ve ağ analizinde kullanılan güçlü bir araçtır.\nSözdizimi:\nsudo hping3 -S -p 80 -c 10 192.168.1.10\n- -S : TCP SYN bayrağını ayarla\n- -p 80 : Hedef port\n- -c 10 : 10 adet paket gönder ve dur (Laboratuvar emniyeti!)\n- --flood : Sınırsız hızda paket bas (SADECE test ortamında!)", "gorsel": {"type": "image", "query": "hping3 packet generator terminal command line screen"}}, {"baslik": "Savunma: DoS ve DDoS Nasıl Engellenir?", "altbaslik": "Modern Mitigasyon Stratejileri", "icerik": "1. SYN Cookies: Sunucunun bellekte yer ayırmadan matematiksel sıra numarasıyla SYN yanıtı dönmesini sağlar.\n2. Rate Limiting: Aynı IP'den gelen saniyelik istek sayısını sınırlandırma.\n3. Anycast DNS & CDN (Cloudflare/Akamai): Gelen trafiği dünya çapındaki yüzlerce sunucuya dağıtıp eritme.\n4. Scrubbing Centers (Temizleme Merkezleri): Zararlı trafiği süzüp temiz trafiği sunucuya iletme.", "gorsel": {"type": "image", "query": "ddos mitigation cloudflare scrubbing center cdn diagram"}}, {"baslik": "Uygulama Laboratuvarı: hping3 ve Savunma", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Laboratuvarımızda:\n1. hping3 ile Windows Server 2019'a kontrollü 10 adet SYN paketi göndereceğiz.\n2. Gelen SYN-ACK yanıt bayraklarını (flags=SA) analiz edeceğiz.\n3. Wireshark I/O Graphs ile paket sıçramasını canlı izleyeceğiz.\n4. Linux çekirdeğinde SYN Cookie savunmasını aktifleştireceğiz.", "gorsel": {"type": "image", "query": "students network lab packet capture hping3 wireshark"}}, {"baslik": "Uygulama 1: Kontrollü SYN Paketi Gönderme", "altbaslik": "hping3 ile L4 Paket Analizi", "icerik": "Terminalde Windows Server 2019'a (192.168.1.10) 10 adet SYN paketi yollayalım:\nsudo hping3 -S -p 80 -c 10 192.168.1.10\nBeklenen Çıktı:\nlen=46 ip=192.168.1.10 sport=80 flags=SA seq=0 rtt=0.8 ms\nflags=SA (SYN-ACK) sunucunun bağlantıyı kabul ettiğini doğrular.", "gorsel": {"type": "image", "query": "hping3 terminal output flags sa response"}}, {"baslik": "Uygulama 2: Wireshark ile Trafik Grafiği İzleme", "altbaslik": "I/O Graphs Analizi", "icerik": "Adım 1: Wireshark'ı açın (sudo wireshark &).\nAdım 2: Filtreye şunu yazın:\ntcp.flags.syn == 1 and tcp.flags.ack == 0\nAdım 3: Üst menüden Statistics -> I/O Graphs seçeneğine tıklayın.\nEğitmen test paketi gönderdiğinde grafikteki ani sıçramayı izleyin!", "gorsel": {"type": "image", "query": "wireshark io graphs packet rate spike monitor"}}, {"baslik": "Uygulama 3: Slowhttptest ile L7 Testi", "altbaslik": "Web Sunucu Bağlantı Havuzu", "icerik": "Web sunucunun bağlantı açık tutma kapasitesini test edelim:\nslowhttptest -c 50 -H -i 10 -r 100 -t GET -u http://192.168.1.20/dvwa/ -l 20\nSonuç:\nSunucunun gelen yavaş istekleri kaç saniye askıda tuttuğunu analiz edin.", "gorsel": {"type": "image", "query": "slowhttptest terminal report graph web server"}}, {"baslik": "Uygulama 4: Linux'ta SYN Cookie Savunması", "altbaslik": "Çekirdek Düzeyinde Koruma", "icerik": "SYN Cookie durumunu kontrol edelim (1 = Aktif, 0 = Kapalı):\ncat /proc/sys/net/ipv4/tcp_syncookies\nAktif değilse aktifleştirelim:\nsudo sysctl -w net.ipv4.tcp_syncookies=1\nBu ayar ile sunucu SYN Flood saldırısı alsa bile belleği kilitlenmez!", "gorsel": {"type": "image", "query": "sysctl tcp syncookies terminal command output"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Laboratuvar Güvenlik Kuralları", "icerik": "1. Flood Modu Yasağı: Sınıfta kimse --flood parametresi kullanmamalıdır; 60 cihaz aynı anda basarsa laboratuvar omurga switch'i kilitlenir!\n2. Sudo Zorunluluğu: Ham IP paketi üretmek Linux'ta root yetkisi gerektirir (sudo hping3).\n3. Paket Limiti: Mutlaka -c 10 veya -c 20 ile sınır koyulmalıdır.", "gorsel": {"type": "image", "query": "troubleshooting caution warning flood checklist"}}, {"baslik": "Sektörel Vaka: Dyn DNS DDoS Saldırısı", "altbaslik": "İnternetin Yarısının Çöktüğü Gün", "icerik": "Vaka: 2016 yılında Mirai botneti küresel DNS sağlayıcısı Dyn'e 1.2 Tbps şiddetinde devasa bir DDoS saldırısı yaptı.\nSonuç: Twitter, Netflix, Spotify, GitHub, PlayStation Network ve Reddit dahil yüzlerce dünya devi saatlerce tamamen çöktü!\nDers: Tek bir merkezi DNS sağlayıcısına bağımlı olmak kritik bir mimari risktir.", "gorsel": {"type": "image", "query": "dyn dns ddos cyber attack internet outage map"}}, {"baslik": "Vaka Analizi: DDoS Dayanıklılık Mimarisi", "altbaslik": "Çıkarılan Mühendislik Dersi", "icerik": "DDoS'a Karşı Alınacak Tedbirler:\n1. BGP Anycast Yönlendirme: Saldırı trafiği tek bir merkeze değil, dünya geneline dağıtılır.\n2. Cloudflare / AWS Shield / Akamai Entegrasyonu: 100+ Gbps saldırılar bulut temizleme merkezlerinde eritilir.\n3. Yedekli Çoklu DNS (Multi-DNS) Mimarisi.", "gorsel": {"type": "image", "query": "cloud ddos protection anycast cdn architecture diagram"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Saldırı Türleri", "icerik": "Soru: Birden fazla ele geçirilmiş zombi cihaz (Botnet) kullanılarak yapılan dağıtık servis dışı bırakma saldırısına ne ad verilir?\nA) DoS\nB) DDoS\nC) XSS\nD) SQLi\n\nDoğru Cevap: B (DDoS)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "L4 Saldırıları", "icerik": "Soru: TCP 3'lü el sıkışmayı yarım bırakarak sunucunun bağlantı hafızasını doldurmayı amaçlayan Katman 4 saldırısı hangisidir?\nA) Slowloris\nB) SYN Flood\nC) Phishing\nD) MITM\n\nDoğru Cevap: B (SYN Flood)", "gorsel": {"type": "image", "query": "syn flood question multiple choice"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "L7 Saldırıları", "icerik": "Soru: Web sunucusuna HTTP başlıklarını çok yavaş göndererek bağlantı havuzunu tüketen sinsi Katman 7 saldırısı hangisidir?\nA) Slowloris\nB) Ping of Death\nC) Smurf\nD) Teardrop\n\nDoğru Cevap: A (Slowloris)", "gorsel": {"type": "image", "query": "slowloris question board test"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Savunma Mekanizmaları", "icerik": "Soru: SYN Flood saldırılarına karşı sunucunun bellekte yer ayırmadan matematiksel dizi numaralarıyla el sıkışmasını sağlayan Linux savunması hangisidir?\nA) SYN Cookies\nB) Port Forwarding\nC) Telnet\nD) FTP\n\nDoğru Cevap: A (SYN Cookies)", "gorsel": {"type": "image", "query": "syn cookies defense question test"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Araç Tanıma", "icerik": "Soru: Özel TCP/IP paketleri üretebilen ve güvenlik analizinde kullanılan komut satırı aracı hangisidir?\nA) hping3\nB) Nano\nC) Steghide\nD) Crunch\n\nDoğru Cevap: A (hping3)", "gorsel": {"type": "image", "query": "hping3 tool question board"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Wireshark'ta SYN Paketlerini Sayma", "icerik": "Uygulama Görevi:\nWireshark açıkken eğitmen tarafından gönderilen 10 adet SYN paketini tcp.flags.syn == 1 filtresiyle yakalayıp ekranda ilk listeleyen öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "DDoS Saldırı Boyutları ve Hacim Rekorları", "altbaslik": "Terabit Seviyesindeki Saldırılar", "icerik": "Günümüz DDoS Tehdit İstatistikleri:\n- 2016 Mirai Botnet: 1.2 Tbps\n- 2020 AWS Shield Tespiti: 2.3 Tbps\n- 2023 HTTP/2 Rapid Reset Açığı: Saniyede 398 Milyon İstek (RPS)!\nBu devasa saldırılar şirket içi donanımlarla değil, sadece küresel bulut temizleme omurgalarıyla durdurulabilir.", "gorsel": {"type": "image", "query": "ddos attack record volume terabits per second analytics"}}, {"baslik": "HTTP/2 Rapid Reset ve L7 Tehditleri", "altbaslik": "Modern Web Protokolü Zafiyeti", "icerik": "HTTP/2 protokolündeki akış iptali (RST_STREAM) özelliğini istismar eder.\n- Saldırgan sunucuya aynı anda yüz binlerce istek gönderip hemen ardından iptal eder.\n- Sunucu isteği işlemek için CPU harcar ama yanıt dönemez; işlemci yüzde 100'e vurup web sunucusu çöker!", "gorsel": {"type": "image", "query": "http2 rapid reset attack protocol stream multiplexing diagram"}}, {"baslik": "BGP Anycast ve Scrubbing Center Mimarisi", "altbaslik": "Küresel Temizleme Ağı", "icerik": "Anycast Mimarisi:\nDünyanın 300 farklı şehrindeki sunucu aynı IP adresini anons eder.\n- Saldırı başladığında trafik tek bir veri merkezine gitmez; saldırgan hangi ülkedeyse en yakın yerel bulut sunucusunda emilir ve temizlenir.\n- Kurumsal sunucuya yalnızca arındırılmış temiz trafik ulaşır.", "gorsel": {"type": "image", "query": "bgp anycast routing global scrubbing centers diagram"}}, {"baslik": "DDoS Müdahale Planı ve Tatbikatlar", "altbaslik": "Kriz Anında Neler Yapılır?", "icerik": "Kurumsal DDoS Acil Eylem Planı:\n1. Trafik Anomalisi Tespiti (SIEM & NetFlow Alarmları)\n2. Saldırı Türünün Belirlenmesi (L4 Hacimsel mi, L7 Uygulama mı?)\n3. Bulut DDoS Korumasının (Under Attack Mode) Devreye Alınması\n4. ISS (İnternet Servis Sağlayıcı) ile İletişime Geçilip BGP Blackholing Uygulanması.", "gorsel": {"type": "image", "query": "incident response plan ddos team war room cybersecurity"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- DoS tek kaynaktan, DDoS ise devasa botnet ordularından yapılır.\n- SYN Flood ağ katmanını (L4), Slowloris uygulama katmanını (L7) hedefler.\n- hping3 özel paket üretimiyle ağ dayanıklılık testleri yapmayı sağlar.\n- SYN Cookies, Rate Limiting ve Cloud CDN mimarileri en etkin savunmadır.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Dönem Sonu Genel Değerlendirmesi", "altbaslik": "14 Haftalık Büyük Yolculuk", "icerik": "14 Hafta Boyunca Neler Başardınız?\n- Temel Hukuk, CIA ve Linux CLI yönetimi\n- Kriptoloji, Steganografi ve Parola Kırma (John/Hydra)\n- Ağ Dinleme (Wireshark) ve Bilgi Toplama (Nmap)\n- Sızma Testleri (Metasploit) ve Sömürü Sonrası (Meterpreter)\n- Web Güvenliği (SQLi, XSS, Fuzzing) ve DoS/DDoS Savunması!", "gorsel": {"type": "image", "query": "cybersecurity graduate certification achievement student team"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dönemi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'100 Gbps gibi devasa bir DDoS saldırısını şirket içi yerel bir firewall ile durdurmak neden imkansızdır ve çözüm olarak hangi mimari kullanılmalıdır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

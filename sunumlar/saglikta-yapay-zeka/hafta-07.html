@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sağlıkta Yapay Zeka - Hafta 07 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #10b981;
+            --accent-glow: #10b98140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🏥</span>
+            <span>Sağlıkta Yapay Zeka</span>
+            <span class="badge-pill">Hafta 07</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Medikal YZ & Teşhis</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-06.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Giyilebilir Teknolojiler ve Sürekli İzleme Verisi", "altbaslik": "Akıllı Cihazlar, PPG/EKG Sinyalleri ve Anomali Tespiti", "icerik": "- Odak: Hastane dışındaki sürekli fizyolojik veri akışı (Smartwatches, Patch sensörler, CGM).\n- Sinyal İşleme: Fotopletismografi (PPG) ve tek derivasyonlu EKG sinyallerinin YZ ile analizi.\n- Temel Uygulama: Atriyal Fibrilasyon (AF) gibi ölümcül ritim bozukluklarının erken uyarısı.\n- Mesleki Bağlam: Tele-tıp, uzaktan hasta izlemi (RPM) ve büyük veri akışlarının yönetimi.", "gorsel": {"type": "image", "query": "wearable healthcare devices smartwatch ecg ppg heart monitoring"}}, {"baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)", "altbaslik": "7. Hafta Hedefleri", "icerik": "- ÖÇ1: Giyilebilir sensörlerin (PPG, İvmeölçer, EKG) veri toplama ilkelerini açıklar.\n- ÖÇ2: Zaman serisi fizyolojik verilerde anomali tespiti mantığını kavrar.\n- ÖÇ3: Örnek bir nabız/EKG veri setinde basit anomali tespiti uygulaması yapar.\n- ÖÇ4: Giyilebilir cihazların ürettiği yanlış pozitif uyarıların klinik ve psikolojik etkilerini değerlendirir.", "gorsel": {"type": "image", "query": "learning goals wearable medical monitoring biosignals"}}, {"baslik": "Klinik Bağlam: Noktasal Ölçümden Sürekli İzleme", "altbaslik": "Yılda 1 Kez Muayene vs 7/24 Gerçek Zamanlı Takip", "icerik": "- Geleneksel Yöntem: Hastanede çekilen 10 saniyelik EKG (Paroksismal/geçici aritmileri yakalayamaz).\n- Giyilebilir Yaklaşım: Akıllı saat ile 24 saat kesintisiz nabız ve ritim izlemi.\n- Erken Müdahale: İnme (felç) riskini artıran sessiz Atriyal Fibrilasyon ataklarının anında tespiti.\n- Veri Patlaması: Tek bir hastadan günde milyonlarca veri noktası üretilir.", "gorsel": {"type": "image", "query": "continuous physiological monitoring vs spot check healthcare"}}, {"baslik": "Sensör Teknolojileri: PPG vs EKG", "altbaslik": "Işıkla ve Elektrikle Kalp Takibi", "icerik": "- PPG (Fotopletismografi): Cilde yeşil LED ışık gönderip damardaki kan hacmi değişimini ölçer (Optik yöntem - Akıllı saatler).\n- Tek Derivasyonlu EKG: Cihazın kuronuna ve arkasına dokunarak elektriksel kalp potansiyelini kaydeder.\n- Fark: PPG ritim düzensizliğini sezer; EKG kesin elektriksel tanıyı doğrular.\n- Sürekli Glikoz İzleme (CGM): Cilt altı interstisyel sıvıdan 5 dakikada bir şeker ölçümü.", "gorsel": {"type": "image", "query": "optical PPG sensor vs electrical ECG smartwatch technology"}}, {"baslik": "Fizyolojik Sinyallerde Gürültü ve Artefaktlar", "altbaslik": "Hareket, Ter ve Gevşek Kordon Sorunları", "icerik": "- Hareket Artefaktı (Motion Artifact): Koşarken saatin bilekte kayması sonucu sinyalin bozulması.\n- Kötü Temas: Cildin kuru veya kordonun gevşek olması nedeniyle zayıf sinyal.\n- YZ'nin Görevi: Sinyal Kalite İndeksi (SQI) hesaplayarak gürültülü veriyi elemek ve sadece kaliteli kısımları analiz etmek.\n- Yanılgı: Her düzensiz sinyal kalp krizi değildir; çoğu zaman hareket artefaktıdır!", "gorsel": {"type": "image", "query": "motion artifact ECG signal processing noise filtering"}}, {"baslik": "Zaman Serisi Verisinde Anomali Tespiti", "altbaslik": "Normallik Profilinden Sapmaları Yakalamak", "icerik": "- Dinamik Eşikler: Uyurken nabzın 45 olması normalken, merdiven çıkarken 45 olması anomalidir.\n- R-R Aralığı Değişkenliği (HRV): Kalp atımları arasındaki sürenin milisaniye düzeyinde analizi.\n- YZ Yöntemleri: İzolasyon Ormanları (Isolation Forest), LSTM (Derin Öğrenme) ve Otomatik Kodlayıcılar (Autoencoders).\n- Çıktı: 'Son 15 dakikada düzensiz ritim tespit edildi (Olasılık: %94)'.", "gorsel": {"type": "image", "query": "time series anomaly detection heart rate ECG spikes graph"}}, {"baslik": "Atriyal Fibrilasyon (AF) Tespiti", "altbaslik": "İnme Önleyici Erken Uyarı Mekanizması", "icerik": "- AF Nedir?: Kalbin kulakçıklarının düzensiz ve kaotik titremesi (Kan pıhtısı ve felç riski).\n- EKG Belirtisi: P dalgasının kaybolması ve R-R aralıklarının tamamen kaotik hale gelmesi.\n- Apple Heart Study & Fitbit Trials: Yüz binlerce kullanıcıda yapılan klinik çalışmalarla AF tespit doğruluğunun kanıtlanması.\n- Klinik Onay: FDA tarafından reçetesiz SaMD (Software as a Medical Device) onayı verilmiştir.", "gorsel": {"type": "image", "query": "atrial fibrillation ECG irregular rhythm p wave absence"}}, {"baslik": "Atölye: Basit Ritim Anomalisi Tespiti", "altbaslik": "Python / Spreadsheet ile Eşik Kontrolü", "icerik": "- Senaryo: 24 saatlik sentetik nabız verisi üzerinde çalışılır.\n- Kural 1: İstirahat halinde nabız > 120 bpm (Taşikardi anomalisi).\n- Kural 2: Ritim düzensizliği (R-R aralığı varyansı > %30).\n- Uygulama: Eşik değerleri aşan noktaları grafik üzerinde kırmızı noktalarla işaretleme.\n- Yorum: Yanlış alarmların hangi saatlerde (hareket anında) yoğunlaştığını gözlemleme.", "gorsel": {"type": "image", "query": "python plotting heart rate anomaly red flags graph"}}, {"baslik": "Klinik Yanlış Pozitifin Psikolojik ve Tıbbi Maliyeti", "altbaslik": "'Siberkondri' ve Acil Servis Yığılması", "icerik": "- Siberkondri (Cyberchondria): Akıllı saatinin yanlış uyarısı sonucu yoğun panik yaşayan sağlıklı bireyler.\n- Acile Başvuru: 'Saatim kalp krizin var dedi' diyerek acile koşan binlerce sağlıklı insan.\n- Klinik Yük: Gerçek acil hastaların sırasını işgal etme ve gereksiz EKG/EKO tetkik masrafları.\n- Denge: Tüketici cihazlarının uyarı hassasiyeti hekim gözetimiyle sınırlandırılmalıdır.", "gorsel": {"type": "image", "query": "patient worried looking at smartwatch emergency room"}}, {"baslik": "Giyilebilir Verilerin HBYS Entegrasyonu", "altbaslik": "Doktor Milyonlarca Veri Noktasına Nasıl Bakacak?", "icerik": "- Problem: Hekime 1 aylık ham nabız çizgisini göstermek klinik olarak anlamsızdır.\n- Özetleme: YZ'nin 1 aylık veriyi 'Haftalık ortalama, anomali atak sayısı, uyku kalitesi' şeklinde özetlemesi.\n- FHIR Entegrasyonu: Akıllı cihaz verilerinin 'Observation' kaynağı olarak HBYS'ye aktarılması.\n- Tıbbi Veri Teknikeri: Hasta takip portalındaki anomali özetlerini filtreleyip hekime sunmak.", "gorsel": {"type": "image", "query": "remote patient monitoring dashboard doctor tablet telemetry"}}, {"baslik": "Haftalık Özet: 7. Haftanın Ana Fikirleri", "altbaslik": "Akılda Kalması Gerekenler", "icerik": "- Giyilebilir cihazlar sağlığı hastane duvarlarının dışına taşımakta ve sürekli izleme sağlamaktadır.\n- PPG optik olarak nabzı izlerken, tek derivasyonlu EKG elektriksel doğrulamayı yapar.\n- Hareket artefaktları en büyük yanıltıcı unsurdur; sinyal kalite kontrolü zorunludur.\n- Yanlış pozitif alarmlar acil servislerde gereksiz yığılmalara ve hasta kaygısına yol açabilir.", "gorsel": {"type": "image", "query": "summary concept map wearable health sensors telemetry"}}, {"baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)", "altbaslik": "Giyilebilir Teknoloji ve Sinyal Kontrolü", "icerik": "- Soru 1: Akıllı saatlerin bilekte yeşil LED ışık ile kan hacmi değişimini ölçtüğü yönteme ne ad verilir?\n  Cevap: Fotopletismografi (PPG).\n- Soru 2: Koşu bandında koşan birinin akıllı saatinde nabzının aniden 220 çıkıp normale dönmesi en muhtemel neyle açıklanır?\n  Cevap: Hareket artefaktı (Motion artifact).", "gorsel": {"type": "image", "query": "quiz questions wearable sensors photoplethysmography"}}, {"baslik": "Ölçme-Değerlendirme: Klinik Senaryo Sorusu", "altbaslik": "Uzaktan Hasta Takip Kararı", "icerik": "- Senaryo: 70 yaşındaki kalp yetmezliği hastasının akıllı saati gece 03:00'te 30 saniye süren Atriyal Fibrilasyon atağı kaydetmiştir.\n- Soru: Tıbbi veri teknikeri sabah verileri incelerken bu kaydı nasıl raporlamalıdır?\n- Cevap: Sinyal kalite indeksi (artefakt var mı?) teyit edilmeli, atak süresi ve saat bilgisi hekime 'Kritik Aritmi Özeti' olarak ivedilikle iletilmelidir.", "gorsel": {"type": "image", "query": "telehealth nurse monitoring patient dashboard remote"}}, {"baslik": "Çıkış Kartı: 7. Hafta Geri Bildirimi", "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız", "icerik": "- 1. Sürekli uzaktan hasta izleminin en büyük operasyonel zorluğu sizce nedir?\n- 2. Akıllı saatlerin tıbbi cihaz (SaMD) sayılabilmesi için hangi kurum onayları gerekir?\n- 3. Gelecek hafta konusu: Ara Değerlendirme ve Sağlıkta YZ Vaka Çalıştayı.", "gorsel": {"type": "image", "query": "exit ticket student classroom reflection medical"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "8. Hafta: Ara Değerlendirme ve Vaka Çalıştayı", "icerik": "- Konu: İlk 7 haftanın kazanımlarını birleştiren 'Sağlıkta YZ Vaka Değerlendirme Çalıştayı'.\n- Odak: Gerçek bir YZ haberini veya makalesini veri, metrik, sınırlılık ve etik boyutlarıyla sorgulama.\n- Hazırlık: Medyada veya internette gördüğünüz bir 'Yapay Zeka Tıpta Devrim Yaptı' haberini sınıfa getiriniz.", "gorsel": {"type": "image", "query": "case study workshop team collaboration medical students"}}, {"baslik": "Giyilebilir Cihazlarda Pil ve Enerji Yönetimi", "altbaslik": "Sürekli Ölçüm vs Pil Ömrü İkilemi", "icerik": "- Sorun: EKG ve PPG sensörlerinin 7/24 saniyede 100 kez ölçüm yapması pilin 2 saatte bitmesine yol açar.\n- YZ Çözümü: Akıllı Örnekleme (Smart Sampling).\n- Mantık: İvmeölçer hareketsizliği (uykuyu) sezdiğinde EKG kontrol sıklığını düşürmek; nabızda hafif düzensizlik sezildiğinde yüksek çözünürlüklü EKG'yi anında tetiklemek.", "gorsel": {"type": "image", "query": "smartwatch battery life edge computing sensors energy"}}, {"baslik": "Uçta Yapay Zeka (Edge AI) ve Akıllı Saatler", "altbaslik": "Veriyi Buluta Göndermeden Saatin İçinde İşlemek", "icerik": "- Edge AI Nedir?: Hafifletilmiş derin öğrenme modellerinin (TensorFlow Lite) doğrudan akıllı saat çipinde çalışması.\n- Avantaj 1 (Hız): İnternet bağlantısı olmasa bile dağın başında kalp krizi/aritmi uyarısı üretebilme.\n- Avantaj 2 (Gizlilik): Kişinin EKG sinyallerinin sürekli buluta gitmeyip sadece alarm anında iletilmesi.", "gorsel": {"type": "image", "query": "edge AI tinyML smartwatch microchip processor"}}, {"baslik": "Akıllı Saatlerde Düşme Tespiti (Fall Detection)", "altbaslik": "Geriatrik Hastalarda Hayat Kurtaran Sensörler", "icerik": "- Sensörler: 3 eksenli İvmeölçer (Accelerometer) ve Jiroskop (Gyroscope).\n- Fiziksel Patern: Ani serbest düşüş ivmesi + Sert zemin çarpma şoku + Hareketsizlik.\n- YZ Kararı: 'Kullanıcı sert bir düşüş yaşadı ve 60 saniyedir hareket etmiyor!'\n- Acil Eylem: Otomatik olarak 112 Acil Servise GPS konumunu ve acil durum çağrısını iletme.", "gorsel": {"type": "image", "query": "elderly fall detection smartwatch emergency call GPS"}}, {"baslik": "Sürekli Glikoz İzleme (CGM) ve Yapay Pankreas", "altbaslik": "Diyabette Kapalı Devre İnsülin Yönetimi", "icerik": "- CGM Sensörü: Cilt altına yerleştirilen mikro iğne ile 5 dakikada bir interstisyel glukoz ölçümü.\n- YZ Tahmini: 'Kan şekeriniz 20 dakika sonra 60 mg/dL'ye (Hipoglisemi) düşecek!'\n- Yapay Pankreas (Closed-Loop): YZ tahminine göre akıllı insülin pompasının insülin akışını otomatik durdurması veya artırması.", "gorsel": {"type": "image", "query": "continuous glucose monitor CGM artificial pancreas insulin pump"}}, {"baslik": "Uyku Evreleri Analizi ve Uyku Apnesi Tespiti", "altbaslik": "Bilekten Polisomnografi", "icerik": "- Sensör Kombinasyonu: PPG (Nabız değişkenliği) + İvmeölçer (Vücut kıpırdamaları) + SpO2 (Kandaki oksijen).\n- Uyku Evreleri: Hafif Uyku, Derin Uyku ve REM Uykusu ayrımı.\n- Uyku Apnesi İkazı: Gece boyunca oksijen satürasyonunun defalarca %90'ın altına düşmesi ve solunum durması ataklarının raporlanması.", "gorsel": {"type": "image", "query": "sleep stage tracking REM deep sleep sleep apnea smartwatch"}}, {"baslik": "Stres ve Tükenmişlik Takibi: Elektrodermal Aktivite (EDA)", "altbaslik": "Cilt İletkenliğinden Otonom Sinir Sistemi Analizi", "icerik": "- EDA Sensörü: Ciltteki mikroskobik ter bezi aktivitesini ve elektriksel iletkenliği ölçer.\n- Sempatik Sinir Sistemi: Stres anında 'Savaş veya Kaç' tepkisiyle cilt iletkenliği aniden yükselir.\n- YZ Çıktısı: Günlük stres skorlaması ve nefes egzersizi önerileri.", "gorsel": {"type": "image", "query": "electrodermal activity EDA stress sensor skin conductance"}}, {"baslik": "Giyilebilir Verilerde Çözünürlük ve Frekans (Sampling Rate)", "altbaslik": "1 Hz vs 500 Hz: Veri Boyutu Yönetimi", "icerik": "- Örnekleme Frekansı: Tıbbi 12 derivasyonlu EKG 500-1000 Hz hızında ölçülürken, akıllı saat nabzı 1 Hz (saniyede 1 kez) kaydeder.\n- Veri Tasarrufu: 1 aylık 500 Hz ham EKG gigabaytlarca yer tutar.\n- Tekniker Görevi: Arşivleme için ham sinyal yerine özetlenmiş özellik matrislerinin saklanmasını organize etmek.", "gorsel": {"type": "image", "query": "sampling rate frequency biosignals hertz waveform graph"}}, {"baslik": "Klinik Doğrulama: Tüketici Cihazı vs Tıbbi Holter", "altbaslik": "Altın Standart Karşılaştırması", "icerik": "- 24 Saatlik Holter EKG: Göğse yapıştırılan 5-7 kabloyla hastanede takılan klinik referans cihaz.\n- Doğrulama Çalışması: 500 hastaya aynı anda hem Holter hem akıllı saat takılarak YZ algoritmasının Holter ile uyumu (Cohen Kappa katsayısı) ölçülür.\n- Regülasyon Kriteri: SaMD onayı için Holter ile Duyarlılık uyumunun >%95 olması şarttır.", "gorsel": {"type": "image", "query": "holter monitor ecg vs smartwatch clinical comparison"}}, {"baslik": "Giyilebilir Veri Yönetimi: HIPAA ve Bulut Güvenliği", "altbaslik": "Bilekten Buluta Akan Verinin Mahremiyeti", "icerik": "- Risk: Akıllı saat üreticisinin kullanıcıların kalp ritmi ve konum verilerini reklam şirketlerine satma tehlikesi.\n- Tıbbi Ayrım: Tüketici gizlilik sözleşmeleri ile klinik HIPAA/KVKK koruması arasındaki devasa yasal fark.\n- Hastane Protokolü: Yalnızca hastanenin onaylı şifreli tele-tıp sunucusuna doğrudan veri aktaran cihazlar reçete edilebilir.", "gorsel": {"type": "image", "query": "cloud cybersecurity health data privacy wearable telemetry"}}, {"baslik": "Tıbbi Veri Teknikerinin Tele-Tıp Operasyonundaki Rolü", "altbaslik": "Uzaktan İzleme Merkezinde Bir Gün", "icerik": "- 1. Günlük Alarm Taraması: 200 uzaktan izlenen hastanın gece ürettiği kırmızı/sarı alarmları listelemek.\n- 2. Artefakt Temizliği: Duş alma veya koşu kaynaklı yanlış alarmları elemek.\n- 3. Hekim Ön Brifingi: Gerçek aritmi şüphesi olan 3 hastanın EKG şeridini kardiyoloğun ekranına düşürmek.\n- 4. Hasta İletişimi: Cihazı kapalı olan veya şarjı biten hastaları arayarak takip sürekliliğini sağlamak.", "gorsel": {"type": "image", "query": "telehealth remote monitoring center technician working dashboards"}}, {"baslik": "Giyilebilir Teknolojilerde Eşitlik ve Dijital Bölünme", "altbaslik": "Pahalı Saatlere Kimlerin Erişimi Var?", "icerik": "- Sosyoekonomik Eşitsizlik: 500 dolarlık akıllı saatler çoğunlukla genç, varlıklı ve sağlıklı bireyler tarafından kullanılmaktadır.\n- Asıl İhtiyaç Sahibi: Kırsalda yaşayan, düşük gelirli ve kronik hastalığı olan yaşlı nüfus.\n- Sağlık Politikası: Sosyal güvenlik kurumlarının (SGK) riskli kalp hastalarına tıbbi sensörleri ücretsiz tahsis etmesi vizyonu.", "gorsel": {"type": "image", "query": "digital health divide healthcare disparity wearable access"}}, {"baslik": "Akıllı Tekstiller ve Biyouyumlu Yamalar (Smart Patches)", "altbaslik": "Saatin Ötesinde: Vücuda Yapışan Sensörler", "icerik": "- Biyo-Yama (Patch): Göğse yapıştırılan, suya dayanıklı, 14 gün boyunca kesintisiz 3 derivasyonlu EKG kaydeden esnek bantlar (Ör. Zio Patch).\n- Akıllı Giysiler: Dokusuna gümüş iletken iplikler örülmüş sporcu ve hasta tişörtleri.\n- Üstünlük: Saate göre hareket artefaktı çok daha düşüktür ve hasta uyumu yüksektir.", "gorsel": {"type": "image", "query": "smart patch ecg biosensor wearable chest medical"}}, {"baslik": "Giyilebilir Sensör Verileri İçin Python Görselleştirme", "altbaslik": "Ham Sinyalden Ritim Grafiği Çizimi", "icerik": "- Kütüphaneler: Scipy (Sinyal işleme / Bandpass filtre), Matplotlib / Plotly (İnteraktif grafikler).\n- Filtreleme: 0.5 Hz - 40 Hz aralığını geçiren filtre ile solunum kaynaklı taban çizgisi kaymasını (Baseline wander) yok etmek.\n- Tepe Tespiti (Peak Detection): scipy.signal.find_peaks ile R tepe noktalarını yakalayıp anlık nabız hesaplama.", "gorsel": {"type": "image", "query": "python signal processing ECG peak detection code graph"}}, {"baslik": "Giyilebilir YZ'de Yanlış Kararların Önlenmesi Protokolü", "altbaslik": "3 Aşamalı Güvenlik Filtresi", "icerik": "- Aşama 1: Sinyal Kalite Filtresi (SQI > 0.8 mi?). Değilse alarm üretme, 'Bileğinizi sıkın' uyarısı ver.\n- Aşama 2: Süre Kontrolü (Aritmi atağı en az 30 saniye sürdü mü?). Anlık teklemede gereksiz panik yaratma.\n- Aşama 3: Hastaya Soru ('Şu an baş dönmesi veya göğüs ağrısı hissediyor musunuz?').", "gorsel": {"type": "image", "query": "safety protocol clinical decision wearable alert triage"}}, {"baslik": "Geleceğin Giyilebilir Teknolojileri: Non-İnvaziv Sürekli İzlem", "altbaslik": "Biyokimya ve Optik Devrimi", "icerik": "- Geliştirilen Teknolojiler: Cildi delmeden optik sensörle sürekli tansiyon ve şeker ölçümü.\n- Akıllı Kontakt Lensler: Gözyaşından glukoz ve göz içi basıncı (Glokom) takibi.\n- Yutulabilir Sensörler: Mide-bağırsak kanalından sıcaklık, pH ve kanama sinyali gönderen akıllı haplar.", "gorsel": {"type": "image", "query": "future wearable technology smart contact lens smart pill"}}, {"baslik": "Dönem Ortası Tamamlama Sertifikası", "altbaslik": "7 Haftalık Temel Sağlık YZ Yetkinliği", "icerik": "- Tebrikler: Sağlıkta YZ'nin veri altyapısını, görüntü işlemeyi, NLP metin madenciliğini, karar desteği, veri standartlarını, kalite temizliğini ve giyilebilir sensörleri başarıyla tamamladınız!\n- Sırada: 8. Hafta Vaka Çalıştayı ile tüm bu bilgileri sahada çarpıştıracağız!", "gorsel": {"type": "image", "query": "certificate milestone achievement medical informatics learning"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Medikal YZ & Teşhis`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

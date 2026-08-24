@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 11",
+    "altbaslik": "API'den API'ye İletişim ve Asenkron HTTP İstemcileri",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Dış API Tüketimi, httpx Kütüphanesi, Asenkron Programlama (async/await) ve Veri Zenginleştirme\nUygulama Teması: Canlı Hava Durumu & Açık Kütüphane Kitap Arama Asistanı",
+    "gorsel": {
+      "type": "image",
+      "query": "api integration microservices http async await httpx python"
+    }
+  },
+  {
+    "baslik": "Motivasyon: Her Veriyi Kendimiz mi Üreteceğiz?",
+    "altbaslik": "Dünyadaki Milyonlarca Açık API'yi Kullanmak",
+    "icerik": "Bir hava durumu, döviz takip veya kitap arama uygulaması yazarken tüm dünyadaki sensörleri biz kuramayız!\n- Başka kurumların (Meteoroloji, Merkez Bankası, Açık Kütüphaneler) sunduğu açık API'lere bağlanırız.\n- Kendi FastAPI sunucumuz, bu servislerden veri çeken bir istemciye (client) dönüşür.\n- Buna Veri Zenginleştirme (Data Enrichment) denir.",
+    "gorsel": {
+      "type": "image",
+      "query": "global data network weather currency api integration"
+    }
+  },
+  {
+    "baslik": "Senkron (requests) vs. Asenkron (httpx)",
+    "altbaslik": "Neden httpx ve async/await Kullanıyoruz?",
+    "icerik": "1. requests (Senkron/Bloklayan):\n- Dış sunucuya istek attığında yanıt gelene kadar (2 saniye) tüm sunucuyu kilitler. Diğer kullanıcılar beklemek zorunda kalır.\n\n2. httpx (Asenkron/Non-blocking):\n- `async/await` desteği sunar. Yanıt beklenirken diğer gelen kullanıcı isteklerini işlemeye devam eder.\n- FastAPI'nin yüksek hızına tam uyumludur.",
+    "gorsel": {
+      "type": "image",
+      "query": "synchronous vs asynchronous multitasking event loop"
+    }
+  },
+  {
+    "baslik": "Gerekli Kurulum: httpx",
+    "altbaslik": "PyCharm Terminalinde",
+    "icerik": "Terminalde çalıştırın:\n\n`pip install httpx`",
+    "gorsel": {
+      "type": "image",
+      "query": "pip install httpx python terminal"
+    }
+  },
+  {
+    "baslik": "Asenkron Fonksiyon Mantığı: async def ve await",
+    "altbaslik": "Olay Döngüsü (Event Loop)",
+    "icerik": "- `async def`: Bu fonksiyonun arka planda bekleme yapabilen bir Coroutine olduğunu belirtir.\n- `await`: Ağ isteği gibi uzun sürecek işlemin başında kullanılır: 'Bu yanıt gelene kadar işlemciyi meşgul etme, başka işlere bak' der.",
+    "gorsel": {
+      "type": "image",
+      "query": "async await coroutine python concurrency"
+    }
+  },
+  {
+    "baslik": "İlk Dış API İsteğimiz: Canlı Giresun Hava Durumu",
+    "altbaslik": "Open-Meteo Ücretsiz Uydu API'si",
+    "icerik": "from fastapi import FastAPI\nimport httpx\n\napp = FastAPI()\n\nAPI_URL = 'https://api.open-meteo.com/v1/forecast?latitude=40.91&longitude=38.38&current=temperature_2m,relative_humidity_2m'\n\n@app.get('/kampus/hava-durumu')\nasync def hava_durumu():\n    async with httpx.AsyncClient(timeout=5.0) as client:\n        yanit = await client.get(API_URL)\n        veri = yanit.json()\n        \n        sicaklik = veri['current']['temperature_2m']\n        return {'sehir': 'Giresun', 'sicaklik_celsius': sicaklik, 'durum': 'Canlı Uydu Verisi 🌤️'}",
+    "gorsel": {
+      "type": "image",
+      "query": "weather forecast satellite temperature map"
+    }
+  },
+  {
+    "baslik": "Açık Kütüphane Kitap Arama (OpenLibrary API)",
+    "altbaslik": "Dünya Çapında Kitap Arama",
+    "icerik": "@app.get('/kutuphane/ara/{kitap_adi}')\nasync def internetten_ara(kitap_adi: str):\n    url = f'https://openlibrary.org/search.json?q={kitap_adi}&limit=2'\n    \n    async with httpx.AsyncClient() as client:\n        yanit = await client.get(url)\n        data = yanit.json()\n        \n        kitaplar = []\n        for doc in data.get('docs', []):\n            kitaplar.append({\n                'baslik': doc.get('title'),\n                'yazar': doc.get('author_name', ['Bilinmiyor'])[0]\n            })\n        return {'arama': kitap_adi, 'sonuclar': kitaplar}",
+    "gorsel": {
+      "type": "image",
+      "query": "open library book search digital archive"
+    }
+  },
+  {
+    "baslik": "Harici API Hata Yönetimi ve Timeout",
+    "altbaslik": "İnternet Koparsa Ne Olur?",
+    "icerik": "Dış servisler çökebilir veya internet kopabilir. Sistemimizin kilitlenmemesi için Timeout ve try-except koymalıyız:\n\ntry:\n    async with httpx.AsyncClient(timeout=3.0) as client:\n        res = await client.get(url)\n        res.raise_for_status()  # 4xx veya 5xx hatası varsa fırlatır\nexcept httpx.TimeoutException:\n    raise HTTPException(status_code=504, detail='Dış API zaman aşımına uğradı!')\nexcept httpx.RequestError:\n    raise HTTPException(status_code=503, detail='Dış API servisine ulaşılamıyor!')",
+    "gorsel": {
+      "type": "image",
+      "query": "network timeout error connection failed"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Canlı Hava Durumu Testi",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "1. `pip install httpx` yapın.\n2. `main.py` içine hava durumu endpoint'ini yazın.\n3. `uvicorn main:app --reload` başlatın.\n4. `/docs` sayfasında çalıştırıp Giresun'un şu anki gerçek sıcaklığını canlı görün!",
+    "gorsel": {
+      "type": "image",
+      "query": "live weather test terminal browser response"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: İstediğimiz Şehrin Havasını Çekme",
+    "altbaslik": "Koordinat Parametresi",
+    "icerik": "@app.get('/hava/{enlem}/{boylam}')\nasync def sehir_havasi(enlem: float, boylam: float):\n    url = f'https://api.open-meteo.com/v1/forecast?latitude={enlem}&longitude={boylam}&current=temperature_2m'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        return res.json()['current']",
+    "gorsel": {
+      "type": "image",
+      "query": "gps coordinates world map climate"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Günün Tavsiyesi API'si",
+    "altbaslik": "Rastgele Veri Çekmek",
+    "icerik": "@app.get('/gunun-tavsiyesi')\nasync def tavsiye_al():\n    url = 'https://api.adviceslip.com/advice'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        # Gelen JSON: {'slip': {'id': 1, 'advice': '...'}}\n        return {'tavsiye': res.json()['slip']['advice']}",
+    "gorsel": {
+      "type": "image",
+      "query": "motivational advice quote lightbulb wisdom"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Dış Veriyi Kendi DB'miz ile Birleştirme",
+    "altbaslik": "Veritabanına Harici Bilgi Kaydetme",
+    "icerik": "Kitap eklerken OpenLibrary'den sayfa sayısını otomatik çekip veritabanına kaydetme senaryosu:\n- Kullanıcı sadece kitap adını girer.\n- Sunucumuz dış API'den yazarı bulur.\n- Kendi SQLite veritabanımıza tam kayıt atar.",
+    "gorsel": {
+      "type": "image",
+      "query": "enriching database records with external api"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Canlı Döviz Kuru API'si",
+    "altbaslik": "Açık Kur Servisi",
+    "icerik": "@app.get('/doviz/usd')\nasync def dolar_kuru():\n    url = 'https://open.er-api.com/v6/latest/USD'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        rates = res.json().get('rates', {})\n        return {'USD_TRY': rates.get('TRY', 0.0), 'guncelleme': 'Canlı'}",
+    "gorsel": {
+      "type": "image",
+      "query": "currency exchange rate dollar try finance"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: IP Konum Bulma",
+    "altbaslik": "Açık GeoIP Servisi",
+    "icerik": "@app.get('/ip-bilgisi')\nasync def ip_ogren():\n    url = 'https://ipapi.co/json/'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        data = res.json()\n        return {'ip': data.get('ip'), 'sehir': data.get('city'), 'ulke': data.get('country_name')}",
+    "gorsel": {
+      "type": "image",
+      "query": "ip address location geolocation map"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Rastgele Kullanıcı Üretici",
+    "altbaslik": "RandomUser API",
+    "icerik": "@app.get('/rastgele-kullanici')\nasync def rastgele_user():\n    url = 'https://randomuser.me/api/'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        user = res.json()['results'][0]\n        return {'isim': f\"{user['name']['first']} {user['name']['last']}\", 'email': user['email']}",
+    "gorsel": {
+      "type": "image",
+      "query": "avatar profile random user photo"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: GitHub Profil Bilgisi Çekme",
+    "altbaslik": "GitHub Public API",
+    "icerik": "@app.get('/github/{kullanici}')\nasync def github_profil(kullanici: str):\n    url = f'https://api.github.com/users/{kullanici}'\n    async with httpx.AsyncClient() as client:\n        res = await client.get(url)\n        d = res.json()\n        return {'kullanici': d.get('login'), 'repo_sayisi': d.get('public_repos'), 'takipci': d.get('followers')}",
+    "gorsel": {
+      "type": "image",
+      "query": "github octocat profile developer portfolio"
+    }
+  },
+  {
+    "baslik": "API Anahtarı (API Key) Güvenliği",
+    "altbaslik": "Şifreleri Koda Sert Yazmayın (.env)",
+    "icerik": "Ücretli veya üyelikli API'ler bir anahtar (API Key) verir.\n- Altın Kural: API anahtarları koda sert yazılmaz (`api_key = 'xyz123'` YANLIŞTIR).\n- `.env` dosyasında tutulur ve `os.getenv()` ile okunur.\n- Git'e yüklenmesi engellenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "api key authentication lock secret env file"
+    }
+  },
+  {
+    "baslik": "Connection Pooling (Bağlantı Havuzu)",
+    "altbaslik": "httpx.AsyncClient'ın Performans Avantajı",
+    "icerik": "`async with httpx.AsyncClient() as client:` yapısı:\n- Her istekte sıfırdan TCP el sıkışması yapmak yerine açık bağlantıyı yeniden kullanır.\n- Sunucunuzun hızını 5 kat artırır ve bellek tüketimini düşürür.",
+    "gorsel": {
+      "type": "image",
+      "query": "tcp connection pooling network optimization"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\n@app.get('/hava')\ndef hava():\n    res = await httpx.get('https://...')\n\nProblem Nedir?\n`await` kelimesi sadece `async def` ile tanımlanan fonksiyonların içinde kullanılabilir! (SyntaxError: 'await' outside async function).",
+    "gorsel": {
+      "type": "image",
+      "query": "syntax error await outside async function code"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "res = client.get('https://.../users/1')\nprint(res.status_code)\n\nÇıktı: `200` (İstek başarılı bir şekilde ulaştı ve yanıt döndü).",
+    "gorsel": {
+      "type": "image",
+      "query": "http status 200 ok green badge"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Dış API Çağrılarında 3 Hata",
+    "icerik": "1. `timeout` belirtmemek (Dış servis çökerse sunucunuz sonsuza kadar donup kalabilir).\n2. `async def` yazıp `await client.get(...)` ifadesindeki `await`'i unutmak.\n3. Dış servisten gelen JSON'daki anahtar isimlerini kontrol etmeden doğrudan okumaya çalışmak (KeyError).",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution checklist software bugs"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Asenkron Kütüphane",
+    "icerik": "Soru: Python'da asenkron (async/await) HTTP istekleri atmak için en modern kütüphane hangisidir?\nA) urllib\nB) httpx\nC) socket\nD) http.server\n\nDoğru Cevap: B (httpx).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "await Anahtar Kelimesi",
+    "icerik": "Soru: await anahtar kelimesinin görevi nedir?\nA) Programı sonlandırmak\nB) Uzun sürecek ağ yanıtını beklerken kontrolü olay döngüsüne bırakmak\nC) Veritabanını silmek\nD) Yeni dosya açmak\n\nDoğru Cevap: B (Beklerken olay döngüsünü serbest bırakmak).",
+    "gorsel": {
+      "type": "image",
+      "query": "concept question test exam"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Zaman Aşımı",
+    "icerik": "Soru: Dış API'nin yanıt vermesi çok uzun sürdüğünde sunucunun kilitlenmesini önlemek için hangi parametre ayarlanır?\nA) retry\nB) timeout\nC) limit\nD) delay\n\nDoğru Cevap: B (timeout).",
+    "gorsel": {
+      "type": "image",
+      "query": "hourglass timer timeout symbol"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Kargo Takibi",
+    "altbaslik": "Yurtiçi ve Aras Kargo API'leri",
+    "icerik": "Gerçek Hayatta:\nTrendyol veya Hepsiburada kargo takip numarasını kargo firmalarının API'sine asenkron olarak sorar.\nKullanıcı sayfayı yenilediğinde canlı kargo konumu anında ekrana basılır.\nTüm e-ticaret sektörü bu entegrasyonla çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cargo shipment delivery tracking integration api"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Canlı Kampüs Bilgi ve Tavsiye Panosu",
+    "icerik": "Göreviniz:\n1. `GET /kampus/canli-ozet` endpoint'i yazın.\n2. Bu endpoint aynı anda:\n   - Open-Meteo'dan anlık hava sıcaklığını,\n   - AdviceSlip'ten günün tavsiyesini çeksin.\n3. Tek bir JSON içinde kullanıcıya şık bir şekilde sunsun.\n4. Swagger UI üzerinden canlı test edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "dashboard live information display mission task"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "@app.get('/kampus/canli-ozet')\nasync def canli_ozet():\n    async with httpx.AsyncClient() as client:\n        # Hava durumunu çekin\n        # Tavsiyeyi çekin\n        # İkisini tek JSON'da birleştirip dönün...\n        pass",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint solution code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- API'ler sadece veri sunmaz, başka API'lerden veri de tüketir.\n- httpx ve async/await ile sunucu kilitlenmeden yüksek hızlı ağ istekleri atılır.\n- Timeout ile dış servis arızalarında sistem güvenliği sağlanır.\n- Canlı hava durumu ve döviz gibi gerçek veriler sistemimize başarıyla bağlandı.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 12: API Güvenliği, Şifreli Giriş ve JWT Token",
+    "icerik": "Ön Hazırlık:\n- Herkes her öğrencinin notunu görebilir mi? Hayır!\n- Şifreleme ve Hash (bcrypt) mantığı.\n- Dijital Bilet (JWT Token) ile kilitli kapıları açacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "jwt token security lock authentication digital badge"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'httpx ile timeout süresi 4 saniye olan bir AsyncClient bloğu açıp GET isteği atan 3 satırlık Python kodunu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

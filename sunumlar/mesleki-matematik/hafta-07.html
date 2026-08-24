@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 07 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 07</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-06.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 7", "altbaslik": "Hafta 7: Subnetting Mantığı ve İkili Sistemle Ağ Hesapları", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Ağ Aritmetiği ve Alt Ağ Planlama\nHaftalık Odak: IPv4, Alt Ağ Maskesi, CIDR (/24, /26), Ağ/Yayın Adresleri ve 2^h - 2 Kuralı\nHedef: Ağları güvenli ve verimli alt ağlara (subnet) matematiksel olarak bölmek.", "gorsel": {"type": "image", "query": "network topology subnetting ipv4 routers switches diagram"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Ağ Segmentasyonu ve Güvenlik", "icerik": "Bir şirkette Muhasebe, İK ve Sunucu ağları aynı broadcast etki alanında (domain) olamaz.\n- Güvenlik ihlali durumunda saldırganın tüm ağa yayılmasını önlemek için ağlar alt ağlara (subnet) bölünür.\n- Yanlış subnet maskesi seçilirse IP'ler çakışır veya cihazlar ağ geçidine (Gateway) ulaşamaz.\nSubnetting, 2'nin kuvvetleri ve ikili VE (AND) mantığının doğrudan uygulamasıdır.", "gorsel": {"type": "image", "query": "network segmentation firewall security zones router"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. IPv4 adresinin Ağ (Network) ve Ana Bilgisayar (Host) kısımlarını ayırt eder.\n2. CIDR önek uzunluğu ile alt ağ maskesi (Subnet Mask) arasındaki dönüşümü yapar.\n3. Bir alt ağdaki toplam ve kullanılabilir IP adres sayısını (2^h - 2) hesaplar.\n4. Verilen bir IP adresinin Ağ Adresini, Broadcast Adresini ve geçerli Host Aralığını bulur.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "IPv4 Adresinin Anatomisi", "altbaslik": "32 Bit, 4 Oktet ve Noktalı Desimal Gösterim", "icerik": "IPv4 Adresi:\n- Toplam 32 bit uzunluğundadır.\n- 8'er bitlik 4 oktete (byte) ayrılır.\n- Örnek: 192.168.1.100\n- İkili Gösterim: 11000000.10101000.00000001.01100100\nAdres iki kısımdan oluşur: [AĞ KISMI (Network ID)] + [CİHAZ KISMI (Host ID)].", "gorsel": {"type": "image", "query": "ipv4 address structure network host octets diagram"}}, {"baslik": "Alt Ağ Maskesi (Subnet Mask) Nedir?", "altbaslik": "Ağ ve Host Sınırını Belirleyen Filtre", "icerik": "Alt Ağ Maskesi, 32 bitlik adreste kaç bitin Ağ kısmına, kaç bitin Host kısmına ait olduğunu gösterir.\n- Ağ bitleri daima soldan sağa kesintisiz 1'lerden oluşur.\n- Host bitleri sağda kalan 0'lardan oluşur.\nÖrnek Maske: 255.255.255.0\nİkili: 11111111.11111111.11111111.00000000 (24 adet 1, 8 adet 0).", "gorsel": {"type": "image", "query": "subnet mask binary representation 255.255.255.0"}}, {"baslik": "CIDR (Classless Inter-Domain Routing) Notasyonu", "altbaslik": "Slash (/) ile Maske Gösterimi", "icerik": "CIDR, alt ağ maskesindeki toplam 1 bitlerinin sayısını '/n' şeklinde yazar:\n- /24 -> 24 bit '1' -> 255.255.255.0\n- /25 -> 25 bit '1' -> 255.255.255.128\n- /26 -> 26 bit '1' -> 255.255.255.192\n- /27 -> 27 bit '1' -> 255.255.255.224\n- /28 -> 28 bit '1' -> 255.255.255.240\n- /30 -> 30 bit '1' -> 255.255.255.252 (Noktadan noktaya WAN bağlantıları).", "gorsel": {"type": "image", "query": "cidr prefix notation table subnet mask mapping"}}, {"baslik": "Ağ Sınıfları (A, B, C Sınıfı IP'ler)", "altbaslik": "Tarihsel Yapı ve Varsayılan Maskeler", "icerik": "- A Sınıfı: 1.0.0.0 - 126.255.255.255 (Varsayılan /8 - 255.0.0.0)\n- B Sınıfı: 128.0.0.0 - 191.255.255.255 (Varsayılan /16 - 255.255.0.0)\n- C Sınıfı: 192.0.0.0 - 223.255.255.255 (Varsayılan /24 - 255.255.255.0)\n- Özel (Private) IP Blokları: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16", "gorsel": {"type": "image", "query": "ip address classes A B C private IP ranges"}}, {"baslik": "Kullanılabilir Host Sayısı Formülü: 2^h - 2", "altbaslik": "Neden 2 Çıkarılır?", "icerik": "Bir alt ağda h adet host biti (0 olan bitler) varsa:\n- Toplam IP Sayısı = 2^h\n- Kullanılabilir Host IP Sayısı = 2^h - 2\nNeden -2?\n1. İlk Adres (Tüm host bitleri 0): AĞ ADRESİ (Network ID) olarak ayrılır, cihaza verilemez.\n2. Son Adres (Tüm host bitleri 1): YAYIN ADRESİ (Broadcast ID) olarak ayrılır, cihaza verilemez.", "gorsel": {"type": "image", "query": "host calculation formula 2 to the power h minus 2"}}, {"baslik": "Alt Ağ Sayısı Formülü: 2^s", "altbaslik": "Ödünç Alınan Bitler (Subnet Bits)", "icerik": "Varsayılan ağdan host kısmına doğru s adet bit ödünç alınırsa:\n- Oluşan Alt Ağ Sayısı = 2^s\nÖrnek: /24 olan bir ağı /26 yaparsak 2 bit ödünç alınır (s = 26 - 24 = 2).\n- Alt Ağ Sayısı = 2^2 = 4 eşit alt ağ oluşur.\n- Kalan host biti h = 32 - 26 = 6 bit.\n- Her alt ağdaki toplam IP = 2^6 = 64, Kullanılabilir IP = 64 - 2 = 62.", "gorsel": {"type": "image", "query": "subnetting dividing network into 4 subnets visual"}}, {"baslik": "Blok Boyutu (Magic Number) Yöntemi", "altbaslik": "Alt Ağ Adreslerini Hızlıca Bulma Tekniği", "icerik": "Magic Number (Blok Boyutu) = 256 - İlgi Duyulan Oktetteki Maske Değeri\nÖrnek: /26 maskesi 255.255.255.192'dir.\n- Blok Boyutu = 256 - 192 = 64.\nAlt ağlar 64'er 64'er artarak başlar:\n- 1. Alt Ağ: .0\n- 2. Alt Ağ: .64\n- 3. Alt Ağ: .128\n- 4. Alt Ağ: .192", "gorsel": {"type": "image", "query": "magic number block size subnetting shortcut"}}, {"baslik": "Ağ Adresini Bulma: İkili VE (AND) İşlemi", "altbaslik": "Router'ların Yönlendirme Mantığı", "icerik": "Bir yönlendirici (router) paketi nereye ileteceğini IP adresi ile Alt Ağ Maskesini ikili VE (AND) işlemine sokarak bulur.\nVE (AND) Tablosu: 1 AND 1 = 1 | 1 AND 0 = 0 | 0 AND 0 = 0\nÖrnek: IP 192.168.1.75 /24\nIP:    11000000.10101000.00000001.01001011\nMask:  11111111.11111111.11111111.00000000\n---------------------------------------------\nAND:   11000000.10101000.00000001.00000000 -> Ağ Adresi = 192.168.1.0", "gorsel": {"type": "image", "query": "bitwise AND operation IP address and subnet mask"}}, {"baslik": "Ağ Adresinden Broadcast ve Host Aralığı Bulma", "altbaslik": "Adım Adım Hesaplama Prosedürü", "icerik": "1. Ağ Adresini tespit et (Örn: 192.168.1.64)\n2. Sonraki Ağ Adresini bul (Ağ Adresi + Blok Boyutu = 192.168.1.128)\n3. Broadcast Adresi = Sonraki Ağ Adresi - 1 (192.168.1.127)\n4. İlk Geçerli Host = Ağ Adresi + 1 (192.168.1.65)\n5. Son Geçerli Host = Broadcast - 1 (192.168.1.126)", "gorsel": {"type": "image", "query": "network broadcast host range calculation chart"}}, {"baslik": "Çözümlü Uygulama 1: /24 Ağında Temel Parametreler", "altbaslik": "Seviye: Başlangıç", "icerik": "Soru: 192.168.10.0/24 ağı için:\na) Alt ağ maskesi nedir?\nb) Toplam IP sayısı kaçtır?\nc) Kullanılabilir IP sayısı kaçtır?\nÇözüm:\na) /24 = 255.255.255.0\nb) Host biti h = 32 - 24 = 8 bit -> Toplam IP = 2^8 = 256\nc) Kullanılabilir IP = 256 - 2 = 254 (192.168.10.1 ile 192.168.10.254 arası).", "gorsel": {"type": "image", "query": "slash 24 subnet network parameters table"}}, {"baslik": "Çözümlü Uygulama 2: /26 Ağının Tablosunu Çıkarma", "altbaslik": "Seviye: Kolay (Blok Boyutu ile Alt Ağlar)", "icerik": "Soru: 192.168.1.0/26 ağının tüm alt ağ aralıklarını yazınız.\nÇözüm:\n- Maske = 255.255.255.192 | Blok boyutu = 256 - 192 = 64\nAlt Ağ 1: Ağ=192.168.1.0 | Host= .1 - .62 | Broadcast= 192.168.1.63\nAlt Ağ 2: Ağ=192.168.1.64 | Host= .65 - .126 | Broadcast= 192.168.1.127\nAlt Ağ 3: Ağ=192.168.1.128 | Host= .129 - .190 | Broadcast= 192.168.1.191\nAlt Ağ 4: Ağ=192.168.1.192 | Host= .193 - .254 | Broadcast= 192.168.1.255", "gorsel": {"type": "image", "query": "slash 26 subnet table network broadcast range"}}, {"baslik": "Çözümlü Uygulama 3: Verilen IP'nin Ağını Bulma", "altbaslik": "Seviye: Orta (Ağ ve Broadcast Tespiti)", "icerik": "Soru: 10.0.0.85/28 IP adresinin bağlı olduğu Ağ Adresi ve Broadcast Adresi nedir?\nAdım 1: /28 maskesi = 255.255.255.240\nAdım 2: Blok Boyutu = 256 - 240 = 16\nAdım 3: 16'nın katları: 0, 16, 32, 48, 64, 80, 96...\nAdım 4: 85 sayısı 80 ile 96 arasındadır.\n- Ağ Adresi = 10.0.0.80\n- Broadcast Adresi = 10.0.0.95\n- Kullanılabilir Hostlar = 10.0.0.81 - 10.0.0.94 (Toplam 14 host).", "gorsel": {"type": "image", "query": "find network ID and broadcast address calculation"}}, {"baslik": "Çözümlü Uygulama 4: İhtiyaca Uygun Maske Seçimi", "altbaslik": "Seviye: Orta (Kapasite Planlama)", "icerik": "Soru: Bir şirketin Güvenlik Operasyonları (SOC) departmanında 28 adet cihaz bulunmaktadır. Bu departman için IP israfı yapmadan seçilmesi gereken en küçük alt ağ maskesi (CIDR) nedir?\nÇözüm:\nKural: 2^h - 2 >= 28 olmalıdır.\n- h = 4 -> 2^4 - 2 = 16 - 2 = 14 host (Yetmez)\n- h = 5 -> 2^5 - 2 = 32 - 2 = 30 host (Yeterlidir! 28 cihaz sığar)\nCIDR Hesabı: Önek = 32 - 5 = /27\nMaske: 255.255.255.224.", "gorsel": {"type": "image", "query": "subnet requirement planning 28 hosts slash 27"}}, {"baslik": "Çözümlü Uygulama 5: Noktadan Noktaya /30 WAN Linki", "altbaslik": "Seviye: Orta-İleri (Router - Router Bağlantısı)", "icerik": "Soru: İki yönlendirici (Router) arasındaki seri bağlantı için sadece 2 adet geçerli IP gereklidir. Hangi alt ağ maskesi kullanılmalıdır?\nÇözüm:\n2^h - 2 = 2 -> 2^h = 4 -> h = 2 bit host.\nÖnek = 32 - 2 = /30\nMaske = 255.255.255.252\nÖrnek 192.168.50.0/30 ağı:\n- Ağ: 192.168.50.0\n- Router 1 IP: 192.168.50.1\n- Router 2 IP: 192.168.50.2\n- Broadcast: 192.168.50.3", "gorsel": {"type": "image", "query": "point to point router connection slash 30 network"}}, {"baslik": "Çözümlü Uygulama 6: Geçersiz IP Atamasını Bulma", "altbaslik": "Seviye: İleri (Sorun Giderme / Troubleshooting)", "icerik": "Soru: Bir stajyer teknisyen, /27 maskesine sahip 172.16.1.0/27 ağında bir sunucuya statik olarak 172.16.1.31 IP adresini tanımlamış fakat sunucu ağa çıkamamıştır. Hata nerededir?\nÇözüm:\n- /27 blok boyutu = 256 - 224 = 32\n- 1. Alt ağ: 172.16.1.0 ile 172.16.1.31 arasındadır.\n- 172.16.1.31 bu alt ağın YAYIN (Broadcast) adresidir!\nCihazlara broadcast adresi atanamaz. Doğru atanabilecek IP aralığı 172.16.1.1 - 172.16.1.30 arasıdır.", "gorsel": {"type": "image", "query": "network configuration error broadcast ip assigned alert"}}, {"baslik": "Çözümlü Uygulama 7: 3. Oktette Değişim (/23 Maskesi)", "altbaslik": "Seviye: İleri (Büyük Ağ Hesapları)", "icerik": "Soru: 172.16.0.0/23 ağında kaç adet kullanılabilir IP vardır?\nÇözüm:\nHost biti h = 32 - 23 = 9 bit.\nKullanılabilir IP = 2^9 - 2 = 512 - 2 = 510 host.\nMaske: 255.255.254.0\nIP Aralığı: 172.16.0.1 ile 172.16.1.254 arası (Broadcast: 172.16.1.255).", "gorsel": {"type": "image", "query": "slash 23 subnet mask third octet boundary"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Host Sayısı ve Özel Adres Hataları", "icerik": "1. Kullanılabilir host sayısını hesaplarken -2 çıkarmayı unutmak (Toplam IP ile kullanılabilir IP aynı değildir).\n2. Ağ adresi (ilk) veya Broadcast adresini (son) bir cihaza veya gateway'e IP olarak vermeye çalışmak.\n3. Alt ağ maskelerinde bitlerin ardışık 1 olması kuralını unutmak (Örn: 255.255.245.0 geçersiz bir maskedir!).", "gorsel": {"type": "image", "query": "warning caution networking mistakes subnetting"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Blok Boyutu ve Oktet Kaymaları", "icerik": "1. Blok boyutunu yanlış oktete eklemek (Örn: /26 maskesinde 64 eklemesi 4. oktete yapılır, 3. oktete değil).\n2. İkili VE işlemini toplama işlemiyle karıştırmak (1 AND 1 = 1, diğerleri 0).", "gorsel": {"type": "image", "query": "subnetting calculation pitfalls caution"}}, {"baslik": "Sektörel Vaka: Şirket Ağı Segmentasyon Projesi", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Vaka: Kuruma 192.168.100.0/24 C-sınıfı bloğu tahsis edilmiştir.\nİhtiyaçlar:\n1. Sunucular: 50 IP\n2. İdari Personel: 50 IP\n3. Misafir Wi-Fi: 100 IP\nPlanlama:\n- Misafir Wi-Fi -> /25 (128 IP, 126 host) -> 192.168.100.0/25\n- Sunucular -> /26 (64 IP, 62 host) -> 192.168.100.128/26\n- İdari Personel -> /26 (64 IP, 62 host) -> 192.168.100.192/26\nSonuç: Tek bir /24 bloğu sıfır israfla 3 güvenli alt ağa bölünmüştür (VLSM).", "gorsel": {"type": "image", "query": "vlsm variable length subnet mask design diagram"}}, {"baslik": "Vaka Çözüm Planı ve Yönlendirme", "altbaslik": "Router Arayüz IP Yapılandırması", "icerik": "Router Ağ Geçitleri (Gateway):\n- Misafir Gateway: 192.168.100.1\n- Sunucu Gateway: 192.168.100.129\n- İdari Gateway: 192.168.100.193\nBu yapı ile VLAN'lar arası güvenlik duvarı kuralları (ACL) başarıyla uygulanmıştır.", "gorsel": {"type": "image", "query": "router gateway vlan configuration network diagram"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "CIDR - Maske Eşleştirme", "icerik": "Soru: /26 CIDR önekinin alt ağ maskesi (Subnet Mask) nedir?\nA) 255.255.255.0\nB) 255.255.255.128\nC) 255.255.255.192\nD) 255.255.255.224\n\nDoğru Cevap: C (128 + 64 = 192)", "gorsel": {"type": "image", "query": "subnet mask quiz question on screen"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Kullanılabilir Host", "icerik": "Soru: /28 önekine sahip bir alt ağda en fazla kaç adet kullanılabilir host IP'si vardır?\nA) 14\nB) 16\nC) 30\nD) 32\n\nDoğru Cevap: A (Host biti h = 32-28 = 4; 2^4 - 2 = 16 - 2 = 14)", "gorsel": {"type": "image", "query": "usable host calculation exam test question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Broadcast Adresi", "icerik": "Soru: 192.168.1.64/26 ağının Yayın (Broadcast) adresi nedir?\nA) 192.168.1.65\nB) 192.168.1.126\nC) 192.168.1.127\nD) 192.168.1.255\n\nDoğru Cevap: C (64 + 64 - 1 = 127)", "gorsel": {"type": "image", "query": "broadcast address calculation test"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Geçerli IP Tespiti", "icerik": "Soru: 10.10.10.0/29 ağında aşağıdaki IP adreslerinden hangisi bir sunucuya atanabilir?\nA) 10.10.10.0 (Ağ ID)\nB) 10.10.10.5 (Geçerli Host)\nC) 10.10.10.7 (Broadcast ID)\nD) 10.10.10.8 (Sonraki Ağ ID)\n\nDoğru Cevap: B", "gorsel": {"type": "image", "query": "valid host ip address selection question"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Alt ağ maskesi 32-bitlik IPv4 adresini Ağ ve Host olarak ikiye böler.\n- Kullanılabilir host sayısı formülü 2^h - 2'dir (Ağ ve Broadcast çıkarılır).\n- Blok boyutu (Magic Number) 256'dan ilgili oktetin çıkarılmasıyla hızlıca bulunur.\n- Yönlendiriciler paket adresini bulmak için ikili VE (AND) mantığı kullanır.", "gorsel": {"type": "image", "query": "subnetting complete summary chart networking"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 8: Temel Mantık ve Küme İşlemleri", "icerik": "Gelecek Konular:\n- Önermeler ve Doğruluk Tabloları (0 ve 1)\n- Boole Mantığı: VE (AND), VEYA (OR), DEĞİL (NOT), XOR\n- Güvenlik Duvarı (Firewall) Kural Zincirleri\n- Kümeler: Kesişim, Birleşim ve Log Filtreleme.", "gorsel": {"type": "image", "query": "boolean logic venn diagram set theory mathematics"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'192.168.1.140/27 IP adresine sahip bir bilgisayar için:\n1. Ağ Adresini (Network ID)\n2. Yayın Adresini (Broadcast ID)\n3. Bu ağda kullanılabilecek ilk ve son IP adreslerini yazınız.'\n\nKağıdı çıkarken teslim ediniz.", "gorsel": {"type": "image", "query": "subnet calculations exit ticket classroom"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

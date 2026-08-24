@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 3",
+    "altbaslik": "Şifreleme Teknikleri ve Steganografi Yöntemleri",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Kriptoloji ve Veri Gizleme\nHaftalık Odak: Klasik Şifreler, AES, RSA, Hash ve Steghide ile Resme Veri Gömme\nHedef: Kriptografik algoritmaları ve steganografik veri gizleme tekniklerini uygulamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "cryptography encryption ciphers steganography digital lock"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Veri Mahremiyeti ve Güvenli İletişim",
+    "icerik": "İnternette akan tüm banka şifreleri, WhatsApp mesajları ve e-ticaret işlemleri kriptoloji ile korunur.\n- Şifrelenmemiş veri açıkta gezen sır gibidir.\n- Kriptografi mesajın içeriğini okunamaz yapar.\n- Steganografi ise mesajın varlığını tamamen gizler.",
+    "gorsel": {
+      "type": "image",
+      "query": "secure communications encrypted data stream binary"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Kriptoloji, Kriptografi ve Kriptoanaliz kavramlarını açıklar.\n2. Sezar ve Vigenère gibi klasik şifreleme modellerini çözer.\n3. Simetrik (AES) ve Asimetrik (RSA/ECC) şifreleme farklarını kavrar.\n4. OpenSSL ile AES-256 dosya şifreleme ve deşifreleme yapar.\n5. Steghide aracıyla bir JPG resmi içine gizli metin gömüp çıkarır.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning outcomes education cybersecurity shield"
+    }
+  },
+  {
+    "baslik": "Kriptoloji ve Temel Kavramlar",
+    "altbaslik": "Şifre Biliminin Ağacı",
+    "icerik": "Kriptoloji: Şifreleme ve şifre çözme biliminin genel adıdır.\n- Kriptografi: Veriyi gizli anahtarlarla okunamaz hale getirme yöntemleri.\n- Kriptoanaliz: Anahtar olmadan şifreli metinleri çözme ve analiz etme sanatı.\nTemel Bileşenler: Düz Metin (P), Şifreli Metin (C), Anahtar (K), Şifreleme (E), Deşifreleme (D).",
+    "gorsel": {
+      "type": "image",
+      "query": "cryptology branches cryptography cryptanalysis diagram"
+    }
+  },
+  {
+    "baslik": "Kriptografinin Temel Hedefleri",
+    "altbaslik": "4 Temel Güvenlik İlkesi",
+    "icerik": "1. Gizlilik (Confidentiality): Yetkisiz kişilerin okumasını engellemek.\n2. Bütünlük (Integrity): Verinin değiştirilmediğini kanıtlamak.\n3. Kimlik Doğrulama (Authentication): Mesajın iddia edilen kişiden geldiğini teyit etmek.\n4. İnkâr Edilemezlik (Non-Repudiation): İşlemi yapanın bunu sonradan reddedememesini sağlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "four pillars of information security authentication integrity non-repudiation"
+    }
+  },
+  {
+    "baslik": "Klasik Kriptografi: Sezar Şifrelemesi",
+    "altbaslik": "Tarihin İlk Yerine Koyma Şifresi",
+    "icerik": "M.Ö. Jül Sezar tarafından ordusuyla haberleşmek için kullanılmıştır.\nKural: Alfabedeki her harfi n basamak ileri kaydır.\nŞifreleme: E(x) = (x + 3) mod 29\nDeşifreleme: D(x) = (x - 3) mod 29\nZayıflığı: Alfabede sadece 29 deneme ile veya harf frekans analiziyle saniyeler içinde kırılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "caesar cipher wheel substitution cryptography ancient"
+    }
+  },
+  {
+    "baslik": "Vigenère Şifrelemesi: Çoklu Alfabe",
+    "altbaslik": "Tekrarlanan Anahtar Kelime Yöntemi",
+    "icerik": "Sezar'ın tek harf kaydırma açığını kapatmak için geliştirilmiştir.\n- Bir anahtar kelime seçilir (Örn: 'KALE').\n- Metindeki her harf anahtarın sıradaki harfine göre farklı miktarda kaydırılır.\n- Kasiski yöntemi ve frekans analizinin gelişmesiyle bu şifre de çözülmüştür.",
+    "gorsel": {
+      "type": "image",
+      "query": "vigenere cipher table grid square cryptography"
+    }
+  },
+  {
+    "baslik": "Modern Kriptografi: Simetrik Şifreleme",
+    "altbaslik": "Tek ve Gizli Anahtar Modeli",
+    "icerik": "Şifreleme ve deşifreleme işlemleri için AYNI gizli anahtar kullanılır.\n[Düz Metin] -> [AES Şifreleme (Gizli Anahtar)] -> [Şifreli Metin] -> [AES Deşifreleme (Gizli Anahtar)] -> [Düz Metin]\nAvantajı: Çok hızlıdır, gigabaytlarca veriyi saniyeler içinde şifreler.\nDezavantajı: Gizli anahtarı karşı tarafa güvenle iletmek zordur (Anahtar Dağıtım Problemi).",
+    "gorsel": {
+      "type": "image",
+      "query": "symmetric encryption single secret key diagram"
+    }
+  },
+  {
+    "baslik": "Popüler Simetrik Algoritmalar",
+    "altbaslik": "DES'ten AES'e Gelişim",
+    "icerik": "- DES (Data Encryption Standard): 56-bit anahtar kullanır. Günümüzde güvensizdir ve kırılmıştır.\n- 3DES: DES'i 3 kez uygular, yavaştır.\n- AES (Advanced Encryption Standard): Günümüzün dünya standardıdır.\n  * 128, 192 ve 256-bit anahtar uzunluklarını destekler.\n  * Kaba kuvvetle kırılması evrenin yaşından daha uzun sürer!",
+    "gorsel": {
+      "type": "image",
+      "query": "AES encryption standard block cipher security"
+    }
+  },
+  {
+    "baslik": "Blok Şifreleme Modları: ECB vs CBC",
+    "altbaslik": "Şifreleme Modlarının Önemi",
+    "icerik": "- ECB (Electronic Codebook): Her 128-bitlik veri bloğu birbirinden bağımsız şifrelenir. Aynı girdiler aynı çıktıyı üretir, resim şifrelendiğinde deseni görünür kalır!\n- CBC (Cipher Block Chaining): Her blok bir önceki blokla XOR işlemine tabi tutulur. Başlangıç Vektörü (IV) kullanılır, son derece güvenlidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ecb vs cbc mode linux tux penguin comparison encryption"
+    }
+  },
+  {
+    "baslik": "Asimetrik (Açık Anahtarlı) Kriptografi",
+    "altbaslik": "Çift Anahtar Mucizesi",
+    "icerik": "İki farklı matematiksel anahtar kullanılır:\n1. Açık Anahtar (Public Key): Herkesle paylaşılır, veriyi şifrelemek için kullanılır.\n2. Gizli Anahtar (Private Key): Sadece sahibinde kalır, şifreyi çözmek için kullanılır.\n[Düz Metin] -> [Alıcının Açık Anahtarı ile Şifrele] -> [Şifreli Metin] -> [Alıcının Gizli Anahtarı ile Çöz] -> [Düz Metin]",
+    "gorsel": {
+      "type": "image",
+      "query": "asymmetric encryption public private key pair diagram"
+    }
+  },
+  {
+    "baslik": "Asimetrik Algoritmalar: RSA ve ECC",
+    "altbaslik": "Asal Sayıların Gücü",
+    "icerik": "- RSA: İki çok büyük asal sayının çarpımını çarpanlarına ayırmanın zorluğuna dayanır (2048 / 4096-bit).\n- ECC (Elliptic Curve Cryptography): Eliptik eğriler üzerindeki noktalara dayanır.\n  * 256-bit ECC, 3072-bit RSA ile aynı güvenliği sağlar!\n  * Mobil cihazlarda ve kripto paralarda tercih edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "elliptic curve cryptography mathematics graph RSA"
+    }
+  },
+  {
+    "baslik": "Hibrit Kriptografi: HTTPS Nasıl Çalışır?",
+    "altbaslik": "En İyilerin Birleşimi",
+    "icerik": "Asimetrik şifreleme güvenlidir ama yavaştır. Simetrik şifreleme hızlıdır ama anahtar paylaşımı zordur.\nHTTPS Çözümü:\n1. Tarayıcı ile sunucu RSA/ECC kullanarak güvenli bir ortak oturum anahtarı paylaşır (Asimetrik El Sıkışma).\n2. Sayfa içeriği ve veri transferi AES-256 ile ışık hızında şifrelenir (Simetrik).",
+    "gorsel": {
+      "type": "image",
+      "query": "https ssl tls handshake padlock browser security"
+    }
+  },
+  {
+    "baslik": "Steganografi Nedir? (Veri Gizleme)",
+    "altbaslik": "Görünmeyeni Saklama Sanatı",
+    "icerik": "Kriptografi: Mesaj okunamaz ama herkes şifreli bir dosya olduğunu anlar.\nSteganografi: Mesajın VARLIĞI gizlenir. Dışarıdan bakan kişi sadece sıradan bir kedi fotoğrafı veya şarkı görür.\nTarihte: Görünmez mürekkepler, kölelerin kazınmış kafasına yazılan dövmeler.\nDijitalde: Resim, ses ve video dosyalarının piksellerine veri gizleme.",
+    "gorsel": {
+      "type": "image",
+      "query": "steganography hidden message inside image concept"
+    }
+  },
+  {
+    "baslik": "LSB (Least Significant Bit) Yöntemi",
+    "altbaslik": "En Az Değerli Bit Tekniği",
+    "icerik": "Dijital resimler RGB piksellerinden (0-255 arası baytlar) oluşur.\nPiksel Baytı: 1 1 0 1 0 0 1 [0] <- En sağdaki bit LSB'dir.\nEn sağdaki bu 1 biti değiştirmek piksel renginde insan gözünün ayırt edemeyeceği yüzde 0.4'lük bir ton farkı yaratır.\nGizli mesajın bitleri sırayla resmin LSB bitlerine yazılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "least significant bit LSB pixel byte diagram steganography"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: OpenSSL ve Steghide",
+    "altbaslik": "Uygulama Adımlarımız",
+    "icerik": "Laboratuvarımızda:\n1. OpenSSL ile AES-256 simetrik dosya şifreleyeceğiz.\n2. Şifreli dosyanın okunamaz olduğunu doğrulayacağız.\n3. Steghide aracıyla bir JPG fotoğrafı içine gizli metin gömüp çıkaracağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security lab students terminal cryptography practice"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: OpenSSL ile Dosya Şifreleme",
+    "altbaslik": "AES-256-CBC ile Gizli Rapor Kilitleme",
+    "icerik": "Adım 1: Gizli bir dosya oluşturalım:\necho \"Gizli Proje Raporu: GRU2026\" > rapor.txt\nAdım 2: OpenSSL ile AES-256 şifreleyelim:\nopenssl enc -aes-256-cbc -salt -in rapor.txt -out rapor.enc -pbkdf2\nTerminal sizden bir parola isteyecektir (Örn: siber123).",
+    "gorsel": {
+      "type": "image",
+      "query": "openssl encryption terminal command line linux"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Şifreli Dosyayı İnceleme ve Çözme",
+    "altbaslik": "Deşifreleme Adımı",
+    "icerik": "Adım 1: Şifreli dosyayı okumayı deneyin:\ncat rapor.enc\nSonuç: Anlamsız karakterler ve semboller göreceksiniz.\nAdım 2: Dosyayı orijinal haline geri çözelim:\nopenssl enc -d -aes-256-cbc -in rapor.enc -out cozulmus.txt -pbkdf2\ncat cozulmus.txt",
+    "gorsel": {
+      "type": "image",
+      "query": "decrypted text output terminal success checkmark"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Steghide ile Resme Veri Gömme",
+    "altbaslik": "Gizli Mesajı Fotoğrafa Saklama",
+    "icerik": "Adım 1: Test resmi ve gizli mesaj hazırlayalım:\nwget http://192.168.1.10/sample.jpg -O resim.jpg\necho \"BULUSMA: SAAT 15:00 LAB-2\" > gizli.txt\nAdım 2: Steghide ile mesajı resme gömelim:\nsteghide embed -cf resim.jpg -ef gizli.txt\nParola belirleyin (Örn: gizli123).",
+    "gorsel": {
+      "type": "image",
+      "query": "steghide embedding process terminal image linux"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Gizli Mesajı Resimden Çıkarma",
+    "altbaslik": "Extract İşlemi",
+    "icerik": "Adım 1: Orijinal gizli.txt dosyasını silelim:\nrm gizli.txt\nAdım 2: Resmi açıp bakın, görüntü tamamen normaldir:\nxdg-open resim.jpg\nAdım 3: Resmin içindeki gizli metni kurtaralım:\nsteghide extract -sf resim.jpg\ncat gizli.txt",
+    "gorsel": {
+      "type": "image",
+      "query": "steghide extraction recovered message terminal"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Kriptoloji ve Steganografi Tuzakları",
+    "icerik": "1. Format Hatası: Steghide PNG formatını desteklemez; mutlaka JPG veya BMP kullanılmalıdır.\n2. Parola Görünmüyor Endişesi: Linux terminallerinde parola yazarken yıldız veya imleç çıkmaz, yazıp Enter'a basılmalıdır.\n3. Yanlış Şifre Çözme: OpenSSL'de şifrelerken pbkdf2 kullandıysanız çözerken de -pbkdf2 parametresini unutmamalısınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting warning checklist error screen"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Silk Road Operasyonu",
+    "altbaslik": "Kriptoloji ve Adli Bilişim",
+    "icerik": "Vaka: Karanlık ağdaki (Darknet) Silk Road pazar yerinin yöneticisi yakalandığında dizüstü bilgisayarı açıktı.\nİnceleme: Bilgisayar kapansaydı tüm disk TrueCrypt ile tam şifreli (AES) olduğu için FBI verilere asla ulaşamayacaktı.\nSonuç: Kriptografi matematiksel olarak kusursuz olsa bile fiziksel güvenlik ve insan hatası sistemi ele verir.",
+    "gorsel": {
+      "type": "image",
+      "query": "fbi cyber forensics seized laptop darknet investigation"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Steganaliz Nasıl Yapılır?",
+    "altbaslik": "Gizli Veriyi Tespit Etme Teknikleri",
+    "icerik": "Steganaliz (Steganalysis): Şüpheli resimlerin steganografi içerip içermediğini anlama bilimidir.\nYöntemler:\n1. Histogram Analizi: Resim piksellerinin renk dağılımındaki matematiksel anomalileri arar.\n2. Dosya Boyutu ve İkili Farklılık Taraması.",
+    "gorsel": {
+      "type": "image",
+      "query": "steganalysis histogram chart pixel frequency analysis"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Kriptografi Türleri",
+    "icerik": "Soru: Şifreleme ve şifre çözme işlemlerinde AYNI gizli anahtarın kullanıldığı sistemlere ne ad verilir?\nA) Asimetrik Şifreleme\nB) Simetrik Şifreleme\nC) Steganografi\nD) Özetleme (Hash)\n\nDoğru Cevap: B (Simetrik)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination question mark classroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Algoritma Eşleştirme",
+    "icerik": "Soru: Günümüzde dünya çapında kullanılan en popüler ve güvenli simetrik blok şifreleme standardı hangisidir?\nA) DES\nB) Sezar\nC) AES\nD) MD5\n\nDoğru Cevap: C (AES)",
+    "gorsel": {
+      "type": "image",
+      "query": "encryption standard question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Asimetrik Anahtarlar",
+    "icerik": "Soru: Bir kullanıcıya gizli bir mesaj gönderirken mesajı şifrelemek için kime ait hangi anahtar kullanılır?\nA) Göndericinin Gizli Anahtarı\nB) Alıcının Açık Anahtarı (Public Key)\nC) Alıcının Gizli Anahtarı\nD) Ortak Wifi Şifresi\n\nDoğru Cevap: B (Alıcının Açık Anahtarı)",
+    "gorsel": {
+      "type": "image",
+      "query": "public key encryption security question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Steganografi Mantığı",
+    "icerik": "Soru: Steganografinin kriptografiden en temel farkı nedir?\nA) Steganografi mesajın varlığını gizler, kriptografi içeriği okunamaz yapar.\nB) Steganografi sadece ses dosyalarında çalışır.\nC) Steganografi şifre çözülemez.\nD) Steganografi yasal değildir.\n\nDoğru Cevap: A",
+    "gorsel": {
+      "type": "image",
+      "query": "steganography vs cryptography comparison quiz"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Şifreleme Modları",
+    "icerik": "Soru: Her veri bloğunu birbirinden bağımsız şifrelediği için desenleri gizleyemeyen ve önerilmeyen simetrik blok şifre modu hangisidir?\nA) CBC\nB) ECB\nC) GCM\nD) CTR\n\nDoğru Cevap: B (ECB)",
+    "gorsel": {
+      "type": "image",
+      "query": "block cipher mode evaluation quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Kendi Stego Mesajınızı Paylaşın",
+    "icerik": "Uygulama Görevi:\nBir resme arkadaşınızın adı ve gizli bir parola gömün. Resmi arkadaşınıza USB veya ağ paylaşımı ile gönderin.\nArkadaşınız doğru parolayla mesajınızı çıkarsın.\nEkranda mesajı gören gruplar el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students collaborating computer lab sharing files"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Simetrik şifreleme (AES) hızlıdır; Asimetrik şifreleme (RSA/ECC) anahtar değişimini güvenli kılar.\n- HTTPS protokolü her iki yöntemi birleştiren hibrit bir modeldir.\n- Steganografi LSB tekniği ile resim piksellerine görünmez mesajlar saklar.\n- OpenSSL ve Steghide sektörde temel komut satırı araçlarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 4: Kali Linux ve Temel Komut Satırı Yönetimi",
+    "icerik": "Ön Hazırlık:\n- Linux dosya sistemi (FHS) hiyerarşisi nasıl çalışır?\n- chmod 755 veya 644 izinleri ne anlama gelir?\n- Arka planda gizlice çalışan süreçler (Process) nasıl tespit edilip sonlandırılır?",
+    "gorsel": {
+      "type": "image",
+      "query": "linux operating system command line matrix"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Neden bankacılık işlemlerinde sadece RSA kullanmak yerine RSA ile AES anahtarı paylaşılıp veriler AES ile şifrelenir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket classroom paper feedback"
+    }
+  }
+]

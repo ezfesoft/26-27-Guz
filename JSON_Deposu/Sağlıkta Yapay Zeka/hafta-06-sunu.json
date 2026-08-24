@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Veri Kalitesinin YZ Performansına Etkisi",
+    "altbaslik": "Eksik Veri Doldurma, Normalizasyon ve Aykırı Değerler",
+    "icerik": "- Odak: Düşük kaliteli, gürültülü veya eksik sağlık verilerinin YZ modellerini nasıl bozduğu.\n- Temel Kural: 'Çöp Girdi, Çöp Çıktı' (Garbage In, Garbage Out) ilkesinin klinik sonuçları.\n- Uygulama: Eksik ve kirli bir veri seti ile temizlenmiş veri setinin model başarı farkı.\n- Mesleki Rol: Tıbbi veri teknikerinin veri ön işleme (Data Preprocessing) sorumluluğu.",
+    "gorsel": {
+      "type": "image",
+      "query": "data quality healthcare data cleaning preprocessing analytics"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "6. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Sağlık verilerindeki kalite boyutlarını (Doğruluk, Tamlık, Tutarlılık, Güncellik) açıklar.\n- ÖÇ2: Eksik veri tiplerini (MCAR, MAR, MNAR) tanımlar ve uygun doldurma (Imputation) yöntemini seçer.\n- ÖÇ3: Normalizasyon ve standartizasyon işlemlerinin makine öğrenmesi modelleri için gerekliliğini savunur.\n- ÖÇ4: Kasıtlı bozulmuş bir veri setini temizleyerek model performansındaki değişimi raporlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives data quality medical imputation"
+    }
+  },
+  {
+    "baslik": "Sağlık Verisinde Kalite Boyutları",
+    "altbaslik": "Bir Veri Seti Ne Zaman 'Klinik Olarak Güvenilirdir'?",
+    "icerik": "- 1. Tamlık (Completeness): Zorunlu alanlarda (yaş, cinsiyet, tahlil sonucu) eksik değer olmaması.\n- 2. Doğruluk (Accuracy): Verinin hastanın gerçek fizyolojik durumunu yansıtması.\n- 3. Tutarlılık (Consistency): Farklı tablolardaki hasta verilerinin birbiriyle çelişmemesi.\n- 4. Geçerlilik (Validity): Verinin kabul edilebilir aralıkta olması (Ör. Nabız 450 bpm olamaz).\n- 5. Güncellik (Timeliness): Verinin zamanında sisteme girilmiş olması.",
+    "gorsel": {
+      "type": "image",
+      "query": "data quality dimensions completeness accuracy validity timeliness"
+    }
+  },
+  {
+    "baslik": "Eksik Veri (Missing Data) Türleri",
+    "altbaslik": "Veri Neden Eksik Kalır?",
+    "icerik": "- 1. MCAR (Missing Completely at Random): Eksikliğin hiçbir değişkenle ilgisi olmaması (Ör. Tüpün kırılması).\n- 2. MAR (Missing at Random): Eksikliğin gözlemlenen başka bir değişkenle ilişkili olması (Ör. Gençlerde rutin EKG istenmemesi).\n- 3. MNAR (Missing Not at Random): Eksikliğin doğrudan ölçülemeyen değerle ilişkili olması (Ör. Çok ağır hastanın tansiyonunun ölçülememesi).\n- Kritik Not: MNAR veriyi rastgele doldurmak modeli ciddi şekilde yanıltır!",
+    "gorsel": {
+      "type": "image",
+      "query": "missing data mechanisms MCAR MAR MNAR statistics"
+    }
+  },
+  {
+    "baslik": "Eksik Veri Doldurma (Imputation) Yöntemleri",
+    "altbaslik": "Hangi Durumda Hangi Yöntem Seçilmeli?",
+    "icerik": "- Silme (Deletion): Satırı tamamen silmek (Yalnızca veri kaybı <%5 ve MCAR ise uygundur).\n- Ortalama / Medyan ile Doldurma: Basittir; ancak veri dağılımındaki varyansı düşürür ve yapay standartlaşma yaratır.\n- En Sık Değer (Mod) ile Doldurma: Kategorik alanlar için uygundur (Ör. Kan grubu).\n- İleri Yöntemler (KNN / MICE): Benzer hastaların profilinden tahmin ederek doldurma (En güvenilir yaklaşım).",
+    "gorsel": {
+      "type": "image",
+      "query": "data imputation methods mean median KNN multivariate MICE"
+    }
+  },
+  {
+    "baslik": "KNN Imputation Nasıl Çalışır?",
+    "altbaslik": "En Yakın Komşulardan Tahmin Etme",
+    "icerik": "- Mantık: Eksik kan şekeri olan hastanın yaş, tansiyon ve vücut kitle indeksi gibi diğer dolu özelliklerine bakılır.\n- Mesafe: Bu özellikler açısından hastaya en benzeyen 5 hasta (k=5 komşu) tespit edilir.\n- Atama: Bu 5 benzer hastanın ortalama kan şekeri değeri eksik alana yazılır.\n- Üstünlük: Ortalama doldurmaya göre hastanın kişisel profilini çok daha iyi korur.",
+    "gorsel": {
+      "type": "image",
+      "query": "knn imputation algorithm nearest neighbors medical dataset"
+    }
+  },
+  {
+    "baslik": "Aykırı Değerler (Outliers) ve Tıbbi Anlamı",
+    "altbaslik": "Cihaz Hatası mı, Ölümcül Klinik Kriz mi?",
+    "icerik": "- İstatistiksel Aykırı Değer: Dağılımın çok dışında kalan veriler (Kutu grafiğinde çeyrekler açıklığı dışı).\n- İki Farklı Tip:\n  * Hatalı Veri Girişi: Hasta nabzı 750 girilmiş (Fizyolojik olarak imkansız -> Düzeltilmeli/Silinmeli).\n  * Kritik Patoloji: Troponin seviyesi 50 kat yüksek (Ölümcül kalp krizi -> Asla silinmemeli!).\n- Kural: Tıpta aykırı değerler körü körüne temizlenmez; klinik uzman görüşüyle filtrelenir!",
+    "gorsel": {
+      "type": "image",
+      "query": "box plot outlier detection clinical laboratory values"
+    }
+  },
+  {
+    "baslik": "Normalizasyon ve Standartizasyon (Scaling)",
+    "altbaslik": "Farklı Birimlerin Modeli Yanıltmasını Önlemek",
+    "icerik": "- Problem: Yaş (0-100), Glukoz (70-400 mg/dL), Lökosit (4000-11000 /uL).\n- Sonuç: Mesafe tabanlı modeller (KNN, YSA, SVM) büyük sayısal değerlere (Lökosit) aşırı ağırlık verir.\n- Min-Max Normalizasyon: Tüm değerleri 0 ile 1 arasına sıkıştırma.\n- Standartizasyon (Z-Score): Ortalamayı 0, standart sapmayı 1 yapma (Normal dağılan veriler için ideal).",
+    "gorsel": {
+      "type": "image",
+      "query": "feature scaling normalization standardization min max z score"
+    }
+  },
+  {
+    "baslik": "Atölye: Kirli Veri vs Temiz Veri Deneyi",
+    "altbaslik": "Model Performansındaki Dramatik Fark",
+    "icerik": "- Deney Tasarımı: Kalp yetmezliği açık veri seti seçilir.\n- Deney A (Kirli Veri): Eksik değerler rastgele 0 ile doldurulur, normalizasyon yapılmaz.\n- Deney B (Temiz Veri): KNN ile eksik değerler doldurulur, Z-score standartizasyonu yapılır.\n- Sonuç: Deney A model doğruluğu %62, Deney B model doğruluğu %89!\n- Çıkarım: Başarılı YZ'nin sırrı algoritma değil, kaliteli veridir.",
+    "gorsel": {
+      "type": "image",
+      "query": "dirty data vs clean data experiment machine learning performance"
+    }
+  },
+  {
+    "baslik": "Klinik Risk: Yanlış Doldurulan Verinin Bedeli",
+    "altbaslik": "Sepsis Erken Uyarısında Yapılan Hata",
+    "icerik": "- Senaryo: Yoğun bakımda laktat testi yapılmamış bir hastanın laktat değeri sisteme ortalama değer (1.0) olarak girildi.\n- Gerçek: Hastanın laktat değeri 4.5 idi (Ağır septik şok tablosu).\n- YZ Kararı: Sistem laktat normal olduğu için 'Düşük Risk' skoru verdi ve erken antibiyotik uyarısı üretmedi.\n- Klinik Sonuç: Tanı 6 saat gecikti ve hasta kaybedildi.",
+    "gorsel": {
+      "type": "image",
+      "query": "intensive care sepsis monitoring lactate level clinical risk"
+    }
+  },
+  {
+    "baslik": "Veri Kalitesi Kontrol Listesi (Data Audit)",
+    "altbaslik": "Teknikerin Günlük Operasyon Rehberi",
+    "icerik": "- 1. Eksik Değer Oranı Kontrolü: Hangi sütunda % kaç eksik var? (%30'dan fazla ise sütun elenebilir).\n- 2. Aralık Kontrolü: Değerler biyolojik sınırlar içinde mi? (Tansiyon 0-300 mmHg).\n- 3. Mantıksal Tutarlılık: Erkek hastada gebelik testi sonucu var mı?\n- 4. Mükerrer (Duplicate) Kayıt Kontrolü: Aynı test 1 dakika arayla iki kez girilmiş mi?",
+    "gorsel": {
+      "type": "image",
+      "query": "data quality audit checklist health information management"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 6. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- YZ modellerinin başarısı, beslendikleri verinin kalitesiyle doğrudan orantılıdır.\n- Eksik veriler rastgele silinmemeli; veri mekanizmasına (MCAR/MAR/MNAR) uygun doldurulmalıdır.\n- Tıpta aykırı değerler her zaman hata değildir; bazen en kritik klinik tanının işaretidir.\n- Özellik ölçekleme (scaling) algoritmaların adil ve doğru öğrenmesi için zorunludur.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary infographic data quality healthcare analytics"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Eksik Veri ve Ölçekleme Kontrolü",
+    "icerik": "- Soru 1: Bir hastanın tansiyonu çok düştüğü için tansiyon aletinin ölçememesi hangi eksik veri türüdür?\n  Cevap: MNAR (Missing Not at Random).\n- Soru 2: KNN ve YSA gibi mesafe tabanlı modellerde yaş ve lökosit sayısının eşit ağırlıkta öğrenilmesi için hangi işlem yapılır?\n  Cevap: Normalizasyon / Standartizasyon (Feature Scaling).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions data preprocessing statistics"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Vaka Sorusu",
+    "altbaslik": "Aykırı Değer Kararı",
+    "icerik": "- Senaryo: Veri tabanında bir hastanın kan potasyum değeri 8.5 mmol/L olarak görülmektedir (Normal: 3.5-5.0). Tekniker bu satırı 'aykırı değer' diyerek silmeli midir?\n- Cevap: Hayır, silinmemelidir! 8.5 ölümcül bir hiperkalemi tablosudur; derhal hekime teyit ettirilmeli ve hastanın acil müdahalesi sağlanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "critical lab value potassium alert emergency medicine"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 6. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Sağlık verisinde eksik değerleri ortalama ile doldurmanın en büyük klinik sakıncası nedir?\n- 2. Bir aykırı değerin ölçüm hatası mı yoksa acil patoloji mi olduğuna nasıl karar verirsiniz?\n- 3. Gelecek hafta konusu: Giyilebilir Teknolojiler ve Sürekli İzleme Verisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "7. Hafta: Giyilebilir Teknolojiler ve Sürekli İzleme",
+    "icerik": "- Konu: Akıllı saatler, EKG bantları, PPG sensörleri ve sürekli fizyolojik sinyallerin YZ ile analizi.\n- Odak: Zaman serisi verileri, anomali tespiti (Aritmi/Atriyal Fibrilasyon) ve yanlış alarm yönetimi.\n- Hazırlık: Akıllı saatlerin nabız ve uyku takibini nasıl yaptığını araştırınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "wearable healthcare sensors smartwatch ecg preview"
+    }
+  },
+  {
+    "baslik": "Veri Kalitesi Boyutu: Tıbbi Tutarlılık (Consistency)",
+    "altbaslik": "Tablolar Arası Çelişkileri Yakalamak",
+    "icerik": "- Çelişki Örneği: Epikriz metninde 'Hasta sigara kullanmıyor' yazarken, risk tablosunda 'Günde 1 paket' işaretlenmiş olması.\n- Laboratuvar Çelişkisi: Açlık kan şekeri 350 mg/dL olan hastanın HbA1c değerinin 4.5% (Aşırı düşük) çıkması.\n- Neden Olur?: Farklı personelin eski şablonları kopyala-yapıştır yapması.\n- YZ Riski: Çelişkili veri modelin mantıksal öğrenmesini bozar.",
+    "gorsel": {
+      "type": "image",
+      "query": "data inconsistency conflicting medical records audit"
+    }
+  },
+  {
+    "baslik": "Mükerrer Kayıtlar (Duplicate Records) ve Temizliği",
+    "altbaslik": "Aynı Hastanın İki Farklı Dosyası Olursa",
+    "icerik": "- Sorun: Aynı hastaya sehven iki ayrı protokol numarası açılması (Ahmet Yılmaz vs Ahmet YILMAZ).\n- Sonuç: Hastanın bir dosyasındaki ameliyat geçmişi ve alerjileri diğer dosyada görünmez.\n- YZ'ye Etkisi: Model aynı hastayı iki farklı kişi sanarak eğitimde aşırı ağırlık verir.\n- Çözüm: Deterministik ve olasılıksal hasta eşleştirme (Record Linkage) algoritmaları.",
+    "gorsel": {
+      "type": "image",
+      "query": "duplicate medical records patient merge record linkage"
+    }
+  },
+  {
+    "baslik": "Veri Gürültüsü (Data Noise) ve Filtreleme",
+    "altbaslik": "Sinyal ve Laboratuvar Gürültüleri",
+    "icerik": "- Tanım: Gerçek biyolojik değerin üzerine binen rastgele hatalar ve dalgalanmalar.\n- Örnek: Kan tahlili tüpünün hemoliz olması (alyuvarların parçalanması) sonucu potasyumun yapay yüksek çıkması.\n- Laboratuvar Kuralı: Hemolizli numune sonucu sisteme girilmemeli, numune tekrarı istenmelidir.\n- Veri Teknikeri Görevi: Laboratuvar ret (reject) loglarını inceleyerek gürültülü testleri veri setinden çıkarmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "hemolyzed blood sample laboratory quality control error"
+    }
+  },
+  {
+    "baslik": "Zaman Damgası (Timestamp) Hataları ve Sıralama",
+    "altbaslik": "Önce Tedavi mi, Önce Teşhis mi?",
+    "icerik": "- Sorun: HBYS'de antibiyotik giriş saatinin tahlil sonucundan 2 saat önce görünmesi (Gecikmeli veri girişi).\n- YZ Yanılgısı: Model ilacın tahlili bozduğunu veya hastalığı yarattığını sanabilir!\n- Çözüm: Olayın gerçekleşme saati (Event time) ile sisteme kaydedilme saatinin (System time) ayrılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "timestamp sequence error medical chronology timeline"
+    }
+  },
+  {
+    "baslik": "Kategorik Değişkenlerin Kodlanması (One-Hot Encoding)",
+    "altbaslik": "Metin Sınıflarını Sayılara Dönüştürmek",
+    "icerik": "- Problem: 'Kan Grubu: A, B, AB, 0' veya 'Servis: Acil, Dahiliye, Cerrahi' metinsel verilerdir.\n- Label Encoding Yanılgısı: A=1, B=2, AB=3, 0=4 yapmak modelin '0 grubu A'dan 4 kat büyüktür' sanmasına yol açar!\n- One-Hot Encoding: Her sınıf için 0 ve 1 içeren ayrı bir sütun açmak (Doğru ve adil matematiksel yaklaşım).",
+    "gorsel": {
+      "type": "image",
+      "query": "one hot encoding diagram categorical variables machine learning"
+    }
+  },
+  {
+    "baslik": "Dengesiz Veri Dağılımı (Imbalanced Data)",
+    "altbaslik": "Nadir Hastalıkların Temsil Sorunu",
+    "icerik": "- Durum: 10.000 kişilik veri setinde 9.900 sağlıklı, 100 kanser hastası.\n- Sorun: Model kanser hastalarını öğrenmeden herkese sağlıklı diyerek %99 doğruluk elde eder.\n- Çözüm 1: SMOTE (Sentetik Azınlık Aşırı Örnekleme) ile azınlık sınıfından yapay veriler üretmek.\n- Çözüm 2: Alt Örnekleme (Undersampling) ile çoğunluk sınıfından rastgele eleme yapmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "smote oversampling imbalanced dataset machine learning"
+    }
+  },
+  {
+    "baslik": "Veri Ön İşleme Boru Hattı (Data Pipeline)",
+    "altbaslik": "Adım Adım Sağlık Verisi Hazırlama",
+    "icerik": "- 1. Adım: Ham HBYS/PACS verisinin çıkarılması (Extraction).\n- 2. Adım: Kimliksizleştirme ve KVKK filtrelemesi.\n- 3. Adım: Tip dönüşümleri (Tarih, sayı, kategori formatlama).\n- 4. Adım: Eksik veri doldurma (KNN Imputation).\n- 5. Adım: Aykırı değer filtreleme ve Z-score ölçekleme.\n- 6. Adım: Eğitim/Test veri setine bölme.",
+    "gorsel": {
+      "type": "image",
+      "query": "data preprocessing pipeline flowchart machine learning steps"
+    }
+  },
+  {
+    "baslik": "Python ile Eksik Veri Analizi: missingno Kütüphanesi",
+    "altbaslik": "Eksiklik Matrisini Görselleştirmek",
+    "icerik": "- missingno.matrix(df): Hangi satırlarda ve hangi sütunlarda eksik olduğunu çizgilerle gösterir.\n- Eksiklik Korelasyonu: 'Tansiyon eksik olduğunda EKG de her zaman eksik mi?' sorusunun görsel kanıtı.\n- Tıbbi Veri Teknikeri İpucu: Eksiklik paternleri hastanenin klinik iş akışındaki aksaklıkları ortaya çıkarır.",
+    "gorsel": {
+      "type": "image",
+      "query": "missingno python matrix missing data visualization"
+    }
+  },
+  {
+    "baslik": "Aykırı Değer Tespiti: Mahalanobis Mesafesi",
+    "altbaslik": "Çok Değişkenli Aykırı Değerler",
+    "icerik": "- Tek Değişkenli: Yaş=20 normal, Kalp Krizi normal; ancak Yaş=20 ve Kalp Krizi birlikte çok değişkenli bir aykırı durumdur.\n- Mahalanobis Mesafesi: Birden fazla değişkenin kovaryansını dikkate alarak çok boyutlu uzayda aykırı hastaları tespit eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "mahalanobis distance multivariate outlier detection scatter plot"
+    }
+  },
+  {
+    "baslik": "Veri Profilleme ve Otomatik Kalite Raporu",
+    "altbaslik": "Pandas Profiling / ydata-profiling",
+    "icerik": "- Otomasyon: Tek satır kodla veri setinin tam sağlık karnesini (eksikler, dağılımlar, sıfır değerler) HTML raporu olarak üretmek.\n- Rapor Başlıkları: Veri tipleri, bellek kullanımı, korelasyon matrisi, uyarılar (Warnings).\n- Tekniker Sunumu: Başhekimliğe veya veri bilimi ekibine sunulacak hazır kalite raporu.",
+    "gorsel": {
+      "type": "image",
+      "query": "pandas profiling html report dashboard dataset statistics"
+    }
+  },
+  {
+    "baslik": "Klinik Veri Doğrulama Kuralları (Validation Rules)",
+    "altbaslik": "Hatalı Verinin Veritabanına Girişini Engellemek",
+    "icerik": "- Girişte Kontrol: 'Nabız < 30 veya > 250 girilirse uyarı ver ve onay iste.'\n- Mantıksal Kural: 'Gebelık haftası girildiyse cinsiyet zorunlu olarak Kadın olmalıdır.'\n- Tarih Kuralı: 'Taburculuk tarihi yatış tarihinden önce olamaz!'\n- Veri Teknikeri Rolü: HBYS formlarına bu doğrulama kurallarını tanımlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "data validation rules input form hospital computer screen"
+    }
+  },
+  {
+    "baslik": "Veri Çürümesi (Data Decay / Degradation)",
+    "altbaslik": "Eski Verilerin Güncelliğini Yitirmesi",
+    "icerik": "- Sorun: 10 yıl önceki tedavi protokolleri ve laboratuvar referans aralıkları bugünkünden farklıdır.\n- Model Bozulması: 2010 yılı verisiyle eğitilen model bugünkü antibiyotik direnç profillerini bilmediği için hatalı öneri üretir.\n- Çözüm: Eğitim verisinde zaman penceresi (Time-window) kullanmak (Ör. Son 3 yılın verisi).",
+    "gorsel": {
+      "type": "image",
+      "query": "data decay concept outdated medical records time degradation"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Veri Temizleme Günlüğü",
+    "altbaslik": "Şeffaflık ve Tekrarlanabilirlik",
+    "icerik": "- Veri Değişiklik Kaydı: Hangi sütundaki eksikler nasıl dolduruldu? Kaç satır aykırı değer silindi?\n- Orijinal Veriyi Koruma: Ham veri seti asla üzerine yazılmaz; temizlenmiş veri ayrı bir dosya (df_clean.csv) olarak kaydedilir.\n- Bilimsel Etik: Veri temizleme adımları makale ve raporlarda açıkça beyan edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "data transformation audit log reproducible research notebook"
+    }
+  },
+  {
+    "baslik": "Veri Kalitesi Maliyeti: Önleme vs Telafi",
+    "altbaslik": "Kalitesiz Verinin Hastaneye Faturası",
+    "icerik": "- 1-10-100 Kuralı: Veriyi girişte doğru kaydetmek 1 TL, temizlemek 10 TL, hatalı verinin klinik malpraktis zararı 100 TL'dir!\n- Veri Teknikerinin Katma Değeri: Hatalı veri girişini kaynağında önleyerek hastaneyi milyonlarca liralık zarardan korur.",
+    "gorsel": {
+      "type": "image",
+      "query": "1 10 100 rule quality cost healthcare error prevention"
+    }
+  },
+  {
+    "baslik": "Büyük Veri Öncesi Son Kontrol: Model İçin Hazır mıyız?",
+    "altbaslik": "Veri Kalitesi Onay Sertifikası",
+    "icerik": "- [x] Eksik veriler klinik mekanizmaya göre dolduruldu mu?\n- [x] Tüm kategorik alanlar One-Hot Encoding ile sayısallaştırıldı mı?\n- [x] Sayısal sütunlar Z-score ile standartlaştırıldı mı?\n- [x] Hasta bazlı bağımsız Train/Test ayrımı yapıldı mı?\n- Onay: Veri seti YZ model eğitimine hazırdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "checklist approved green stamp data ready machine learning"
+    }
+  }
+]

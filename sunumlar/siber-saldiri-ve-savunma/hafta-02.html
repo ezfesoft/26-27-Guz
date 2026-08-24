@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 02 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 02</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-01.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-03.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 2", "altbaslik": "Siber Saldırı Yaşam Döngüsü ve Ağ Güvenliği", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Tehdit Modelleme ve Ağ Savunması\nHaftalık Odak: Cyber Kill Chain, MITRE ATT&CK, Ağ Güvenlik Cihazları ve Netcat\nHedef: Saldırı adımlarını kavramak ve açık metin iletişim risklerini test etmek.", "gorsel": {"type": "image", "query": "cyber kill chain network security operations threat intelligence"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Saldırganın Adımlarını Önceden Görmek", "icerik": "Siber saldırganlar rastgele hareket etmez; planlı bir yaşam döngüsü izler.\n- Saldırıyı ilk 3 aşamada durdurmak kuruma maliyet oluşturmaz.\n- Saldırı 7. aşamaya (Eylem) ulaşırsa fidye yazılımı tüm şirketi kilitler.\nSavunma uzmanı, saldırganın her aşamadaki izlerini yakalamak zorundadır.", "gorsel": {"type": "image", "query": "soc analyst investigating incident response dashboard"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Cyber Kill Chain 7 aşamasını sırasıyla açıklar.\n2. MITRE ATT&CK matrisinin savunmadaki rolünü kavrar.\n3. Temel saldırı türlerini (MITM, Zero-Day, APT, Brute Force) ayırt eder.\n4. Ağ güvenlik cihazlarının (Firewall, IDS, IPS, SIEM) konumunu belirler.\n5. Kali Linux ortamında traceroute ve Netcat ile açık metin aktarımı yapar.", "gorsel": {"type": "image", "query": "learning goals cybersecurity engineering students"}}, {"baslik": "Siber Saldırı Yaşam Döngüsü Nedir?", "altbaslik": "Lockheed Martin Cyber Kill Chain Modeli", "icerik": "Askeri harekât modelinden uyarlanan 7 aşamalı siber saldırı metodolojisidir.\n[1. Keşif] -> [2. Silahlanma] -> [3. İletme] -> [4. Sömürme] -> [5. Yükleme] -> [6. C2 Kontrol] -> [7. Eylem]\nZincirin tek bir halkasını kırmak saldırıyı tamamen başarısız kılar.", "gorsel": {"type": "image", "query": "cyber kill chain 7 steps diagram vector technology"}}, {"baslik": "Aşama 1: Keşif (Reconnaissance)", "altbaslik": "Hedefi Tanıma ve Zafiyet Arama", "icerik": "Saldırganın hedef hakkında bilgi topladığı ilk aşamadır.\n- Pasif Keşif: Şirket çalışanlarının sosyal medyası, Whois, DNS kayıtları.\n- Aktif Keşif: Nmap ile açık portlar, web zafiyet taramaları.\nSavunma: Dışarıya sızan bilgi miktarını (OSINT yüzeyini) en aza indirmek.", "gorsel": {"type": "image", "query": "information gathering reconnaissance hacker searching target"}}, {"baslik": "Aşama 2: Silahlanma (Weaponization)", "altbaslik": "Açığa Uygun Zararlı Yük Hazırlama", "icerik": "Hedefte tespit edilen güvenlik açığına uygun zararlı yazılım (Malware/Exploit) oluşturulur.\n- Bir PDF veya Word belgesinin içine makro virüs gizleme.\n- Hedef işletim sistemine uygun Reverse Shell payloadı derleme.\nSavunma: Bu aşama saldırganın kendi bilgisayarında gerçekleştiği için doğrudan engellenemez.", "gorsel": {"type": "image", "query": "malware development weaponization exploit code coding"}}, {"baslik": "Aşama 3: İletme (Delivery)", "altbaslik": "Zararlıyı Hedef Sisteme Ulaştırma", "icerik": "Hazırlanan silahın kurban hedefe gönderilmesi sürecidir.\n- Oltalama (Phishing) e-postaları ve sahte fatura ekleri.\n- Şirket otoparkına atılan virüslü USB bellekler (Baiting).\n- Sahte web indirme bağlantıları.\nSavunma: Güvenli E-posta Ağ Geçitleri (Spam filtreleri) ve USB engelleme politikaları.", "gorsel": {"type": "image", "query": "phishing email delivery infected attachment cyber attack"}}, {"baslik": "Aşama 4: Sömürme (Exploitation)", "altbaslik": "Zafiyetin Tetiklenmesi ve Kod Çalıştırma", "icerik": "Kurbanın ekteki dosyayı açması veya web servisindeki açığın tetiklenmesiyle zararlı kod çalışır.\n- Sıfırıncı Gün (Zero-Day) açıkları veya yamalanmamış Windows açıkları istismar edilir.\nSavunma: Uç nokta güvenliği (EDR), antivirüs ve düzenli yama yönetimi (Patching).", "gorsel": {"type": "image", "query": "code execution exploit vulnerability triggering red screen"}}, {"baslik": "Aşama 5: Yükleme (Installation / Persistence)", "altbaslik": "Sistemde Kalıcılık Sağlama", "icerik": "Zararlı yazılım bilgisayar yeniden başlatılsa bile çalışmaya devam etmek için kendini yerleştirir.\n- Windows Kayıt Defteri (Registry Run Keys) modifikasyonları.\n- Linux arka plan zamanlanmış görevleri (Cron Jobs) ve arka kapı (Backdoor) servisleri.\nSavunma: Yetkisiz kayıt defteri ve dosya sistemi değişikliklerini izleyen yazılımlar.", "gorsel": {"type": "image", "query": "backdoor rootkit installation persistence registry"}}, {"baslik": "Aşama 6: Komuta ve Kontrol (C2)", "altbaslik": "Uzaktan Yönetim Kanalı Kurma", "icerik": "Ele geçirilen kurban bilgisayar, internetteki saldırgan sunucusuna (C2 Server) ters bağlantı (Reverse TCP) açar.\n- Saldırgan artık kurban bilgisayara uzaktan istediği komutu gönderebilir.\nSavunma: Giden ağ trafiğini (Egress Filtering) süzen güvenlik duvarları ve IDS/IPS.", "gorsel": {"type": "image", "query": "command and control server botnet remote access trojan"}}, {"baslik": "Aşama 7: Hedefe Yönelik Eylemler", "altbaslik": "Asıl Amacın Gerçekleştirilmesi", "icerik": "Saldırganın nihai hedefini uyguladığı yıkıcı aşamadır:\n- Veri Sızdırma (Data Exfiltration): Müşteri ve kredi kartı verilerini dışarı aktarma.\n- Fidye Yazılımı (Ransomware): Tüm sunucu disklerini şifreleyip fidye isteme.\n- Sabotaj: Veritabanlarını silme ve hizmeti durdurma.", "gorsel": {"type": "image", "query": "ransomware locked screen data breach digital devastation"}}, {"baslik": "MITRE ATT&CK Çerçevesi", "altbaslik": "Taktik, Teknik ve Prosedürler (TTP)", "icerik": "Kill Chain genel aşamaları anlatırken, MITRE ATT&CK saldırganların kullandığı 200'den fazla teknik detayı listeler.\n- İlk Erişim (Initial Access)\n- Yetki Yükseltme (Privilege Escalation)\n- Savunma Atlatma (Defense Evasion)\n- Ağda Yatay İlerleme (Lateral Movement)\nSOC analistleri olayları MITRE kodlarıyla (örn: T1059) raporlar.", "gorsel": {"type": "image", "query": "mitre attack matrix framework cybersecurity tactics"}}, {"baslik": "Temel Saldırı Türleri Özeti", "altbaslik": "Sık Karşılaşılan Tehdit Tipleri", "icerik": "- Sosyal Mühendislik: İnsani zaafları (korku, merak, güven) istismar eden manipülasyon.\n- DoS/DDoS: Kaynakları aşırı yükleyerek sistemi erişilmez kılma.\n- Kaba Kuvvet (Brute Force): Olası tüm şifreleri tek tek deneme.\n- Ortadaki Adam (MITM): Araya girip trafiği dinleme ve değiştirme.\n- Zero-Day: Henüz yaması olmayan yepyeni güvenlik açıkları.", "gorsel": {"type": "image", "query": "cyber attack types icons network vulnerabilities"}}, {"baslik": "Ağ Güvenlik Cihazları ve Topolojisi", "altbaslik": "Savunma Hattının Elemanları", "icerik": "İnternet -> [Firewall] -> [IPS] -> [Switch] -> (İç Ağ / LAN)\n                                    |\n                                  [IDS]\n- Firewall: Kurallara göre izin verir veya engeller.\n- IDS: Trafiği pasif dinler, alarm üretir.\n- IPS: Trafiğin tam ortasındadır, saldırıyı anında keser.\n- SIEM: Tüm cihaz loglarını merkezde toplar ve ilişkilendirir.", "gorsel": {"type": "image", "query": "network security topology firewall ids ips switch diagram"}}, {"baslik": "SOME ve SOC Nedir?", "altbaslik": "Kurumsal Savunma Ekipleri", "icerik": "SOME (Siber Olaylara Müdahale Ekibi) / CSIRT:\nKurumda bir siber saldırı gerçekleştiğinde acil müdahale eden, sistemi izole eden ve temizleyen ekiptir.\nSOC (Security Operations Center):\nAğı ve logları 7/24 kesintisiz izleyen güvenlik operasyon merkezidir.", "gorsel": {"type": "image", "query": "soc team incident response cybersecurity analysts room"}}, {"baslik": "Uygulama Laboratuvarı: Ağ Akışı ve Netcat", "altbaslik": "Uygulama Hedefimiz", "icerik": "Bu laboratuvarda:\n1. Ağ atlama noktalarını traceroute ile inceleyeceğiz.\n2. Netcat (nc) aracı ile istemci-sunucu sohbeti kuracağız.\n3. Şifresiz aktarılan açık metin (plaintext) verilerin tehlikesini gözlemleyeceğiz.", "gorsel": {"type": "image", "query": "computer network lab terminal command line practice"}}, {"baslik": "Uygulama 1: Ağ Yolunu Haritalama", "altbaslik": "Traceroute ile Atlama Noktaları", "icerik": "Kali terminalini açın ve şu komutu çalıştırın:\ntraceroute 192.168.1.10\nAçıklama: Yerel ağda Windows Server ile aranızda direkt bağlantı olduğu için 1 hop (tek atlama) göreceksiniz.\nDış ağ denemesi:\ntraceroute 8.8.8.8\nGoogle DNS'e giderken kaç router ve firewall'dan geçtiğinizi inceleyin.", "gorsel": {"type": "image", "query": "traceroute network packet hop terminal screen"}}, {"baslik": "Uygulama 2: Netcat ile Port Dinleme", "altbaslik": "Sunucu Rolü (1. Öğrenci)", "icerik": "Yanınızdaki arkadaşınızla eşleşin. 1. Öğrenci kendi terminalinde 4444 portunu açsın:\nnc -lvnp 4444\nParametreler:\n-l : Dinleme modu (Listen)\n-v : Ayrıntılı göster (Verbose)\n-n : Sayısal IP kullan (No DNS)\n-p 4444 : Port numarası\nEkranda 'listening on [any] 4444' yazısını bekleyin.", "gorsel": {"type": "image", "query": "netcat terminal listening port open connection"}}, {"baslik": "Uygulama 3: Netcat ile Bağlantı Kurma", "altbaslik": "İstemci Rolü (2. Öğrenci)", "icerik": "2. Öğrenci arkadaşının IP adresine bağlansın:\nnc 192.168.1.xxx 4444\nBağlantı kurulduğunda ekranda hiçbir hata çıkmaz.\nŞimdi klavyeden yazı yazıp Enter'a basın!\nYazdığınız her mesaj anında arkadaşınızın ekranında belirecektir.", "gorsel": {"type": "image", "query": "two computers chatting network terminal connection"}}, {"baslik": "Uygulama 4: Açık Metin Parola Gönderimi", "altbaslik": "Şifresiz İletişim Zafiyeti", "icerik": "Netcat ekranında şu mesajı yazın:\nKullanici: admin | Parola: 123456\nGözlem:\nNetcat hiçbir şifreleme (SSL/TLS) uygulamaz. Ağdaki bir dinleyici bu parolayı kabak gibi görebilir!\nBu nedenle üretim sistemlerinde Telnet/Netcat yerine daima SSH kullanılır.", "gorsel": {"type": "image", "query": "plaintext password transmission network vulnerability"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Netcat Bağlantı Sorunları", "icerik": "1. 'Connection refused' Hatası: Karşı taraf henüz dinleme komutunu çalıştırmamıştır veya port numarası yanlıştır.\n2. Yanlış IP Yazımı: Arkadaşınızın IP'sini ip a komutuyla teyit edin.\n3. Güvenlik Duvarı Engeli: Linux güvenlik duvarı portu engelliyorsa 'sudo ufw disable' yapın.", "gorsel": {"type": "image", "query": "troubleshooting connection refused checklist network"}}, {"baslik": "Sektörel Vaka: Target Veri Sızıntısı", "altbaslik": "Kill Chain Analizi", "icerik": "Vaka: Dünya perakende devi Target'tan 40 milyon kredi kartı çalındı.\nKill Chain İncelemesi:\n1. İletme: İklimlendirme (HVAC) taşeronuna oltalama e-postası atıldı.\n2. Sömürme: Taşeron şifresiyle iç ağa girildi.\n3. Yatay İlerleme: Kasa (POS) sistemlerine sıçrandı.\n4. Eylem: Kredi kartı verileri C2 sunucusuna sızdırıldı.", "gorsel": {"type": "image", "query": "credit card data breach target retail store incident"}}, {"baslik": "Vaka Analizi: Ağ Bölümleme (Segmentation)", "altbaslik": "Çıkarılan Mühendislik Dersi", "icerik": "Hata: Klima bakım firmasının eriştiği ağ ile kasa (POS) cihazlarının olduğu ağ aynı subnet içindeydi!\nSavunma Çözümü: Ağ Bölümleme (VLAN ve Firewall İzolasyonu).\nTaşeron ağı ile finansal sistemler birbirinden tamamen yalıtılmalıdır.", "gorsel": {"type": "image", "query": "network segmentation vlan firewall isolation concept"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Kill Chain Aşamaları", "icerik": "Soru: Kurban bilgisayarın dışarıdaki saldırgan sunucusundan emir beklediği aşama hangisidir?\nA) Keşif (Reconnaissance)\nB) Silahlanma (Weaponization)\nC) Komuta ve Kontrol (C2)\nD) İletme (Delivery)\n\nDoğru Cevap: C (Komuta ve Kontrol)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Ağ Cihazları", "icerik": "Soru: Ağ trafiğini doğrudan hat üzerinde (in-line) izleyip zararlı paket gördüğü anda akışı kesen cihaz hangisidir?\nA) Hub\nB) IDS (Saldırı Tespit)\nC) IPS (Saldırı Önleme)\nD) DNS Sunucusu\n\nDoğru Cevap: C (IPS)", "gorsel": {"type": "image", "query": "ips firewall inline security test exam"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Saldırı Türleri", "icerik": "Soru: Yazılım üreticisi tarafından henüz fark edilmemiş ve resmi yaması yayınlanmamış açığa ne denir?\nA) Brute Force\nB) Zero-Day (Sıfırıncı Gün)\nC) DDoS\nD) Phishing\n\nDoğru Cevap: B (Zero-Day)", "gorsel": {"type": "image", "query": "zero day vulnerability cyber threat question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Ağ İletişim Güvenliği", "icerik": "Soru: Netcat ile gönderilen verilerin ağ dinleyicilerinden korunması için hangi protokol tercih edilmelidir?\nA) Telnet\nB) HTTP\nC) SSH / TLS\nD) FTP\n\nDoğru Cevap: C (SSH / TLS)", "gorsel": {"type": "image", "query": "ssh secure encrypted tunnel padlock protocol"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Saldırı Erken Uyarı Planı", "icerik": "Tartışma Sorusu:\nBir şirketin e-posta kutusuna gelen 'Maaş Zammı_Detay.exe' dosyasını bir çalışan indirmiş ama henüz çalıştırmamıştır.\n- Saldırı Kill Chain'in hangi aşamasındadır?\n- Bu aşamada şirketi kurtarmak için SOC ekibi hangi acil önlemi almalıdır?", "gorsel": {"type": "image", "query": "security operations center team discussion classroom"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Cyber Kill Chain 7 aşamalıdır; savunma ne kadar erken yapılırsa zarar o kadar az olur.\n- MITRE ATT&CK saldırgan taktik ve tekniklerini ayrıntılandırır.\n- Ağ güvenliğinde Firewall süzer, IPS keser, SIEM logları toplar.\n- Netcat gibi açık protokoller şifreleme içermediği için güvenlik riski taşır.", "gorsel": {"type": "image", "query": "summary checklist technology mind map"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 3: Şifreleme Teknikleri ve Steganografi", "icerik": "Ön Hazırlık:\n- Açık metin veriler nasıl matematiksel olarak kilitlenir?\n- Simetrik (AES) ve Asimetrik (RSA) şifreleme arasındaki fark nedir?\n- Bir resim dosyasının içine gizli metin (Steganografi) nasıl gömülür?", "gorsel": {"type": "image", "query": "cryptography encryption keys lock digital"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'IDS (Saldırı Tespit) ile IPS (Saldırı Önleme) arasındaki en temel çalışma ve mimari farkı tek bir cümleyle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

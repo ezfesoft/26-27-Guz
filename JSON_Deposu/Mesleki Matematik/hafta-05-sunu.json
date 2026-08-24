@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 5",
+    "altbaslik": "Hafta 5: Oran-Orantı ve Ölçeklendirme",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Oransal Akıl Yürütme ve Kapasite Planlama\nHaftalık Odak: Doğru/Ters Orantı, Bant Genişliği, İndirme Süresi ve Sunucu Ölçekleme\nHedef: Sistem yükü ve kaynak gereksinimlerini orantı kurallarıyla modellemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud computing scale servers load balancing proportion"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Sunucu Ölçekleme (Auto-Scaling) Matematiği",
+    "icerik": "Bir web uygulamasında 2 sunucu saniyede 1000 kullanıcıyı kaldırabiliyorsa, 5000 kullanıcı için kaç sunucu gerekir?\nBant genişliği 2 katına çıkarsa indirme süresi nasıl değişir?\n- Sunucu sayısı ile kullanıcı sayısı: DOĞRU ORANTI\n- Bant genişliği ile indirme süresi: TERS ORANTI\nBu orantıların doğru kurulması bütçe israfını ve sistem çöküşünü önler.",
+    "gorsel": {
+      "type": "image",
+      "query": "server auto scaling cloud infrastructure metrics"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. Oran ve orantı kavramlarını matematiksel olarak ifade eder.\n2. Doğru ve ters orantı durumlarını ayırt eder ve denklemlerini çözer.\n3. Ağ bant genişliği, transfer süresi ve dosya boyutu hesaplamalarını yapar.\n4. Bulut ve sunucu altyapılarında kaynak ölçekleme (scaling) planlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Oran ve Orantı Nedir?",
+    "altbaslik": "Kavramsal Tanım ve Özellikler",
+    "icerik": "Oran: Aynı birimden iki çokluğun birbirine bölünerek karşılaştırılmasıdır (a / b).\nOrantı: İki veya daha fazla oranın eşitliğidir: a / b = c / d = k\n- k: Orantı sabiti\n- İçler Dışlar Çarpımı Kuralı: a * d = b * c\nOrantının en temel çözüm aracı içler-dışlar çarpımıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "ratio and proportion formula cross multiplication"
+    }
+  },
+  {
+    "baslik": "Doğru Orantı (Direct Proportion)",
+    "altbaslik": "Biri Artarken Diğerinin de Aynı Oranda Artması",
+    "icerik": "Tanım: İki çokluktan biri artarken diğeri de aynı oranda artıyorsa doğru orantılıdır.\nMatematiksel Formül: y / x = k  (yani y = k * x)\nBilişim Örnekleri:\n- Kullanıcı sayısı arttıkça -> Gerekli RAM miktarı artar.\n- Dosya boyutu büyüdükçe -> Yedekleme için gereken depolama artar.\nÇapraz çarpım yöntemi ile çözülür.",
+    "gorsel": {
+      "type": "image",
+      "query": "direct proportion linear graph upward slope"
+    }
+  },
+  {
+    "baslik": "Ters Orantı (Inverse Proportion)",
+    "altbaslik": "Biri Artarken Diğerinin Aynı Oranda Azalması",
+    "icerik": "Tanım: İki çokluktan biri artarken diğeri aynı oranda azalıyorsa ters orantılıdır.\nMatematiksel Formül: x * y = k  (yani y = k / x)\nBilişim Örnekleri:\n- İnternet bant genişliği arttıkça -> Dosya indirme süresi azalır.\n- Eşzamanlı çalışan iş parçacığı (thread) sayısı arttıkça -> İşin tamamlanma süresi azalır.\nDüz (yan yana) çarpım yöntemi ile çözülür: x1 * y1 = x2 * y2.",
+    "gorsel": {
+      "type": "image",
+      "query": "inverse proportion hyperbola curve graph downward"
+    }
+  },
+  {
+    "baslik": "Bileşik Orantı Mantığı",
+    "altbaslik": "Birden Fazla Değişkenin Birlikte İncelenmesi",
+    "icerik": "Genel Kural:\n(Yapılan İş 1) / (İşle İlgili Diğer Verilerin Çarpımı 1) = (Yapılan İş 2) / (İşle İlgili Diğer Verilerin Çarpımı 2)\nÖrnek:\n4 sunucu günde 8 saat çalışarak 500 GB log işliyorsa;\n6 sunucu günde 12 saat çalışarak kaç GB log işler?\n500 / (4 * 8) = X / (6 * 12) -> 500 / 32 = X / 72 -> X = 1125 GB.",
+    "gorsel": {
+      "type": "image",
+      "query": "compound proportion mathematical work formula"
+    }
+  },
+  {
+    "baslik": "Ağda Transfer Süresi Denklemi",
+    "altbaslik": "Süre = Veri Miktarı / Aktarım Hızı",
+    "icerik": "Temel Formül: t = S / R\n- t: Süre (Saniye)\n- S: Dosya Boyutu (Megabit veya Gigabit)\n- R: Aktarım Hızı (Mbps veya Gbps)\nBirim Uyumu Kuralı: Dosya boyutu Byte ise önce 8 ile çarpılarak Bit'e çevrilmelidir!\nÖrnek: 100 MB dosya = 800 Mb; 800 Mb / 50 Mbps = 16 saniye.",
+    "gorsel": {
+      "type": "image",
+      "query": "data transfer rate bandwidth calculation network"
+    }
+  },
+  {
+    "baslik": "Doğru Orantı Çözüm Adımları",
+    "altbaslik": "Çapraz Çarpım Algoritması",
+    "icerik": "1. Verilen çoklukları aynı birimler alt alta gelecek şekilde yaz.\n2. Değişkenlerin yönünü kontrol et (İkisi de artıyor/azalıyor mu?).\n3. Çapraz elemanları çarpıp birbirine eşitle.\n4. Bilinmeyeni yalnız bırakıp çöz.",
+    "gorsel": {
+      "type": "image",
+      "query": "direct proportion cross multiplication steps"
+    }
+  },
+  {
+    "baslik": "Ters Orantı Çözüm Adımları",
+    "altbaslik": "Yan Yana Çarpım Algoritması",
+    "icerik": "1. Verilenleri aynı birimler alt alta gelecek şekilde diz.\n2. Biri artarken diğeri azalıyor mu kontrol et.\n3. Aynı satırdaki (yan yana) elemanları çarpıp eşitle: a1 * b1 = a2 * b2.\n4. Bilinmeyeni yalnız bırakıp çöz.",
+    "gorsel": {
+      "type": "image",
+      "query": "inverse proportion horizontal multiplication algorithm"
+    }
+  },
+  {
+    "baslik": "Sunucu Kapasitesi Ölçekleme Formülü",
+    "altbaslik": "Kapasite = Birim Güç x Adet",
+    "icerik": "Yük / Sunucu Kapasitesi = Gerekli Sunucu Sayısı\nÖrnek: 1 sunucu 1500 istek/sn karşılıyorsa, 9000 istek/sn için:\n9000 / 1500 = 6 sunucu gereklidir.\nArtan yük orantı katsayısıyla doğrudan çarpılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "server scaling formula capacity planning"
+    }
+  },
+  {
+    "baslik": "Bant Genişliği Ölçeklendirme Kuralı",
+    "altbaslik": "Kullanıcı Başına Hız Tahsisi",
+    "icerik": "Toplam Bant Genişliği = Eşzamanlı Kullanıcı Sayısı x Kullanıcı Başı Ortalama Hız\nÖrnek: 200 personelin her biri ortalama 5 Mbps tüketiyorsa:\nToplam Hat = 200 x 5 = 1000 Mbps = 1 Gbps internet bağlantısı gereklidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "bandwidth allocation per user network diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Basit Doğru Orantı",
+    "altbaslik": "Seviye: Başlangıç (Log Depolama)",
+    "icerik": "Soru: 5 adet ağ anahtarı (switch) günde ortalama 15 GB log üretmektedir. Ağ genişletilip switch sayısı 12'ye çıkarılırsa günlük log üretimi kaç GB olur?\nOrantı Türü: Doğru Orantı (Cihaz sayısı arttıkça log artar)\n  5 switch  ->  15 GB\n 12 switch  ->   X GB\n--------------------\n5 * X = 12 * 15\n5X = 180 -> X = 36 GB.",
+    "gorsel": {
+      "type": "image",
+      "query": "network switches server rack calculation steps"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Basit Ters Orantı",
+    "altbaslik": "Seviye: Kolay (Bant Genişliği ve Süre)",
+    "icerik": "Soru: 25 Mbps hızındaki bir bağlantı ile bir yedekleme dosyası 48 dakikada indirilmektedir. Şirket bağlantı hızını 100 Mbps'ye yükseltirse aynı dosya kaç dakikada iner?\nOrantı Türü: Ters Orantı (Hız arttıkça süre azalır)\n 25 Mbps  ->  48 dk\n100 Mbps  ->   X dk\n--------------------\nYan Yana Çarpım: 25 * 48 = 100 * X\n1200 = 100X -> X = 12 dakika.",
+    "gorsel": {
+      "type": "image",
+      "query": "fiber internet speed transfer time reduction"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Sunucu Yük Dengeleme (Load Balancing)",
+    "altbaslik": "Seviye: Orta (Kapasite Ölçekleme)",
+    "icerik": "Soru: 3 adet özdeş web sunucusu maksimum 4500 eşzamanlı kullanıcıyı kaldırabilmektedir. Gelecek kampanya döneminde 12,000 eşzamanlı kullanıcı beklenmektedir. En az kaç yeni sunucu daha eklenmelidir?\nOrantı:\n3 sunucu  ->  4500 kullanıcı\nX sunucu  ->  12000 kullanıcı\n4500 * X = 3 * 12000 -> 4500X = 36000 -> X = 8 sunucu gereklidir.\nEklenecek Sunucu = 8 - 3 = 5 yeni sunucu eklenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "load balancer distributing web traffic server fleet"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Veri Tabanı İndeksleme Süresi",
+    "altbaslik": "Seviye: Orta (Ters Orantı ve CPU Çekirdeği)",
+    "icerik": "Soru: Bir veritabanı tablosunun indekslenmesi 4 CPU çekirdeği ile 90 dakika sürmektedir. İşlem 12 çekirdekli daha güçlü bir sunucuya devredilirse indeksleme kaç dakikada biter (Tüm çekirdeklerin tam paralel çalıştığı varsayımıyla)?\nOrantı (Ters):\n 4 çekirdek  ->  90 dk\n12 çekirdek  ->   X dk\n4 * 90 = 12 * X -> 360 = 12X -> X = 30 dakika.",
+    "gorsel": {
+      "type": "image",
+      "query": "multi-core cpu parallel processing database indexing"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Büyük Ağ Dosyası İndirme Süresi",
+    "altbaslik": "Seviye: İleri (Birim Çevirmeli Transfer)",
+    "icerik": "Soru: 4.5 GB boyutundaki bir ISO dosyası, 60 Mbps efektif indirme hızına sahip bir bağlantıyla kaç saniyede (ve dakikada) indirilir?\nAdım 1: GB'ı MB'a çevir: 4.5 x 1000 = 4500 MB (Desimal standart)\nAdım 2: MB'ı Megabit'e çevir: 4500 x 8 = 36,000 Mb\nAdım 3: Süre = 36,000 Mb / 60 Mbps = 600 saniye\nAdım 4: Dakikaya çevirme = 600 / 60 = 10 dakika.",
+    "gorsel": {
+      "type": "image",
+      "query": "file download progress bar network calculation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: SOC Güvenlik Analisti Vardiya Planı",
+    "altbaslik": "Seviye: İleri (Bileşik Orantı)",
+    "icerik": "Soru: 6 analist günde 8 saat çalışarak 720 güvenlik alarmını inceleyebilmektedir. Alarm sayısı 1800'e çıkarsa ve analistler günde 10 saat çalışırsa kaç analiste ihtiyaç duyulur?\nİş Formülü: İş / Diğerleri\n720 / (6 * 8) = 1800 / (X * 10)\n720 / 48 = 1800 / 10X -> 15 = 180 / X -> 15X = 180 -> X = 12 analist gereklidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "security operations center team shift planning"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Şifre Kırma Süresi ve İşlemci Gücü",
+    "altbaslik": "Seviye: İleri (Ters Orantı)",
+    "icerik": "Soru: 1 GPU ile 120 saat süren bir hash kırılma testi, 8 adet özdeş GPU kümesine dağıtılırsa kaç saatte tamamlanır?\nİşlem: Ters orantı -> 1 * 120 = 8 * t -> t = 120 / 8 = 15 saat.\nParalel işlem gücü süreyi 8 kat kısaltır.",
+    "gorsel": {
+      "type": "image",
+      "query": "gpu cluster password hash cracking benchmark"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Orantı Türünü Karıştırmak",
+    "icerik": "1. Ters orantı probleminde çapraz çarpım yapmak (Ters orantıda sayılar yan yana çarpılır!).\n2. Hız ve süre ilişkisini doğru orantı zannetmek (Hız arttıkça süre AZALIR).\n3. Veri transferinde Byte ile Bit dönüşümünü (x8) yapmadan doğrudan MB / Mbps bölmesi yapmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning alert common pitfalls ratio calculations"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "Mevcut vs Eklenecek Kaynak",
+    "icerik": "1. Toplam gereken sunucu sayısı ile eklenecek sunucu sayısını karıştırmak (8 gerekiyorsa ve 3 varsa, 5 eklenir; 8 eklenmez!).\n2. Birim uyumsuzlukları (Saniyeyi dakika olarak yazmak veya MB ile GB'ı eşitlemeden bölmek).",
+    "gorsel": {
+      "type": "image",
+      "query": "unit conversion mistakes caution sign"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Canlı Yayın İçin CDN Bant Genişliği",
+    "altbaslik": "Medya ve Ağ Mühendisliği Senaryosu",
+    "icerik": "Senaryo: Bir siber güvenlik konferansı canlı yayınlanacaktır. Yayının video bit hızı 4 Mbps'dir.\nBeklenen Eşzamanlı İzleyici: 5000 kişi.\nSoru: CDN (İçerik Dağıtım Ağı) sağlayıcısından en az kaç Gbps toplam bant genişliği kiralanmalıdır?\nÇözüm: Toplam Hız = 5000 izleyici x 4 Mbps = 20,000 Mbps\nGbps Cinsinden = 20,000 / 1000 = 20 Gbps bant genişliği rezerve edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cdn streaming content delivery network bandwidth graph"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve Yük Yönetimi",
+    "altbaslik": "Trafik Dalgalanmalarını Yönetme",
+    "icerik": "Uygulanan Önlemler:\n1. 20 Gbps hattın %20 güvenlik payıyla 24 Gbps olarak rezerve edilmesi.\n2. Uyarlanabilir bit hızı (ABR - Adaptive Bitrate) ile zayıf bağlantılı kullanıcılara 1.5 Mbps akış sunulması.\n3. Anlık izleyici oranına göre dinamik CDN node ölçeklendirmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "adaptive bitrate streaming video cdn server"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Doğru Orantı",
+    "icerik": "Soru: 4 sunucu 80 GB RAM tüketiyorsa, aynı özelliklerde 7 sunucu kaç GB RAM tüketir?\nA) 120 GB\nB) 140 GB\nC) 160 GB\nD) 280 GB\n\nDoğru Cevap: B (80 / 4 = 20 GB/sunucu; 7 x 20 = 140 GB)",
+    "gorsel": {
+      "type": "image",
+      "query": "math ratio quiz question classroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Ters Orantı",
+    "icerik": "Soru: 50 Mbps hızla 20 dakikada inen dosya, 100 Mbps hızla kaç dakikada iner?\nA) 10 dakika\nB) 40 dakika\nC) 5 dakika\nD) 15 dakika\n\nDoğru Cevap: A (Hız 2 katına çıkarsa süre yarıya iner: 20 / 2 = 10 dk)",
+    "gorsel": {
+      "type": "image",
+      "query": "internet speed download time test quiz"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "İçler Dışlar Çarpımı",
+    "icerik": "Soru: 3 / 8 = 15 / X ise X değeri kaçtır?\nA) 30\nB) 40\nC) 45\nD) 60\n\nDoğru Cevap: B (3X = 8 * 15 -> 3X = 120 -> X = 40)",
+    "gorsel": {
+      "type": "image",
+      "query": "cross multiplication algebra question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Birim Çevirmeli Aktarım",
+    "icerik": "Soru: 10 MB'lık dosya 8 Mbps hızla kaç saniyede aktarılır?\nA) 1.25 saniye\nB) 8 saniye\nC) 10 saniye\nD) 80 saniye\n\nDoğru Cevap: C (10 MB = 80 Mb; 80 / 8 = 10 saniye)",
+    "gorsel": {
+      "type": "image",
+      "query": "data transfer rate calculation question"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Doğru orantıda bölümler sabittir (y/x=k); çapraz çarpım uygulanır.\n- Ters orantıda çarpımlar sabittir (x*y=k); yan yana çarpım uygulanır.\n- Ağ aktarım sürelerinde dosya boyutu (Byte) ile hat hızı (Bit) uyumu için 8 katsayısı şarttır.\n- Bulut sistemlerinde sunucu ve bant genişliği ölçekleme orantı temellidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary diagram ratio proportion scaling"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 6: Temel Cebirsel İfadeler ve Basit Denklemler",
+    "icerik": "Gelecek Konular:\n- Değişken ve Bilinmeyen kavramı (x, y)\n- Birinci dereceden bir bilinmeyenli denklemler (ax + b = c)\n- Bulut maliyet modelleri: Toplam Maliyet = Sabit Ücret + (Kullanıcı x Birim Fiyat)\n- Değişkeni yalnız bırakma sanatı.",
+    "gorsel": {
+      "type": "image",
+      "query": "algebra equations solving variables blackboard"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Bir siber güvenlik tarama yazılımı 8 thread ile 1200 IP adresini 15 dakikada taramaktadır. Aynı yazılım 24 thread ile çalıştırılırsa 1200 IP adresini kaç dakikada tarar?'\n\nOrantı türünü ve işlem adımlarınızı yazıp kağıdı teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "port scanner multi-threading network exit ticket"
+    }
+  }
+]

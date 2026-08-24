@@ -1,0 +1,335 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 11",
+    "altbaslik": "Döngüler: for Döngüsü, ListBox ve Akümülatör Mantığı",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Tekrarlı İşlemler ve Liste Yönetimi\nHaftalık Odak: for Döngüsü, ListBox Kontrolü, Sayaç/Kumbara Deseni (toplam += i)\nHedef: Binlerce veriyi saniyeler içinde işleyip ekrana listeleyen otomasyonlar üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "infinite loop circle repetition algorithm code"
+    }
+  },
+  {
+    "baslik": "Neden Döngüleri Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Bilgisayarın Asıl Süper Gücü",
+    "icerik": "Bir insan 1000 tane faturayı tek tek elle toplasa saatler sürer ve yorulur. Ama bir bilgisayara '1'den 1000'e kadar olan tüm faturaları topla' demek 2 satır kod ve 0.001 saniyedir!\n- Bilgisayarlar tekrarlı işlerden asla bıkmaz ve hata yapmaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "super computer fast data processing repetition"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. for döngüsünün 3 temel parçasını (Başlangıç, Koşul, Adım) açıklar.\n2. ListBox kontrolünü (Items.Add, Items.Clear, Items.Count) etkin kullanır.\n3. Akümülatör (Kumbara) deseniyle döngü içinde toplam biriktirir.\n4. Sonsuz döngülerin (Infinite Loop) nedenlerini ve çözümünü bilir.\n5. 'Süper Sayı Matik ve Çarpım Tablosu' projesini tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets goals loops programming"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Stadyumda 10 Tur Koşu",
+    "altbaslik": "for Döngüsünü Zihinde Canlandırmak",
+    "icerik": "Beden eğitimi öğretmeniniz 'Sahada 10 tur koş!' dedi:\n- int i = 1; -> 1. Turdan başlıyorsun (Başlangıç).\n- i <= 10; -> 10. tur bitene kadar koşmaya devam et (Koşul)!\n- i++ -> Her tur bittiğinde sayacını 1 artır (Adım).\n- for (int i = 1; i <= 10; i++)",
+    "gorsel": {
+      "type": "image",
+      "query": "track runner stadium laps running race"
+    }
+  },
+  {
+    "baslik": "for Döngüsü Temel Sentaksı",
+    "altbaslik": "C# Döngü İskeleti",
+    "icerik": "for (Başlatma; Koşul; İterasyon)\n{\n    // Her turda tekrarlanacak komutlar\n}\n\nÖrnek:\nfor (int i = 1; i <= 5; i++)\n{\n    listBox1.Items.Add(\"Sayı: \" + i);\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "for loop code block syntax flowchart"
+    }
+  },
+  {
+    "baslik": "ListBox Kontrolü ile Tanışma",
+    "altbaslik": "Kaydırılabilir Liste Kutusu",
+    "icerik": "Verileri tek tek değil, alt alta şık bir liste halinde göstermek için ListBox kullanılır.\n\nTemel Metotları:\n- listBox1.Items.Add(\"Ali\"); -> Listeye yeni bir satır ekler.\n- listBox1.Items.Clear(); -> Listedeki her şeyi siler, sayfayı temizler.\n- listBox1.Items.Count; -> Listede toplam kaç satır olduğunu sayar.",
+    "gorsel": {
+      "type": "image",
+      "query": "listbox ui control elements scrollable list"
+    }
+  },
+  {
+    "baslik": "Geriye Doğru Sayım Döngüsü",
+    "altbaslik": "i-- ile Eksiltme Mantığı",
+    "icerik": "10'dan geriye doğru 1'e kadar saymak için:\n\nfor (int i = 10; i >= 1; i--)\n{\n    listBox1.Items.Add(i);\n}\n\nBaşlangıç 10, koşul >= 1, adım ise i-- (1 azalt) olur.",
+    "gorsel": {
+      "type": "image",
+      "query": "countdown clock ten nine eight timer"
+    }
+  },
+  {
+    "baslik": "Kumbara (Akümülatör) Mantığı",
+    "altbaslik": "Döngü İçinde Toplam Biriktirmek",
+    "icerik": "Döngüdeki her sayıyı bir toplamda biriktirmek için 'toplam += i;' kullanılır:\n\nint toplam = 0; // Boş kumbara\nfor (int i = 1; i <= 5; i++)\n{\n    toplam += i; // 0+1=1, 1+2=3, 3+3=6, 6+4=10, 10+5=15\n}\nlblSonuc.Text = \"Toplam: \" + toplam;",
+    "gorsel": {
+      "type": "image",
+      "query": "piggy bank coins accumulator saving concept"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: Sonsuz Döngü (Infinite Loop)",
+    "altbaslik": "Programın Kilitlenmesi ve Donması",
+    "icerik": "for (int i = 1; i <= 10; ) // i++ UNUTULMUŞ!\n{\n    listBox1.Items.Add(i);\n}\n\nNeden Kilitlenir? i hep 1 kalır, 1 daima 10'dan küçüktür ve döngü ASLA bitmez! CPU %100'e vurur.\nDers: Döngünün bir çıkış kapısı (i++) olmak zorundadır.",
+    "gorsel": {
+      "type": "image",
+      "query": "infinite loop spiral freeze lock error cpu"
+    }
+  },
+  {
+    "baslik": "Döngü Kontrol Komutları: break ve continue",
+    "altbaslik": "Akışı Kesmek veya Adım Atlamak",
+    "icerik": "- break: Döngüyü anında sonlandırır ve dışarı fırlatır (Örn: Aranan isim bulununca aramayı durdur).\n- continue: O anki turun kalan kodlarını atlar ve hemen bir sonraki tura geçer (Örn: Çift sayıları atla, tekleri yaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "break continue flow skip step programming"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Süper Sayı Matik",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Kullanıcının belirlediği aralıkta sayılar üreten ve analiz eden matematik motoru.\n- Kullanıcı Başlangıç, Bitiş ve Artış Adımını girer.\n- 'Listele' butonuna basınca sayılar ListBox'a dökülür, toplamları ve adetleri hesaplanır.\n- 'Çarpım Tablosu' butonuyla iç içe döngü çalıştırılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "math generator numbers calculator list interface"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdiler: txtBaslangic, txtBitis, txtAdim\nButonlar: btnListele, btnCarpimTablosu, btnTemizle\nListe: listBox1 (Geniş Liste Kutusu)\nÖzet: lblOzet (Adet ve Toplam Bilgisi)",
+    "gorsel": {
+      "type": "image",
+      "query": "form layout listbox textboxes buttons ui"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: Dinamik Sayı Listeleme",
+    "altbaslik": "Adım Adım Döngü ve Toplam Hesabı",
+    "icerik": "private void btnListele_Click(object sender, EventArgs e)\n{\n    try\n    {\n        int baslangic = Convert.ToInt32(txtBaslangic.Text);\n        int bitis = Convert.ToInt32(txtBitis.Text);\n        int adim = Convert.ToInt32(txtAdim.Text);\n\n        listBox1.Items.Clear();\n        int toplam = 0;\n        int sayac = 0;\n\n        for (int i = baslangic; i <= bitis; i += adim)\n        {\n            listBox1.Items.Add(\"Sayı: \" + i);\n            toplam += i; // Kumbaraya at\n            sayac++;     // Adet say\n        }\n        lblOzet.Text = \"Adet: \" + sayac + \" | Toplam: \" + toplam;\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli sayılar giriniz!\"); }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code for loop listbox items add arithmetic"
+    }
+  },
+  {
+    "baslik": "İç İçe Döngüler: Çarpım Tablosu",
+    "altbaslik": "Döngü İçinde Döngü Çalıştırmak",
+    "icerik": "private void btnCarpimTablosu_Click(object sender, EventArgs e)\n{\n    listBox1.Items.Clear();\n    for (int i = 1; i <= 5; i++) // Dış Döngü (Gruplar)\n    {\n        for (int j = 1; j <= 10; j++) // İç Döngü (Satırlar)\n        {\n            listBox1.Items.Add(i + \" x \" + j + \" = \" + (i * j));\n        }\n        listBox1.Items.Add(\"--------------------\");\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "multiplication table math matrix nested loops"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Toplu SMS Gönderim Motoru",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Bir mağazada 5000 kayıtlı müşteriye kampanya mesajı giderken:\nfor (int i = 0; i < musteriListesi.Count; i++)\n{\n    SmsGonder(musteriListesi[i].Telefon, mesaj);\n}\nDöngüler kurumsal toplu işlem operasyonlarının kalbidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "bulk sms notification marketing message broadcasting"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "for Döngüsü",
+    "icerik": "Soru: for (int i = 0; i < 5; i++) döngüsü toplam kaç kez çalışır?\n\nA) 4\nB) 5\nC) 6\nD) Sonsuz\n\nDoğru Cevap: B (i değerleri sırasıyla 0, 1, 2, 3, 4 olur; toplam 5 kez döner).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination loop count answer"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "ListBox Metotları",
+    "icerik": "Soru: Bir ListBox kontrolündeki tüm öğeleri tamamen temizlemek için hangi metot kullanılır?\n\nA) listBox1.Items.DeleteAll()\nB) listBox1.Items.Remove()\nC) listBox1.Items.Clear()\nD) listBox1.ClearText()\n\nDoğru Cevap: C (listBox1.Items.Clear() metodu listedeki tüm elemanları temizler).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam correct answer question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Döngü Adımı",
+    "icerik": "Soru: for (int i = 0; i <= 20; i += 2) döngüsü hangi sayıları listeler?\n\nA) 1'den 20'ye kadar tüm sayıları\nB) 0'dan 20'ye kadar ÇİFT sayıları\nC) 1'den 19'a kadar TEK sayıları\nD) Sadece 20 sayısını\n\nDoğru Cevap: B (i += 2 adımı ikişer ikişer artırarak çift sayıları üretir).",
+    "gorsel": {
+      "type": "image",
+      "query": "even numbers sequence math quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Faktöriyel Hesaplayıcı",
+    "icerik": "Görev:\n- Girilen n sayısı için faktöriyel (n! = 1 * 2 * 3 * ... * n) hesabını bir for döngüsü ile yapın.\n- Çarpmada etkisiz eleman 1 olduğu için başlangıç toplam = 1 alınmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "factorial mathematics formula factorial multiplication"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- for Loop: Belirli sayıda tekrarlayan döngü.\n- Iteration: Döngünün her bir tam turu/adımı.\n- Accumulator: Döngü içinde değer biriktiren değişken (toplam += i).\n- ListBox: Çok satırlı görsel liste kontrolü.\n- Nested Loop: İç içe geçmiş döngüler.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- for döngüsünün parçalarını (Başlangıç, Koşul, Adım) öğrendik.\n- ListBox kontrolüne dinamik veri eklemeyi ve temizlemeyi uyguladık.\n- Akümülatör (toplam += i) mantığıyla toplam biriktirmeyi kavradık.\n- İç içe döngülerle Çarpım Tablosu ürettik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "ListBox'tan Öğe Seçme ve Okuma",
+    "altbaslik": "SelectedIndex ve SelectedItem",
+    "icerik": "Kullanıcı ListBox'taki bir satıra tıkladığında:\n- listBox1.SelectedIndex -> Seçilen satırın 0 tabanlı indeks numarası.\n- listBox1.SelectedItem.ToString() -> Seçilen satırdaki yazının kendisi.\n- Seçim yapılmamışsa SelectedIndex = -1 döner.",
+    "gorsel": {
+      "type": "image",
+      "query": "listbox item selected highlighted row"
+    }
+  },
+  {
+    "baslik": "ListBox'tan Öğe Silme: Remove ve RemoveAt",
+    "altbaslik": "Listeyi Dinamik Yönetmek",
+    "icerik": "- listBox1.Items.Remove(\"Ali\"); -> İsme göre bulup siler.\n- listBox1.Items.RemoveAt(0); -> 0 numaralı indeksteki ilk elemanı siler.\n- listBox1.Items.RemoveAt(listBox1.SelectedIndex); -> Seçili satırı siler.",
+    "gorsel": {
+      "type": "image",
+      "query": "delete remove item from list recycle bin ui"
+    }
+  },
+  {
+    "baslik": "for Döngüsü ile Ortalama Hesaplama",
+    "altbaslik": "Kumbara Mantığının İleri Seviyesi",
+    "icerik": "int toplam = 0;\nint adet = 10;\n\nfor (int i = 1; i <= adet; i++)\n{\n    toplam += i;\n}\ndouble ortalama = (double)toplam / adet;\nlblSonuc.Text = \"Ortalama: \" + ortalama.ToString(\"0.00\");",
+    "gorsel": {
+      "type": "image",
+      "query": "average mean calculation statistics formula"
+    }
+  },
+  {
+    "baslik": "Adım Miktarını Dinamik Değiştirmek",
+    "altbaslik": "i += adim Mantığı",
+    "icerik": "Kullanıcının girdiği adım miktarına göre döngü kurmak:\n\nint artis = Convert.ToInt32(txtAdim.Text);\nfor (int i = 0; i <= 100; i += artis)\n{\n    listBox1.Items.Add(i);\n}\nBu yapı sayesinde 3'er 3'er, 5'er 5'er veya 10'ar 10'ar esnek listeleme yapılabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "step size incremental skip numbers ladder"
+    }
+  },
+  {
+    "baslik": "Zaman Karmaşıklığı (Big-O): O(N) ve O(N²)",
+    "altbaslik": "Akademik Arka Plan",
+    "icerik": "- Tek bir for döngüsü N eleman için N adımda biter -> O(N) Doğrusal Zaman.\n- İç içe 2 for döngüsü (Çarpım Tablosu) N x N adım sürer -> O(N²) Karesel Zaman.\nVeri büyüdükçe iç içe döngülerin çalışma süresi hızla artar.",
+    "gorsel": {
+      "type": "image",
+      "query": "big o notation complexity curve graph algorithm"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Döngü Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. for satırının sonuna noktalı virgül koymak: for (int i=0; i<10; i++); -> Döngü içi boş kalır!\n2. Döngü değişkenini blok dışından okumaya çalışmak (Scope hatası).\n3. Başlangıç ve bitiş sınırlarını ters yazmak (i=10; i<=1; i++ -> Hiç çalışmaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "debugging loop errors visual studio compiler"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Döngü Değişkeni Kapsamı",
+    "icerik": "Soru: for (int i = 0; i < 10; i++) yapısında tanımlanan 'i' değişkenine döngü bittikten sonra erişilebilir mi?\n\nA) Evet, tüm metot içinde erişilebilir.\nB) Hayır, sadece döngünün { } süslü parantezleri içinde geçerlidir (Block Scope).\nC) Sadece form kapatılırken erişilir.\nD) Sadece F5'e basınca erişilir.\n\nDoğru Cevap: B (Döngü değişkenleri blok kapsamına sahiptir, döngü bitince bellekten silinir).",
+    "gorsel": {
+      "type": "image",
+      "query": "variable scope lifetime block curly braces quiz"
+    }
+  },
+  {
+    "baslik": "ListBox'tan Öğe Seçme ve Okuma",
+    "altbaslik": "SelectedIndex ve SelectedItem",
+    "icerik": "Kullanıcı ListBox'taki bir satıra tıkladığında:\n- listBox1.SelectedIndex -> Seçilen satırın 0 tabanlı indeks numarası.\n- listBox1.SelectedItem.ToString() -> Seçilen satırdaki yazının kendisi.\n- Seçim yapılmamışsa SelectedIndex = -1 döner.",
+    "gorsel": {
+      "type": "image",
+      "query": "listbox item selected highlighted row"
+    }
+  },
+  {
+    "baslik": "ListBox'tan Öğe Silme: Remove ve RemoveAt",
+    "altbaslik": "Listeyi Dinamik Yönetmek",
+    "icerik": "- listBox1.Items.Remove(\"Ali\"); -> İsme göre bulup siler.\n- listBox1.Items.RemoveAt(0); -> 0 numaralı indeksteki ilk elemanı siler.\n- listBox1.Items.RemoveAt(listBox1.SelectedIndex); -> Seçili satırı siler.",
+    "gorsel": {
+      "type": "image",
+      "query": "delete remove item from list recycle bin ui"
+    }
+  },
+  {
+    "baslik": "for Döngüsü ile Ortalama Hesaplama",
+    "altbaslik": "Kumbara Mantığının İleri Seviyesi",
+    "icerik": "int toplam = 0;\nint adet = 10;\n\nfor (int i = 1; i <= adet; i++)\n{\n    toplam += i;\n}\ndouble ortalama = (double)toplam / adet;\nlblSonuc.Text = \"Ortalama: \" + ortalama.ToString(\"0.00\");",
+    "gorsel": {
+      "type": "image",
+      "query": "average mean calculation statistics formula"
+    }
+  },
+  {
+    "baslik": "Adım Miktarını Dinamik Değiştirmek",
+    "altbaslik": "i += adim Mantığı",
+    "icerik": "Kullanıcının girdiği adım miktarına göre döngü kurmak:\n\nint artis = Convert.ToInt32(txtAdim.Text);\nfor (int i = 0; i <= 100; i += artis)\n{\n    listBox1.Items.Add(i);\n}\nBu yapı sayesinde 3'er 3'er, 5'er 5'er veya 10'ar 10'ar esnek listeleme yapılabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "step size incremental skip numbers ladder"
+    }
+  },
+  {
+    "baslik": "Zaman Karmaşıklığı (Big-O): O(N) ve O(N²)",
+    "altbaslik": "Akademik Arka Plan",
+    "icerik": "- Tek bir for döngüsü N eleman için N adımda biter -> O(N) Doğrusal Zaman.\n- İç içe 2 for döngüsü (Çarpım Tablosu) N x N adım sürer -> O(N²) Karesel Zaman.\nVeri büyüdükçe iç içe döngülerin çalışma süresi hızla artar.",
+    "gorsel": {
+      "type": "image",
+      "query": "big o notation complexity curve graph algorithm"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Döngü Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. for satırının sonuna noktalı virgül koymak: for (int i=0; i<10; i++); -> Döngü içi boş kalır!\n2. Döngü değişkenini blok dışından okumaya çalışmak (Scope hatası).\n3. Başlangıç ve bitiş sınırlarını ters yazmak (i=10; i<=1; i++ -> Hiç çalışmaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "debugging loop errors visual studio compiler"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Döngü Değişkeni Kapsamı",
+    "icerik": "Soru: for (int i = 0; i < 10; i++) yapısında tanımlanan 'i' değişkenine döngü bittikten sonra erişilebilir mi?\n\nA) Evet, tüm metot içinde erişilebilir.\nB) Hayır, sadece döngünün { } süslü parantezleri içinde geçerlidir (Block Scope).\nC) Sadece form kapatılırken erişilir.\nD) Sadece F5'e basınca erişilir.\n\nDoğru Cevap: B (Döngü değişkenleri blok kapsamına sahiptir, döngü bitince bellekten silinir).",
+    "gorsel": {
+      "type": "image",
+      "query": "variable scope lifetime block curly braces quiz"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'for (int i = 1; i <= 10; i++) döngüsü bittiğinde i değişkeninin son değeri kaç olur?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 12: Koşullu Döngüler (while / do-while) ve ComboBox",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- Kaç tur döneceğini bilmediğimiz durumlar: while ve do-while.\n- Açılır liste: ComboBox kontrolü.\n- Akıllı ATM Banknot Dağıtıcı projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "atm cash dispenser combobox preview next week"
+    }
+  }
+]

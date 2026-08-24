@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "NTP II: Hafta 8",
+    "altbaslik": "Web Dünyasına Giriş ve FastAPI ile İlk Web Servisi",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: API Nedir, REST İlkeleri, FastAPI Kurulumu, Uvicorn ve Swagger UI (/docs) Paneli\nUygulama Teması: Dijital Kampüs Danışma Masası API",
+    "gorsel": {
+      "type": "image",
+      "query": "fastapi python web framework swagger ui api documentation"
+    }
+  },
+  {
+    "baslik": "BÜYÜK DÖNÜM NOKTASI: Konsoldan Kurtuluyoruz!",
+    "altbaslik": "Artık Sadece Siyah Ekrana print() Yapmak Yok",
+    "icerik": "Bugün yazdığınız Python kodlarını tarayıcıda açılan, butonlarla tıklanabilen gerçek bir Web Servisine (API) dönüştüreceksiniz.\n- 'Ben butonlu web servisi yazdım' deme anı!\n- Kodlarınızı sadece terminalde değil, tüm dünyanın bağlanabileceği bir web sunucusunda çalıştıracaksınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal console to modern web browser interface transformation"
+    }
+  },
+  {
+    "baslik": "API (Application Programming Interface) Nedir?",
+    "altbaslik": "Yazılımların Birbirine Açılan Kapısı",
+    "icerik": "API, iki farklı yazılımın (örneğin mobil uygulama ile sunucu) birbiriyle konuşmasını sağlayan kurallar bütünüdür.\n- Restoran Analojisi:\n  * Müşteri (Frontend / Mobil Uygulama)\n  * Garson (API / FastAPI) -> Siparişi mutfağa taşır, yemeği geri getirir.\n  * Mutfak (Backend & Veritabanı)",
+    "gorsel": {
+      "type": "image",
+      "query": "restaurant waiter kitchen client server api analogy"
+    }
+  },
+  {
+    "baslik": "İstemci (Client) ve Sunucu (Server) İletişimi",
+    "altbaslik": "İstek (Request) ve Yanıt (Response)",
+    "icerik": "1. İstek (HTTP Request): Tarayıcınız sunucuya der ki: 'Bana bugünkü yemekhane menüsünü ver.'\n2. İşleme: Sunucu (FastAPI) veriyi hazırlar.\n3. Yanıt (HTTP Response): Sunucu JSON formatında veriyi döner:\n   {\"corba\": \"Mercimek\", \"fiyat\": 20.0}",
+    "gorsel": {
+      "type": "image",
+      "query": "http request response client server network diagram"
+    }
+  },
+  {
+    "baslik": "Neden FastAPI?",
+    "altbaslik": "Dünyanın En Hızlı ve Modern Python Web Çatısı",
+    "icerik": "FastAPI modern yazılım dünyasını fethetti çünkü:\n- Yüksek Hız: NodeJS ve Go kadar hızlıdır (Starlette ve Pydantic motoru).\n- Otomatik Dokümantasyon: Kod yazdığınız anda otomatik /docs (Swagger UI) üretir!\n- Tip Güvenliği: Python'ın tip belirteçlerini kullanarak hataları baştan önler.\n- Kolay Öğrenme: Az kodla devasa sistemler kurulur.",
+    "gorsel": {
+      "type": "image",
+      "query": "fastapi rocket speed modern web backend technology"
+    }
+  },
+  {
+    "baslik": "Gerekli Kurulumlar: FastAPI & Uvicorn",
+    "altbaslik": "PyCharm Terminalinde Tek Komut",
+    "icerik": "PyCharm Terminalinde (.venv aktifken) çalıştırın:\n\n`pip install fastapi uvicorn`\n\n- FastAPI: Web uygulaması çatımız.\n- Uvicorn: FastAPI uygulamasını çalıştıran yıldırım hızındaki ASGI sunucumuzdur.",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal pip install fastapi uvicorn success"
+    }
+  },
+  {
+    "baslik": "İlk FastAPI Uygulamamız (Hello World)",
+    "altbaslik": "Sadece 5 Satır Kod!",
+    "icerik": "from fastapi import FastAPI\n\n# Web uygulamamızı başlatıyoruz\napp = FastAPI(title='Kampüs Danışma API')\n\n@app.get('/')\ndef ana_sayfa():\n    return {'mesaj': 'Giresun Üniversitesi Kampüs Sistemine Hoş Geldiniz! 🎓'}",
+    "gorsel": {
+      "type": "image",
+      "query": "python code snippet hello world web endpoint"
+    }
+  },
+  {
+    "baslik": "Sunucuyu Başlatma: uvicorn main:app",
+    "altbaslik": "Sunucuyu Canlıya Alma",
+    "icerik": "PyCharm Terminalinde şu komutu çalıştırın:\n\n`uvicorn main:app --reload`\n\n- `main`: Python dosyanızın adı (main.py)\n- `app`: FastAPI nesnenizin adı\n- `--reload`: Kodda değişiklik yapıp kaydettiğinizde sunucuyu otomatik yeniler!",
+    "gorsel": {
+      "type": "image",
+      "query": "uvicorn server running localhost 8000 terminal"
+    }
+  },
+  {
+    "baslik": "BÜYÜLÜ AN: Swagger UI (/docs) Paneli",
+    "altbaslik": "Tarayıcınızda Butonlu Kontrol Masası",
+    "icerik": "Tarayıcınızı açın ve adrese gidin:\n👉 **`http://127.0.0.1:8000/docs`**\n\n- Karşınızda yazdığınız endpoint'lerin butonlu kontrol paneli belirecek!\n- 'Try it out' butonuna basın.\n- 'Execute' diyerek canlı sunucu yanıtını tarayıcıda izleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "swagger ui interactive documentation browser web api"
+    }
+  },
+  {
+    "baslik": "HTTP GET Metodu Nedir?",
+    "altbaslik": "Veri Okuma ve Sorgulama",
+    "icerik": "GET metodu sunucudan sadece veri okumak için kullanılır.\n- Veritabanını değiştirmez veya silmez.\n- Örn: Günün menüsünü getir, öğrenci listesini göster, hava durumunu sorgula.\n\n`@app.get('/rotaniz')` dekoratörü ile tanımlanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "http get method magnifying glass search reading"
+    }
+  },
+  {
+    "baslik": "Yol Parametresi (Path Parameter)",
+    "altbaslik": "URL Üzerinden Değer Alma: /{isim}",
+    "icerik": "@app.get('/selam/{ogrenci_adi}')\ndef kisisel_selam(ogrenci_adi: str):\n    return {\n        'durum': 'basarili',\n        'mesaj': f'Merhaba {ogrenci_adi}, Giresun Kampüsüne hoş geldin!'\n    }\n\n/selam/Ahmet yazıldığında otomatik olarak Ahmet'i yakalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "url path parameter routing web browser"
+    }
+  },
+  {
+    "baslik": "Sorgu Parametresi (Query Parameter)",
+    "altbaslik": "Soru İşareti ile Filtreleme: ?kategori=kahve",
+    "icerik": "@app.get('/kafe/hesapla')\ndef hesap_yap(cay: int = 0, tost: int = 0):\n    toplam = (cay * 15.0) + (tost * 50.0)\n    return {\n        'cay_adedi': cay,\n        'tost_adedi': tost,\n        'toplam_tutar_tl': toplam\n    }\n\nTarayıcıda: `/kafe/hesapla?cay=2&tost=1` -> 80.0 TL",
+    "gorsel": {
+      "type": "image",
+      "query": "query parameter url string filter search"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: İlk API'yi Ayağa Kaldırma",
+    "altbaslik": "Adım Adım Canlı Laboratuvar",
+    "icerik": "1. PyCharm'da `main.py` oluşturun.\n2. FastAPI ve `@app.get('/')` kodunu yazın.\n3. Terminalde `uvicorn main:app --reload` başlatın.\n4. Tarayıcıda `http://127.0.0.1:8000/docs` açın.",
+    "gorsel": {
+      "type": "image",
+      "query": "computer lab classroom students coding pycharm"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Yemekhane Menüsü Endpoint'i",
+    "altbaslik": "JSON Veri Döndürme",
+    "icerik": "@app.get('/yemekhane/bugun')\ndef menu():\n    return {\n        'tarih': 'Bugün',\n        'corba': 'Ezogelin',\n        'ana_yemek': 'Tavuk Sote & Pilav',\n        'tatli': 'Meyve',\n        'kalori': 750,\n        'ogrenci_ucreti': 20.0\n    }",
+    "gorsel": {
+      "type": "image",
+      "query": "cafeteria lunch food tray university meal"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Öğrenci Notu Hesaplayan API",
+    "altbaslik": "Query Parametreleri ile Hesaplama",
+    "icerik": "@app.get('/not/hesapla')\ndef not_hesapla(vize: float, final: float):\n    ort = (vize * 0.4) + (final * 0.6)\n    durum = 'GEÇTİ ✅' if ort >= 50 else 'KALDI ❌'\n    return {\n        'vize': vize,\n        'final': final,\n        'ortalama': round(ort, 2),\n        'durum': durum\n    }",
+    "gorsel": {
+      "type": "image",
+      "query": "grading student exam score calculation web"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Swagger UI'da Form Doldurma",
+    "altbaslik": "Try It Out Butonunu Keşfetmek",
+    "icerik": "- `/docs` ekranında `/not/hesapla` kutucuğunu açın.\n- 'Try it out' butonuna tıklayın.\n- vize kutusuna 70, final kutusuna 85 yazıp 'Execute' butonuna basın.\n- JSON yanıtını canlı olarak inceleyin!",
+    "gorsel": {
+      "type": "image",
+      "query": "swagger ui try it out execute button form"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Kütüphane Durum Sorgulama",
+    "altbaslik": "Basit Durum API'si",
+    "icerik": "@app.get('/kutuphane/durum')\ndef kutuphane_durum():\n    return {\n        'acik_mi': True,\n        'toplam_masa': 120,\n        'dolu_masa': 45,\n        'bos_masa': 75,\n        'doluluk_orani': '%37.5'\n    }",
+    "gorsel": {
+      "type": "image",
+      "query": "university library empty study desks seating"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Kafe Fiyat Sorgusu (Path Param)",
+    "altbaslik": "Sözlükten Veri Getirme",
+    "icerik": "@app.get('/kafe/fiyat/{urun}')\ndef urun_fiyati(urun: str):\n    fiyatlar = {'cay': 15, 'kahve': 35, 'tost': 50, 'su': 10}\n    if urun.lower() in fiyatlar:\n        return {'urun': urun, 'fiyat_tl': fiyatlar[urun.lower()]}\n    return {'hata': 'Ürün menüde bulunamadı!'}",
+    "gorsel": {
+      "type": "image",
+      "query": "coffee cup price tag menu digital"
+    }
+  },
+  {
+    "baslik": "Alternatif Dokümantasyon: ReDoc (/redoc)",
+    "altbaslik": "İkinci Otomatik Doküman Paneli",
+    "icerik": "FastAPI sadece Swagger değil, aynı zamanda ReDoc formatında da dokümantasyon üretir:\n\n👉 **`http://127.0.0.1:8000/redoc`**\n\n- Daha resmi ve kitapçık tarzı bir arayüz sunar.\n- API dökümantasyonunu müşterilere sunmak için mükemmeldir.",
+    "gorsel": {
+      "type": "image",
+      "query": "redoc api documentation clean modern ui"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Komut:\n`uvicorn main --reload`\n\nProblem Nedir?\nUvicorn dosya adı ile app değişkenini iki nokta (:) ile bekler!\nDoğrusu: `uvicorn main:app --reload` olmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal syntax error command line"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "@app.get('/kare/{sayi}')\ndef kare_al(sayi: int):\n    return {'sonuc': sayi * sayi}\n\nİstek: `/kare/5`\nÇıktı: `{'sonuc': 25}`\n\nİstek: `/kare/bes`\nÇıktı: `422 Unprocessable Entity` (FastAPI otomatik tip hatası verir!).",
+    "gorsel": {
+      "type": "image",
+      "query": "http 422 unprocessable entity validation error"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "FastAPI'ye Başlarken 3 Hata",
+    "icerik": "1. Uvicorn başlatırken terminalde `main:app` yerine dosya yolunu yanlış yazmak.\n2. Fonksiyonun başına `@app.get(...)` dekoratörünü koymayı unutmak (Normal fonksiyon gibi kalır, web kapısı açılmaz).\n3. Kod değiştirildikten sonra sunucunun yeniden başlamasını beklemeden sayfayı yenilemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution checklist code review"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "FastAPI Dokümantasyonu",
+    "icerik": "Soru: FastAPI'nin otomatik ürettiği interaktif test paneline hangi adresten erişilir?\nA) /admin\nB) /docs\nC) /test\nD) /api\n\nDoğru Cevap: B (/docs adresi Swagger UI'ı açar).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Uvicorn Parametresi",
+    "icerik": "Soru: Kodlar değiştikçe sunucunun otomatik yeniden başlamasını sağlayan parametre hangisidir?\nA) --auto\nB) --restart\nC) --reload\nD) --live\n\nDoğru Cevap: C (--reload).",
+    "gorsel": {
+      "type": "image",
+      "query": "command line flag reload icon"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "HTTP Metodu",
+    "icerik": "Soru: Sunucudan sadece bilgi okumak/sorgulamak için kullanılan temel HTTP metodu hangisidir?\nA) POST\nB) DELETE\nC) GET\nD) PUT\n\nDoğru Cevap: C (GET).",
+    "gorsel": {
+      "type": "image",
+      "query": "http get request symbol"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Mobil Uygulamalar ve Backend",
+    "altbaslik": "Instagram ve Getir Nasıl Çalışır?",
+    "icerik": "Telefonunuzdaki Trendyol, Yemeksepeti veya Instagram uygulamaları aslında birer arayüzdür (Frontend).\nTelefon butona bastığında arka planda sizin yazdığınız gibi bir FastAPI `@app.get('/urunler')` endpoint'ine istek atar ve gelen JSON veriyi ekranda listeler.",
+    "gorsel": {
+      "type": "image",
+      "query": "mobile app communicating with cloud api server"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Canlı Kampüs Danışma Masası API",
+    "icerik": "Göreviniz:\nFastAPI projenizde 3 yeni endpoint yazın:\n1. `GET /hava-durumu` -> Şehir adı ve tahmini sıcaklık dönsün.\n2. `GET /kulup/bilgi/{kulup_adi}` -> Kulüp adı, üye sayısı ve başkanını dönsün.\n3. `GET /kampus/duyurular` -> 3 maddelik duyuru listesi dönsün.\n4. `/docs` sayfasında 3 endpoint'i de başarıyla test edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "interactive api swagger ui task mission"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "from fastapi import FastAPI\napp = FastAPI()\n\n@app.get('/hava-durumu')\ndef hava():\n    return {'sehir': 'Giresun', 'durum': 'Güneşli ☀️', 'derece': 22}\n\n# Diğer 2 endpoint'i siz tamamlayınız...",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint solution code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- API sistemlerin birbirine veri sunmasını sağlayan web kapısıdır.\n- FastAPI ve Uvicorn ile Python kodları web servisine dönüşür.\n- /docs (Swagger UI) kod yazıldığı anda otomatik görsel test paneli üretir.\n- GET metodu ile veri okuma ve yol/sorgu parametreleri yönetilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 9: Pydantic ve Veri Doğrulama (Validation)",
+    "icerik": "Ön Hazırlık:\n- Kullanıcı web formunda kitap sayfasına '-10' yazarsa ne olur?\n- Pydantic BaseModel ile akıllı formlar nasıl tasarlanır?\n- POST metodu ile sunucuya veri gönderme!",
+    "gorsel": {
+      "type": "image",
+      "query": "data validation form security pydantic python"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'FastAPI ile yazılmış, /ogrenci/{no} adresine istek atıldığında ogrenci_no ve durum: 'Aktif' JSON'ı dönen endpoint kodunu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

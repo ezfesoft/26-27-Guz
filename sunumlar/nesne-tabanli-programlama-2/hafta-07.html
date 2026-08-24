@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 07 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 07</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-06.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 7", "altbaslik": "Modüler Proje Yönetimi ve Python Paketleri", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Modülerlik, import, Sanal Ortamlar (venv), Paket Yönetimi (pip) ve requirements.txt\nUygulama Teması: Çok Dosyalı Modüler Kampüs Not Takip Sistemi", "gorsel": {"type": "image", "query": "python project architecture modules packages folders ide"}}, {"baslik": "Motivasyon: Her Şeyi Tek Dosyaya Yazarsak Ne Olur?", "altbaslik": "Spagetti Kod Çıkmazı", "icerik": "1000 satırlık tek bir main.py dosyasında:\n- Aradığınız fonksiyonu veya sınıfı bulamazsınız.\n- İki yazılımcı aynı dosyada çalışırken sürekli çakışma yaşar.\n- Profesyonel yazılım geliştirmenin ilk kuralı kodları görevlerine göre ayrı dosyalara (modüllere) bölmektir.", "gorsel": {"type": "image", "query": "messy spaghetti code vs clean modular architecture"}}, {"baslik": "Modül (Module) ve Paket (Package) Nedir?", "altbaslik": "Dosya vs. Klasör", "icerik": "1. Modül: İçinde sınıflar, fonksiyonlar ve değişkenler bulunan tek bir Python (.py) dosyasıdır (Örn: `modeller.py`).\n2. Paket: İçinde birden çok modül barındıran ve organizasyon sağlayan klasördür.\n3. `import`: Bir dosyadaki kodu başka bir dosyaya çağırıp kullanma komutudur.", "gorsel": {"type": "image", "query": "folder files modules python package directory structure"}}, {"baslik": "Profesyonel Klasör Yapısı", "altbaslik": "Sorumlulukların Ayrılması (Separation of Concerns)", "icerik": "kampus_otomasyon/\n│── modeller.py     (Sadece Ogrenci ve Ders sınıfları)\n│── servisler.py    (Hesaplama, karne ve iş mantığı)\n│── utils.py        (Yardımcı fonksiyonlar ve formatlayıcılar)\n└── main.py         (Programı başlatan ana dosya)", "gorsel": {"type": "image", "query": "project file tree structure pycharm ide"}}, {"baslik": "Adım 1: modeller.py Dosyası", "altbaslik": "Veri Şablonlarını Tanımlama", "icerik": "# modeller.py\nclass Ogrenci:\n    def __init__(self, ad, no, vize, final):\n        self.ad = ad\n        self.no = no\n        self.vize = vize\n        self.final = final\n\n    def ortalama(self):\n        return (self.vize * 0.4) + (self.final * 0.6)", "gorsel": {"type": "image", "query": "python code editor student data model"}}, {"baslik": "Adım 2: servisler.py Dosyası", "altbaslik": "İş Mantığı ve Yazdırma Servisleri", "icerik": "# servisler.py\ndef karne_bas(ogrenci):\n    ort = ogrenci.ortalama()\n    durum = 'GEÇTİ ✅' if ort >= 50 else 'KALDI ❌'\n    print('='*30)\n    print(f'Öğrenci: {ogrenci.ad} ({ogrenci.no})')\n    print(f'Ortalama: {ort:.1f} | Durum: {durum}')\n    print('='*30)", "gorsel": {"type": "image", "query": "student grade report card printing system"}}, {"baslik": "Adım 3: main.py Dosyası ve import", "altbaslik": "Parçaları Birleştirmek", "icerik": "# main.py\nfrom modeller import Ogrenci\nfrom servisler import karne_bas\n\n# Modüllerden gelen sınıfları kullanıyoruz:\nogr1 = Ogrenci('Merve', '24101', 60, 80)\nogr2 = Ogrenci('Burak', '24102', 40, 45)\n\nkarne_bas(ogr1)\nkarne_bas(ogr2)", "gorsel": {"type": "image", "query": "puzzle pieces connecting modular code execution"}}, {"baslik": "import Kullanım Çeşitleri", "altbaslik": "Hangi Yöntem Ne Zaman Tercih Edilir?", "icerik": "1. Tüm modülü içeri alma:\nimport modeller\nogr = modeller.Ogrenci('Ali', ...)\n\n2. Sadece belirli bir sınıfı alma (Tavsiye Edilen):\nfrom modeller import Ogrenci\nogr = Ogrenci('Ali', ...)\n\n3. Takma ad (Alias) verme:\nimport datetime as dt", "gorsel": {"type": "image", "query": "import syntax code options python"}}, {"baslik": "Kütüphane Cehennemi (Dependency Hell)", "altbaslik": "Neden Sanal Ortam (venv) Kullanırız?", "icerik": "Problem Senaryosu:\n- Proje A, requests kütüphanesinin 1.0 sürümünü istiyor.\n- Proje B, requests kütüphanesinin 2.0 sürümünü istiyor.\n- Eğer kütüphaneler bilgisayarın ana işletim sistemine kurulursa sürümler çakışır ve projeler bozulur.\nÇözüm: Her proje için özel izole kutu (venv) açmaktır!", "gorsel": {"type": "image", "query": "version conflict dependency hell isolation box"}}, {"baslik": "Sanal Ortam (venv) Nasıl Çalışır?", "altbaslik": "İzole Python Odaları", "icerik": "PyCharm bir proje açtığınızda otomatik olarak `.venv` klasörü oluşturur.\n- Bu klasörün içinde o projeye özel bağımsız bir Python kopyası vardır.\n- Kurulan her paket sadece o projeyi etkiler; bilgisayarı kirletmez.\n- Terminalde satır başında `(.venv)` yazısını görmelisiniz.", "gorsel": {"type": "image", "query": "virtual environment terminal prompt pycharm"}}, {"baslik": "Paket Yöneticisi: PIP", "altbaslik": "Dünyadaki Kütüphaneleri Projeye İndirmek", "icerik": "PyPI (Python Package Index), dünyadaki milyonlarca hazır açık kaynak paketin bulunduğu depodur.\n\nTemel PIP Komutları:\n- Paket Kurma: `pip install colorama`\n- Kurulu Paketleri Listeleme: `pip list`\n- Paket Kaldırma: `pip uninstall colorama`", "gorsel": {"type": "image", "query": "downloading software packages pip python pypi"}}, {"baslik": "requirements.txt Dosyası Nedir?", "altbaslik": "Projenin Malzeme Listesi", "icerik": "Bir projeyi arkadaşınıza veya sunucuya gönderirken 500 MB'lık `.venv` klasörünü göndermezsiniz!\nSadece projenin ihtiyaç duyduğu paketlerin isim listesini (`requirements.txt`) gönderirsiniz.\n\n1. Paketleri Listeye Kaydetme:\n`pip freeze > requirements.txt`\n\n2. Yeni Bilgisayarda Tek Komutla Kurma:\n`pip install -r requirements.txt`", "gorsel": {"type": "image", "query": "shopping list checklist requirements text file"}}, {"baslik": ".gitignore ve venv Kuralı", "altbaslik": "GitHub'a Neler Yüklenmez?", "icerik": "Altın Kural: `.venv` klasörü ASLA Git veya GitHub'a yüklenmez!\n- Boyutu çok büyüktür ve gereksizdir.\n- `.gitignore` dosyasına `.venv/` yazılır.\n- Karşı taraf sadece `pip install -r requirements.txt` diyerek kendi sanal ortamını 5 saniyede kurar.", "gorsel": {"type": "image", "query": "git gitignore github repository clean upload"}}, {"baslik": "Laboratuvar Döngüsü 1: 3 Dosyalı Proje Açma", "altbaslik": "PyCharm'da Dosya Organizasyonu", "icerik": "Adımlar:\n1. PyCharm'da sağ tıklayın -> New -> Python File -> `modeller.py`\n2. New -> Python File -> `servisler.py`\n3. New -> Python File -> `main.py`\n4. Dosyaları yazıp `from modeller import ...` bağlantısını test edin.", "gorsel": {"type": "image", "query": "pycharm project explorer right click new file"}}, {"baslik": "Laboratuvar Döngüsü 2: Colorama ile Renkli Konsol", "altbaslik": "pip ile İlk Dış Kütüphanemizi Kuralım", "icerik": "Terminal Komutu:\n`pip install colorama`\n\nPython Kodu:\nfrom colorama import Fore, Style, init\ninit(autoreset=True)\n\nprint(Fore.GREEN + 'BAŞARILI: Öğrenci sisteme eklendi!')\nprint(Fore.RED + 'HATA: Vize notu geçersiz!')\nprint(Fore.YELLOW + 'UYARI: Devamsızlık sınırda!')", "gorsel": {"type": "image", "query": "colored terminal output green red yellow text"}}, {"baslik": "Laboratuvar Döngüsü 3: requirements.txt Üretme", "altbaslik": "Bağımlılıkları Dondurma (Freeze)", "icerik": "Terminalde şu komutu çalıştırın:\n`pip freeze > requirements.txt`\n\nProjenizde `requirements.txt` adında yeni bir dosya oluştuğunu ve içinde `colorama==...` yazdığını inceleyin.", "gorsel": {"type": "image", "query": "terminal freeze command text editor"}}, {"baslik": "Laboratuvar Döngüsü 4: Modüler Kafe Menüsü", "altbaslik": "Urun ve Kasa Modülleri", "icerik": "# urunler.py\nclass Urun:\n    def __init__(self, ad, fiyat):\n        self.ad = ad\n        self.fiyat = fiyat\n\n# kasa.py\ndef fis_hesapla(urun_listesi):\n    return sum(u.fiyat for u in urun_listesi)", "gorsel": {"type": "image", "query": "cafe cashier pos receipt billing system"}}, {"baslik": "Çözümlü Uygulama 1: if __name__ == '__main__'", "altbaslik": "Modülün Doğrudan mı Yoksa import ile mi Çalıştığını Anlamak", "icerik": "Bir .py dosyasının import edildiğinde otomatik çalışmasını engellemek için şu kalıp kullanılır:\n\nif __name__ == '__main__':\n    # Sadece bu dosya doğrudan çalıştırıldığında burası çalışır!\n    print('Test çalıştırması yapılıyor...')", "gorsel": {"type": "image", "query": "python main entry point script execution"}}, {"baslik": "Çözümlü Uygulama 2: Yardımcı Fonksiyonlar (utils.py)", "altbaslik": "Tarih ve Para Formatlama", "icerik": "# utils.py\ndef para_formati(miktar):\n    return f'{miktar:.2f} TL'\n\n# main.py\nfrom utils import para_formati\nprint(para_formati(150.5))  # '150.50 TL'", "gorsel": {"type": "image", "query": "utility functions helper tools formatting"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod (main.py):\nimport modeller\nogr = Ogrenci('Ali', 101)\n\nProblem Nedir?\n'import modeller' dendiğinde 'modeller.Ogrenci' yazılmalıdır. Veya 'from modeller import Ogrenci' kullanılmalıdır (NameError: name 'Ogrenci' is not defined)!", "gorsel": {"type": "image", "query": "name error unresolved reference pycharm"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Döngüsel İçe Aktarma (Circular Import)", "icerik": "Tehlikeli Durum:\nA.py dosyası B.py'yi import ediyor; B.py dosyası da A.py'yi import ediyor!\nPython bunu çözemez ve ImportError (Circular import) fırlatır.\nÇözüm: Dosyaları mantıksal katmanlara ayırmak ve birbirine bağımlı yapmamaktır.", "gorsel": {"type": "image", "query": "circular dependency loop arrows error"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "Modül ve Paket Yönetiminde 3 Hata", "icerik": "1. Kendi oluşturduğunuz dosyaya standart kütüphane adı vermek (Örn: dosyanıza `random.py` veya `math.py` derseniz Python'ın kendi modülleri bozulur!).\n2. Terminalde .venv aktif değilken paket kurmak.\n3. requirements.txt oluşturmayı unutmak.", "gorsel": {"type": "image", "query": "warning checklist code quality caution"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "import Komutu", "icerik": "Soru: modeller.py içindeki sadece Kitap sınıfını çağırmak için doğru komut hangisidir?\nA) import Kitap from modeller\nB) from modeller import Kitap\nC) get Kitap in modeller\nD) include modeller.Kitap\n\nDoğru Cevap: B (from modeller import Kitap).", "gorsel": {"type": "image", "query": "quiz test examination students classroom"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Sanal Ortam", "icerik": "Soru: Python projelerinde venv (Virtual Environment) kullanmanın temel amacı nedir?\nA) Bilgisayarı hızlandırmak\nB) Projelerin kütüphane sürümlerini izole edip çakışmaları önlemek\nC) Virüslerden korumak\nD) Kodları şifrelemek\n\nDoğru Cevap: B (İzole çalışma alanı oluşturmak).", "gorsel": {"type": "image", "query": "concept question test exam"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "requirements.txt", "icerik": "Soru: Kurulu paketleri requirements.txt dosyasına döken PIP komutu hangisidir?\nA) pip list > req.txt\nB) pip save requirements.txt\nC) pip freeze > requirements.txt\nD) pip export\n\nDoğru Cevap: C (pip freeze > requirements.txt).", "gorsel": {"type": "image", "query": "terminal pip command question"}}, {"baslik": "Sektörel Vaka: Şirket Projesini Devralmak", "altbaslik": "İlk Gün Ne Yapılır?", "icerik": "İşe Girdiğiniz İlk Gün:\nŞirketin projesini GitHub'dan indirirsiniz.\n1. `python -m venv .venv` ile sanal ortam açarsınız.\n2. `.venv\\Scripts\\activate` ile aktif edersiniz.\n3. `pip install -r requirements.txt` komutuyla 100 farklı kütüphaneyi 1 dakikada kurar ve projeyi hemen çalıştırırsınız.", "gorsel": {"type": "image", "query": "software engineer first day at work developer setup"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Renkli Çıktılı Modüler Kafe Otomasyonu", "icerik": "Göreviniz:\n1. `urunler.py` dosyasında Urun sınıfı oluşturun (ad, fiyat).\n2. `kasa.py` dosyasında Colorama kullanarak fis_yazdir(urunler) fonksiyonu yazın (Toplamı yeşil renkle bassın).\n3. `main.py` dosyasında 3 ürün oluşturup kasadan renkli fiş kestirin.\n4. `pip freeze > requirements.txt` dosyasını üretin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "modular project task coding mission students"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "# main.py:\nfrom urunler import Urun\nfrom kasa import fis_yazdir\n\nsepet = [\n    Urun('Tost', 50),\n    Urun('Çay', 15)\n]\nfis_yazdir(sepet)", "gorsel": {"type": "image", "query": "hints blueprint code solution help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- Modülerlik kodları yönetilebilir, temiz ve okunabilir parçalara böler.\n- venv bağımlılık cehennemini ve sürüm çakışmalarını yok eder.\n- pip açık kaynak dünyasındaki kütüphaneleri projemize kazandırır.\n- requirements.txt projelerin taşınabilirliğini ve standart kurulumunu sağlar.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "BÜYÜK DÖNÜM NOKTASI: Web API Dünyasına Geçiş!", "altbaslik": "Konsol Dönemi Bitti, Web Dönemi Başlıyor!", "icerik": "Tebrikler! 7 hafta boyunca Python ve OOP temellerini sağlamlaştırdınız.\nGelecek hafta:\n- Siyah konsoldan çıkıyoruz!\n- FastAPI ve Swagger UI (/docs) ile tanışıyoruz.\n- Tarayıcıda butonlarla çalışan ilk Web API'mizi ayağa kaldıracağız!", "gorsel": {"type": "image", "query": "web development api backend fastapi transition celebration"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir projede requirements.txt dosyasındaki tüm paketleri tek seferde kuran pip komutunu kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

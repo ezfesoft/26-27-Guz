@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Ara Değerlendirme ve Vaka Çalıştayı",
+    "altbaslik": "Sağlıkta YZ Uygulamalarını Eleştirel Değerlendirme",
+    "icerik": "- Amaç: İlk 7 haftada öğrenilen kavramsal ve teknik bilgileri gerçek vakalar üzerinde sentezlemek.\n- Format: Grup çalışması, interaktif vaka tartışması ve hakemli değerlendirme sunumları.\n- Odak Kriterleri: Veri kaynağı, metrik seçimi, aşırı öğrenme, doğrulama aşamaları ve hasta güvenliği.\n- Hedef: Tıbbi veri teknikerinin profesyonel eleştirel okuryazarlık yetkinliğini sergilemesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical case study workshop healthcare students presenting"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "8. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Bir sağlık YZ projesinin bilimsel iddiasını kanıt standartlarına göre analiz eder.\n- ÖÇ2: Kullanılan performans metriklerinin (Doğruluk, Duyarlılık, Özgüllük, AUC) klinik uygunluğunu sorgular.\n- ÖÇ3: Veri toplama, etiketleme ve doğrulama süreçlerindeki metodolojik açıkları tespit eder.\n- ÖÇ4: YZ sisteminin sınırlılıklarını ve sahada yaratabileceği riskleri gerekçeli raporlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning outcomes critical thinking healthcare workshop"
+    }
+  },
+  {
+    "baslik": "Çalıştay Değerlendirme Matrisi: 5 Temel Sütun",
+    "altbaslik": "Bir Sağlık YZ Projesini Nasıl Puanlayacağız?",
+    "icerik": "- 1. Veri Kalitesi ve Temsiliyeti: Kaç hasta var? Dış merkez verisi kullanıldı mı?\n- 2. Referans Standart (Ground Truth): Tanı neye dayandırıldı? (Biyopsi mi, tek hekim mi?).\n- 3. Metrik Seçimi ve Yorumu: Dengesiz veride hangi metrikler raporlandı?\n- 4. Klinik Güvenlik: Yanlış pozitif ve yanlış negatiflerin hastaya etkisi ne?\n- 5. Uygulanabilirlik: Mevcut hastane HBYS/PACS altyapısına entegre olabilir mi?",
+    "gorsel": {
+      "type": "image",
+      "query": "evaluation rubric matrix 5 pillars medical AI assessment"
+    }
+  },
+  {
+    "baslik": "Vaka 1: 'Yapay Zeka COVID-19'u %99 Bildi' Haberi",
+    "altbaslik": "Gerçek Dünya Vakası İncelemesi",
+    "icerik": "- İddia: Bir grup araştırmacı, akciğer röntgenlerinden COVID-19'u %99 doğrulukla tespit ettiğini açıkladı.\n- Metot İncelemesi: Eğitim verisinde COVID hastaları Çin'deki yetişkinlerden, kontrol (sağlıklı) grubu ise ABD'deki çocuklardan alındı!\n- Hata: Model COVID'i değil; çocuk ile yetişkin kemik yapısı arasındaki farkı öğrendi!\n- Sınıf Tartışması: Bu çalışma neden hastanelerde çöktü?",
+    "gorsel": {
+      "type": "image",
+      "query": "covid-19 AI chest x-ray flawed study shortcut learning"
+    }
+  },
+  {
+    "baslik": "Vaka 2: 'Sepsis Erken Uyarı Sistemi' Felaketi",
+    "altbaslik": "Alarm Yorgunluğunun Hastanedeki Sonucu",
+    "icerik": "- İddia: Bir hastanede kurulan YZ sepsis erken uyarı modülü günde 400 alarm üretti.\n- Sonuç: Hekim ve hemşireler uyarıların %93'ünün yanlış olduğunu görünce sistemi sessize aldı.\n- Kriz: Gerçek bir sepsis hastasının alarmı da gözden kaçtı ve hasta hayatını kaybetti.\n- Sınıf Tartışması: Eşik değeri ve duyarlılık/özgüllük ayarı nasıl yapılmalıydı?",
+    "gorsel": {
+      "type": "image",
+      "query": "sepsis alarm fatigue hospital crisis clinical case"
+    }
+  },
+  {
+    "baslik": "Vaka 3: 'Cilt Kanseri Teşhis Eden Mobil Uygulama'",
+    "altbaslik": "FDA Onaysız Tüketici Uygulamaları",
+    "icerik": "- İddia: Akıllı telefon kamerasıyla çekilen ben fotoğraflarından kanser teşhisi.\n- Sorun: Farklı telefon kameralarının renk sıcaklığı, yetersiz ışık ve odaklama problemleri.\n- Risk: Yanlış negatif sonuç alan hastanın doktora gitmeyip melanomunu ilerletmesi.\n- Sınıf Tartışması: Tüketici uygulamaları ile tıbbi cihaz onaylı (SaMD) yazılımlar arasındaki fark nedir?",
+    "gorsel": {
+      "type": "image",
+      "query": "smartphone skin cancer detection app consumer risk"
+    }
+  },
+  {
+    "baslik": "Vaka 4: 'Otomatik Epikriz Kodlama Sistemi' Kaybı",
+    "altbaslik": "Faturalandırma ve SGK Geri Ödeme Krizi",
+    "icerik": "- Senaryo: Özel bir hastane kurduğu NLP yazılımıyla epikrizlerden ICD-10 kodlarını otomatik üretti.\n- Hata: NLP modeli 'ailede diyabet var' cümlesinden hastaya diyabet kodu atadı ve gereksiz pahalı ilaç faturalandırdı.\n- Sonuç: SGK denetiminde yüz binlerce liralık geri ödeme cezası ve fatura iptali.\n- Tartışma: İnsan denetimi (Human-in-the-loop) nerede devreye girmeliydi?",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital billing audit medical coding penalty reimbursement"
+    }
+  },
+  {
+    "baslik": "Çalıştay Grup Yönergesi ve Sunum Formatı",
+    "altbaslik": "4'er Kişilik Ekiplerle 30 Dakikalık Çalışma",
+    "icerik": "- Rol 1: Veri Sorumlusu (Veri seti kaynağını ve boyutunu inceler).\n- Rol 2: Metrik Denetçisi (Hata matrisini ve başarı iddialarını hesaplar).\n- Rol 3: Klinik Güvenlik Uzmanı (Yanlış kararların hastaya zararını analiz eder).\n- Rol 4: Sözcü / Raportör (Grup bulgularını 3 dakikada sınıfa sunar).\n- Ürün: 1 sayfalık 'Kritik Değerlendirme Raporu'.",
+    "gorsel": {
+      "type": "image",
+      "query": "student group presentation classroom debate healthcare informatics"
+    }
+  },
+  {
+    "baslik": "Ara Değerlendirme Örnek Soru Çözümleri (1-7. Haftalar)",
+    "altbaslik": "Temel Kavramların Sentezi",
+    "icerik": "- Soru 1: Tarama testlerinde neden Duyarlılık (Sensitivity) Özgüllükten önce gelir?\n  Cevap: Çünkü erken teşhis edilebilir bir ölümcül hastalığı kaçırmanın bedeli telafi edilemez.\n- Soru 2: FHIR standardında tahlil sonucu hangi kaynakta tutulur?\n  Cevap: Observation kaynağında.\n- Soru 3: Eksik veriyi ortalama ile doldurmanın en büyük istatistiksel zararı nedir?\n  Cevap: Veri varyansını yapay olarak daraltması ve uç riskleri gizlemesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "midterm review exam questions healthcare informatics synthesis"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 8. Haftanın Ana Fikirleri",
+    "altbaslik": "İlk Yarı Değerlendirmesi",
+    "icerik": "- Sağlıkta YZ sadece teknik bir algoritma meselesi değil, çok boyutlu bir klinik süreçtir.\n- Eleştirel bakış açısı olmadan hiçbir YZ çıktısı tıbbi kayıtlara ve kararlara dönüştürülemez.\n- Başarılı bir tıbbi veri teknikeri, pazarlama iddiaları ile bilimsel gerçekliği net olarak ayırır.\n- Tebrikler! Dönemin ilk yarısını başarıyla tamamladınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "midterm summary milestone achievement healthcare students"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 8. Hafta Geri Bildirimi",
+    "altbaslik": "İlk Yarı Değerlendirmesi",
+    "icerik": "- 1. İlk 8 haftada öğrendiğiniz ve meslek hayatınızda en çok işe yarayacağını düşündüğünüz konu neydi?\n- 2. Kendinizi bir YZ makalesini eleştirecek düzeyde yetkin hissediyor musunuz?\n- 3. Gelecek hafta konusu: Genomik Veri ve Kişiselleştirilmiş Tıp (Dönemin İkinci Yarısı).",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış (Dönemin İkinci Yarısı)",
+    "altbaslik": "9. Hafta: Genomik Veri ve Kişiselleştirilmiş Tıp",
+    "icerik": "- Konu: DNA dizileme verileri, kişiselleştirilmiş tedavi ve hasta segmentasyonu.\n- Odak: Genomik büyük veri, K-Means kümeleme algoritmasının sağlıkta kullanımı.\n- Hazırlık: Geçen dönem öğrendiğiniz K-Means kümeleme mantığını ve mesafe hesaplamalarını tekrarlayınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "genomics precision medicine DNA sequencing preview"
+    }
+  },
+  {
+    "baslik": "Vaka 5: 'YZ ile Yoğun Bakım Ölüm Riski Tahmini'",
+    "altbaslik": "Etik ve Tedaviyi Sonlandırma İkilemi",
+    "icerik": "- Senaryo: Yoğun bakımda hastaların 48 saat içindeki mortalite riskini tahmin eden bir YZ modeli.\n- Tehlike: Hekimlerin YZ skoru yüksek (ör. %95 ölüm riski) olan yaşlı hastalara daha az müdahale etmesi (Self-fulfilling prophecy / Kendi kendini gerçekleştiren kehanet!).\n- Etik Soru: Bir algoritma yaşam destek ünitesinin kapatılması kararına etki edebilir mi?\n- Sınıf Tartışması: Model skorları klinik ekiplere nasıl sunulmalıdır?",
+    "gorsel": {
+      "type": "image",
+      "query": "intensive care bioethics end of life decision AI mortality"
+    }
+  },
+  {
+    "baslik": "Vaka 6: 'Göz Dibi Fotoğraflarından Diyabetik Retinopati'",
+    "altbaslik": "Başarılı Bir Saha Uygulaması Örneği",
+    "icerik": "- Başarı Hikayesi: Google Health tarafından geliştirilen ve Hindistan ile Tayland'daki kırsal kliniklerde uygulanan retinopati tarama sistemi.\n- Model Başarısı: %90+ Duyarlılık ve Özgüllük ile uzman göz doktoru seviyesinde tarama.\n- Saha Engeli: Kırsaldaki elektrik kesintileri, internet yavaşlığı ve eski fundus kameralarının lens tozlanması!\n- Çıkarım: Mükemmel algoritma bile sahadaki altyapı gerçeklerine toslayabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "diabetic retinopathy fundus photography rural clinic screening"
+    }
+  },
+  {
+    "baslik": "Vaka 7: 'Acil Serviste YZ Triyajı ve Eşitsizlik'",
+    "altbaslik": "Sosyoekonomik Durumun Triyaj Sırasına Etkisi",
+    "icerik": "- Olay: Bir özel hastane YZ triyaj sisteminin özel sağlık sigortası olan hastaları acil iş listesinde daha üst sıralara yerleştirdiği fark edildi.\n- Hata Kaynağı: Eğitim verisindeki geçmiş yatış süreleri sigortalı hastalarda daha uzundu ve model bunu 'daha acil hasta' olarak yorumladı!\n- Düzeltme: Modelden fatura ve sigorta değişkenlerinin tamamen çıkarılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "emergency room triage algorithm fairness insurance"
+    }
+  },
+  {
+    "baslik": "Vaka 8: 'Akıllı İlaç Dolabı ve Barkod Eşleme Hatası'",
+    "altbaslik": "Donanım-Yazılım Entegrasyon Krizi",
+    "icerik": "- Olay: Hastane akıllı ilaç dolabı (Pyxis) benzer isimli iki ilacı (Look-Alike / Sound-Alike) yanlış çekmeceden verdi.\n- YZ Denetimi: Barkod okuma ve reçete doğrulama modülünün 'İsim benzerliği %90' uyarısını hekimin fark etmeden geçmesi.\n- Önlem: Yüksek riskli ilaçlarda (ör. Potasyum Klorür) zorunlu ikinci hemşire biyometrik doğrulaması.",
+    "gorsel": {
+      "type": "image",
+      "query": "automated medication dispensing cabinet pyxis hospital pharmacy"
+    }
+  },
+  {
+    "baslik": "Çalıştay Raporlama Şablonu: Bölüm 1 - İddia Analizi",
+    "altbaslik": "Haber/Makale Başlığı ve Temel İddia",
+    "icerik": "- 1. Kaynak ve Yayın Tarihi: (Hangi dergi veya haber sitesi?).\n- 2. İddia Edilen Çözüm: (Hangi klinik problemi çözüyor?).\n- 3. İddia Edilen Başarı Oranı: (Ör. '%98 Doğruluk').\n- 4. İlk Eleştirel Şüphe: (Bu başarı kulağa gerçek olamayacak kadar iyi mi geliyor?).",
+    "gorsel": {
+      "type": "image",
+      "query": "critical appraisal template worksheet medical analysis"
+    }
+  },
+  {
+    "baslik": "Çalıştay Raporlama Şablonu: Bölüm 2 - Metodoloji Denetimi",
+    "altbaslik": "Veri ve Modelin Röntgeni",
+    "icerik": "- 1. Veri Büyüklüğü: Kaç hasta/görüntü kullanıldı?\n- 2. Dış Doğrulama: Model başka bir hastanenin verisinde test edildi mi?\n- 3. Referans Standart: Tanılar nasıl doğrulandı (Biyopsi, Uzman paneli)?\n- 4. Veri Sızıntısı: Train ve Test setlerinde aynı hastanın verisi var mı?",
+    "gorsel": {
+      "type": "image",
+      "query": "methodology checklist scientific rigor evaluation"
+    }
+  },
+  {
+    "baslik": "Çalıştay Raporlama Şablonu: Bölüm 3 - Klinik Güvenlik",
+    "altbaslik": "Hasta Başında Ne Olur?",
+    "icerik": "- 1. Yanlış Pozitif Senaryosu: Sağlıklı kişiye hasta denirse ne olur? (Gereksiz tetkik/stres).\n- 2. Yanlış Negatif Senaryosu: Hasta kişiye sağlıklı denirse ne olur? (Ölüm/gecikmiş tedavi).\n- 3. Alarm Yorgunluğu Riski: Günde kaç yanlış uyarı üretebilir?\n- 4. Hekim-YZ İşbirliği: Kararı kim onaylıyor?",
+    "gorsel": {
+      "type": "image",
+      "query": "patient safety risk assessment matrix clinical"
+    }
+  },
+  {
+    "baslik": "Çalıştay Raporlama Şablonu: Bölüm 4 - Nihai Karar",
+    "altbaslik": "Tıbbi Veri Teknikerinin Kurul Raporu",
+    "icerik": "- Karar Seçenekleri:\n  * [A] KABUL: Klinik kullanıma ve HBYS entegrasyonuna uygundur.\n  * [B] ŞARTLI KABUL: Dış doğrulama ve alt grup analizi yapıldıktan sonra pilot denenebilir.\n  * [C] RED: Metodolojik hatalar, veri sızıntısı veya aşırı yanlış negatif riski taşımaktadır.\n- Gerekçe: Kararınızı 3 somut bilimsel gerekçeyle yazınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "approval stamp accepted conditional rejected clinical board"
+    }
+  },
+  {
+    "baslik": "Grup Çalışması Dinamikleri ve Rol Dağılımı",
+    "altbaslik": "Birlikte Başarma ve Çatışma Yönetimi",
+    "icerik": "- Zaman Planı: 10 dk bireysel okuma -> 15 dk grup tartışması -> 5 dk rapor yazımı.\n- Rol Sorumlulukları: Her üye kendi uzmanlık alanının (Veri, Metrik, Güvenlik) savunmasını yapar.\n- Prensip: Tartışmada rütbe veya kıdem değil, bilimsel kanıt ve mantıksal argümanlar esastır.",
+    "gorsel": {
+      "type": "image",
+      "query": "effective teamwork healthcare simulation problem solving"
+    }
+  },
+  {
+    "baslik": "Sözlü Sunum ve Savunma Becerileri",
+    "altbaslik": "Bulguları 3 Dakikada Jüriye Sunmak",
+    "icerik": "- Asansör Konuşması (Elevator Pitch): İlk 30 saniyede vakanın can alıcı sorununu söylemek.\n- Sayısal Kanıtlar: 'Model kötü' demek yerine 'Modelin duyarlılığı sadece %68'dir ve 100 hastanın 32'sini kaçırmaktadır' demek.\n- Özgüven: Sorulan eleştirel sorulara veriye dayanarak sakin cevap vermek.",
+    "gorsel": {
+      "type": "image",
+      "query": "presentation pitch student defending thesis jury"
+    }
+  },
+  {
+    "baslik": "Ara Sınav Konu Dağılımı ve Hazırlık Rehberi",
+    "altbaslik": "Vize Sınavında Neler Çıkacak?",
+    "icerik": "- %25: Temel Kavramlar ve Metrik Hesaplamaları (Sensitivity, Specificity, AUC, Hata Matrisi).\n- %25: Görüntüleme ve NLP Sistemleri (DICOM, CNN, SaMD, LLM Halüsinasyon, 3T Kuralı).\n- %25: CDSS ve Sağlık Veri Standartları (HL7, FHIR JSON, Kural Tabloları, Alarm Yorgunluğu).\n- %25: Veri Kalitesi ve Giyilebilir Cihazlar (Imputation, Aykırı Değer, PPG/EKG, Anomali Tespiti).",
+    "gorsel": {
+      "type": "image",
+      "query": "midterm exam preparation guide pie chart topics"
+    }
+  },
+  {
+    "baslik": "Örnek Soru 1: Metrik Hesaplama",
+    "altbaslik": "Ara Sınav Hazırlık Sorusu",
+    "icerik": "- Senaryo: 200 kişilik bir grupta 50 hasta, 150 sağlıklı birey vardır. Bir test 40 hastayı ve 30 sağlıklı bireyi pozitif olarak etiketlemiştir.\n- Soru: Bu testin Duyarlılığı (Sensitivity) ve Pozitif Tahmin Değeri (PPV) nedir?\n- Çözüm:\n  * TP = 40, FN = 10 -> Duyarlılık = 40 / 50 = %80\n  * TP = 40, FP = 30 -> PPV = 40 / 70 = %57.1",
+    "gorsel": {
+      "type": "image",
+      "query": "diagnostic test calculation 2x2 table math"
+    }
+  },
+  {
+    "baslik": "Örnek Soru 2: FHIR JSON Ayrıştırma",
+    "altbaslik": "Ara Sınav Hazırlık Sorusu",
+    "icerik": "- Soru: Bir FHIR Observation kaynağında kan şekeri değeri 180 mg/dL olarak verilmiştir. Bir tıbbi veri teknikeri bu değerin acil durum alarmı üretmesi için CDSS motoruna hangi kuralı yazmalıdır?\n- Çözüm:\n  if resource['resourceType'] == 'Observation' and resource['code']['coding'][0]['code'] == '15074-8':\n      if resource['valueQuantity']['value'] > 140:\n          trigger_alert('Postprandiyal Hiperglisemi!')",
+    "gorsel": {
+      "type": "image",
+      "query": "python code snippet FHIR rule CDSS exam question"
+    }
+  },
+  {
+    "baslik": "Örnek Soru 3: Veri Kalitesi Kararı",
+    "altbaslik": "Ara Sınav Hazırlık Sorusu",
+    "icerik": "- Senaryo: Bir veri setinde hastaların %40'ının 'Sigara Kullanımı' bilgisi boştur.\n- Soru: Bu sütun ortalama ile doldurulabilir mi? Neden?\n- Çözüm: Hayır! Sigara kullanımı kategorik (Evet/Hayır) bir değişkendir, ortalaması alınamaz. En sık değer (Mod) veya çoklu atama (MICE) kullanılmalı ya da eksiklik oranı çok yüksekse sütun elenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "missing data categorical variable exam analysis"
+    }
+  },
+  {
+    "baslik": "Çalıştay Değerlendirme Sonuçları ve Başarı Belgeleri",
+    "altbaslik": "Sınıf İçi Sıralama ve Geribildirim",
+    "icerik": "- En İyi Metodoloji Eleştirisi Ödülü: Grup Delta (COVID-19 Yanılgısı).\n- En İyi Klinik Risk Analizi Ödülü: Grup Beta (Sepsis Alarm Yorgunluğu).\n- En İyi Sunum ve Görselleştirme Ödülü: Grup Alfa.\n- Tüm öğrencilerimize aktif katılımları ve bilimsel olgunlukları için teşekkür ederiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "awards ceremony classroom student achievement trophies"
+    }
+  },
+  {
+    "baslik": "Eleştirel Düşüncenin Gücü: Meslek Hayatında Bir Adım Önde",
+    "altbaslik": "Teknikerlikten Karar Vericiliğe",
+    "icerik": "- Unutmayın: Bir YZ yazılımını sadece kullanmak sizi teknisyen yapar; onu eleştirebilmek, açıklarını bulmak ve denetleyebilmek sizi vazgeçilmez bir 'Uzman' yapar.\n- Bu çalıştayın kazandırdığı sorgulayıcı zihin yapısı ömür boyu en büyük mesleki sermayeniz olacaktır.",
+    "gorsel": {
+      "type": "image",
+      "query": "critical thinking leadership medical informatics career"
+    }
+  },
+  {
+    "baslik": "Dönem Arası Motivasyon ve Yol Haritası",
+    "altbaslik": "Dönemin İkinci Yarısında Neler Var?",
+    "icerik": "- 9. Hafta: Genomik Veri ve Kişiselleştirilmiş Tıp (K-Means ile DNA analizi).\n- 10. Hafta: İlaç Geliştirme ve Klinik Araştırmalar (p-değeri, Güven aralığı).\n- 11. Hafta: Veri Mahremiyeti ve KVKK (Anonimleştirme, k-anonimlik).\n- 12. Hafta: Algoritmik Yanlılık ve Adillik (Bias, Eşitsizlik).\n- 13. Hafta: Sektörden Bakış ve Kariyer.\n- 14. Hafta: Final Projesi Savunması.",
+    "gorsel": {
+      "type": "image",
+      "query": "curriculum roadmap second half semester journey"
+    }
+  },
+  {
+    "baslik": "Vize Sınavı Başarı Dilekleri",
+    "altbaslik": "Kendinize Güvenin!",
+    "icerik": "- Sınav Kuralları: Sakin okuyunuz, senaryoyu iyi analiz ediniz, ezber cevaplar yerine klinik mantık yürütünüz.\n- Hepinize vize sınavında üstün başarılar dileriz!",
+    "gorsel": {
+      "type": "image",
+      "query": "good luck on exam student success classroom"
+    }
+  },
+  {
+    "baslik": "Dönemin İkinci Yarısına Giriş",
+    "altbaslik": "Biyoinformatik ve İleri Konulara Merhaba",
+    "icerik": "- Gelecek hafta DNA dizilerine, mutasyonlara ve kişiye özel akıllı tedavilere adım atıyoruz.\n- İyi tatiller ve başarılar!",
+    "gorsel": {
+      "type": "image",
+      "query": "dna double helix science medicine future"
+    }
+  }
+]

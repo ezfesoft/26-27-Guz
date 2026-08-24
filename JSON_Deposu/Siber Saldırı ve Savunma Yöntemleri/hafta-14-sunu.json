@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 14",
+    "altbaslik": "Hizmet Reddi (DoS) ve Dağıtılmış Hizmet Reddi (DDoS) Atakları",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Ağ Dayanıklılığı ve Servis Dışı Bırakma Tehditleri\nHaftalık Odak: L4 vs L7 Saldırıları, SYN Flood, Slowloris, hping3 ve Savunma (SYN Cookies)\nHedef: DoS/DDoS saldırı mantığını analiz etmek ve sistemleri bu tehditlere karşı savunmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "ddos attack cyber warfare traffic flood server defense"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Erişilebilirliğin Çöküşü",
+    "icerik": "Bir sistem ne kadar güvenli olursa olsun, erişilemez durumdaysa hiçbir değeri yoktur.\n- DDoS saldırıları bankaların, üniversitelerin ve e-ticaret sitelerinin hizmetini durdurur.\n- Dakikalık kesintiler devasa maddi zararlara ve itibar kaybına yol açar.\nGüvenlik uzmanı bu saldırıları analiz edip absorbe etmeyi bilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "server downtime 503 service unavailable error screen"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. DoS (Tek Kaynak) ile DDoS (Zombi Ordu / Botnet) farkını açıklar.\n2. Ağ Katmanı (L4 - SYN Flood) ve Uygulama Katmanı (L7 - Slowloris) saldırılarını modeller.\n3. Botnet mimarisini ve Komuta Kontrol (C2) yapısını kavrar.\n4. hping3 aracı ile kontrollü SYN paket analizi yapar.\n5. SYN Cookies, Rate Limiting ve CDN/Scrubbing savunma stratejilerini uygular.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives ddos mitigation checklist"
+    }
+  },
+  {
+    "baslik": "DoS vs DDoS: Temel Kavramlar",
+    "altbaslik": "Tek Tabanca vs Zombi Ordusu",
+    "icerik": "DoS (Denial of Service):\nTek bir kaynaktan hedef sunucuya aşırı yük gönderilmesidir. Kaynak IP tespit edilip firewall'dan kolayca engellenir.\nDDoS (Distributed Denial of Service):\nDünyanın dört bir yanına dağılmış yüz binlerce ele geçirilmiş cihazdan (Botnet) eşzamanlı yapılan devasa saldırıdır. Engellenmesi çok daha zordur!",
+    "gorsel": {
+      "type": "image",
+      "query": "dos vs ddos network attack diagram comparison"
+    }
+  },
+  {
+    "baslik": "Botnet Mimarisi: Zombi Ordusu",
+    "altbaslik": "C2 Sunucuları ve Köle Cihazlar",
+    "icerik": "Saldırgan (Botmaster) -> [C2 Sunucusu (Emir Komuta)]\n                                      |\n        +-----------------------------+-----------------------------+\n        v                             v                             v\n[Zombi 1 (Akıllı TV)]       [Zombi 2 (IP Kamera)]         [Zombi 3 (PC)]\n        |                             |                             |\n        +-----------------------------> <---------------------------+\n                                      v\n                           [HEDEF SUNUCU ÇÖKER!]",
+    "gorsel": {
+      "type": "image",
+      "query": "botnet architecture command and control server zombies diagram"
+    }
+  },
+  {
+    "baslik": "Ağ Katmanı (L4) Saldırıları: SYN Flood",
+    "altbaslik": "Yarım Kalan El Sıkışma Tuzağı",
+    "icerik": "TCP 3'lü el sıkışma mantığını istismar eder:\n1. Saldırgan sahte IP ile hedefe SYN paketi atar.\n2. Sunucu belleğinde yer ayırıp SYN-ACK yanıtı döner.\n3. Saldırgan son ACK paketini ASLA GÖNDERMEZ!\nSonuç:\nSunucunun bağlantı tablosu (SYN Queue) sahte beklemelerle dolar ve gerçek kullanıcılar sunucuya bağlanamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "tcp syn flood attack half open connections diagram"
+    }
+  },
+  {
+    "baslik": "Uygulama Katmanı (L7) Saldırıları: Slowloris",
+    "altbaslik": "Sessiz ve Yavaş Boğma",
+    "icerik": "Büyük bant genişliği gerektirmeyen çok sinsi bir saldırıdır.\nÇalışma Mantığı:\nWeb sunucusuna (Apache vb.) bir HTTP GET isteği başlatır ama başlıkları (Headers) saniyede bir karakter gibi çok yavaş gönderir ve bağlantıyı ASLA kapatmaz.\nSunucu tüm iş parçacıklarını (Threads) bu yavaş bağlantılara ayırır ve kilitlenir!",
+    "gorsel": {
+      "type": "image",
+      "query": "slowloris http attack application layer connection exhaustion"
+    }
+  },
+  {
+    "baslik": "UDP ve ICMP Flood (Bant Genişliği Boğma)",
+    "altbaslik": "Hacimsel (Volumetric) Saldırılar",
+    "icerik": "Hedef sunucunun internet hattını (örn: 1 Gbps) saniyede 50-100 Gbps sahte UDP veya Ping paketiyle doldurarak fiziksel kabloyu tıkama yöntemidir.\nÖrnekler:\n- DNS Amplification (Yükseltme): 1 baytlık soruya 100 baytlık yanıt ürettirerek hedefe yönlendirme.\n- NTP / Memcached Amplification.",
+    "gorsel": {
+      "type": "image",
+      "query": "volumetric ddos attack bandwidth saturation pipe diagram"
+    }
+  },
+  {
+    "baslik": "hping3: Ağ Test ve Paket Üretim Aracı",
+    "altbaslik": "Güvenlik Uzmanının İsviçre Çakısı",
+    "icerik": "hping3, özel TCP/IP paketleri üreten ve ağ analizinde kullanılan güçlü bir araçtır.\nSözdizimi:\nsudo hping3 -S -p 80 -c 10 192.168.1.10\n- -S : TCP SYN bayrağını ayarla\n- -p 80 : Hedef port\n- -c 10 : 10 adet paket gönder ve dur (Laboratuvar emniyeti!)\n- --flood : Sınırsız hızda paket bas (SADECE test ortamında!)",
+    "gorsel": {
+      "type": "image",
+      "query": "hping3 packet generator terminal command line screen"
+    }
+  },
+  {
+    "baslik": "Savunma: DoS ve DDoS Nasıl Engellenir?",
+    "altbaslik": "Modern Mitigasyon Stratejileri",
+    "icerik": "1. SYN Cookies: Sunucunun bellekte yer ayırmadan matematiksel sıra numarasıyla SYN yanıtı dönmesini sağlar.\n2. Rate Limiting: Aynı IP'den gelen saniyelik istek sayısını sınırlandırma.\n3. Anycast DNS & CDN (Cloudflare/Akamai): Gelen trafiği dünya çapındaki yüzlerce sunucuya dağıtıp eritme.\n4. Scrubbing Centers (Temizleme Merkezleri): Zararlı trafiği süzüp temiz trafiği sunucuya iletme.",
+    "gorsel": {
+      "type": "image",
+      "query": "ddos mitigation cloudflare scrubbing center cdn diagram"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: hping3 ve Savunma",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n1. hping3 ile Windows Server 2019'a kontrollü 10 adet SYN paketi göndereceğiz.\n2. Gelen SYN-ACK yanıt bayraklarını (flags=SA) analiz edeceğiz.\n3. Wireshark I/O Graphs ile paket sıçramasını canlı izleyeceğiz.\n4. Linux çekirdeğinde SYN Cookie savunmasını aktifleştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "students network lab packet capture hping3 wireshark"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Kontrollü SYN Paketi Gönderme",
+    "altbaslik": "hping3 ile L4 Paket Analizi",
+    "icerik": "Terminalde Windows Server 2019'a (192.168.1.10) 10 adet SYN paketi yollayalım:\nsudo hping3 -S -p 80 -c 10 192.168.1.10\nBeklenen Çıktı:\nlen=46 ip=192.168.1.10 sport=80 flags=SA seq=0 rtt=0.8 ms\nflags=SA (SYN-ACK) sunucunun bağlantıyı kabul ettiğini doğrular.",
+    "gorsel": {
+      "type": "image",
+      "query": "hping3 terminal output flags sa response"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Wireshark ile Trafik Grafiği İzleme",
+    "altbaslik": "I/O Graphs Analizi",
+    "icerik": "Adım 1: Wireshark'ı açın (sudo wireshark &).\nAdım 2: Filtreye şunu yazın:\ntcp.flags.syn == 1 and tcp.flags.ack == 0\nAdım 3: Üst menüden Statistics -> I/O Graphs seçeneğine tıklayın.\nEğitmen test paketi gönderdiğinde grafikteki ani sıçramayı izleyin!",
+    "gorsel": {
+      "type": "image",
+      "query": "wireshark io graphs packet rate spike monitor"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Slowhttptest ile L7 Testi",
+    "altbaslik": "Web Sunucu Bağlantı Havuzu",
+    "icerik": "Web sunucunun bağlantı açık tutma kapasitesini test edelim:\nslowhttptest -c 50 -H -i 10 -r 100 -t GET -u http://192.168.1.20/dvwa/ -l 20\nSonuç:\nSunucunun gelen yavaş istekleri kaç saniye askıda tuttuğunu analiz edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "slowhttptest terminal report graph web server"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Linux'ta SYN Cookie Savunması",
+    "altbaslik": "Çekirdek Düzeyinde Koruma",
+    "icerik": "SYN Cookie durumunu kontrol edelim (1 = Aktif, 0 = Kapalı):\ncat /proc/sys/net/ipv4/tcp_syncookies\nAktif değilse aktifleştirelim:\nsudo sysctl -w net.ipv4.tcp_syncookies=1\nBu ayar ile sunucu SYN Flood saldırısı alsa bile belleği kilitlenmez!",
+    "gorsel": {
+      "type": "image",
+      "query": "sysctl tcp syncookies terminal command output"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Laboratuvar Güvenlik Kuralları",
+    "icerik": "1. Flood Modu Yasağı: Sınıfta kimse --flood parametresi kullanmamalıdır; 60 cihaz aynı anda basarsa laboratuvar omurga switch'i kilitlenir!\n2. Sudo Zorunluluğu: Ham IP paketi üretmek Linux'ta root yetkisi gerektirir (sudo hping3).\n3. Paket Limiti: Mutlaka -c 10 veya -c 20 ile sınır koyulmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting caution warning flood checklist"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Dyn DNS DDoS Saldırısı",
+    "altbaslik": "İnternetin Yarısının Çöktüğü Gün",
+    "icerik": "Vaka: 2016 yılında Mirai botneti küresel DNS sağlayıcısı Dyn'e 1.2 Tbps şiddetinde devasa bir DDoS saldırısı yaptı.\nSonuç: Twitter, Netflix, Spotify, GitHub, PlayStation Network ve Reddit dahil yüzlerce dünya devi saatlerce tamamen çöktü!\nDers: Tek bir merkezi DNS sağlayıcısına bağımlı olmak kritik bir mimari risktir.",
+    "gorsel": {
+      "type": "image",
+      "query": "dyn dns ddos cyber attack internet outage map"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: DDoS Dayanıklılık Mimarisi",
+    "altbaslik": "Çıkarılan Mühendislik Dersi",
+    "icerik": "DDoS'a Karşı Alınacak Tedbirler:\n1. BGP Anycast Yönlendirme: Saldırı trafiği tek bir merkeze değil, dünya geneline dağıtılır.\n2. Cloudflare / AWS Shield / Akamai Entegrasyonu: 100+ Gbps saldırılar bulut temizleme merkezlerinde eritilir.\n3. Yedekli Çoklu DNS (Multi-DNS) Mimarisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud ddos protection anycast cdn architecture diagram"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Saldırı Türleri",
+    "icerik": "Soru: Birden fazla ele geçirilmiş zombi cihaz (Botnet) kullanılarak yapılan dağıtık servis dışı bırakma saldırısına ne ad verilir?\nA) DoS\nB) DDoS\nC) XSS\nD) SQLi\n\nDoğru Cevap: B (DDoS)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "L4 Saldırıları",
+    "icerik": "Soru: TCP 3'lü el sıkışmayı yarım bırakarak sunucunun bağlantı hafızasını doldurmayı amaçlayan Katman 4 saldırısı hangisidir?\nA) Slowloris\nB) SYN Flood\nC) Phishing\nD) MITM\n\nDoğru Cevap: B (SYN Flood)",
+    "gorsel": {
+      "type": "image",
+      "query": "syn flood question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "L7 Saldırıları",
+    "icerik": "Soru: Web sunucusuna HTTP başlıklarını çok yavaş göndererek bağlantı havuzunu tüketen sinsi Katman 7 saldırısı hangisidir?\nA) Slowloris\nB) Ping of Death\nC) Smurf\nD) Teardrop\n\nDoğru Cevap: A (Slowloris)",
+    "gorsel": {
+      "type": "image",
+      "query": "slowloris question board test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Savunma Mekanizmaları",
+    "icerik": "Soru: SYN Flood saldırılarına karşı sunucunun bellekte yer ayırmadan matematiksel dizi numaralarıyla el sıkışmasını sağlayan Linux savunması hangisidir?\nA) SYN Cookies\nB) Port Forwarding\nC) Telnet\nD) FTP\n\nDoğru Cevap: A (SYN Cookies)",
+    "gorsel": {
+      "type": "image",
+      "query": "syn cookies defense question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Araç Tanıma",
+    "icerik": "Soru: Özel TCP/IP paketleri üretebilen ve güvenlik analizinde kullanılan komut satırı aracı hangisidir?\nA) hping3\nB) Nano\nC) Steghide\nD) Crunch\n\nDoğru Cevap: A (hping3)",
+    "gorsel": {
+      "type": "image",
+      "query": "hping3 tool question board"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Wireshark'ta SYN Paketlerini Sayma",
+    "icerik": "Uygulama Görevi:\nWireshark açıkken eğitmen tarafından gönderilen 10 adet SYN paketini tcp.flags.syn == 1 filtresiyle yakalayıp ekranda ilk listeleyen öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "DDoS Saldırı Boyutları ve Hacim Rekorları",
+    "altbaslik": "Terabit Seviyesindeki Saldırılar",
+    "icerik": "Günümüz DDoS Tehdit İstatistikleri:\n- 2016 Mirai Botnet: 1.2 Tbps\n- 2020 AWS Shield Tespiti: 2.3 Tbps\n- 2023 HTTP/2 Rapid Reset Açığı: Saniyede 398 Milyon İstek (RPS)!\nBu devasa saldırılar şirket içi donanımlarla değil, sadece küresel bulut temizleme omurgalarıyla durdurulabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ddos attack record volume terabits per second analytics"
+    }
+  },
+  {
+    "baslik": "HTTP/2 Rapid Reset ve L7 Tehditleri",
+    "altbaslik": "Modern Web Protokolü Zafiyeti",
+    "icerik": "HTTP/2 protokolündeki akış iptali (RST_STREAM) özelliğini istismar eder.\n- Saldırgan sunucuya aynı anda yüz binlerce istek gönderip hemen ardından iptal eder.\n- Sunucu isteği işlemek için CPU harcar ama yanıt dönemez; işlemci yüzde 100'e vurup web sunucusu çöker!",
+    "gorsel": {
+      "type": "image",
+      "query": "http2 rapid reset attack protocol stream multiplexing diagram"
+    }
+  },
+  {
+    "baslik": "BGP Anycast ve Scrubbing Center Mimarisi",
+    "altbaslik": "Küresel Temizleme Ağı",
+    "icerik": "Anycast Mimarisi:\nDünyanın 300 farklı şehrindeki sunucu aynı IP adresini anons eder.\n- Saldırı başladığında trafik tek bir veri merkezine gitmez; saldırgan hangi ülkedeyse en yakın yerel bulut sunucusunda emilir ve temizlenir.\n- Kurumsal sunucuya yalnızca arındırılmış temiz trafik ulaşır.",
+    "gorsel": {
+      "type": "image",
+      "query": "bgp anycast routing global scrubbing centers diagram"
+    }
+  },
+  {
+    "baslik": "DDoS Müdahale Planı ve Tatbikatlar",
+    "altbaslik": "Kriz Anında Neler Yapılır?",
+    "icerik": "Kurumsal DDoS Acil Eylem Planı:\n1. Trafik Anomalisi Tespiti (SIEM & NetFlow Alarmları)\n2. Saldırı Türünün Belirlenmesi (L4 Hacimsel mi, L7 Uygulama mı?)\n3. Bulut DDoS Korumasının (Under Attack Mode) Devreye Alınması\n4. ISS (İnternet Servis Sağlayıcı) ile İletişime Geçilip BGP Blackholing Uygulanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "incident response plan ddos team war room cybersecurity"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- DoS tek kaynaktan, DDoS ise devasa botnet ordularından yapılır.\n- SYN Flood ağ katmanını (L4), Slowloris uygulama katmanını (L7) hedefler.\n- hping3 özel paket üretimiyle ağ dayanıklılık testleri yapmayı sağlar.\n- SYN Cookies, Rate Limiting ve Cloud CDN mimarileri en etkin savunmadır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Genel Değerlendirmesi",
+    "altbaslik": "14 Haftalık Büyük Yolculuk",
+    "icerik": "14 Hafta Boyunca Neler Başardınız?\n- Temel Hukuk, CIA ve Linux CLI yönetimi\n- Kriptoloji, Steganografi ve Parola Kırma (John/Hydra)\n- Ağ Dinleme (Wireshark) ve Bilgi Toplama (Nmap)\n- Sızma Testleri (Metasploit) ve Sömürü Sonrası (Meterpreter)\n- Web Güvenliği (SQLi, XSS, Fuzzing) ve DoS/DDoS Savunması!",
+    "gorsel": {
+      "type": "image",
+      "query": "cybersecurity graduate certification achievement student team"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dönemi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'100 Gbps gibi devasa bir DDoS saldırısını şirket içi yerel bir firewall ile durdurmak neden imkansızdır ve çözüm olarak hangi mimari kullanılmalıdır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

@@ -1,0 +1,380 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 7",
+    "altbaslik": "İlk 6 Haftanın Entegrasyonu ve Ticari Otomasyon",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Dönem Ortası Entegrasyon ve Pekiştirme\nHaftalık Odak: Girdi-Dönüşüm-İşlem-Formatlı Çıktı Zinciri, Para Formatlama\nHedef: Tüm temel becerileri birleştirerek ticari bir kasa otomasyonu üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "pos retail billing invoice cash register software"
+    }
+  },
+  {
+    "baslik": "Neden Bu Tekrarı Yapıyoruz?",
+    "altbaslik": "Sektörel Bağlam: Parçaları Birleştirmek",
+    "icerik": "Yazılım sadece tek tek komutları ezberlemek değildir; parçaları bir araya getirip çalışan bir sistem kurma sanatıdır.\n- Tasarım + TextBox + Convert + try-catch + Matematik + Formatlı Çıktı.\nBu 6 parçayı bir araya getirdiğinizde profesyonel bir yazılımcı gibi düşünmeye başlarsınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "jigsaw puzzle integration software engineering"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. İlk 6 haftada öğrenilen tüm kavramları tek bir iş akışında birleştirir.\n2. .ToString(\"0.00\") ve .ToString(\"C\") ile profesyonel para formatlaması yapar.\n3. Vize sınavında sıkça sorulan klasik kodlama sorularını çözer.\n4. 'Akaryakıt Pompası ve KDV Kasa Fişi' projesini tek başına inşa eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "achievement checklist targets exam preparation"
+    }
+  },
+  {
+    "baslik": "İlk 6 Haftanın Büyük Haritası",
+    "altbaslik": "Veri Akış Diyagramı",
+    "icerik": "1. Kullanıcı Girişi (TextBox) -> string metin\n2. Veri Dönüşümü (Convert.ToDouble) -> try-catch korumasında sayısal tip\n3. Matematiksel Mantık -> Toplama, Çarpma, Yüzde/KDV hesabı\n4. Formatlama (.ToString(\"0.00\")) -> Şık ve okunaklı metin\n5. Görsel Çıktı (Label / MessageBox) -> Kullanıcıya geri bildirim",
+    "gorsel": {
+      "type": "image",
+      "query": "software data pipeline workflow diagram"
+    }
+  },
+  {
+    "baslik": "Sayısal Sonuçları Formatlama Sihirbazı",
+    "altbaslik": "Virgülden Sonraki Basamakları Sabitlemek",
+    "icerik": "Ekranda '45.66666666666667' gibi çirkin bir sayı göstermek yerine:\n- sonuc.ToString(\"0.00\") -> Virgülden sonra kesin 2 basamak gösterir (Örn: '45.67').\n- sonuc.ToString(\"C\") -> İşletim sisteminin yerel para birimini ekler (Örn: '₺45.67').",
+    "gorsel": {
+      "type": "image",
+      "query": "currency formatting money decimals financial ui"
+    }
+  },
+  {
+    "baslik": "Klasik Vize Sorusu 1: Dairenin Alanı",
+    "altbaslik": "Kullanıcıdan Yarıçap Alarak Hesaplama",
+    "icerik": "Soru: Kullanıcıdan yarıçapı (r) alıp dairenin alanını (pi * r * r) hesaplayan güvenli kodu yazınız.\n\nÇözüm:\ntry\n{\n    double r = Convert.ToDouble(txtYaricap.Text);\n    double alan = Math.PI * r * r;\n    lblAlan.Text = alan.ToString(\"0.00\") + \" cm²\";\n}\ncatch\n{\n    MessageBox.Show(\"Lütfen geçerli bir yarıçap giriniz!\");\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "circle geometry radius area math formula"
+    }
+  },
+  {
+    "baslik": "Klasik Vize Sorusu 2: String Birleştirme",
+    "altbaslik": "Ad ve Soyadı Büyük Harfle Birleştirmek",
+    "icerik": "Soru: txtAd ve txtSoyad kutularındaki metinleri aralarında boşlukla birleştirip tüm harfleri BÜYÜK harfe çeviren satırı yazınız.\n\nÇözüm:\nstring tamAd = txtAd.Text + \" \" + txtSoyad.Text;\nlblSonuc.Text = tamAd.ToUpper();",
+    "gorsel": {
+      "type": "image",
+      "query": "text uppercase string functions programming"
+    }
+  },
+  {
+    "baslik": "Klasik Vize Sorusu 3: İndirimli Fiyat Hesabı",
+    "altbaslik": "Yüzde Hesaplama Algoritması",
+    "icerik": "Soru: 200 TL'lik bir ürüne %15 indirim uygulayıp yeni fiyatı hesaplayan C# satırlarını yazınız.\n\nÇözüm:\ndouble fiyat = 200.0;\ndouble indirimTutari = fiyat * 0.15;\ndouble odenecek = fiyat - indirimTutari;\nlblSonuc.Text = odenecek.ToString(\"0.00\") + \" TL\";",
+    "gorsel": {
+      "type": "image",
+      "query": "discount percentage sale tag math"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Akaryakıt Pompası ve Kasa Fişi",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Bir benzin istasyonunda yakıt dolumu yapan pompacının kullandığı kasa otomasyonu.\n- Kullanıcı Litre Fiyatını (örn: 44.50 TL) ve Alınan Litreyi (örn: 25.5 L) girer.\n- 'Fiş Kes ve Hesapla' butonuna basar.\n- Sistem Ara Toplamı, %20 KDV Tutarını ve Ödenecek Genel Toplamı hesaplayıp fatura paneline basar.",
+    "gorsel": {
+      "type": "image",
+      "query": "gas station fuel pump digital screen receipt"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdi Kutuları:\n- txtLitreFiyat (Litre Satış Fiyatı)\n- txtAlinanLitre (Pompalanan Yakıt Miktarı)\n\nButon: btnFisKes ('⛽ Fiş Kes ve Hesapla')\nÇıktı Paneli: lblAraToplam, lblKdv, lblGenelToplam (Yeşil Kasa Paneli)",
+    "gorsel": {
+      "type": "image",
+      "query": "gas station pos interface form controls layout"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Tam Çözüm)",
+    "altbaslik": "Bütünleşik Kasa Hesaplama Kodu",
+    "icerik": "private void btnFisKes_Click(object sender, EventArgs e)\n{\n    try\n    {\n        // 1. Güvenli Okuma ve Dönüşüm\n        double litreFiyati = Convert.ToDouble(txtLitreFiyat.Text);\n        double alinanLitre = Convert.ToDouble(txtAlinanLitre.Text);\n\n        // 2. Matematiksel Hesaplamalar\n        double araToplam = litreFiyati * alinanLitre;\n        double kdvTutari = araToplam * 0.20; // %20 KDV\n        double genelToplam = araToplam + kdvTutari;\n\n        // 3. Formatlı Yazdırma\n        lblAraToplam.Text = \"Ara Toplam : \" + araToplam.ToString(\"0.00\") + \" TL\";\n        lblKdv.Text       = \"KDV (%20)   : \" + kdvTutari.ToString(\"0.00\") + \" TL\";\n        lblGenelToplam.Text = \"ÖDENECEK   : \" + genelToplam.ToString(\"0.00\") + \" TL\";\n        lblGenelToplam.ForeColor = Color.DarkGreen;\n    }\n    catch\n    {\n        MessageBox.Show(\"Lütfen litre fiyatı ve miktarını doğru girdiğinizden emin olun!\", \n                        \"Girdi Hatası\", MessageBoxButtons.OK, MessageBoxIcon.Warning);\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code calculation invoice receipt gas station"
+    }
+  },
+  {
+    "baslik": "Vize Sınavı Taktikleri ve İpuçları",
+    "altbaslik": "Sınavda Puan Kaybettiren Hatalar",
+    "icerik": "1. Noktalı virgülü (;) unutmayın.\n2. Değişken isimlerinde Türkçe karakter (ç, ğ, ı, ö, ş, ü) kullanmayın.\n3. Girdileri okurken Convert yapmayı atlamayın.\n4. .Text özelliğini büyük harfle yazmayı unutmayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam tips checklist academic success"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Formatlama",
+    "icerik": "Soru: double sayi = 15.5; sayi.ToString(\"0.00\") ifadesinin çıktısı nedir?\n\nA) 15.5\nB) 15.50\nC) 15\nD) 15.00\n\nDoğru Cevap: B (0.00 formatı virgülden sonra 2 basamağa zorlar ve eksik basamağa 0 ekler).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination correct answer option"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Vize Konsepti",
+    "icerik": "Soru: Aşağıdakilerden hangisi bir kullanıcı arayüzü uygulamasının temel döngüsüdür?\n\nA) Çıktı -> Girdi -> İşlem\nB) İşlem -> Girdi -> Çıktı\nC) Girdi -> İşlem -> Çıktı\nD) Girdi -> Çıktı -> İşlem\n\nDoğru Cevap: C (Girdi okunur, mantık işlenir ve sonuç ekrana yazılır).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam quiz correct answer test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Bellek Tipi",
+    "icerik": "Soru: Fiyat ve bakiye gibi kuruşlu değerleri saklamak için hangi veri tipi tercih edilir?\n\nA) int\nB) bool\nC) double\nD) string\n\nDoğru Cevap: C (double ondalıklı sayıları saklar).",
+    "gorsel": {
+      "type": "image",
+      "query": "data types double floating point quiz"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Vizeye Tam Hazırız!",
+    "icerik": "- İlk 6 haftanın tüm taşlarını yerine oturttuk.\n- Sayısal formatlamayı (.ToString(\"0.00\")) profesyonelce kullandık.\n- Akaryakıt Pompası projesiyle eksiksiz bir ticari form ürettik.\n- Vize sınavı için hazır ve özgüvenliyiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success target achieved programming"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Label vs TextBox Seçimi",
+    "altbaslik": "Hangi Durumda Hangisi?",
+    "icerik": "- Kullanıcıdan veri alınacaksa -> TextBox (txt)\n- Kullanıcıya sonuç, mesaj, başlık gösterilecekse -> Label (lbl)\n- Sadece gösterilecek bilgi için TextBox kullanmak gereksizdir ve kullanıcının yanlışlıkla veriyi silmesine yol açabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ui decision textbox vs label forms"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: İşlem Sıralaması",
+    "altbaslik": "Değişkenleri Ne Zaman Tanımlamalıyız?",
+    "icerik": "Doğru Sıralama Şablonu:\n1. Değişkenleri tanımla ve TextBox'lardan Convert ile oku.\n2. Matematiksel formülleri işlet.\n3. Sonuç değişkenini .ToString(\"0.00\") ile Label'a bas.\nBu sıra bozulursa unassigned variable hataları oluşur.",
+    "gorsel": {
+      "type": "image",
+      "query": "sequential workflow order code execution"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Yüzde Hesaplama Formülü",
+    "altbaslik": "Yüzdeyi Matematiksel Çarpmaya Çevirmek",
+    "icerik": "- %18 KDV -> tutar * 0.18\n- %20 KDV -> tutar * 0.20\n- %15 İndirim -> tutar * 0.15\n- %40 Vize Notu -> vize * 0.40\nOndalık katsayılarla çarpmak en hızlı ve hatasız hesaplama yöntemidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "percentage calculation math discount tax"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Form Başlığı ve İkonu",
+    "altbaslik": "Profesyonel Uygulama İpuçları",
+    "icerik": "- Form.Text = 'Giresun Akaryakıt İstasyonu v1.0'\n- Form.StartPosition = CenterScreen\n- Form.MaximizeBox = false (Pencerenin tam ekran yapılmasını engellemek)\nBu ayarlar projenin tam profesyonel bir masaüstü aracı gibi görünmesini sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "form title properties window maximize button"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Sınav Hataları Listesi",
+    "altbaslik": "Puan Kırılmasına Yol Açan Detaylar",
+    "icerik": "1. int yerine double kullanılması gereken yerde int kullanıp küsuratı kaybetmek.\n2. try-catch yazmayıp uygulamanın çökmesine izin vermek.\n3. .ToString() eklemeyi unutup derleme hatası almak.\n4. Buton adını kodda yanlış yazmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "grading rubric checklist exam points"
+    }
+  },
+  {
+    "baslik": "Örnek Vize Sorusu 4: Sıcaklık Dönüşümü",
+    "altbaslik": "Celsius -> Fahrenheit Hesabı",
+    "icerik": "Soru: Girilen Santigrat (°C) derecesini Fahrenheit'a (F = C * 1.8 + 32) çeviren C# kodunu yazınız.\n\nÇözüm:\ndouble c = Convert.ToDouble(txtCelsius.Text);\ndouble f = (c * 1.8) + 32;\nlblFahrenheit.Text = f.ToString(\"0.0\") + \" °F\";",
+    "gorsel": {
+      "type": "image",
+      "query": "thermometer temperature conversion celsius fahrenheit"
+    }
+  },
+  {
+    "baslik": "Örnek Vize Sorusu 5: Kasiyer Para Üstü Hesabı",
+    "altbaslik": "Basit Çıkarma ve Para Formatı",
+    "icerik": "Soru: Toplam Tutar ve Müşterinin Verdiği Nakit tutarı alıp Para Üstünü hesaplayınız.\n\nÇözüm:\ndouble tutar = Convert.ToDouble(txtTutar.Text);\ndouble nakit = Convert.ToDouble(txtNakit.Text);\ndouble paraUstu = nakit - tutar;\nlblParaUstu.Text = paraUstu.ToString(\"C\");",
+    "gorsel": {
+      "type": "image",
+      "query": "change cash money register supermarket cashier"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Restoran Fiş Yazıcısı",
+    "altbaslik": "Adisyon Entegrasyonu",
+    "icerik": "Bir kafe yazılımı masadaki siparişleri toplar, KDV ekler ve fiş yazıcısına formatlı çıktı gönderir.\nİlk 6 haftada öğrendiğiniz mimari tam olarak bu sistemin kalbidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "thermal receipt printer pos restaurant cafe"
+    }
+  },
+  {
+    "baslik": "Sınav Günü Kontrol Listesi",
+    "altbaslik": "Sınava Başlarken",
+    "icerik": "1. Projeyi masaüstünde adınız_soyadınız klasörüne kaydedin.\n2. Kontrolleri ekledikten sonra isimlerini (btn, txt, lbl) hemen verin.\n3. Kodları yazarken her adımda F5 ile çalıştırıp test edin.\n4. Sınav bitmeden önce projeyi kaydedip kapatın.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam checklist student success classroom"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "İlk 6 Haftanın Sözlüğü",
+    "icerik": "- IDE: Entegre geliştirme ortamı.\n- Event Handler: Olaylara tepki veren metot.\n- Casting: Veri tipini dönüştürme.\n- Defensive Code: Çökmeyen güvenli kod.\n- Format String: Sayıların ekrandaki biçimi (.ToString(\"0.00\")).",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Kendi Kasa Ekranınızı Test Edin",
+    "icerik": "Görev:\n- Fiyat = 120 TL, Adet = 3 için %20 KDV dahil toplam tutarı hesaplayın.\n- Sonucu lblGenelToplam üzerinde para birimi simgesiyle gösterin.",
+    "gorsel": {
+      "type": "image",
+      "query": "cash register total bill calculation receipt"
+    }
+  },
+  {
+    "baslik": "Vize Başarı Mesajı",
+    "altbaslik": "Kendinize Güvenin!",
+    "icerik": "Artık bir bilgisayara arayüz çizdirebiliyor, veri okutabiliyor, hata yakalatabiliyor ve matematik yaptırabiliyorsunuz.\nVize sınavında sakin olun, adım adım ilerleyin ve ilk haftalardaki başarılarınızı hatırlayın!",
+    "gorsel": {
+      "type": "image",
+      "query": "confidence success inspiration student computer"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Label vs TextBox Seçimi",
+    "altbaslik": "Hangi Durumda Hangisi?",
+    "icerik": "- Kullanıcıdan veri alınacaksa -> TextBox (txt)\n- Kullanıcıya sonuç, mesaj, başlık gösterilecekse -> Label (lbl)\n- Sadece gösterilecek bilgi için TextBox kullanmak gereksizdir ve kullanıcının yanlışlıkla veriyi silmesine yol açabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ui decision textbox vs label forms"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: İşlem Sıralaması",
+    "altbaslik": "Değişkenleri Ne Zaman Tanımlamalıyız?",
+    "icerik": "Doğru Sıralama Şablonu:\n1. Değişkenleri tanımla ve TextBox'lardan Convert ile oku.\n2. Matematiksel formülleri işlet.\n3. Sonuç değişkenini .ToString(\"0.00\") ile Label'a bas.\nBu sıra bozulursa unassigned variable hataları oluşur.",
+    "gorsel": {
+      "type": "image",
+      "query": "sequential workflow order code execution"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Yüzde Hesaplama Formülü",
+    "altbaslik": "Yüzdeyi Matematiksel Çarpmaya Çevirmek",
+    "icerik": "- %18 KDV -> tutar * 0.18\n- %20 KDV -> tutar * 0.20\n- %15 İndirim -> tutar * 0.15\n- %40 Vize Notu -> vize * 0.40\nOndalık katsayılarla çarpmak en hızlı ve hatasız hesaplama yöntemidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "percentage calculation math discount tax"
+    }
+  },
+  {
+    "baslik": "Vize Konsepti: Form Başlığı ve İkonu",
+    "altbaslik": "Profesyonel Uygulama İpuçları",
+    "icerik": "- Form.Text = 'Giresun Akaryakıt İstasyonu v1.0'\n- Form.StartPosition = CenterScreen\n- Form.MaximizeBox = false (Pencerenin tam ekran yapılmasını engellemek)\nBu ayarlar projenin tam profesyonel bir masaüstü aracı gibi görünmesini sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "form title properties window maximize button"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Sınav Hataları Listesi",
+    "altbaslik": "Puan Kırılmasına Yol Açan Detaylar",
+    "icerik": "1. int yerine double kullanılması gereken yerde int kullanıp küsuratı kaybetmek.\n2. try-catch yazmayıp uygulamanın çökmesine izin vermek.\n3. .ToString() eklemeyi unutup derleme hatası almak.\n4. Buton adını kodda yanlış yazmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "grading rubric checklist exam points"
+    }
+  },
+  {
+    "baslik": "Örnek Vize Sorusu 4: Sıcaklık Dönüşümü",
+    "altbaslik": "Celsius -> Fahrenheit Hesabı",
+    "icerik": "Soru: Girilen Santigrat (°C) derecesini Fahrenheit'a (F = C * 1.8 + 32) çeviren C# kodunu yazınız.\n\nÇözüm:\ndouble c = Convert.ToDouble(txtCelsius.Text);\ndouble f = (c * 1.8) + 32;\nlblFahrenheit.Text = f.ToString(\"0.0\") + \" °F\";",
+    "gorsel": {
+      "type": "image",
+      "query": "thermometer temperature conversion celsius fahrenheit"
+    }
+  },
+  {
+    "baslik": "Örnek Vize Sorusu 5: Kasiyer Para Üstü Hesabı",
+    "altbaslik": "Basit Çıkarma ve Para Formatı",
+    "icerik": "Soru: Toplam Tutar ve Müşterinin Verdiği Nakit tutarı alıp Para Üstünü hesaplayınız.\n\nÇözüm:\ndouble tutar = Convert.ToDouble(txtTutar.Text);\ndouble nakit = Convert.ToDouble(txtNakit.Text);\ndouble paraUstu = nakit - tutar;\nlblParaUstu.Text = paraUstu.ToString(\"C\");",
+    "gorsel": {
+      "type": "image",
+      "query": "change cash money register supermarket cashier"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Restoran Fiş Yazıcısı",
+    "altbaslik": "Adisyon Entegrasyonu",
+    "icerik": "Bir kafe yazılımı masadaki siparişleri toplar, KDV ekler ve fiş yazıcısına formatlı çıktı gönderir.\nİlk 6 haftada öğrendiğiniz mimari tam olarak bu sistemin kalbidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "thermal receipt printer pos restaurant cafe"
+    }
+  },
+  {
+    "baslik": "Sınav Günü Kontrol Listesi",
+    "altbaslik": "Sınava Başlarken",
+    "icerik": "1. Projeyi masaüstünde adınız_soyadınız klasörüne kaydedin.\n2. Kontrolleri ekledikten sonra isimlerini (btn, txt, lbl) hemen verin.\n3. Kodları yazarken her adımda F5 ile çalıştırıp test edin.\n4. Sınav bitmeden önce projeyi kaydedip kapatın.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam checklist student success classroom"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "İlk 6 Haftanın Sözlüğü",
+    "icerik": "- IDE: Entegre geliştirme ortamı.\n- Event Handler: Olaylara tepki veren metot.\n- Casting: Veri tipini dönüştürme.\n- Defensive Code: Çökmeyen güvenli kod.\n- Format String: Sayıların ekrandaki biçimi (.ToString(\"0.00\")).",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Kendi Kasa Ekranınızı Test Edin",
+    "icerik": "Görev:\n- Fiyat = 120 TL, Adet = 3 için %20 KDV dahil toplam tutarı hesaplayın.\n- Sonucu lblGenelToplam üzerinde para birimi simgesiyle gösterin.",
+    "gorsel": {
+      "type": "image",
+      "query": "cash register total bill calculation receipt"
+    }
+  },
+  {
+    "baslik": "Vize Başarı Mesajı",
+    "altbaslik": "Kendinize Güvenin!",
+    "icerik": "Artık bir bilgisayara arayüz çizdirebiliyor, veri okutabiliyor, hata yakalatabiliyor ve matematik yaptırabiliyorsunuz.\nVize sınavında sakin olun, adım adım ilerleyin ve ilk haftalardaki başarılarınızı hatırlayın!",
+    "gorsel": {
+      "type": "image",
+      "query": "confidence success inspiration student computer"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir market kasasında %10 indirim tutarını hesaplayan tek satırlık formülü yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 8: Karar Yapılarına Giriş: if ve if-else",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- Bilgisayara 'Akıl ve İrade' kazandırıyoruz.\n- Karar anları: if, else ve tren rayı analojisi.\n- Karşılaştırma (==, !=, <, >) ve Mantıksal (&&, ||) operatörler.\n- Akıllı Sayı Tahmin Oyunu projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "decision making crossroads fork in the road preview"
+    }
+  }
+]

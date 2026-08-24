@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 01 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 01</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 32 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="#" class="btn-nav" style="text-decoration:none;" disabled>
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 32</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-02.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (32 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 1", "altbaslik": "Görsel Programlamaya Giriş ve Visual Studio Ortamı", "icerik": "Program: Bilgisayar Programcılığı\nModül: Masaüstü Uygulama Geliştirme\nHaftalık Odak: IDE Kavramı, Form Tasarımı, Temel Paneller ve İlk Kod\nHedef: Kodlama korkusunu yenerek çalışan ilk görsel uygulamayı üretmek.", "gorsel": {"type": "image", "query": "software developer coding visual studio modern workspace"}}, {"baslik": "Neden Görsel Programlama Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Kullanıcı Arayüzlerinin Önemi", "icerik": "Günlük hayatta kullandığımız banka ATM'leri, market kasaları, hastane randevu ekranları ve masaüstü yazılımları birer grafiksel kullanıcı arayüzüdür (GUI).\n- Son kullanıcı siyah komut ekranlarını (konsol) değil, butonları ve pencereleri kullanır.\n- Bu derste, kullanıcıların kolayca etkileşime girdiği profesyonel masaüstü pencereleri geliştireceğiz.", "gorsel": {"type": "image", "query": "modern desktop user interface pos terminal software"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Başaracaksınız?", "icerik": "1. Görsel Programlama ve IDE kavramlarını açıklar.\n2. Visual Studio'da yeni bir Windows Forms projesi başlatır.\n3. Toolbox, Properties ve Solution Explorer panellerini etkin yönetir.\n4. Form üzerine Button ve Label yerleştirip özelliklerini ayarlar.\n5. C# için kritik klavye tuş kombinasyonlarını hatasız uygular.\n6. Buton tıklama olayına bağlı çalışan ilk C# kodunu başarıyla derler.", "gorsel": {"type": "image", "query": "learning objectives success target computer programming"}}, {"baslik": "Klavye Isınma Modülü: Özel Karakterler", "altbaslik": "C# Dilinde Hayati Önem Taşıyan Tuşlar", "icerik": "Programlamada en sık yapılan hatalar klavyede doğru sembolü bulamamaktan kaynaklanır:\n- Süslü Parantezler { }: AltGr + 7 ve AltGr + 0 (Kod bloklarının sınırlarını çizer)\n- Noktalı Virgül ;: Shift + virgül (Komut sonu noktasıdır)\n- Çift Tırnak \": Shift + 2 (Metin zarfıdır)\n- Köşeli Parantezler [ ]: AltGr + 8 ve AltGr + 9", "gorsel": {"type": "image", "query": "computer keyboard typing close up coding programmer hands"}}, {"baslik": "Konsol vs Görsel Programlama", "altbaslik": "Siyah Ekrana Veda, Pencerelere Merhaba", "icerik": "Konsol Programlama (Console App):\n- Yalnızca metin tabanlı siyah komut satırında çalışır.\n- Kullanıcı sadece klavye ile sıralı veri girişi yapar.\n\nGörsel Programlama (Windows Forms GUI):\n- Butonlar, giriş kutuları, açılır listeler ve renkli pencereler barındırır.\n- Kullanıcı fareyle istediği butona istediği sırada tıklayabilir.", "gorsel": {"type": "image", "query": "console terminal vs modern graphic user interface side by side"}}, {"baslik": "Entegre Geliştirme Ortamı (IDE) Nedir?", "altbaslik": "Yazılımcının Masası ve Takım Çantası", "icerik": "IDE (Integrated Development Environment), yazılım geliştirirken ihtiyaç duyulan tüm araçları tek bir çatı altında toplayan dev programdır.\n- Kod Editörü: Kodların renklendirilerek yazıldığı alan.\n- Form Tasarımcısı: Ekranın fareyle çizildiği görsel atölye.\n- Derleyici (Compiler): C# kodunu makine diline çeviren motor.\n- Hata Ayıklayıcı (Debugger): Kodlardaki hataları adım adım yakalayan sistem.", "gorsel": {"type": "image", "query": "integrated development environment IDE software workspace"}}, {"baslik": "Somut Analoji: Marangoz Atölyesi", "altbaslik": "IDE'yi Zihinde Canlandırmak", "icerik": "IDE bir marangozun düzenli atölyesine benzer:\n- Çekiç, zımpara ve çivilerin durduğu çekmece: Toolbox (Araç Kutusu)\n- Masadaki ahşabın rengini ve ölçüsünü ayarladığımız aletler: Properties (Özellikler)\n- Projenin teknik çizim dosyalarının durduğu klasörlük: Solution Explorer\n- Ahşabı işlediğimiz ana çalışma masası: Form Tasarım Ekranı", "gorsel": {"type": "image", "query": "carpenter organized workshop tools craft concept"}}, {"baslik": "Visual Studio Sürümü ve İş Yükü", "altbaslik": "Windows Masaüstü Geliştirme Paketi", "icerik": "Bu derste tamamen ücretsiz ve tam donanımlı olan Visual Studio Community sürümünü kullanıyoruz.\n- Kurulum Sırasında Kritik Adım:\n- '.NET Desktop Development' (Masaüstü Geliştirme) iş yükünün işaretli olması şarttır.\n- Bu paket, Windows Forms motoru ve C# masaüstü kütüphanelerini sisteme yükler.", "gorsel": {"type": "image", "query": "visual studio installer workload dot net desktop development"}}, {"baslik": "Yeni Proje Başlatma Adımları", "altbaslik": "Doğru Şablonu Seçmek", "icerik": "1. Visual Studio açılış ekranında 'Create a new project' seçeneğine tıklayın.\n2. Arama çubuğuna 'Windows Forms' yazın.\n3. Dil olarak 'C#' seçili olduğundan emin olun.\n4. 'Windows Forms App (.NET Framework)' şablonunu seçip 'Next' butonuna basın.", "gorsel": {"type": "image", "query": "visual studio create project template selection screen"}}, {"baslik": "Proje İsimlendirme ve Kayıt Kuralları", "altbaslik": "Temiz Proje Yapılandırması", "icerik": "Proje Adı (Project Name) Kuralları:\n- Türkçe karakter kullanmayın (ç, ğ, ı, ö, ş, ü içermemelidir).\n- Boşluk bırakmayın (Örn: 'Hafta1_IlkUygulama').\n- Rakamla başlamayın.\n\nKonum (Location):\n- Projelerinizi Terminal Server üzerinde belirlenen kişisel çalışma klasörünüze kaydedin.", "gorsel": {"type": "image", "query": "folder naming organization project management computer"}}, {"baslik": "Visual Studio Arayüzü: 3 Temel Panel", "altbaslik": "Ekran Haritası ve Yerleşim", "icerik": "Visual Studio açıldığında ekran 3 ana yardımcı panelden oluşur:\n1. Sol Panel: Toolbox (Araç Kutusu) -> Nesne kütüphanesi.\n2. Sağ Üst Panel: Solution Explorer (Çözüm Gezgini) -> Dosya ağacı.\n3. Sağ Alt Panel: Properties (Özellikler) -> Ayar düğmeleri.\nOrtadaki geniş alan ise bizim çizim yapacağımız Form alanıdır.", "gorsel": {"type": "image", "query": "visual studio interface layout panels diagram"}}, {"baslik": "Panel 1: Toolbox (Araç Kutusu)", "altbaslik": "Görsel Bileşenler Çekmecesi", "icerik": "Toolbox, formun üzerine koyabileceğimiz tüm hazır kontrolleri barındırır.\n- Common Controls sekmesi en çok kullanacağımız temel kontrolleri içerir:\n  * Button (Düğme)\n  * Label (Yazı / Etiket)\n  * TextBox (Metin Giriş Kutusu)\n- Kullanım: Kontrolü fareyle tutup form üzerine sürükleyip bırakmanız yeterlidir.", "gorsel": {"type": "image", "query": "toolbox toolbox interface components software design"}}, {"baslik": "Panel 2: Properties (Özellikler Penceresi)", "altbaslik": "Kontrollerin Kimlik ve Görünüm Kartı", "icerik": "Form üzerinde hangi nesneye tıklarsanız, Properties paneli o nesnenin ayarlarını gösterir.\n- Text: Nesnenin üzerinde ekranda görünen yazı.\n- BackColor: Arka plan rengi.\n- ForeColor: Yazı rengi.\n- Font: Yazı tipi, kalınlığı ve boyutu (pt).\n- Size: Genişlik ve yükseklik piksel ölçüsü.", "gorsel": {"type": "image", "query": "software properties settings attributes panel inspector"}}, {"baslik": "Panel 3: Solution Explorer (Çözüm Gezgini)", "altbaslik": "Projenin Dosya Haritası", "icerik": "Projemizi oluşturan tüm parçaların listelendiği klasör yapısıdır:\n- Form1.cs: Görsel tasarım ve arkasındaki C# kodunu barındırır.\n- Program.cs: Programın ana çalışma giriş noktasıdır.\n- References: Projenin kullandığı sistem kütüphanelerini listeler.", "gorsel": {"type": "image", "query": "file tree directory explorer folder structure project"}}, {"baslik": "Tasarım ve Kod Ekranları Arasındaki Geçiş", "altbaslik": "Yazılımın Ön Yüzü ve Arka Yüzü", "icerik": "Görsel programlamada her form iki ayrı sayfadan oluşur:\n1. Form1.cs [Design] (Tasarım Ekranı): Sürükle-bırak yaptığımız görsel sahne.\n2. Form1.cs (Kod Ekranı): Butona tıklandığında çalışacak mantık kodlarının yazıldığı sayfa.\n\nHızlı Geçiş Kısayolu:\n- Klavyeden F7 tuşuna basarak Tasarımdan Koda, Shift + F7 ile Koda geçebilirsiniz.", "gorsel": {"type": "image", "query": "code editor screen and ui design mockup transition"}}, {"baslik": "Form Üzerine İlk Bileşenleri Ekleme", "altbaslik": "Button ve Label ile Tanışma", "icerik": "İlk uygulamamız için formumuza iki bileşen ekliyoruz:\n- 1 Adet Button: Kullanıcının tıklayarak komut vereceği etkileşimli düğme.\n- 1 Adet Label: Bilgisayarın kullanıcıya mesaj göstereceği sabit metin etiketi.\n\nUygulama Adımı:\n- Toolbox'tan bir Button ve bir Label sürükleyip formun ortasına yan yana bırakın.", "gorsel": {"type": "image", "query": "drag and drop ui button label visual forms application"}}, {"baslik": "Hizalama Çizgileri (Snap Lines)", "altbaslik": "Göz Alıcı ve Dengeli Arayüz Tasarımı", "icerik": "Visual Studio'da bileşenleri taşırken ortaya çıkan renkli kılavuz çizgileridir:\n- Mavi Çizgiler: Bileşenlerin kenarlarının ve köşelerinin tam hizada olduğunu gösterir.\n- Pembe/Kırmızı Çizgiler: Metinlerin taban tabana aynı hizada olduğunu bildirir.\n- Bu çizgiler sayesinde arayüz cetvelle çizilmiş gibi düzgün durur.", "gorsel": {"type": "image", "query": "snap lines grid alignment user interface precision design"}}, {"baslik": "Özellikleri Değiştirelim: Buton ve Label", "altbaslik": "Properties Paneli ile İlk Deneyim", "icerik": "1. Butonu seçin:\n- Properties panelinde 'Text' özelliğini bulun ve 'Bana Tıkla!' yazın.\n- 'BackColor' özelliğinden buton rengini açık mavi yapın.\n\n2. Label'ı seçin:\n- 'Font' özelliğinden boyutu 14pt ve Bold yapın.\n- 'Text' özelliğine '...' yazın.", "gorsel": {"type": "image", "query": "changing properties color font text in visual studio"}}, {"baslik": "Olay (Event) Mantığına Giriş", "altbaslik": "Bilgisayar Ne Zaman Tepki Verir?", "icerik": "Program pasif bir şekilde bekler. Ne zaman bir kullanıcı eylem yaparsa o an uyanır:\n- Kapı zilinin çalması bir olaydır (Event).\n- Kapıyı gidip açmanız olaya verilen tepkidir (Event Handler).\n- Programlamada butona tıklanması (Click) bir olaydır; çalışacak kod ise bizim yazdığımız tepkidir.", "gorsel": {"type": "image", "query": "pushing a doorbell event action reaction concept"}}, {"baslik": "Olay Metodunu Açma (Kod Sayfasına Geçiş)", "altbaslik": "Sihirli Çift Tıklama", "icerik": "Form üzerindeki 'Bana Tıkla!' butonuna fareyle ÇİFT TIKLAYIN.\n- Visual Studio otomatik olarak kod sayfasına geçecek ve şu bloğu açacaktır:\n\nprivate void button1_Click(object sender, EventArgs e)\n{\n    // İmleç buraya odaklanır\n}\n\nBu iki süslü parantez { } butona tıklandığında çalışacak çalışma odasıdır.", "gorsel": {"type": "image", "query": "double click action creating event handler in csharp"}}, {"baslik": "İlk C# Kod Satırımız", "altbaslik": "Ekrana Yazı Yazdırmak", "icerik": "Süslü parantezlerin arasına aşağıdaki tek satırı yazıyoruz:\n\nlabel1.Text = \"Merhaba Dünya! Kodlama Başladı.\";\n\nKodun Anlamı:\n- label1: Değiştirmek istediğimiz etiketin adı.\n- .Text: Etiketin görünen yazısı.\n- = : Sağdaki metni soldaki özelliğin içine aktar.\n- ; : Komutun bittiğini bildirir.", "gorsel": {"type": "image", "query": "csharp code line label text hello world assignment"}}, {"baslik": "Büyük/Küçük Harf Duyarlılığı (Case-Sensitivity)", "altbaslik": "C# Dilinin En Katı Kuralı", "icerik": "C# dili büyük ve küçük harfleri tamamen farklı kelimeler olarak görür:\n- label1.Text -> DOĞRU (Çalışır)\n- label1.text -> HATALI (Derleyici tanımaz ve kırmızı çizer)\n- Label1.Text -> HATALI (Kontrol adı küçük 'l' ile başlıyorsa tanımaz)\n\nKural: Özellik isimleri her zaman Büyük Harfle başlar (.Text, .Font, .BackColor).", "gorsel": {"type": "image", "query": "case sensitivity uppercase lowercase typography code error"}}, {"baslik": "Programı Çalıştırma ve İlk Zafer!", "altbaslik": "F5 Tuşu ve Start Butonu", "icerik": "1. Üst araç çubuğundaki yeşil 'Start' butonuna veya klavyeden F5 tuşuna basın.\n2. Visual Studio projenizi derler ve gerçek bir Windows penceresi olarak ekrana getirir.\n3. 'Bana Tıkla!' butonuna tıklayın.\n4. Label yazısının anında 'Merhaba Dünya! Kodlama Başladı.' olarak değiştiğini gözlemleyin!", "gorsel": {"type": "image", "query": "green start button compiling running first csharp application"}}, {"baslik": "Daktiloculuğu Önleme: PRIMM Modeli", "altbaslik": "Kopyalamayı Bırak, Tahmin Et ve Değiştir!", "icerik": "Sadece hocanın yazdığını aynen kopyalamak (daktiloculuk) öğrenmeyi engeller.\nŞimdi kodu inceleyip kendi isteğimize göre değiştireceğiz:\n- Adım 1 (Tahmin Et): 'Merhaba Dünya' yerine kendi adınızı yazarsanız ne olur?\n- Adım 2 (Değiştir): Metni 'Merhaba, Ben [Adınız] - Bilgisayar Programcısıyım' yapın.\n- Adım 3 (Test Et): F5 ile çalıştırıp sonucu görün.", "gorsel": {"type": "image", "query": "students experimenting modifying code learning actively"}}, {"baslik": "Kodla Renk Değiştirmek", "altbaslik": "Form ve Yazı Renklerine Hükmetme", "icerik": "Butona tıklandığında sadece yazı değil, renkler de değişebilir!\nKod satırımızın hemen altına şu satırları ekleyin:\n\nlabel1.ForeColor = Color.Red; // Yazı rengini kırmızı yapar\nthis.BackColor = Color.LightGreen; // Pencerenin arka planını yeşil yapar\n\n'this' kelimesi o an açık olan Form penceresini temsil eder.", "gorsel": {"type": "image", "query": "color palette changing background dynamically in software"}}, {"baslik": "Günün Büyük Uygulaması: Sihirli Ruh Hali Paneli", "altbaslik": "Uygulama Senaryosu ve Form Mimarisi", "icerik": "Senaryo: Kullanıcı o anki ruh haline göre 3 farklı butondan birine tıklar. Tıklanan butona göre ekrandaki mesaj ve formun rengi tamamen değişir.\n\nForm Bileşenleri:\n- 3 Adet Buton: btnMutlu ('Mutlu'), btnYorgun ('Yorgun'), btnAc ('Açım')\n- 1 Adet Büyük Label: lblMesaj (16pt Kalın, Ekranın merkezinde)", "gorsel": {"type": "image", "query": "mood selector emoticons smiling tired hungry user interface"}}, {"baslik": "Uygulama Kodları: Adım Adım", "altbaslik": "Ruh Hali Butonlarının Olay Metotları", "icerik": "private void btnMutlu_Click(object sender, EventArgs e)\n{\n    lblMesaj.Text = \"Harika bir gün! Kodlamayı öğreniyorum!\";\n    this.BackColor = Color.LightGreen;\n}\n\nprivate void btnYorgun_Click(object sender, EventArgs e)\n{\n    lblMesaj.Text = \"Bir fincan sıcak kahve molası iyi gelir! ☕\";\n    this.BackColor = Color.LightYellow;\n}\n\nprivate void btnAc_Click(object sender, EventArgs e)\n{\n    lblMesaj.Text = \"Ders biter bitmez kantine koşuyoruz! 🍔\";\n    this.BackColor = Color.LightCoral;\n}", "gorsel": {"type": "image", "query": "csharp event handler code snippet color change"}}, {"baslik": "Sık Karşılaşılan Hatalar ve Dedektiflik", "altbaslik": "Kırmızı Dalgalı Çizgiler Ne Anlatır?", "icerik": "1. Noktalı virgül (;) unutulması: Satırın sonunda ; yoksa kod asla derlenmez.\n2. Tırnak işaretlerinin eksik olması: Metinler daima \" \" çift tırnak arasında olmalıdır.\n3. Yanlış harf kullanımı: .text yerine .Text yazılmalıdır.\n4. Kırmızı çizgi görünce panik yapmayın; farenizi kırmızı çizginin üzerine getirip hata mesajını okuyun.", "gorsel": {"type": "image", "query": "debugging compiler error squiggly red line visual studio"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Temel Paneller", "icerik": "Soru: Form üzerine yeni bir buton eklemek için hangi Visual Studio paneli kullanılır?\n\nA) Solution Explorer\nB) Properties\nC) Toolbox\nD) Output\n\nDoğru Cevap: C (Toolbox / Araç Kutusu tüm görsel bileşenleri barındırır).", "gorsel": {"type": "image", "query": "multiple choice quiz question exam education"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "C# Sentaks Kuralları", "icerik": "Soru: Bir Label nesnesinin üzerindeki yazıyı değiştiren DOĞRU C# satırı hangisidir?\n\nA) label1.text = \"Merhaba\";\nB) label1.Text = \"Merhaba\";\nC) Label1.Text = Merhaba;\nD) label1.Text : \"Merhaba\"\n\nDoğru Cevap: B (.Text büyük harfle yazılır, metin tırnak içinde verilir ve satır sonuna ; konur).", "gorsel": {"type": "image", "query": "coding quiz choice correct answer programming concept"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Başardık?", "icerik": "- Visual Studio IDE ortamını ve 3 ana paneli (Toolbox, Properties, Solution Explorer) tanıdık.\n- Tasarım ekranı ile Kod sayfası arasındaki geçişi (F7) öğrendik.\n- Klavyede programlama için gerekli özel sembolleri ({ }, ;, \") refleks haline getirdik.\n- Buton tıklama olayını (Click) yakalayıp Label metnini ve form renklerini dinamik olarak değiştirdik.", "gorsel": {"type": "image", "query": "weekly summary achievement checklist target met software"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 2: Temel Kontroller (Button, Label, TextBox) ve Özellikler", "icerik": "Gelecek Hafta Neler Yapacağız?\n- Kullanıcıdan klavye ile yazı ve şifre almamızı sağlayan TextBox kontrolü.\n- Name (Kimlik) ile Text (Tabela) arasındaki hayati fark.\n- Şifre gizleme (*), kutu kilitleme (Enabled) ve şık form tasarımları.\n- 'Gizli Ajan Giriş Kartı' projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "login screen password security ui next week preview"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Sağlık Kayıtlarında Doğal Dil İşleme (NLP)",
+    "altbaslik": "Klinik Metinler, Kodlama ve Büyük Dil Modelleri",
+    "icerik": "- Odak: Doktor notları, epikrizler, radyoloji raporları ve sesli diktelerin analizi.\n- Hedef: Yapılandırılmamış (unstructured) serbest metinlerden yapılandırılmış veri üretimi.\n- Kritik Konu: Büyük Dil Modelleri (LLM), halüsinasyon riski ve insan denetimi (Human-in-the-Loop).\n- Mesleki Rol: Tıbbi veri teknikerinin YZ çıktılarını doğrulayan 'denetçi' kimliği.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical natural language processing electronic health records NLP"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "3. Hafta Yetkinlikleri",
+    "icerik": "- ÖÇ1: Klinik NLP kullanım alanlarını ve temel iş akışlarını sınıflandırır.\n- ÖÇ2: LLM tabanlı klinik metin özetlemede olası hata ve halüsinasyon tiplerini tanır.\n- ÖÇ3: Üretilen metni tıbbi doğruluk, eksiklik ve bağlam kaybı açısından denetler.\n- ÖÇ4: Tıbbi kodlama (ICD-10 / SNOMED) süreçlerinde insan denetiminin gerekliliğini savunur.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning outcomes medical text mining NLP"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Sağlık Verisinin %80'i Metindir!",
+    "altbaslik": "Yapılandırılmamış Verinin Gücü ve Zorluğu",
+    "icerik": "- Yapılandırılmış Veri: Kan şekeri değeri (110 mg/dL), Tansiyon (120/80 mmHg), Yaş (45).\n- Yapılandırılmamış Veri: 'Hasta göğüs sıkışması tarifliyor, babasında 50 yaşında MI öyküsü var, EKG normal.'\n- Problem: Geleneksel veritabanları serbest metinleri arayamaz, analiz edemez ve ilişkilendiremez.\n- Çözüm: Klinik NLP algoritmaları ile metindeki tıbbi varlıkları (Entity) yakalamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "structured vs unstructured healthcare data electronic medical records"
+    }
+  },
+  {
+    "baslik": "Klinik Metinlerin Doğal Zorlukları",
+    "altbaslik": "Jargon, Kısaltmalar ve İmla Hataları",
+    "icerik": "- Kısaltma Bolluğu: 'KAH' (Koroner Arter Hastalığı mı, Karaciğer Akut Hasarı mı?).\n- Eşanlamlılık: Kalp Krizi, Miyokard Enfarktüsü, MI, Akut Koroner Sendrom aynı durumu ifade eder.\n- İmla ve Hızlı Yazım: Yoğun nöbet şartlarında doktorların yaptığı harf hataları ve noktalama eksiklikleri.\n- Çok Dillilik: Türkçe ve Latince tıbbi terimlerin aynı cümlede iç içe geçmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical terminology abbreviations doctor handwriting clinical notes"
+    }
+  },
+  {
+    "baslik": "Klinik NLP'nin Temel Görevleri",
+    "altbaslik": "Metinden Bilgi Çıkarım Aşamaları",
+    "icerik": "- Varlık İsmi Tanıma (NER - Named Entity Recognition): İlaç, hastalık, doz, anatomi tespiti.\n- İlişki Çıkarımı (Relation Extraction): 'Aspirin -> Mide Kanaması' (Yan etki mi, tedavi mi?).\n- Olumsuzluk Tespiti (Negation Detection): 'Pnömoni izlenmedi' cümlesinde 'Pnömoni' varlığını elemek!\n- Zaman Çıkarımı (Temporal Resolution): Semptom dün mü başladı, 5 yıl önce miydi?",
+    "gorsel": {
+      "type": "image",
+      "query": "named entity recognition clinical NLP diagram negation detection"
+    }
+  },
+  {
+    "baslik": "Varlık İsmi Tanıma (Clinical NER)",
+    "altbaslik": "Tıbbi Kavramların Otomatik Etiketlenmesi",
+    "icerik": "- Metin Örneği: 'Hastaya 500 mg Parasetamol başlandı, sol kolda uyuşma mevcut.'\n- NER Çıktısı:\n  * [Parasetamol] -> İLAÇ\n  * [500 mg] -> DOZ\n  * [Sol kol] -> ANATOMİ\n  * [Uyuşma] -> SEMPTOM\n- Değer: Serbest metin doğrudan ilişkisel veritabanı tablosuna dönüştürülür.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical named entity recognition highlighted medical text"
+    }
+  },
+  {
+    "baslik": "Olumsuzluk Tespiti (Negation Detection: NegEx)",
+    "altbaslik": "'Yok' İfadesini 'Var' Anlamamak",
+    "icerik": "- Kritik Durum: 'Hasta göğüs ağrısı, nefes darlığı ve ateş tariflemiyor.'\n- Hatalı Model: 3 hastalığı da hastanın aktif tanı listesine ekler.\n- NegEx Algoritması: Cümledeki olumsuzluk tetikleyicilerini (yoktur, izlenmedi, ekarte edildi) arar.\n- Türkçe Ek Yapısı: '-sız, -siz, -ma, -me' eklerinin NLP modelleri tarafından doğru çözümlenmesi şarttır.",
+    "gorsel": {
+      "type": "image",
+      "query": "negation detection clinical NLP syntax parsing turkish"
+    }
+  },
+  {
+    "baslik": "Otomatik Tıbbi Kodlama: ICD-10 ve SNOMED-CT",
+    "altbaslik": "Serbest Metinden Standart Kodlara Geçiş",
+    "icerik": "- ICD-10: Faturalandırma, morbidite ve resmi istatistikler için hastalık sınıflaması (Ör. I21.9 Akut MI).\n- SNOMED-CT: Klinik detayları ve ontolojileri ifade eden evrensel tıbbi terminoloji.\n- NLP'nin Rolü: Doktorun yazdığı 'Sağ bacakta kırık şüphesi' ifadesini doğru koda otomatik eşleme.\n- Risk: Yanlış kodlama geri ödeme kesintilerine ve yanlış klinik kayıtlara yol açar.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical coding ICD-10 SNOMED-CT ontology classification"
+    }
+  },
+  {
+    "baslik": "Sesli Dikte ve Konuşmadan Metne (Speech-to-Text)",
+    "altbaslik": "Klinisyen İş Yükünü Azaltan Çözümler",
+    "icerik": "- Çalışma Prensibi: Doktorun mikrofonla anlattığı muayene bulgularının anında metne dökülmesi.\n- Tıbbi Terminoloji Zorluğu: Eşanlamlı kelimeler, hızlı konuşma, ortam gürültüsü ve latince terimler.\n- Veri Teknikeri Görevi: Sesli dikte çıktılarının imla, terim ve eksiklik kontrolünü yaparak onaylamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "doctor dictating medical notes speech to text software"
+    }
+  },
+  {
+    "baslik": "Büyük Dil Modelleri (LLM) ve Sağlık",
+    "altbaslik": "GPT, LLaMA ve Med-PaLM Mimarileri",
+    "icerik": "- Transformer Mimarisi: Metindeki kelimeler arasındaki uzun mesafeli anlamsal ilişkileri kuran dikkat (Attention) mekanizması.\n- Tıbbi Yetenekler: Epikriz özetleme, taburculuk özeti hazırlama, hasta mektubu oluşturma, soru yanıtlama.\n- Temel Kural: LLM'ler birer 'bilgi tabanı' değil; istatistiksel kelime tahmin motorudur!",
+    "gorsel": {
+      "type": "image",
+      "query": "large language models healthcare transformer architecture"
+    }
+  },
+  {
+    "baslik": "Büyük Risk 1: Halüsinasyon (Uydurma Bilgi)",
+    "altbaslik": "Modelin İkna Edici Biçimde Yanılması",
+    "icerik": "- Tanım: Modelin metinde hiç geçmeyen bir laboratuvar sonucunu veya ilacı varmış gibi uydurması.\n- Örnek: Orijinal raporda alerji bilgisi yokken, LLM özetine 'Penisilin alerjisi mevcuttur' yazması.\n- Tehlike: Son derece akıcı ve gramer açısından kusursuz olduğu için fark edilmesi zordur.\n- Önlem: Özette geçen her tıbbi iddianın kaynak metinle eşleştirilerek kontrol edilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "AI hallucination false medical facts warning concept"
+    }
+  },
+  {
+    "baslik": "Büyük Risk 2: Bağlam Kaybı (Context Loss)",
+    "altbaslik": "Ailenin Öyküsü ile Hastanın Öyküsünü Karıştırma",
+    "icerik": "- Orijinal Metin: 'Hastanın annesi 45 yaşında meme kanserinden vefat etmiştir. Hastanın mamografisi normaldir.'\n- Hatalı LLM Özeti: 'Hasta 45 yaşında olup meme kanseri tedavisi görmektedir.'\n- Klinik Sonuç: Yanlış tanı, yanlış tedavi ve tıbbi malpraktis tehlikesi.\n- Çözüm: Özne-yüklem ve aile öyküsü etiketlerinin insan tarafından teyit edilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "family medical history vs patient diagnosis confusion"
+    }
+  },
+  {
+    "baslik": "Büyük Risk 3: Sayısal Değer ve Doz Karışıklığı",
+    "altbaslik": "Miligram vs Mikrogram Hatası",
+    "icerik": "- Orijinal Metin: 'Hastaya 0.25 mg Digoksin başlandı.'\n- Hatalı LLM Çıktısı: '25 mg Digoksin verildi.'\n- Klinik Tehlike: 100 kat doz aşımı ve ölümcül intoksikasyon riski.\n- Güvenlik Kuralı: İlaç dozları ve laboratuvar sayısal sonuçları asla doğrudan LLM inisiyatifine bırakılamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "medication dosage error medical safety syringe pill"
+    }
+  },
+  {
+    "baslik": "RAG (Retrieval-Augmented Generation) Mimarisi",
+    "altbaslik": "Halüsinasyonu Azaltan Bilgi Geri Getirme Yöntemi",
+    "icerik": "- RAG Nedir?: LLM'in cevabı üretmeden önce hastanenin onaylı tıbbi kılavuzlarını veya hasta dosyasını veritabanından çekip referans alması.\n- Çalışma Akışı: Soru -> Vektör Veritabanında Arama -> Alakalı Paragrafların LLM'e İletilmesi -> Kaynak Gösterilerek Cevap Üretimi.\n- Faydası: Halüsinasyon oranını %80 oranında azaltır ve kaynak doğrulanabilirliği sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "retrieval augmented generation RAG healthcare architecture diagram"
+    }
+  },
+  {
+    "baslik": "Klinik Metin Denetim Protokolü (3T Kuralı)",
+    "altbaslik": "Veri Teknikerinin Kalite Kontrol Standartı",
+    "icerik": "- 1. Doğruluk (Truthfulness): Özetteki her ifade orijinal epikrizde birebir bulunuyor mu?\n- 2. Tamlık (Total Completeness): Alerjiler, kritik lab değerleri veya ameliyat notu atlanmış mı?\n- 3. Tutarlılık (Transparency): İlaç dozları ve tarih sıralaması mantıksal olarak doğru mu?\n- Kural: 3T kontrolünden geçmeyen hiçbir YZ özeti hasta dosyasına işlenemez!",
+    "gorsel": {
+      "type": "image",
+      "query": "audit checklist medical records quality assurance"
+    }
+  },
+  {
+    "baslik": "Atölye Çalışması: Epikriz Denetim Masası",
+    "altbaslik": "Adım Adım İnsan Denetimi Uygulaması",
+    "icerik": "- Adım 1: Anonimleştirilmiş karmaşık bir taburculuk epikrizi okuyun.\n- Adım 2: Bir LLM'e 'Bu metni 5 maddede özetle' komutu verin.\n- Adım 3: Çıktıyı kırmızı kalemle denetleyin (Halüsinasyon var mı? Eksik var mı? Bağlam doğru mu?).\n- Adım 4: Hataları sınıflandırın ve düzeltilmiş nihai epikriz özetini onaylayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "human auditor reviewing clinical notes side by side"
+    }
+  },
+  {
+    "baslik": "Denetim Rubriği: Hata Tipleri Sınıflandırması",
+    "altbaslik": "Hataları Nasıl Belgeleyeceğiz?",
+    "icerik": "- Tip A: Uydurma Bilgi (Halüsinasyon - Metinde olmayan tanı/ilaç ekleme).\n- Tip B: Kritik Bilgi Eksikliği (Alerji veya ameliyat komplikasyonunu atlama).\n- Tip C: Özne Karışıklığı (Aile öyküsünü hastaya atama).\n- Tip D: Sayısal/Doz Hatası (Lab değeri veya ilaç dozu tahrifatı).\n- Raporlama: Denetim formu doldurularak aylık model güvenilirlik skoru çıkarılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical error taxonomy rubric health data audit"
+    }
+  },
+  {
+    "baslik": "Doğru ve Yanlış Kullanım Senaryoları",
+    "altbaslik": "NLP Araçlarını Hastanede Nasıl Konumlandırmalıyız?",
+    "icerik": "- YANLIŞ: LLM çıktısını okumadan doğrudan HBYS taburculuk raporuna yapıştırmak.\n- DOĞRU: LLM'i taslak üretici olarak kullanıp, tekniker/hekim onayından sonra sisteme kaydetmek.\n- YANLIŞ: Gizli hasta verilerini genel bulut tabanlı (ChatGPT web) sohbet pencerelerine yapıştırmak.\n- DOĞRU: Hastane içi kapalı devre (on-premise/HIPAA uyumlu) çalışan modeller kullanmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "secure medical data handling vs insecure cloud leakage"
+    }
+  },
+  {
+    "baslik": "Prompt Mühendisliği: Tıbbi Şablonlar",
+    "altbaslik": "LLM'den Güvenilir Çıktı Alma Sanatı",
+    "icerik": "- Kötü Prompt: 'Bu epikrizi özetle.'\n- İyi Tıbbi Prompt: 'Sen bir tıbbi veri uzmanısın. Aşağıdaki epikrizi sadece metinde geçen bilgilere sadık kalarak şu başlıklar altında özetle: 1. Başvuru Şikayeti, 2. Yapılan Tetkikler, 3. Konulan Tanı, 4. Taburculuk İlaçları ve Dozları. Metinde olmayan hiçbir bilgiyi ekleme.'",
+    "gorsel": {
+      "type": "image",
+      "query": "prompt engineering medical healthcare structured output"
+    }
+  },
+  {
+    "baslik": "ICD-10 Otomatik Eşleme Kontrol Listesi",
+    "altbaslik": "Otomatik Kodlamayı Denetleme Adımları",
+    "icerik": "- 1. Spesifiklik Kontrolü: Kod genel mi (ör. I10 Esansiyel Hipertansiyon), yoksa organ hasarlı detaylı kod mu?\n- 2. Sağ/Sol Taraf Bilgisi: Kırık veya felç kodlarında lateralite (sağ/sol) doğru seçilmiş mi?\n- 3. Birincil vs İkincil Tanı: Ölüm veya taburculuk sebebi olan ana tanı doğru etiketlenmiş mi?\n- 4. Dış Neden Kodları: Zehirlenme ve travmalarda kaza/şiddet kodları eklenmiş mi?",
+    "gorsel": {
+      "type": "image",
+      "query": "ICD-10 coding auditing validation checklist hospital"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Yeni Unvanı: AI Denetçisi",
+    "altbaslik": "Geleceğin Mesleki Rolü",
+    "icerik": "- Eski Görev: Tüm epikrizi klavyeyle baştan sona elle yazmak.\n- Yeni Görev: YZ tarafından üretilen taslakları, kod eşleştirmelerini ve özetleri denetlemek.\n- Gerekli Beceriler: Güçlü terminoloji bilgisi, dikkat ve eleştirel YZ okuryazarlığı.\n- Katma Değer: Hekimin idari iş yükünü %50 azaltırken veri kalitesini %100 güvenceye almak.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical data specialist auditing AI generated reports hospital"
+    }
+  },
+  {
+    "baslik": "Saha Hatası: İngilizceye Çevirip Özetletme Yanılgısı",
+    "altbaslik": "Çeviride Kaybolan Tıbbi Anlam",
+    "icerik": "- Vaka: Bir hastane personelinin Türkçe epikrizi internet çevirisiyle İngilizceye çevirip LLM'e özetletmesi.\n- Hata: 'Hasta taburcu edildi' ifadesinin 'Patient was discharged' yerine 'Patient was fired' şeklinde çevrilmesi!\n- Sonuç: Epikrizde anlamsız ve tehlikeli tıbbi bozulmalar.\n- Kural: Sağlık metinleri yerel dilde eğitilmiş medikal modellerle işlenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "translation error medical records language barrier"
+    }
+  },
+  {
+    "baslik": "Hasta Portalı ve Sadeleştirilmiş Dil (Patient-Friendly)",
+    "altbaslik": "Tıbbi Notları Hastanın Anlayacağı Dile Çevirmek",
+    "icerik": "- Problem: Hastaların e-Nabız'daki epikrizlerinde geçen Latince terimleri anlayamaması ve kaygılanması.\n- YZ Görevi: Tıbbi epikrizi 8. sınıf okuma seviyesinde anlaşılır bir 'Hasta Bilgilendirme Mektubuna' dönüştürmek.\n- Örnek: 'Akut Gastroenterit' -> 'Mide-bağırsak iltihabı (Mide üşütmesi)'.\n- Tekniker Rolü: Sadeleştirilmiş metnin tıbbi anlamını kaybetmediğini teyit etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "patient portal plain language medical summary communication"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 3. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Sağlık metinleri karmaşık, jargon dolu ve yapılandırılmamıştır; NLP bunları anlamlandırır.\n- LLM modelleri mükemmel dil yeteneğine sahip olsa da halüsinasyon ve bağlam kaybına açıktır.\n- Olumsuzluk (Negation) tespiti sağlıkta en kritik NLP adımlarından biridir.\n- İnsan denetimi (Human-in-the-Loop) klinik güvenliğin ve yasal uyumun vazgeçilmez şartıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map clinical natural language processing"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "NLP ve LLM Riskleri Kontrolü",
+    "icerik": "- Soru 1: Bir LLM'in hastanın dosyasında olmayan bir tanıyı raporda varmış gibi üretmesine ne ad verilir?\n  Cevap: Halüsinasyon (Hallucination).\n- Soru 2: 'Hastanın ailesinde diyabet var, hastanın kan şekeri normal' cümlesini 'Hasta diyabetiktir' şeklinde özetleyen model hangi hatayı yapmıştır?\n  Cevap: Bağlam kaybı (Context Loss).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions clinical NLP hallucination evaluation"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Denetim Protokolü Sorusu",
+    "altbaslik": "Uygulamalı Mesleki Karar",
+    "icerik": "- Soru: Bir sesli dikte sistemi 'Hipertansiyon yoktur' ifadesini 'Hipertansiyon çoktur' olarak algılamıştır. Bu hatanın önlenmesi için tekniker hangi kontrol mekanizmasını uygulamalıdır?\n- Cevap: Ses kaydı ile metin eşzamanlı çapraz kontrol edilmeli ve olumsuzluk bildiren kritik tıbbi ekler özel denetim filtresine tabi tutulmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "speech to text audio verification workflow medical"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 3. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Bir klinik özeti denetlerken ilk bakacağınız 3T kuralı maddesi hangisidir?\n- 2. LLM'lerin halüsinasyon yapmasını önlemek için hastanelerde hangi mimari (RAG) kullanılmalıdır?\n- 3. Gelecek hafta konusu: Klinik Karar Destek Sistemleri (CDSS) ve Karar Tabloları.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "4. Hafta: Klinik Karar Destek Sistemleri (CDSS)",
+    "icerik": "- Konu: Hekime tanı ve tedavide rehberlik eden karar destek sistemlerinin mimarisi.\n- Odak: Kural tabanlı sistemler vs Makine öğrenmesi modelleri, alarm yorgunluğu.\n- Ön Hazırlık: Hastanelerde ilaç etkileşim uyarılarının nasıl çalıştığını araştırınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical decision support system hospital software preview"
+    }
+  },
+  {
+    "baslik": "Klinik NLP'de Çoklu Dil ve Çeviri Riskleri",
+    "altbaslik": "Türkçe Sağlık Metinlerinin Özellikleri",
+    "icerik": "- Morfolojik Zenginlik: Türkçe sondan eklemeli bir dil olduğu için tıbbi ekler (Ör. -sizlik, -olojik, -itler) kökü değiştirir.\n- Dil Modeli Eğitimi: Doğrudan İngilizce modellerin Türkçeye uyarlanması yerine yerli medikal korpusla fine-tuning yapılmalıdır.\n- Veri Teknikeri Kontrolü: Çeviri araçlarının yarattığı anlam kaymalarını tespit etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "turkish language medical NLP natural language processing"
+    }
+  },
+  {
+    "baslik": "Tıbbi Sözlükler ve Ontolojiler (UMLS & MeSH)",
+    "altbaslik": "Kavramları Birbirine Bağlayan Ağlar",
+    "icerik": "- UMLS (Unified Medical Language System): Milyonlarca tıbbi terimi tek bir CUI (Concept Unique Identifier) altında toplayan devasa ontoloji.\n- MeSH (Medical Subject Headings): Tıbbi makale ve literatür indeksleme standartı.\n- NLP Entegrasyonu: Doktor 'Kalp yetmezliği' yazdığında modelin bunu UMLS kodu C0018801 ile eşleştirmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "UMLS medical ontology ontology graph healthcare"
+    }
+  },
+  {
+    "baslik": "Klinik NLP Kalite Güvence Tablosu",
+    "altbaslik": "Haftalık Denetim Karnesi",
+    "icerik": "- 1. İncelenen Epikriz Sayısı: 50 adet.\n- 2. LLM Halüsinasyon Oranı: %4 (2 adet yakalandı ve düzeltildi).\n- 3. ICD-10 Kod Doğruluk Oranı: %92.\n- 4. İnsan Müdahalesi Süresi: Epikriz başına ortalama 45 saniye.\n- Sonuç: Hekim zamanından %60 tasarruf, sıfır hatalı kayıt.",
+    "gorsel": {
+      "type": "image",
+      "query": "quality assurance dashboard medical records NLP audit"
+    }
+  }
+]

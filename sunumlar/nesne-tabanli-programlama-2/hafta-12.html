@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 12 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 12</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 12", "altbaslik": "API Güvenliği, Kimlik Doğrulama ve JWT", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Parola Hashleme (bcrypt), OAuth2 Password Flow, JWT (JSON Web Token) ve Korumalı Endpoint'ler\nUygulama Teması: Öğrenci İşleri Şifreli Giriş ve Korumalı Transkript Paneli", "gorsel": {"type": "image", "query": "api security jwt authentication padlock login shield python"}}, {"baslik": "Motivasyon: Herkes Her Notu Görebilir mi?", "altbaslik": "Açık Kapılardan Şifreli Kilitlere", "icerik": "Şu ana kadar yazdığımız API'lerde herkes tüm kitapları ve kayıtları görebiliyor ve silebiliyordu.\n- Gerçek hayatta öğrenci sadece KENDİ transkriptini görebilmelidir.\n- Öğretmen not girebilmeli, yabancı biri sisteme sızamamalıdır.\n- Bugün API'mize kilit ve anahtar (Token) mekanizması ekleyeceğiz!", "gorsel": {"type": "image", "query": "secure login authentication key gate user privacy"}}, {"baslik": "Dijital Bilet (Token) Analojisi", "altbaslik": "Konsere Nasıl Gireriz?", "icerik": "1. Giriş Kapısı: Kimliğinizi ve bilet paranızı verirsiniz (Kullanıcı Adı + Şifre).\n2. Bilet Alma: Görevli size bileklik / bilet verir (JWT Token).\n3. İçeride Gezinme: İçeride her içecek alırken veya sahneye geçerken kimlik sormazlar; kolunuzdaki bileti (Token) gösterirsiniz.\nWeb API güvenliği tam olarak bu mantıkla çalışır!", "gorsel": {"type": "image", "query": "concert ticket wristband access control analogy"}}, {"baslik": "Parola Güvenliği: Altın Kural", "altbaslik": "Parolalar Asla Açık Metin Saklanmaz!", "icerik": "❌ YANLIŞ: Veritabanına `parola = '123456'` yazmak büyük bir suçtur (Veritabanı sızarsa herkesin şifresi çalınır).\n\n✅ DOĞRU: Parola tek yönlü matematiksel algoritmalarla (Hash) karıştırılır:\n`123456` -> `$2b$12$e8Y7N...`\nHash geri çözülemez! Kullanıcı tekrar girdiğinde yazdığı şifre hashlenir ve eşleşme kontrol edilir.", "gorsel": {"type": "image", "query": "password hashing encryption cybersecurity bcrypt lock"}}, {"baslik": "Gerekli Kütüphaneler", "altbaslik": "PyCharm Terminalinde", "icerik": "Terminalde çalıştırın:\n\n`pip install passlib bcrypt pyjwt python-multipart`\n\n- passlib & bcrypt: Güvenli parola hashleme.\n- pyjwt: Dijital bilet (JWT) üretimi.\n- python-multipart: Swagger giriş formunu işleme.", "gorsel": {"type": "image", "query": "terminal pip install security libraries python"}}, {"baslik": "JWT (JSON Web Token) Anatomisi", "altbaslik": "Üç Parçalı Dijital Damga (xxx.yyy.zzz)", "icerik": "Bir JWT Token 3 bölümden oluşur:\n1. Header (Başlık): Hangi algoritma kullanıldı (HS256).\n2. Payload (Yük): Kullanıcının kimliği (Örn: `sub: 'ali@mail.com'`, son geçerlilik tarihi `exp`).\n3. Signature (İmza): Sunucunun gizli anahtarı (`SECRET_KEY`) ile atılan taklit edilemez mühür.", "gorsel": {"type": "image", "query": "jwt token structure header payload signature diagram"}}, {"baslik": "OAuth2PasswordBearer Mantığı", "altbaslik": "FastAPI'nin Güvenlik Bekçisi", "icerik": "from fastapi.security import OAuth2PasswordBearer\n\n# Token'ın hangi endpoint'ten alınacağını belirtiyoruz:\noauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')\n\nBu kod, Swagger UI (/docs) ekranının sağ üst köşesine sihirli bir **Authorize (Kilit)** butonu ekler!", "gorsel": {"type": "image", "query": "swagger ui authorize button lock icon security"}}, {"baslik": "Adım 1: Parola Hashleme Fonksiyonları", "altbaslik": "auth.py veya main.py", "icerik": "from passlib.context import CryptContext\n\npwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')\n\ndef sifre_hashle(sifre: str) -> str:\n    return pwd_context.hash(sifre)\n\ndef sifre_dogrula(duz_sifre: str, hashli_sifre: str) -> bool:\n    return pwd_context.verify(duz_sifre, hashli_sifre)", "gorsel": {"type": "image", "query": "password verification hashing function python code"}}, {"baslik": "Adım 2: Token Üretme Fonksiyonu", "altbaslik": "Bilet Basma Merkezi", "icerik": "import jwt\nfrom datetime import datetime, timedelta\n\nSECRET_KEY = 'GIRESUN_UNIVERSITESI_GIZLI_ANAHTARI_123'\nALGORITHM = 'HS256'\n\ndef token_olustur(kullanici_adi: str):\n    sure = datetime.utcnow() + timedelta(minutes=30)\n    veri = {'sub': kullanici_adi, 'exp': sure}\n    return jwt.encode(veri, SECRET_KEY, algorithm=ALGORITHM)", "gorsel": {"type": "image", "query": "jwt token creation signature python code"}}, {"baslik": "Adım 3: Giriş Yapıp Token Alma Endpoint'i (/token)", "altbaslik": "Bilet Gişesi", "icerik": "from fastapi import Depends, HTTPException\nfrom fastapi.security import OAuth2PasswordRequestForm\n\n@app.post('/token')\ndef giris_yap(form_data: OAuth2PasswordRequestForm = Depends()):\n    # Örnek statik kontrol (veya veritabanından):\n    if form_data.username == 'ali@mail.com' and form_data.password == '12345':\n        bilet = token_olustur(form_data.username)\n        return {'access_token': bilet, 'token_type': 'bearer'}\n    raise HTTPException(status_code=400, detail='Hatalı e-posta veya parola!')", "gorsel": {"type": "image", "query": "login endpoint token generation response"}}, {"baslik": "Adım 4: Kilitli Kapıyı Korumak (Depends)", "altbaslik": "Bileti Olmayan Giremez!", "icerik": "def aktif_kullanici(token: str = Depends(oauth2_scheme)):\n    try:\n        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])\n        kullanici = payload.get('sub')\n        if kullanici is None:\n            raise HTTPException(status_code=401, detail='Geçersiz Bilet!')\n        return kullanici\n    except:\n        raise HTTPException(status_code=401, detail='Yetkisiz Giriş (401)!')", "gorsel": {"type": "image", "query": "access control gate security checkpoint guard"}}, {"baslik": "Adım 5: Korumalı Transkript Endpoint'i", "altbaslik": "Sadece Giriş Yapanın Gördüğü Sayfa", "icerik": "@app.get('/ogrenci/notlarim')\ndef notlarimi_gor(kullanici: str = Depends(aktif_kullanici)):\n    return {\n        'kullanici': kullanici,\n        'dersler': [\n            {'ders': 'NTP II', 'not': 90},\n            {'ders': 'Veritabanı', 'not': 85}\n        ],\n        'mesaj': 'Bu bilgiye sadece geçerli token ile eriştiniz 🔒'\n    }", "gorsel": {"type": "image", "query": "student transcript grade report secure portal"}}, {"baslik": "Laboratuvar Döngüsü 1: Kilitsiz Deneme (401 Hatası)", "altbaslik": "Yetkisiz Erişim Engeli", "icerik": "- `/docs` sayfasında `GET /ogrenci/notlarim` butonunu doğrudan çalıştırın.\n- Sistem içeri almayacak ve `401 Unauthorized` (Not authenticated) dönecektir.\n- Kapının kilitli olduğu kanıtlandı!", "gorsel": {"type": "image", "query": "http 401 unauthorized access denied red badge"}}, {"baslik": "Laboratuvar Döngüsü 2: Swagger'da Authorize Kilidini Açma", "altbaslik": "Token ile Giriş Yapmak", "icerik": "1. `/docs` sayfasının sağ üstündeki **Authorize** butonuna tıklayın.\n2. Username: `ali@mail.com`, Password: `12345` yazın ve Authorize deyin.\n3. Kilidin kapalı (kilitli) hale geldiğini görün.\n4. Tekrar `GET /ogrenci/notlarim` çağırın ve notların ekrana geldiğini izleyin!", "gorsel": {"type": "image", "query": "swagger ui authorized unlocked session green lock"}}, {"baslik": "Laboratuvar Döngüsü 3: Kullanıcı Kayıt Endpoint'i (/kayit)", "altbaslik": "Parolayı Hashleyerek DB'ye Kaydetme", "icerik": "class KayitFormu(BaseModel):\n    eposta: str\n    parola: str\n\n@app.post('/kayit', status_code=201)\ndef kayit_ol(form: KayitFormu):\n    gizli_sifre = sifre_hashle(form.parola)\n    # db.add(KullaniciModel(eposta=form.eposta, sifre=gizli_sifre))\n    return {'mesaj': 'Kayıt Başarılı! Parolanız güvenle şifrelendi.'}", "gorsel": {"type": "image", "query": "user registration password encryption visual"}}, {"baslik": "Laboratuvar Döngüsü 4: Token Süresi Dolması Testi", "altbaslik": "Token Expiration (exp)", "icerik": "Token'a 1 dakikalık süre koyalım:\n`timedelta(minutes=1)`\n1 dakika sonra istek atıldığında sistemin otomatik olarak `401 Token Süresi Doldu` hatası verdiğini test edin.", "gorsel": {"type": "image", "query": "expired token clock hourglass security timeout"}}, {"baslik": "Çözümlü Uygulama 1: Rol Bazlı Yetkilendirme (Admin vs Öğrenci)", "altbaslik": "Yetki Seviyesi Kontrolü", "icerik": "def admin_mi(kullanici: str = Depends(aktif_kullanici)):\n    if not kullanici.endswith('@admin.giresun.edu.tr'):\n        raise HTTPException(status_code=403, detail='Bu sayfaya sadece ADMIN girebilir (403 Forbidden)!')\n    return kullanici", "gorsel": {"type": "image", "query": "admin privileges role based access control 403"}}, {"baslik": "Çözümlü Uygulama 2: Şifre Değiştirme Endpoint'i", "altbaslik": "Mevcut Şifreyi Doğrulayarak Güncelleme", "icerik": "class SifreDegistir(BaseModel):\n    eski_sifre: str\n    yeni_sifre: str\n\n# Sadece giriş yapan kullanıcı kendi şifresini değiştirebilir.", "gorsel": {"type": "image", "query": "change password reset security settings"}}, {"baslik": "HTTP Durum Kodları: 401 vs 403", "altbaslik": "Kimsin? vs Yetkin Var mı?", "icerik": "1. 401 Unauthorized: 'Seni tanımıyorum, biletin yok veya süresi geçmiş. Önce giriş yap.'\n\n2. 403 Forbidden: 'Seni tanıdım (Öğrenci Ali'sin) ama burası Öğretmen Odası! Buraya girme yetkin yok.'", "gorsel": {"type": "image", "query": "http 401 vs 403 status code difference comparison"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod:\npayload = jwt.decode(token, 'YANLIS_ANAHTAR', algorithms=['HS256'])\n\nProblem Nedir?\nToken üretilirken kullanılan SECRET_KEY ile çözülürken kullanılan anahtar aynı olmalıdır! Farklı anahtar `jwt.exceptions.InvalidSignatureError` verir.", "gorsel": {"type": "image", "query": "invalid signature jwt token error debug"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "sifre = '123'\nhash1 = sifre_hashle(sifre)\nhash2 = sifre_hashle(sifre)\nprint(hash1 == hash2)\n\nÇıktı: `False`! (bcrypt her seferinde rastgele 'Salt' ekler, bu yüzden aynı şifrenin hash'leri farklı görünür ama verify() ile ikisi de doğrulanır).", "gorsel": {"type": "image", "query": "cryptographic salt random hashing security"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "API Güvenliğinde 3 Kritik Hata", "icerik": "1. Parolaları veritabanına açık metin olarak kaydetmek.\n2. SECRET_KEY'i basit ve tahmin edilebilir yapmak (`12345` gibi).\n3. Token Payload içine kredi kartı veya şifre gibi hassas veriler koymak (Payload şifreli değildir, Base64 ile okunabilir!).", "gorsel": {"type": "image", "query": "warning caution cybersecurity checklist"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Parola Güvenliği", "icerik": "Soru: Veritabanında kullanıcı parolaları nasıl saklanmalıdır?\nA) Düz metin olarak\nB) Tek yönlü hash (bcrypt) ile karıştırılarak\nC) Resim dosyası olarak\nD) Excel dosyasında\n\nDoğru Cevap: B (bcrypt hash ile).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Yetkisiz Erişim Kodu", "icerik": "Soru: Bilet (Token) olmadan korumalı bir endpoint çağrıldığında dönen HTTP kodu nedir?\nA) 200 OK\nB) 404 Not Found\nC) 401 Unauthorized\nD) 500 Server Error\n\nDoğru Cevap: C (401 Unauthorized).", "gorsel": {"type": "image", "query": "http status 401 badge"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Bearer Token", "icerik": "Soru: HTTP başlığında token hangi formatta gönderilir?\nA) Token: 123\nB) Authorization: Bearer <TOKEN>\nC) Key: <TOKEN>\nD) Password: <TOKEN>\n\nDoğru Cevap: B (Authorization: Bearer <TOKEN>).", "gorsel": {"type": "image", "query": "http request header authorization bearer token"}}, {"baslik": "Sektörel Vaka: E-Devlet ve Bankacılık Girişi", "altbaslik": "Session vs Token", "icerik": "Bankanızın mobil uygulamasına girdiğinizde her para transferinde şifre sormaz.\nArka planda sunucunun ürettiği 15 dakikalık JWT Token kullanılır.\nSüre dolduğunda oturum otomatik kapanır. Milyonlarca kullanıcı bu mimariyle korunur.", "gorsel": {"type": "image", "query": "mobile banking security session biometric login"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Gizli Transkript ve Not Kasası", "icerik": "Göreviniz:\n1. `/token` endpoint'i ile `ogrenci@giresun.edu.tr` ve `sifre123` için token üretin.\n2. Korumalı `GET /gizli-belgelerim` endpoint'i oluşturun.\n3. Swagger UI'da Authorize kilidini açarak yetkili isteği başarıyla atın ve ekran görüntüsü alın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "secret vault document lock mission task"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "@app.get('/gizli-belgelerim')\ndef gizli_bilgi(kullanici: str = Depends(aktif_kullanici)):\n    return {\n        'ogrenci': kullanici,\n        'belge': 'Geçici Mezuniyet Belgesi (Onaylı) 🎓'\n    }", "gorsel": {"type": "image", "query": "hints blueprint solution code help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- Parolalar asla açık saklanmaz; bcrypt ile tek yönlü hashlenir.\n- JWT Token ile durum bilgisi taşımayan (Stateless) dijital bilet mimarisi kurulur.\n- Depends(oauth2_scheme) ile endpoint'ler kilit altına alınır.\n- Swagger UI üzerinden canlı giriş ve yetkilendirme testleri tamamlandı.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 13: Postman ve Web Arayüzü Entegrasyonu", "icerik": "Ön Hazırlık:\n- Yazdığımız bu API'yi gerçek bir HTML web sayfasındaki butonlara nasıl bağlarız?\n- CORS güvenlik ayarı nedir?\n- Tarayıcıdaki butona basınca FastAPI'deki kitapları ekranda listeleteceğiz!", "gorsel": {"type": "image", "query": "web development html javascript fastapi connecting"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'JWT Token'ın 3 ana bileşenini (Header, Payload, Signature) ve kısaca görevlerini kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

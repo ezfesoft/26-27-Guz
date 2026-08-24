@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 11 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 11</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 11", "altbaslik": "Hafta 11: Temel İstatistik: Ortalama, Medyan, Mod", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Veri Analitiği ve Merkezi Eğilim Ölçüleri\nHaftalık Odak: Aritmetik Ortalama, Medyan, Mod, Log Analizi ve Anomali Tespiti\nHedef: Sistem metriklerini ve trafik loglarını istatistiksel ölçülerle yorumlamak.", "gorsel": {"type": "image", "query": "data statistics analytics mean median mode server graphs"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: SOC Log Analizi ve Anomali Tespiti", "icerik": "Bir web sunucusuna yapılan günlük başarısız giriş sayıları: [12, 15, 14, 13, 16, 450, 14].\n- Aritmetik Ortalama: 76.3\n- Medyan (Ortanca): 14\nOrtalama bizi yanıltırken medyan normal davranışı gösterir; '450' ise bariz bir brute-force saldırısıdır (Aykırı Değer).\nDoğru istatistiksel ölçüyü seçmek güvenlik analizinde hayati önem taşır.", "gorsel": {"type": "image", "query": "anomaly detection security logs statistics dashboard"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. Aritmetik ortalama, medyan ve mod kavramlarını tanımlar.\n2. Bir veri setinden merkezi eğilim ölçülerini hesaplar.\n3. Aykırı değerlerin (outlier) ortalama ve medyan üzerindeki etkisini analiz eder.\n4. Log verilerini istatistiksel olarak yorumlayıp güvenlik anomalilerini raporlar.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "İstatistik ve Veri Seti Nedir?", "altbaslik": "Bilişimde Sayısal Veri Toplama", "icerik": "İstatistik: Verilerin toplanması, özetlenmesi, analiz edilmesi ve yorumlanması bilimidir.\nBilişim Veri Setleri:\n- Sunucu CPU kullanım yüzdeleri\n- Web sayfası yüklenme süreleri (ms)\n- Ağ portuna gelen paket sayıları\n- Güvenlik alarmı sayıları.", "gorsel": {"type": "image", "query": "statistics data visualization dataset chart"}}, {"baslik": "Aritmetik Ortalama (Mean)", "altbaslik": "Verilerin Toplamının Adede Bölümü", "icerik": "Formül: Ortalama = (x1 + x2 + ... + xn) / n\nÖzellik:\n- Tüm veri noktalarını hesaba katar.\n- Aşırı büyük veya aşırı küçük (aykırı) değerlerden ÇOK ETKİLENİR.\nÖrnek: [10 ms, 20 ms, 30 ms] -> Ortalama = (10+20+30)/3 = 20 ms.", "gorsel": {"type": "image", "query": "arithmetic mean formula calculation math"}}, {"baslik": "Medyan (Ortanca Değer)", "altbaslik": "Küçükten Büyüğe Sıralandığında Tam Ortadaki Değer", "icerik": "Nasıl Bulunur?\n1. Veriler MUTLAKA küçükten büyüğe sıralanır.\n2. Veri sayısı tek ise: Tam ortadaki elemandır.\n3. Veri sayısı çift ise: Ortadaki iki elemanın aritmetik ortalamasıdır.\nÖzellik: Aykırı değerlerden (saldırılardan) ETKİLENMEZ. Çok sağlam (robust) bir ölçüdür.", "gorsel": {"type": "image", "query": "median middle value sorted dataset diagram"}}, {"baslik": "Mod (Tepe Değer)", "altbaslik": "En Çok Tekrar Eden Değer", "icerik": "Tanım: Veri setinde frekansı (tekrar sayısı) en yüksek olan elemandır.\nÖzellikler:\n- Bir veri setinde hiç mod olmayabilir (tüm sayılar birer kez geçiyorsa).\n- Birden fazla mod olabilir (Çok modlu / Bimodal dağılım).\nÖrnek: [80, 443, 80, 22, 80, 443] -> Mod = 80 (En sık kullanılan port).", "gorsel": {"type": "image", "query": "mode most frequent value statistics histogram"}}, {"baslik": "Aritmetik Ortalama Hesaplama Adımları", "altbaslik": "Adım Adım Toplama ve Bölme", "icerik": "1. Veri setindeki tüm elemanları topla: Toplam = SUM(x)\n2. Veri kümesindeki toplam eleman sayısını say: n\n3. Bölme işlemini yap: Ortalama = Toplam / n\n4. Birim kontrolü yap (Örn: ms, MB, istek/sn).", "gorsel": {"type": "image", "query": "mean calculation steps mathematics formula"}}, {"baslik": "Medyan Hesaplama Prosedürü", "altbaslik": "Tek ve Çift Sayıda Veri Durumu", "icerik": "Örnek 1 (Tek Sayıda Eleman - n=5): [12, 14, 18, 22, 90]\n- Sıralı durumdadır. Ortadaki (3.) eleman: Medyan = 18.\nÖrnek 2 (Çift Sayıda Eleman - n=6): [10, 12, 14, 16, 20, 24]\n- Ortadaki iki eleman: 14 ve 16\n- Medyan = (14 + 16) / 2 = 15.", "gorsel": {"type": "image", "query": "median calculation odd even dataset steps"}}, {"baslik": "Aykırı Değer (Outlier) ve Anomali Tespiti", "altbaslik": "Ortalama vs Medyan Karşılaştırması", "icerik": "Kural:\n- Eğer Ortalama = Medyan ise veri seti dengeli ve simetriktir (Normal trafik).\n- Eğer Ortalama >> Medyan ise sağa çarpık dağılım vardır; veri setinde aşırı yüksek saldırı/gecikme patlamaları vardır.\n- Eğer Ortalama << Medyan ise sola çarpık dağılım vardır.", "gorsel": {"type": "image", "query": "skewed distribution mean median outlier graph"}}, {"baslik": "Açıklık (Ranj - Range)", "altbaslik": "En Büyük Değer - En Küçük Değer", "icerik": "Tanım: Verinin ne kadar geniş bir aralığa yayıldığını gösteren en basit yayılım ölçüsüdür.\nFormül: Açıklık = Maksimum Değer - Minimum Değer\nÖrnek: Ping süreleri [12 ms, 14 ms, 18 ms, 95 ms]\nAçıklık = 95 - 12 = 83 ms (Büyük açıklık ağda dalgalanma/jitter olduğunu gösterir).", "gorsel": {"type": "image", "query": "range dispersion metric statistics spread"}}, {"baslik": "Ağırlıklı Ortalama (Weighted Average)", "altbaslik": "Farklı Ağırlıklara Sahip Değerlerin Ortalaması", "icerik": "Formül: Ağırlıklı Ortalama = SUM(Deger * Agirlik) / SUM(Agirlik)\nÖrnek: Üniversite ders geçme notu:\n- Vize (%40): 70\n- Final (%60): 85\nNot = (70 x 0.40) + (85 x 0.60) = 28 + 51 = 79.", "gorsel": {"type": "image", "query": "weighted average grade calculation formula"}}, {"baslik": "Çözümlü Uygulama 1: Basit Ortalama Hesabı", "altbaslik": "Seviye: Başlangıç (Sunucu Yanıt Süresi)", "icerik": "Soru: Bir API servisinin 5 farklı isteğe verdiği yanıt süreleri: [20, 25, 30, 15, 35] ms.\nOrtalama yanıt süresi kaçtır?\nToplam = 20 + 25 + 30 + 15 + 35 = 125 ms\nOrtalama = 125 / 5 = 25 ms.", "gorsel": {"type": "image", "query": "api latency calculation average ms"}}, {"baslik": "Çözümlü Uygulama 2: Medyan Bulma (Tek Sayıda)", "altbaslik": "Seviye: Kolay (Sıralama ve Ortanca)", "icerik": "Soru: Bir güvenlik kamerası sisteminden gelen günlük alarm sayıları: [8, 3, 15, 12, 6, 2, 9]. Medyan alarm sayısı kaçtır?\nAdım 1: Sırala: [2, 3, 6, 8, 9, 12, 15] (Toplam 7 eleman)\nAdım 2: 4. eleman tam ortadadır.\nMedyan = 8 alarm.", "gorsel": {"type": "image", "query": "sorted dataset median finding step by step"}}, {"baslik": "Çözümlü Uygulama 3: Medyan Bulma (Çift Sayıda)", "altbaslik": "Seviye: Kolay-Orta (İki Ortancanın Ortalaması)", "icerik": "Soru: 6 sunucunun bellek tüketim yüzdeleri: [%40, %65, %50, %80, %45, %70]. Medyan bellek tüketimi nedir?\nAdım 1: Sırala: [40, 45, 50, 65, 70, 80]\nAdım 2: Ortadaki elemanlar 3. ve 4. elemanlar (50 ve 65)\nMedyan = (50 + 65) / 2 = 115 / 2 = %57.5.", "gorsel": {"type": "image", "query": "even number median calculation server memory"}}, {"baslik": "Çözümlü Uygulama 4: Mod (Tepe Değer) Tespiti", "altbaslik": "Seviye: Orta (Hedef Port Frekansı)", "icerik": "Soru: Firewall logunda yakalanan saldırı portları: [22, 80, 443, 22, 21, 22, 80, 22, 3389]. En çok hedeflenen port (Mod) hangisidir?\nFrekanslar:\n- Port 22: 4 kez\n- Port 80: 2 kez\n- Port 443, 21, 3389: 1 kez\nMod = Port 22 (SSH Brute Force şüphesi).", "gorsel": {"type": "image", "query": "target port frequency histogram mode analysis"}}, {"baslik": "Çözümlü Uygulama 5: Aykırı Değerin Ortalamaya Etkisi", "altbaslik": "Seviye: Orta-İleri (DDoS Saldırısı Etkisi)", "icerik": "Soru: Bir web sitesine son 5 dakikada gelen istekler: [100, 110, 105, 95, 2000].\na) Aritmetik ortalama nedir?\nb) Medyan nedir?\nÇözüm:\na) Toplam = 2410 -> Ortalama = 2410 / 5 = 482 istek/dk\nb) Sıralı: [95, 100, 105, 110, 2000] -> Medyan = 105 istek/dk.\nYorum: Medyan (105) normal trafiği temsil eder; 2000 ise saldırıdır.", "gorsel": {"type": "image", "query": "outlier impact mean vs median DDoS spike"}}, {"baslik": "Çözümlü Uygulama 6: Ağırlıklı Güvenlik Skoru", "altbaslik": "Seviye: İleri (Risk Skoru Ortalaması)", "icerik": "Soru: Bir şirketin 3 şubesinin güvenlik denetim puanları ve personel sayıları şöyledir:\n- Şube A: Not 90 (100 personel)\n- Şube B: Not 60 (300 personel)\n- Şube C: Not 80 (100 personel)\nŞirketin genel ağırlıklı güvenlik ortalaması kaçtır?\nİşlem: ((90 x 100) + (60 x 300) + (80 x 100)) / (100 + 300 + 100)\n= (9000 + 18000 + 8000) / 500 = 35000 / 500 = 70.", "gorsel": {"type": "image", "query": "weighted average company security audit score"}}, {"baslik": "Çözümlü Uygulama 7: Ağ Açıklığı ve Jitter Analizi", "altbaslik": "Seviye: İleri (Gecikme Dağılımı)", "icerik": "Soru: Bir VoIP ses hattında ölçülen ping süreleri: [18, 22, 19, 21, 140, 20] ms.\nAçıklık (Range) kaçtır ve bu değer ses kalitesini nasıl etkiler?\nİşlem: Maksimum = 140 ms, Minimum = 18 ms\nAçıklık = 140 - 18 = 122 ms.\nYorum: Yüksek açıklık paket gecikme dalgalanmasını (Jitter) gösterir; hatta ses kesilmeleri yaşanacaktır.", "gorsel": {"type": "image", "query": "voip jitter packet latency range graph"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Sıralamadan Medyan Bulmak", "icerik": "1. Verileri küçükten büyüğe sıralamadan ortadaki sayıyı medyan seçmek (En yaygın hata!).\n2. Çift sayıda eleman varken ortadaki iki sayıyı toplayıp 2'ye bölmeyi unutmak.\n3. Aykırı değer içeren veri setlerinde sadece ortalamaya bakarak yanlış karar vermek.", "gorsel": {"type": "image", "query": "statistics mistakes unsorted median warning"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Mod ve Ağırlık Yanılgıları", "icerik": "1. Tüm sayılar birer kez geçiyorsa mod'a '0' demek (Doğrusu: 'Modu yoktur').\n2. Ağırlıklı ortalamada paydaya eleman sayısını yazmak (Paydaya AĞIRLIKLARIN TOPLAMI yazılır).", "gorsel": {"type": "image", "query": "weighted average divisor mistake caution"}}, {"baslik": "Sektörel Vaka: Sahte Giriş Anomalisi Tespiti", "altbaslik": "SIEM İstatistiksel Alarm Kuralı", "icerik": "Vaka: Bir e-ticaret sitesinde normalde kullanıcıların şifre sıfırlama talepleri günde ortalama 20 adet (Medyan: 18) idi.\nBir gece saat 03:00'te 1 saat içinde 1200 talep geldi.\nİnceleme: Ortalama birden 180'e fırladı.\nOtomasyon: Sistem Medyan + 3 x Standart Sapma kuralı ile anomaliyi tespit etti ve şüpheli IP bloğunu otomatik karantinaya aldı.", "gorsel": {"type": "image", "query": "siem anomaly alert statistical threshold detection"}}, {"baslik": "Vaka Çözüm Planı ve İstatistiksel Eşik", "altbaslik": "Dinamik Eşik (Dynamic Baseline) Kurma", "icerik": "Uygulanan Model:\n- Statik eşik yerine (Örn: '100'ü geçerse uyar'), haftanın gününe ve saatine göre medyan tabanlı dinamik eşik tanımlandı.\n- Yanlış alarmlar (False Positive) %70 oranında azaldı.", "gorsel": {"type": "image", "query": "dynamic baseline threshold machine learning security"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Ortalama", "icerik": "Soru: [10, 20, 30, 40, 50] veri setinin aritmetik ortalaması kaçtır?\nA) 25\nB) 30\nC) 35\nD) 40\n\nDoğru Cevap: B (150 / 5 = 30)", "gorsel": {"type": "image", "query": "mean quiz question math test"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Medyan", "icerik": "Soru: [15, 3, 9, 22, 7] veri setinin medyanı kaçtır?\nA) 7\nB) 9\nC) 15\nD) 22\n\nDoğru Cevap: B (Sıralı: [3, 7, 9, 15, 22] -> Ortanca = 9)", "gorsel": {"type": "image", "query": "median calculation test question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Mod", "icerik": "Soru: [5, 8, 5, 12, 5, 8, 14] veri setinin modu kaçtır?\nA) 5\nB) 8\nC) 12\nD) 14\n\nDoğru Cevap: A (5 sayısı 3 kez tekrar etmiştir)", "gorsel": {"type": "image", "query": "mode statistics multiple choice question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Aykırı Değer Etkisi", "icerik": "Soru: Aşırı büyük bir saldırı verisi eklendiğinde hangi ölçü en çok etkilenir?\nA) Medyan\nB) Mod\nC) Aritmetik Ortalama\nD) Hiçbiri\n\nDoğru Cevap: C (Aritmetik ortalama aykırı değerlere karşı çok hassastır)", "gorsel": {"type": "image", "query": "outlier sensitivity statistics quiz"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Aritmetik ortalama tüm verilerin toplamının adede bölümüdür.\n- Medyan sıralı verinin ortanca değeridir ve aykırı değerlerden etkilenmez.\n- Mod en yüksek frekanslı değerdir (en çok hedeflenen port/kullanıcı).\n- Log analizinde ortalama ve medyan farkı anomalileri hızlıca ortaya çıkarır.", "gorsel": {"type": "image", "query": "summary statistics mean median mode log analysis"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 12: DGS'ye Yönelik Karma Problem Çözümü I", "icerik": "Gelecek Konular (İsteğe Bağlı İleri Blok):\n- DGS tarzı Sayılar, Denklemler ve Oran-Orantı Karma Soruları\n- Çok Adımlı Problem Çözme ve Stratejik Düşünme\n- Şık Eleme ve Tahmini Hesap Teknikleri\n- SOC Vardiya ve Kaynak Optimizasyonu Vakası.", "gorsel": {"type": "image", "query": "problem solving exam strategy mathematics blackboard"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'Bir güvenlik duvarında 6 gün boyunca engellenen IP sayıları: [120, 140, 130, 150, 140, 960].\n1. Aritmetik ortalamayı bulunuz.\n2. Medyanı bulunuz.\n3. Hangisi normal günlük engelleme sayısını daha iyi temsil eder, neden?'\n\nCevabınızı yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "statistics log data exit ticket classroom"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

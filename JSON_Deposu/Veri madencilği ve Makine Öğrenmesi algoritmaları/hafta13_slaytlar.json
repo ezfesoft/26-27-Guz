@@ -1,0 +1,371 @@
+[
+  {
+    "baslik": "Veri Madenciliği: Hafta 13",
+    "altbaslik": "K-Ortalamalar (K-Means Kümeleme) (AVM Müşteri Segmentasyonu)",
+    "icerik": "Program: Bilgisayar Programcılığı / Bilişim Teknolojileri\nEğitmen: Öğr. Gör. Süleyman EZDEMİR | Giresun Üniversitesi\nHaftalık Odak: AVM Müşteri Segmentasyonu\nHedef: Teorik formüller yerine gerçek hayat verileriyle uygulamalı öğrenme.",
+    "gorsel": {
+      "type": "image",
+      "query": "data mining machine learning artificial intelligence technology classroom"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel ve Günlük Hayat Kancası",
+    "icerik": "Etiketsiz müşteri verilerini VIP ve Tasarruflu gruplara ayırma.\n- Bugün şirketler milyonlarca satır veriden bu yöntemlerle değer üretiyor.\n- Bu derste öğrendiklerinizle geleceğin en çok aranan veri ve yapay zeka uzmanı olma yolunda dev bir adım atacaksınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "data science career business intelligence analytics dashboard"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Hedefleri",
+    "altbaslik": "Dersin Sonunda Neler Başaracaksınız?",
+    "icerik": "1. K-Ortalamalar (K-Means Kümeleme) temel mantığını formülsüz ve sezgisel olarak açıklar.\n2. 'hafta13_avm_musteri_harcama.csv' veri setini Google Colab ortamına yükler ve inceler.\n3. İlgili Python kodlarını çalıştırır, hataları bulur (Kod Dedektifi) ve tahminler yapar.\n4. Ders sonundaki 'AVM Müşteri Segmentasyonu' görevini tek başına tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives checklist target student success"
+    }
+  },
+  {
+    "baslik": "Temel Kavram: K-Ortalamalar (K-Means Kümeleme)",
+    "altbaslik": "Kavramsal Giriş ve Sezgisel Mantık",
+    "icerik": "Bu algoritmanın arkasındaki ana fikir basittir: Veri içindeki gizli desenleri (örüntüleri) yakalamak.\n- Ezberlemek yok, mantığını kavramak var.\n- Karmaşık matematik formülleri yerine bilgisayarın arka planda yaptığı karşılaştırmaları anlayacağız.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map algorithm idea lightbulb innovation"
+    }
+  },
+  {
+    "baslik": "Geleneksel Programlama vs Veri Madenciliği",
+    "altbaslik": "Büyük Zihniyet Değişimi",
+    "icerik": "Geleneksel Yazılım: Kuralları ve Veriyi insan yazar -> Bilgisayar Sonuç üretir.\nVeri Madenciliği / ML: Veriyi ve Sonuçları bilgisayara veririz -> Bilgisayar KURALLARI kendisi keşfeder!",
+    "gorsel": {
+      "type": "image",
+      "query": "traditional programming vs machine learning diagram comparison"
+    }
+  },
+  {
+    "baslik": "Veri Kümesi Mimarisi",
+    "altbaslik": "Satırlar ve Sütunlar",
+    "icerik": "Her veri tablosunda:\n- Satırlar (Örnekler/Gözlemler): İncelenen her bir kişi, ürün veya şarkı\n- Sütunlar (Özellikler / Features): O varlığın ölçülen nitelikleri (fiyat, yaş, süre vb.)",
+    "gorsel": {
+      "type": "image",
+      "query": "data table matrix columns rows database spreadsheet"
+    }
+  },
+  {
+    "baslik": "Bu Haftanın Veri Seti: hafta13_avm_musteri_harcama.csv",
+    "altbaslik": "Veri Seti Nitelikleri",
+    "icerik": "Dosya: verisetleri/hafta13_avm_musteri_harcama.csv\n- Tamamı Türkçe ve programlama standartlarına uygun sütun isimleri.\n- Gerçek dünya problemlerini modelleyen zengin veri yapısı.\n- Kaggle ve sektörel standartlarda hazırlanmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "csv data file dataset spreadsheet inspection"
+    }
+  },
+  {
+    "baslik": "Google Colab ile Hızlı Başlangıç",
+    "altbaslik": "Bulut Ortamında Veri Yükleme",
+    "icerik": "Colab üzerinde veriyi okumak için:\n\nimport pandas as pd\ndf = pd.read_csv('verisetleri/hafta13_avm_musteri_harcama.csv')\nprint(df.shape) # Satır ve sütun sayısı\ndf.head(3)",
+    "gorsel": {
+      "type": "image",
+      "query": "google colab code editor terminal python cloud"
+    }
+  },
+  {
+    "baslik": "İlk Bakış ve Özet İstatistikler",
+    "altbaslik": "Veriyi Tanıma",
+    "icerik": "df.info(): Hangi sütunda hangi veri tipi var? Boş değer var mı?\ndf.describe(): Sayısal sütunların ortalaması, minimumu ve maksimumu nedir?\nBu iki komut veri bilimcinin steteskopudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "data summary statistics info describe pandas"
+    }
+  },
+  {
+    "baslik": "Adım Adım İşlem Akışı",
+    "altbaslik": "Veri Madenciliği Yaşam Döngüsü",
+    "icerik": "1. Veriyi Yükle ve İncele\n2. Varsa Hatalı / Eksik Verileri Temizle\n3. Özellikleri ve Hedefi Belirle\n4. Modeli / Algoritmayı Çalıştır\n5. Sonuçları Yorumla ve Karar Ver",
+    "gorsel": {
+      "type": "image",
+      "query": "data mining pipeline workflow steps arrows flowchart"
+    }
+  },
+  {
+    "baslik": "Neden Hata Yapmaktan Korkmamalıyız?",
+    "altbaslik": "Kodlama Zihniyeti",
+    "icerik": "Programlamada kırmızı hata mesajı almak normaldir. Hata mesajı bilgisayarın 'Beni şurada yanlış anladın, lütfen düzelt' deme şeklidir. Biz burada birer 'Kod Dedektifi'yiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "developer debugging smiling learning progress growth"
+    }
+  },
+  {
+    "baslik": "Algoritmanın Günlük Hayat Karşılığı",
+    "altbaslik": "Metaforik Açıklama",
+    "icerik": "Etiketsiz müşteri verilerini VIP ve Tasarruflu gruplara ayırma. İnsan beyni de geçmiş deneyimlerine bakarak bu şekilde karar verir; yapay zeka bunu sadece milyonlarca kat daha hızlı yapar.",
+    "gorsel": {
+      "type": "image",
+      "query": "brain neurons neural network thinking metaphor"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 1: Gerekli Kütüphaneleri Çağırma",
+    "altbaslik": "Import İşlemleri",
+    "icerik": "Python'da araç setlerimizi çağırıyoruz:\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nBu üçlü, veri dünyasının temel isviçre çakısıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "python libraries import pandas numpy matplotlib"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 2: Veri Dilimleme ve Seçim",
+    "altbaslik": "İlgili Sütunları Ayırma",
+    "icerik": "# Sadece belirli özellikleri seçelim:\nozellikler = df.columns[:3]\nprint('İncelenen İlk 3 Özellik:', list(ozellikler))\n\nVerinin tamamı yerine odaklanacağımız sütunları belirleriz.",
+    "gorsel": {
+      "type": "image",
+      "query": "data selection slicing columns pandas python"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 3: Filtreleme Mantığı",
+    "altbaslik": "Koşullu Sorgular",
+    "icerik": "# Belirli bir eşiğin üzerindeki verileri seçelim:\nfiltre = df[df.columns[2]] > df[df.columns[2]].mean()\nsecilen_veriler = df[filtre]\nprint('Ortalama Üstü Kayıt Sayısı:', len(secilen_veriler))",
+    "gorsel": {
+      "type": "image",
+      "query": "data filtering query search logic spreadsheet"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 4: Sayısal Dönüşüm ve Hazırlık",
+    "altbaslik": "Bilgisayarın Diline Çevirme",
+    "icerik": "Bilgisayarlar sadece sayıları anlar. Metin verileri (Örn: 'Evet'/'Hayır') gerektiğinde 1 ve 0 değerlerine dönüştürülür.",
+    "gorsel": {
+      "type": "image",
+      "query": "binary numbers 0 1 data transformation digital"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 5: Algoritmanın Eğitilmesi / Uygulanması",
+    "altbaslik": "Model Fit Aşaması",
+    "icerik": "# Modelimizi veriye uyduruyoruz (Öğrenme):\n# model.fit(X, y) veya K-Means için kmeans.fit(X)\nprint('Algoritma verideki desenleri başarıyla öğrendi!')",
+    "gorsel": {
+      "type": "image",
+      "query": "model training machine learning algorithm fitting"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 6: Çıktıları Anlama ve Okuma",
+    "altbaslik": "Sonuç Analizi",
+    "icerik": "Model eğitildikten sonra bize tahminler veya küme etiketleri üretir. Bu çıktıları orijinal tablomuza yeni bir sütun olarak ekleyebiliriz:\ndf['tahmin_veya_kume'] = sonuclar",
+    "gorsel": {
+      "type": "image",
+      "query": "predictions analytics outputs graph report"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 7: Başarıyı Değerlendirme",
+    "altbaslik": "Ne Kadar Doğru Bildik?",
+    "icerik": "Modelimiz ne kadar başarılı? Yanılma payımız nedir? Bu metrikler bize modelin güvenilirliğini söyler.",
+    "gorsel": {
+      "type": "image",
+      "query": "evaluation metrics score accuracy gauge speedometer"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 8: Sonuçları Görselleştirme",
+    "altbaslik": "Renkli Çizimler",
+    "icerik": "plt.figure(figsize=(8, 4))\nplt.title('Haftalık Sonuç Grafiği')\nplt.xlabel('X Ekseni')\nplt.ylabel('Y Ekseni')\nplt.show()",
+    "gorsel": {
+      "type": "image",
+      "query": "data visualization chart plot matplotlib graphic"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 9: Yeni Bir Veri İçin Tahmin",
+    "altbaslik": "Geleceği Görme",
+    "icerik": "# Daha önce hiç görülmemiş yeni bir örnek geldiğinde:\n# yeni_tahmin = model.predict([[yeni_degerler]])\nprint('Yapay Zekanın Tahmini:', 'Başarılı / Onaylandı')",
+    "gorsel": {
+      "type": "image",
+      "query": "future prediction forecasting ai intelligence"
+    }
+  },
+  {
+    "baslik": "Kod Adımı 10: Modelin Karar Mantığını Kaydetme",
+    "altbaslik": "Kullanıma Alma",
+    "icerik": "Eğitilen model artık bir karar motorudur. Web sitelerinde, mobil uygulamalarda veya arka plan servislerinde otomatik çalışabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "deployment cloud server api microservice"
+    }
+  },
+  {
+    "baslik": "🧠 Tahmin Et ve Çalıştır (Bölüm 1)",
+    "altbaslik": "Kodu Çalıştırmadan Önce Düşünelim",
+    "icerik": "Soru: Veri setinde hafta13_avm_musteri_harcama.csv toplam 100 satır varsa ve df.head(10) çalıştırırsak ekrana kaç satır gelir?\n\nA) 100 satır\nB) 10 satır\nC) 5 satır\n\nCevap: B! head(10) komutu ilk 10 satırı getirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "brain thinking question guessing classroom"
+    }
+  },
+  {
+    "baslik": "🧠 Tahmin Et ve Çalıştır (Bölüm 2)",
+    "altbaslik": "Filtreleme Sonucu Tahmini",
+    "icerik": "Soru:\nsayi_dizisi = [10, 50, 80, 120]\nsecilenler = [x for x in sayi_dizisi if x > 60]\nprint(len(secilenler))\n\nTahmin: Ekrana hangi sayı yazılır?\nCevap: 2! (80 ve 120 seçilir).",
+    "gorsel": {
+      "type": "image",
+      "query": "logic reasoning math test quiz"
+    }
+  },
+  {
+    "baslik": "🕵️ Kod Dedektifi 1 (Hata Bulma)",
+    "altbaslik": "Dosya Yolu Hatası",
+    "icerik": "Hatalı Kod:\ndf = pd.read_csv('hafta13_avm_musteri_harcama.csv') # FileNotFoundError!\n\nDedektif Teşhisi: Dosya 'verisetleri/' klasörünün içindedir!\nDoğrusu: df = pd.read_csv('verisetleri/hafta13_avm_musteri_harcama.csv')",
+    "gorsel": {
+      "type": "image",
+      "query": "detective magnifying glass error bug fix code"
+    }
+  },
+  {
+    "baslik": "🕵️ Kod Dedektifi 2 (Hata Bulma)",
+    "altbaslik": "Büyük/Küçük Harf Hatası",
+    "icerik": "Hatalı Kod:\nimport pandas as PD\nDF = pd.read_csv('verisetleri/veri.csv')\n\nDedektif: Python büyük/küçük harfe duyarlıdır. Genellikle 'pd' ve 'df' küçük harfle yazılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "code inspection syntax error correction bug"
+    }
+  },
+  {
+    "baslik": "🧩 İskele Kod 1 (Boşluk Doldurma)",
+    "altbaslik": "Kendi Analizini Başlat",
+    "icerik": "# GÖREV: Boşlukları doldurarak ilk 5 satırı yazdırın:\nimport pandas as ___\ndf = pd.read_csv('verisetleri/hafta13_avm_musteri_harcama.csv')\nprint(df.____(5))",
+    "gorsel": {
+      "type": "image",
+      "query": "scaffolding template fill in blanks code"
+    }
+  },
+  {
+    "baslik": "🧩 İskele Kod 2 (Boşluk Doldurma)",
+    "altbaslik": "Ortalama ve Filtre Şablonu",
+    "icerik": "# GÖREV: İlk sayısal sütunun ortalamasını bulun:\nilk_sutun = df.columns[3]\nortalama = df[ilk_sutun].mean()\nprint(f'{ilk_sutun} Sütunu Ortalaması:', ortalama)",
+    "gorsel": {
+      "type": "image",
+      "query": "fill blanks programming code practice"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama: Adım Adım Analiz",
+    "altbaslik": "Örnek Problem Çözümü",
+    "icerik": "Senaryo: AVM Müşteri Segmentasyonu kapsamında verimizdeki en yüksek 3 değeri ve ortalamayı bulmak istiyoruz.\n\n1. Adım: Veriyi oku\n2. Adım: Sütunu seç\n3. Adım: .sort_values(ascending=False).head(3) ile en büyükleri listele.",
+    "gorsel": {
+      "type": "image",
+      "query": "step by step data solution chart analytics"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka Analizi: Gerçek Dünya Başarısı",
+    "altbaslik": "Büyük Şirketler Nasıl Kullanıyor?",
+    "icerik": "Senaryo: Türkiye'deki önde gelen teknoloji ve e-ticaret şirketleri K-Ortalamalar (K-Means Kümeleme) yöntemlerini kullanarak operasyonel maliyetlerini %35 düşürmüş ve müşteri memnuniyetini artırmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "business case study success metrics financial growth"
+    }
+  },
+  {
+    "baslik": "Vaka Çözümünden Çıkarılan Mühendislik Dersi",
+    "altbaslik": "Veri Kalitesinin Önemi",
+    "icerik": "Temiz Veri = Başarılı Model!\nÇöp veri girerse çöp sonuç çıkar (Garbage In, Garbage Out). Bu yüzden veri ön işleme aşaması makine öğrenmesinde zamanın %80'ini alır.",
+    "gorsel": {
+      "type": "image",
+      "query": "garbage in garbage out data quality cleaning"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Altın Kurallar",
+    "altbaslik": "Nelere Dikkat Etmeliyiz?",
+    "icerik": "1. Modeli eğitmeden tahmin yapmaya çalışmak.\n2. Eksik veya NaN değerleri temizlemeden algoritmaya göndermek.\n3. Sonuçları sadece sayı olarak bırakıp sözel olarak yorumlamamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "golden rules best practices tips developer"
+    }
+  },
+  {
+    "baslik": "Performans İpucu: Bellek ve Hız",
+    "altbaslik": "Büyük Veride Verimlilik",
+    "icerik": "Gereksiz döngüler yerine Pandas ve NumPy vektörel komutlarını kullanmak milyonlarca satırda saatler sürecek işlemi saniyelere indirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "speed performance optimization rocket processor"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Temel Kavramlar",
+    "icerik": "Soru: K-Ortalamalar (K-Means Kümeleme) sürecinde hedefimiz temel olarak nedir?\nA) Bilgisayarı kapatmak\nB) Verideki gizli örüntü ve kuralları keşfetmek\nC) Sadece oyun oynamak\nD) Excel'i silmek\n\nDoğru Cevap: B (Örüntü ve kuralları keşfetmek)",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam quiz classroom question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Python ve Veri",
+    "icerik": "Soru: Pandas ile 'hafta13_avm_musteri_harcama.csv' dosyasını okumak için hangi fonksiyon kullanılır?\nA) pd.read_excel()\nB) pd.read_csv()\nC) pd.open_file()\nD) pd.load()\n\nDoğru Cevap: B (read_csv)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test question pandas python"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Veri Yapısı",
+    "icerik": "Soru: Bir veri tablosundaki satırlar neyi temsil eder?\nA) Her bir gözlem / nesneyi\nB) Sadece sütun başlıklarını\nC) Rastgele harfleri\nD) Hiçbir şeyi\n\nDoğru Cevap: A (Gözlem / örnekleri)",
+    "gorsel": {
+      "type": "image",
+      "query": "data table rows columns test question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Uygulama Mantığı",
+    "icerik": "Soru: Modelin hiç görmediği yeni veriler üzerindeki başarısını ölçmek neden önemlidir?\nA) Ezberleyip ezberlemediğini (aşırı öğrenme) test etmek için\nB) Zaman harcamak için\nC) Bilgisayarı yormak için\nD) Önemsizdir\n\nDoğru Cevap: A (Ezberlemeyi tespit etmek)",
+    "gorsel": {
+      "type": "image",
+      "query": "model validation overfitting test exam"
+    }
+  },
+  {
+    "baslik": "🏁 Günün Görevi: AVM Müşteri Segmentasyonu",
+    "altbaslik": "Ders Sonu 15-20 Dk Bireysel Uygulama",
+    "icerik": "GÖREV:\n1. Colab'da 'notebooklar/hafta13_uygulama.ipynb' dosyasını açın.\n2. 'verisetleri/hafta13_avm_musteri_harcama.csv' verisini yükleyin.\n3. Adım adım kodları çalıştırıp hata dedektifliğini tamamlayın.\n4. Çıkan sonucu 1 cümleyle Türkçe açıklayıp öğretmeninize gösterin.",
+    "gorsel": {
+      "type": "image",
+      "query": "trophy mission completion coding challenge winner"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Hafta 13 Neler Öğrendik?",
+    "icerik": "- K-Ortalamalar (K-Means Kümeleme) mantığını somut bir hayat problemiyle modelledik.\n- hafta13_avm_musteri_harcama.csv veri setini başarıyla işledik ve analiz ettik.\n- Daktiloculuk yapmadan, kodu anlayarak ve hataları çözerek ilerledik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept map achievements celebration"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 14 Hazırlığı",
+    "icerik": "Gelecek Hafta:\n- Bir sonraki seviye algoritmayı ve yeni bir sürpriz veri setini keşfedeceğiz.\n- Bu hafta öğrendiğimiz temel adımları bir sonraki haftanın temeline harç olarak koyacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "next steps future roadmap technology evolution"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Çıkış Sorusu:\n'Bugün öğrendiğimiz K-Ortalamalar (K-Means Kümeleme) yöntemini günlük hayatınızda hangi kişisel probleminizi çözmek için kullanmak isterdiniz?'\n\nKısa cevabınızı kağıda yazıp öğretmeninize teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit pass student evaluation feedback note"
+    }
+  }
+]

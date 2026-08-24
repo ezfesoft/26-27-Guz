@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 9",
+    "altbaslik": "Pydantic ve Veri Doğrulama (Data Validation)",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Pydantic BaseModel, Field Kısıtlamaları, POST İstekleri ve 422 Doğrulama Hataları\nUygulama Teması: Kütüphane Kitap Kayıt & Öğrenci Başvuru Formu",
+    "gorsel": {
+      "type": "image",
+      "query": "pydantic data validation schema form web api"
+    }
+  },
+  {
+    "baslik": "Motivasyon: Kullanıcı Fiyat Yerine Harf Yazarsa?",
+    "altbaslik": "Web Formlarında Akıllı Bekçi İhtiyacı",
+    "icerik": "Bir web formunda:\n- Öğrenci yaşına '-5' yazılırsa,\n- Kitap sayfa sayısına 'beş yüz' yazılırsa,\n- E-posta yerine anlamsız metin girilirse ne olur?\nVeritabanımız bozulur ve sistem kilitlenir!\nİşte Pydantic, gelen veriyi veritabanına girmeden önce denetleyen süper zeki bekçidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "form validation error checkmark cross website"
+    }
+  },
+  {
+    "baslik": "Pydantic Nedir?",
+    "altbaslik": "Python Tip Belirteçleriyle Veri Modelleme",
+    "icerik": "Pydantic, Python'ın en popüler veri doğrulama kütüphanesidir:\n- Sınıflarımızı `BaseModel`'den türetiriz.\n- Belirttiğimiz tiplere (str, int, float, bool) uyulmasını zorunlu kılar.\n- Yanlış veya eksik veri geldiğinde otomatik olarak detaylı hata mesajı (422) üretir.\n- FastAPI'nin arka planındaki gizli güçtür.",
+    "gorsel": {
+      "type": "image",
+      "query": "pydantic logo data structure validation shield"
+    }
+  },
+  {
+    "baslik": "Pydantic BaseModel Tanımlama",
+    "altbaslik": "Kitap Kayıt Şablonu",
+    "icerik": "from pydantic import BaseModel\n\nclass KitapKayit(BaseModel):\n    baslik: str\n    yazar: str\n    sayfa_sayisi: int\n    fiyat: float\n    mevcut_mu: bool = True  # Varsayılan değer",
+    "gorsel": {
+      "type": "image",
+      "query": "python code pydantic class basemodel"
+    }
+  },
+  {
+    "baslik": "Field ile Gelişmiş Kısıtlamalar",
+    "altbaslik": "Sayı ve Metin Sınırları Koymak",
+    "icerik": "from pydantic import BaseModel, Field\n\nclass KitapKayit(BaseModel):\n    baslik: str = Field(..., min_length=2, description='Kitap Adı')\n    sayfa_sayisi: int = Field(..., gt=0, description='Sayfa 0\\'dan büyük olmalı')\n    yayin_yili: int = Field(2024, ge=1800, le=2026)\n\n- `...`: Bu alanın ZORUNLU olduğunu belirtir.\n- `gt=0`: 0'dan büyük (greater than)\n- `ge=1800`: 1800'den büyük veya eşit",
+    "gorsel": {
+      "type": "image",
+      "query": "input constraints rules validation settings"
+    }
+  },
+  {
+    "baslik": "E-posta Doğrulaması (EmailStr)",
+    "altbaslik": "Otomatik @ ve Domain Kontrolü",
+    "icerik": "Pydantic e-posta formatını tek satırda denetleyebilir:\n\nfrom pydantic import BaseModel, EmailStr\n\nclass UyeKayit(BaseModel):\n    ad: str\n    eposta: EmailStr  # @ ve .com yoksa anında hata verir!",
+    "gorsel": {
+      "type": "image",
+      "query": "email format validation checkmark inbox"
+    }
+  },
+  {
+    "baslik": "HTTP POST Metodu Nedir?",
+    "altbaslik": "Sunucuya Yeni Veri Göndermek",
+    "icerik": "GET sadece okurken; POST sunucuya yeni bir kayıt kaydetmek için kullanılır.\n- Veriler URL'de değil, İstek Gövdesinde (Request Body / JSON) gizli ve güvenli gider.\n- `@app.post('/kitaplar', status_code=201)` ile tanımlanır (201 Created).",
+    "gorsel": {
+      "type": "image",
+      "query": "http post request envelope data transfer"
+    }
+  },
+  {
+    "baslik": "POST Endpoint ile Kitap Kaydetme",
+    "altbaslik": "Pydantic ile FastAPI'yi Birleştirmek",
+    "icerik": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\nkutuphane = []  # Geçici bellek listemiz\n\n@app.post('/kitaplar', status_code=201)\ndef kitap_ekle(kitap: KitapKayit):\n    yeni_veri = kitap.model_dump()  # Modeli Python sözlüğüne çevirir\n    yeni_veri['id'] = len(kutuphane) + 1\n    kutuphane.append(yeni_veri)\n    return {'mesaj': 'Kitap başarıyla eklendi! 🎉', 'kitap': yeni_veri}",
+    "gorsel": {
+      "type": "image",
+      "query": "saving data server database success"
+    }
+  },
+  {
+    "baslik": "Swagger UI'da POST Sihri!",
+    "altbaslik": "Otomatik JSON Formu",
+    "icerik": "Tarayıcıda `/docs` sayfasına gidin:\n- `POST /kitaplar` butonunun yeşil renkli olduğunu göreceksiniz.\n- İçine tıkladığınızda otomatik doldurulabilir örnek bir JSON şablonu çıkacaktır:\n  {\n    \"baslik\": \"Nutuk\",\n    \"yazar\": \"Atatürk\",\n    \"sayfa_sayisi\": 600,\n    \"fiyat\": 150.0\n  }\n- 'Execute' dediğinizde veriniz sunucuya kaydedilir!",
+    "gorsel": {
+      "type": "image",
+      "query": "swagger ui post form input interactive documentation"
+    }
+  },
+  {
+    "baslik": "Otomatik 422 Doğrulama Hatası",
+    "altbaslik": "FastAPI Hataları Kendisi Yakalar",
+    "icerik": "Swagger UI formunda `sayfa_sayisi` kutusuna `-50` veya `\"yüz\"` yazıp Execute deyin:\n- FastAPI anında `422 Unprocessable Entity` hatası döner.\n- Hatanın hangi alanda olduğunu ('loc': ['body', 'sayfa_sayisi']) ve sebebini Türkçe/İngilizce açıkça söyler.\n- Tek satır if-else yazmadan güvenli form elde ettiniz!",
+    "gorsel": {
+      "type": "image",
+      "query": "http 422 validation error message json response"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Kitap Şeması Oluşturma",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "PyCharm'da `main.py` içine:\n1. `from pydantic import BaseModel, Field` ekleyin.\n2. `KitapKayit` şemasını yazın.\n3. `POST /kitaplar` endpoint'ini oluşturun.\n4. `/docs` üzerinden ilk kitabı kaydedin.",
+    "gorsel": {
+      "type": "image",
+      "query": "coding pycharm editor pydantic model"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Kitapları Listeleme (GET)",
+    "altbaslik": "Eklenen Kitapları Görmek",
+    "icerik": "@app.get('/kitaplar')\ndef kitaplari_getir():\n    return {\n        'toplam_kitap': len(kutuphane),\n        'kitaplar': kutuphane\n    }\n\nPOST ile 3 kitap ekledikten sonra GET /kitaplar çağırıp listenin büyüdüğünü izleyin!",
+    "gorsel": {
+      "type": "image",
+      "query": "book catalog list display api response"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Öğrenci Kayıt Formu",
+    "altbaslik": "Yaş ve GPA Kısıtlamaları",
+    "icerik": "class OgrenciBasvuru(BaseModel):\n    ad: str = Field(..., min_length=2)\n    soyad: str = Field(..., min_length=2)\n    yas: int = Field(..., ge=17, le=40)\n    gpa: float = Field(..., ge=0.0, le=4.0)\n\n@app.post('/ogrenciler/kayit')\ndef ogrenci_kayit(ogr: OgrenciBasvuru):\n    return {'durum': 'Başvuru Onaylandı 🎓', 'veri': ogr}",
+    "gorsel": {
+      "type": "image",
+      "query": "university admission application form graduation"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: İsteğe Bağlı Alanlar (Optional)",
+    "altbaslik": "Zorunlu Olmayan Bilgiler",
+    "icerik": "from typing import Optional\n\nclass ProfilFormu(BaseModel):\n    kullanici_adi: str\n    eposta: str\n    biyografi: Optional[str] = None  # Doldurmak zorunlu değil\n    telefon: Optional[str] = 'Belirtilmedi'",
+    "gorsel": {
+      "type": "image",
+      "query": "optional form fields profile settings"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Kafe Sipariş Formu",
+    "altbaslik": "Masa ve Ürün Siparişi",
+    "icerik": "class SiparisFormu(BaseModel):\n    masa_no: int = Field(..., ge=1, le=50)\n    urun: str\n    adet: int = Field(1, gt=0)\n\n@app.post('/kafe/siparis')\ndef siparis_al(siparis: SiparisFormu):\n    return {'mesaj': f'Masa {siparis.masa_no} için {siparis.adet} adet {siparis.urun} mutfağa iletildi.'}",
+    "gorsel": {
+      "type": "image",
+      "query": "digital order ticket kitchen restaurant cafe"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Yemekhane Bakiye Yükleme",
+    "altbaslik": "Tutar Doğrulama",
+    "icerik": "class BakiyeYukleme(BaseModel):\n    kart_no: str = Field(..., min_length=5)\n    tutar: float = Field(..., ge=10.0, le=1000.0)\n\n@app.post('/yemekhane/yukle')\ndef yukleme_yap(islem: BakiyeYukleme):\n    return {'durum': 'Yüklendi', 'kart': islem.kart_no, 'miktar': islem.tutar}",
+    "gorsel": {
+      "type": "image",
+      "query": "credit card top up balance terminal payment"
+    }
+  },
+  {
+    "baslik": "Response Model ile Çıktı Süzme",
+    "altbaslik": "Gizli Verileri Kullanıcıya Göstermemek",
+    "icerik": "class KullaniciKayit(BaseModel):\n    kullanici_adi: str\n    sifre: str  # Gelen şifre\n\nclass KullaniciYanit(BaseModel):\n    kullanici_adi: str  # Şifre gizlendi!\n\n@app.post('/kayit', response_model=KullaniciYanit)\ndef kaydol(k: KullaniciKayit):\n    return k  # FastAPI response_model sayesinde sifre alanını otomatik filtreler!",
+    "gorsel": {
+      "type": "image",
+      "query": "data filter security response model mask"
+    }
+  },
+  {
+    "baslik": "Özel Doğrulayıcılar: @field_validator",
+    "altbaslik": "Kendi Özel Kurallarımızı Yazmak",
+    "icerik": "from pydantic import field_validator\n\nclass SifreFormu(BaseModel):\n    sifre: str\n\n    @field_validator('sifre')\n    @classmethod\n    def sifre_guclu_mu(cls, v):\n        if len(v) < 6:\n            raise ValueError('Şifre en az 6 karakter olmalıdır!')\n        return v",
+    "gorsel": {
+      "type": "image",
+      "query": "password strength validator lock"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\nclass Urun(BaseModel):\n    fiyat: float = Field(..., lt=0)\n\nProblem Nedir?\n`lt=0` (less than 0) fiyatın 0'dan KÜÇÜK olmasını zorunlu kılar! Eksi fiyatlı ürün girilemez.\nDoğrusu: `gt=0` (greater than 0) olmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "logic error math condition bug"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "class Form(BaseModel):\n    yas: int = 18\n\nGelen JSON: `{}` (Boş veri)\nÇıktı: `{'yas': 18}` (Varsayılan değer otomatik devreye girer).",
+    "gorsel": {
+      "type": "image",
+      "query": "default value fallback configuration"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Pydantic Kullanırken 3 Hata",
+    "icerik": "1. `BaseModel`'den miras almayı unutmak (Düz sınıf olursa doğrulama çalışmaz).\n2. `model_dump()` yerine eski Python sürümlerindeki `.dict()` metodunu kullanmak.\n3. POST endpoint'inde durum kodunu (status_code=201) belirtmemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning checklist code quality caution"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "BaseModel",
+    "icerik": "Soru: Pydantic şeması oluştururken sınıflar hangi temel sınıftan türetilmelidir?\nA) Object\nB) BaseModel\nC) SchemaModel\nD) FastAPIModel\n\nDoğru Cevap: B (BaseModel).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "HTTP Durum Kodu",
+    "icerik": "Soru: Pydantic doğrulamasından geçemeyen geçersiz bir istek geldiğinde FastAPI hangi HTTP durum kodunu döner?\nA) 200 OK\nB) 404 Not Found\nC) 422 Unprocessable Entity\nD) 500 Server Error\n\nDoğru Cevap: C (422 Unprocessable Entity).",
+    "gorsel": {
+      "type": "image",
+      "query": "http status code 422 error badge"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Field Özellikleri",
+    "icerik": "Soru: Bir alanın 10 ile 100 arasında olmasını zorunlu kılan Field yazımı hangisidir?\nA) Field(min=10, max=100)\nB) Field(ge=10, le=100)\nC) Field(start=10, end=100)\nD) Field(between=[10, 100])\n\nDoğru Cevap: B (ge=greater/equal, le=less/equal).",
+    "gorsel": {
+      "type": "image",
+      "query": "range slider validation boundary values"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Bankacılık Form Güvenliği",
+    "altbaslik": "Eksi Para Transferini Engellemek",
+    "icerik": "Gerçek Dünyada:\nBir havale formunda kullanıcı transfer tutarına `-5000` yazarak karşı taraftan para çalmayı denemiştir.\nPydantic katmanında `tutar: float = Field(..., gt=0)` kuralı olduğu için istek sunucu veritabanına ulaşamadan 422 ile kapıda engellenmiştir.",
+    "gorsel": {
+      "type": "image",
+      "query": "bank transaction security firewall validation"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Kütüphane Kitap & Üye Kayıt API'si",
+    "icerik": "Göreviniz:\n1. `UyeKayitFormu` şeması oluşturun:\n   - `ad_soyad` (min 3 karakter)\n   - `ogrenci_no` (tam 5 haneli)\n   - `eposta` (str)\n2. `POST /uyeler` endpoint'i ile üyeyi listeye ekleyin.\n3. `GET /uyeler` ile kayıtlı üyeleri listeleyin.\n4. Swagger UI üzerinde geçersiz öğrenci no ile 422 hatasını, doğru veri ile 201 kaydını test edin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "student registration task coding mission"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "class UyeKayitFormu(BaseModel):\n    ad_soyad: str = Field(..., min_length=3)\n    ogrenci_no: str = Field(..., min_length=5, max_length=5)\n    eposta: str\n\nuyeler_db = []\n@app.post('/uyeler', status_code=201)\ndef uye_ekle(uye: UyeKayitFormu):\n    # siz tamamlayınız...",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint solution code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- Pydantic verileri veritabanına girmeden önce filtreleyen akıllı kalkandır.\n- BaseModel ve Field ile zorunlu alanlar ve aralık sınırları konur.\n- POST metodu ile sunucuya güvenli veri paketleri gönderilir.\n- Geçersiz girdilerde FastAPI otomatik 422 hata yanıtı verir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 10: Kalıcı Veritabanı: SQLite ve SQLAlchemy (CRUD)",
+    "icerik": "Ön Hazırlık:\n- Sunucuyu kapatıp açtığımızda verilerin silinmesini nasıl engelleriz?\n- SQLite veritabanı dosyası nasıl oluşturulur?\n- SQLAlchemy ORM ile Python sınıflarını veritabanı tablolarına dönüştüreceğiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "sqlite database storage persistence sqlalchemy"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Pydantic ile bir UrunFormu tanımlayın (urun_adi: str, fiyat: float 0\\'dan büyük olmalı). Sınıf kodunu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

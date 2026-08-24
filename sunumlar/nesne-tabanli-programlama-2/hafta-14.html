@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 14 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 14</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="#" class="btn-nav" style="text-decoration:none;" disabled>
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 14", "altbaslik": "Büyük Final: Proje Refactoring ve Portföy Hazırlığı", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: APIRouter Mimarisi, Modüler Refactoring, Profesyonel README.md ve CV Portföy Projesi\nUygulama Teması: Mezuniyet Portföy REST API Projesi", "gorsel": {"type": "image", "query": "software engineering final project graduation portfolio python fastapi"}}, {"baslik": "14 Haftalık Büyük Başarı Hikayesi", "altbaslik": "Nereden Nereye Geldik?", "icerik": "Dönem başında sadece konsolda toplama yaparken:\n- 1. Ay: Python temellerini ve veri yapılarını (list, dict) fethettiniz.\n- 2. Ay: Sınıflarla (OOP), Kalıtım ve Kapsülleme ile hayatı kodladınız.\n- 3. Ay: FastAPI, Pydantic ve Swagger UI ile modern web dünyasına adım attınız.\n- 4. Ay: SQLite veritabanı, CRUD, JWT Güvenlik ve Frontend entegrasyonunu başardınız!\nBugün bu şaheseri taçlandırma günü!", "gorsel": {"type": "image", "query": "growth learning progress timeline mountain top success"}}, {"baslik": "Bugünkü Hedefimiz: Portföy Projesi", "altbaslik": "Mülakatlarda Masaya Koyacağınız Proje", "icerik": "İş görüşmesine gittiğinizde 'Ben Python biliyorum' demek yetmez.\n- 'İşte benim geliştirdiğim, SQLite veritabanlı, JWT güvenlikli, Swagger dokümantasyonlu REST API projem' diyeceksiniz.\n- Bugün tüm kodlarımızı profesyonel kurumsal mimariye (Refactoring) dönüştüreceğiz.", "gorsel": {"type": "image", "query": "job interview software engineer portfolio demonstration"}}, {"baslik": "Refactoring Nedir?", "altbaslik": "Çalışan Kodu Temiz ve Modüler Hale Getirmek", "icerik": "Refactoring (Yeniden Yapılandırma):\n- Kodun dış davranışını değiştirmeden, iç yapısını daha temiz, okunabilir ve modüler hale getirmektir.\n- 500 satırlık `main.py` dosyasını mantıksal `routers/` klasörlerine böleceğiz.", "gorsel": {"type": "image", "query": "code refactoring clean architecture organizing lego"}}, {"baslik": "Kurumsal Proje Klasör Mimarisi", "altbaslik": "Sektör Standartı Proje Ağacı", "icerik": "kampus_api_projesi/\n├── database.py       (Veritabanı bağlantısı ve get_db)\n├── models.py         (SQLAlchemy ORM tabloları)\n├── schemas.py        (Pydantic doğrulama modelleri)\n├── auth.py           (JWT ve şifreleme fonksiyonları)\n├── routers/\n│   ├── __init__.py\n│   ├── kitaplar.py   (Kitap CRUD endpoint'leri)\n│   └── uyeler.py     (Giriş ve üye endpoint'leri)\n├── requirements.txt  (Proje kütüphaneleri)\n├── README.md         (GitHub tanıtım vitrini)\n└── main.py           (Router'ları birleştiren ana dosya)", "gorsel": {"type": "image", "query": "software project folder tree clean directory structure"}}, {"baslik": "FastAPI APIRouter Nedir?", "altbaslik": "Endpoint'leri Modüllere Ayırmak", "icerik": "Her konunun endpoint'lerini kendi dosyasına koymamızı sağlar:\n- `routers/kitaplar.py` -> Sadece kitap işlemleri\n- `routers/uyeler.py` -> Sadece üye ve login işlemleri\n- `main.py` -> Sadece bu router'ları `app.include_router()` ile birleştirir.", "gorsel": {"type": "image", "query": "network router traffic splitter modular architecture"}}, {"baslik": "Adım 1: routers/kitaplar.py Oluşturma", "altbaslik": "Kitap Rotalarını İzolasyon Alanına Almak", "icerik": "from fastapi import APIRouter, Depends, HTTPException\nfrom sqlalchemy.orm import Session\nfrom typing import List\nimport models, schemas, database\n\nrouter = APIRouter(\n    prefix='/kitaplar',\n    tags=['Kitap Yönetimi 📚']\n)\n\n@router.get('/', response_model=List[schemas.KitapYanit])\ndef kitaplari_getir(db: Session = Depends(database.get_db)):\n    return db.query(models.KitapModel).all()", "gorsel": {"type": "image", "query": "python apirouter modular endpoint code"}}, {"baslik": "Adım 2: routers/uyeler.py Oluşturma", "altbaslik": "Kimlik Doğrulama Rotaları", "icerik": "from fastapi import APIRouter, Depends, HTTPException\nfrom fastapi.security import OAuth2PasswordRequestForm\nimport auth, schemas\n\nrouter = APIRouter(\n    prefix='/auth',\n    tags=['Kimlik Doğrulama 🔒']\n)\n\n@router.post('/login')\ndef login(form: OAuth2PasswordRequestForm = Depends()):\n    # Token üretimi...\n    return {'access_token': 'bilet_123', 'token_type': 'bearer'}", "gorsel": {"type": "image", "query": "user auth routes login token python code"}}, {"baslik": "Adım 3: Tertemiz main.py Dosyası", "altbaslik": "Sadece 15 Satırda Ana Uygulama", "icerik": "from fastapi import FastAPI\nfrom routers import kitaplar, uyeler\nimport database, models\n\n# Veritabanı tablolarını oluştur\nmodels.Base.metadata.create_all(bind=database.engine)\n\napp = FastAPI(\n    title='Giresun Kampüs Kütüphane API',\n    description='Python, FastAPI, SQLAlchemy ve SQLite ile geliştirilmiş kurumsal REST API.',\n    version='1.0.0'\n)\n\n# Router'ları ana uygulamaya bağlıyoruz:\napp.include_router(kitaplar.router)\napp.include_router(uyeler.router)", "gorsel": {"type": "image", "query": "clean main python script include router"}}, {"baslik": "Swagger UI'da Gruplandırılmış Rotalar (Tags)", "altbaslik": "Düzenli ve Şık API Dokümantasyonu", "icerik": "Tarayıcıda `/docs` sayfasına baktığınızda:\n- **Kitap Yönetimi 📚** başlığı altında kitap endpoint'leri,\n- **Kimlik Doğrulama 🔒** başlığı altında giriş endpoint'leri\ntertemiz bölümler halinde listelenecektir.", "gorsel": {"type": "image", "query": "swagger ui tags organized grouped endpoints"}}, {"baslik": "Adım 4: requirements.txt Dosyasını Üretme", "altbaslik": "Kütüphaneleri Paketleme", "icerik": "PyCharm Terminalinde çalıştırın:\n\n`pip freeze > requirements.txt`\n\nİçinde `fastapi`, `uvicorn`, `sqlalchemy`, `pydantic`, `httpx` gibi tüm dönem boyunca kullandığımız kütüphanelerin sürümleri kaydedilir.", "gorsel": {"type": "image", "query": "terminal freeze command requirements text"}}, {"baslik": "Adım 5: Profesyonel README.md Vitrini", "altbaslik": "Projenizin Kartviziti", "icerik": "# 📚 Giresun Kampüs Kütüphane REST API\n\nBu proje, Giresun Üniversitesi Bilgisayar Programcılığı NTP II dersi bitirme portföyü olarak geliştirilmiştir.\n\n## 🚀 Özellikler\n- **FastAPI & Uvicorn** ile yüksek performanslı REST mimarisi\n- **SQLite & SQLAlchemy ORM** ile kalıcı veri yönetimi\n- **Pydantic** ile otomatik veri doğrulama\n- **JWT Bearer Token** ile güvenli kimlik doğrulama\n- **Swagger UI** (/docs) otomatik interaktif test paneli", "gorsel": {"type": "image", "query": "github readme markdown file documentation preview"}}, {"baslik": "README.md: Kurulum ve Çalıştırma Adımları", "altbaslik": "Projeyi İndiren Kişi Nasıl Çalıştırır?", "icerik": "## 🛠️ Kurulum Adımları\n1. Depoyu klonlayın veya indirin.\n2. Sanal ortamı kurun: `python -m venv .venv`\n3. Sanal ortamı aktifleştirin: `.venv\\Scripts\\activate`\n4. Bağımlılıkları yükleyin: `pip install -r requirements.txt`\n5. Sunucuyu başlatın: `uvicorn main:app --reload`\n6. Tarayıcıdan test edin: `http://127.0.0.1:8000/docs`", "gorsel": {"type": "image", "query": "installation steps command line terminal guide"}}, {"baslik": "Laboratuvar Döngüsü 1: routers/ Klasörü Açma", "altbaslik": "PyCharm'da Modüler Refactoring", "icerik": "1. Proje ana dizininde `routers` adında bir klasör (Package) açın.\n2. İçine `kitaplar.py` ve `uyeler.py` dosyalarını oluşturun.\n3. Eski `main.py` içindeki rotaları bu dosyalara taşıyın.", "gorsel": {"type": "image", "query": "pycharm creating package directory refactoring"}}, {"baslik": "Laboratuvar Döngüsü 2: include_router Bağlantısı", "altbaslik": "Ana Dosyada Birleştirme", "icerik": "- `main.py` dosyasını açın.\n- `app.include_router(kitaplar.router)` ve `app.include_router(uyeler.router)` satırlarını ekleyin.\n- Sunucuyu çalıştırıp `/docs` ekranında rotaların çalıştığını test edin.", "gorsel": {"type": "image", "query": "connecting modules together python server"}}, {"baslik": "Laboratuvar Döngüsü 3: README.md Dosyasını Yazma", "altbaslik": "Markdown ile Proje Sunumu", "icerik": "- Projenize `README.md` dosyası ekleyin.\n- Başlıkları, kullanılan teknolojileri ve kendi adınızı, öğrenci numaranızı yazın.", "gorsel": {"type": "image", "query": "markdown editor writing documentation preview"}}, {"baslik": "Laboratuvar Döngüsü 4: GitHub Deposu Hazırlığı", "altbaslik": ".gitignore Kontrolü", "icerik": "`.gitignore` dosyanızda şunların olduğundan emin olun:\n- `.venv/`\n- `__pycache__/`\n- `*.pyc`\n\nBöylece projeniz tertemiz bir şekilde GitHub'a yüklenmeye hazır hale gelir.", "gorsel": {"type": "image", "query": "git repository clean status commit push"}}, {"baslik": "CV'nize Bu Dersi Nasıl Yazacaksınız?", "altbaslik": "Özgeçmişinizi Parlatacak Cümleler", "icerik": "💼 **Yetenekler (Skills):**\n- Python, Nesne Tabanlı Programlama (OOP)\n- FastAPI, RESTful API Mimarisi, Uvicorn\n- SQLAlchemy ORM, SQLite Veritabanı (CRUD)\n- Pydantic Veri Doğrulama, JWT Kimlik Doğrulama\n- Postman API Testi, Swagger UI Dokümantasyonu", "gorsel": {"type": "image", "query": "resume cv software developer skills section modern"}}, {"baslik": "Mülakat Sorusu 1: FastAPI vs Flask/Django", "altbaslik": "Neden FastAPI Seçtiniz?", "icerik": "Cevabınız:\n'FastAPI, modern Python tip belirteçlerini (Type Hints) ve Pydantic'i temel alır. Hem NodeJS kadar yüksek asenkron performans sunar hem de Swagger UI dokümantasyonunu otomatik üretir.'", "gorsel": {"type": "image", "query": "interview questions answering professional confidence"}}, {"baslik": "Mülakat Sorusu 2: ORM Kullanmanın Faydası", "altbaslik": "SQLAlchemy Neden Önemli?", "icerik": "Cevabınız:\n'SQLAlchemy ORM sayesinde veritabanı işlemlerini nesne tabanlı Python sınıflarıyla yürütürüz. Bu durum bizi SQL enjeksiyon açıklarından korur, kodun okunabilirliğini artırır ve veritabanı bağımsızlığı sağlar.'", "gorsel": {"type": "image", "query": "database security sql injection protection orm"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hatalı Kod (main.py):\napp.include_router(kitaplar)\n\nProblem Nedir?\n`kitaplar` dosyasının içindeki `router` nesnesi verilmelidir: `app.include_router(kitaplar.router)` olmalıdır!", "gorsel": {"type": "image", "query": "router object include error code fix"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "router = APIRouter(prefix='/urunler')\n@router.get('/liste')\ndef f(): pass\n\nBu endpoint'in tam URL yolu nedir?\nÇıktı: `/urunler/liste` (prefix ile metot yolu otomatik birleşir).", "gorsel": {"type": "image", "query": "url prefix routing path concatenation"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "Proje Paketlemede 3 Hata", "icerik": "1. `requirements.txt` dosyasını güncellemeyi unutmak.\n2. Proje dizininde `__pycache__` dosyalarını silmeden paylaşmak.\n3. `README.md` dosyasında çalıştırma komutlarını eksik bırakmak.", "gorsel": {"type": "image", "query": "warning caution final checklist quality"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "APIRouter", "icerik": "Soru: FastAPI'de rotaları modüler dosyalara bölmek için kullanılan sınıf hangisidir?\nA) URLRouter\nB) APIRouter\nC) SubApp\nD) PathRouter\n\nDoğru Cevap: B (APIRouter).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Refactoring Tanımı", "icerik": "Soru: Çalışan kodun dış işleyişini değiştirmeden iç yapısını daha temiz ve modüler hale getirmeye ne ad verilir?\nA) Debugging\nB) Refactoring (Yeniden Yapılandırma)\nC) Compiling\nD) Deploying\n\nDoğru Cevap: B (Refactoring).", "gorsel": {"type": "image", "query": "refactoring concept software quality test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "README Dosyası", "icerik": "Soru: GitHub projelerinde projenin vitrini ve kullanım kılavuzu olan dosya uzantısı nedir?\nA) .txt\nB) .md (Markdown)\nC) .doc\nD) .html\n\nDoğru Cevap: B (.md - Markdown).", "gorsel": {"type": "image", "query": "markdown file format badge"}}, {"baslik": "BÜYÜK FİNAL GÖREVİ (Final Boss Fight)", "altbaslik": "Kendi Portföy REST API Projenizi Teslim Edin!", "icerik": "Göreviniz:\n1. Kendi seçtiğiniz bir temada (Kütüphane, Kampüs Kafe, Öğrenci Not Otomasyonu veya E-Ticaret) tam CRUD projenizi derleyin.\n2. `routers/` yapısına ayırın.\n3. `requirements.txt` ve `README.md` dosyalarını ekleyin.\n4. Swagger `/docs` panelinden çalışan canlı ekran görüntüsüyle projenizi teslim edin!\n\nBaşarılar Dileriz! 🎓🎉", "gorsel": {"type": "image", "query": "graduation trophy achievement diploma software success"}}, {"baslik": "Dönem Sonu Başarı Mesajı", "altbaslik": "Öğr. Gör. Süleyman EZDEMİR'den Mesaj", "icerik": "'Değerli öğrencilerim, bu dönem gösterdiğiniz çaba ve azimle sıfırdan modern bir Backend Yazılımcısı adayına dönüştünüz.\nKod yazmaktan asla vazgeçmeyin; merak edin, deneyin ve üretin.\nYolunuz açık, başarılarınız daim olsun!'", "gorsel": {"type": "image", "query": "teacher professor congratulating university students celebration"}}, {"baslik": "Dönem Özeti ve Kapanış", "altbaslik": "Giresun Üniversitesi Bilgisayar Programcılığı", "icerik": "14 Haftada Neler Başardık?\n- Python OOP Felsefesi & Kalıtım / Kapsülleme\n- FastAPI & Uvicorn ile Modern Web Servisleri\n- SQLite & SQLAlchemy ile Kalıcı Veritabanı\n- Pydantic & JWT ile Veri Doğrulama ve Güvenlik\n- Postman & Web Entegrasyonu ile Full-Stack Deneyimi\n\nTebrikler!", "gorsel": {"type": "image", "query": "university campus giresun graduation celebration diploma"}}, {"baslik": "Son Çıkış Bileti (Mezuniyet Bileti)", "altbaslik": "Dönem Sonu Değerlendirmesi", "icerik": "Günün Sorusu:\n'Bu 14 haftalık NTP II dersinde öğrendiğiniz ve sizi en çok heyecanlandıran teknoloji/konu hangisi oldu? Nedenini 2 cümleyle yazınız.'\n\nTeşekkür ederiz!", "gorsel": {"type": "image", "query": "graduation diploma celebration happy students"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

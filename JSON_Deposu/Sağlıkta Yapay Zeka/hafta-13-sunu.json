@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Sağlıkta YZ: Sektörden Bakış ve Kariyer",
+    "altbaslik": "Girişimcilik, İş İlanları ve Mezuniyet Sonrası Roller",
+    "icerik": "- Kapsam: Küresel ve ulusal Sağlık Teknolojisi (HealthTech) ekosistemi.\n- İstihdam Dinamikleri: Tıbbi veri teknikerliği ve sağlık dokümantasyonu mezunlarının YZ projelerindeki yeri.\n- Hastane Satın Alma Kriterleri: Bir hastane YZ yazılımı alırken nelere dikkat eder?\n- Geleceğin Becerileri: Veri kürasyonu, kalite denetimi, etik uyum ve hibrit teknikerlik.",
+    "gorsel": {
+      "type": "image",
+      "query": "healthtech startup digital health careers medical informatics"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "13. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Sağlık teknolojisi pazarındaki güncel YZ trendlerini ve iş modellerini analiz eder.\n- ÖÇ2: Sektörel iş ilanlarındaki teknik ve operasyonel gereksinimleri sınıflandırır.\n- ÖÇ3: Bir hastanenin YZ yazılımı tedarik sürecindeki kalite ve uyumluluk kriterlerini değerlendirir.\n- ÖÇ4: Kendi mesleki yetkinliklerine uygun bir kariyer gelişim planı oluşturur.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning goals career planning digital health jobs"
+    }
+  },
+  {
+    "baslik": "Sağlık Teknolojisi (HealthTech) Ekosistemi",
+    "altbaslik": "Dünyada ve Türkiye'de Neler Oluyor?",
+    "icerik": "- Küresel Pazar: Yıllık milyarlarca dolarlık yatırım alan teletıp, tanı YZ ve cerrahi robotik sistemleri.\n- Türkiye Ekosistemi: Teknoparklardaki yerli biyoteknoloji ve medikal YZ girişimleri.\n- Kamu İnisiyatifleri: TÜSEB (Türkiye Sağlık Enstitüleri Başkanlığı) Ar-Ge projeleri ve Sağlık Bakanlığı dijitalleşme vizyonu.\n- Fırsat Alanı: Klinik ekipler ile yazılımcılar arasındaki iletişim köprüsünü kuracak yetişmiş personel açığı.",
+    "gorsel": {
+      "type": "image",
+      "query": "healthtech startup ecosystem turkey digital health innovation"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Yeni İstihdam Alanları",
+    "altbaslik": "Geleneksel Sekreterlikten Veri Küratörlüğüne",
+    "icerik": "- 1. Sağlık Veri Küratörü / Etiketleme Uzmanı (Data Curator): Ar-Ge şirketlerinde tıbbi verilerin temizlenmesi ve etiketlenmesi.\n- 2. YZ Kalite ve Güvenlik Denetçisi: Hastanelerde YZ sistemlerinin ürettiği raporların ön denetimi.\n- 3. HBYS & FHIR Entegrasyon Sorumlusu: Sağlık veri standartlarına uygunluk kontrolü.\n- 4. Klinik Araştırma Veri Koordinatörü: İlaç ve cihaz çalışmalarında veri tabanı yönetimi.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical data curator healthcare data specialist modern career"
+    }
+  },
+  {
+    "baslik": "İş İlanı Analizi: Sektör Ne İstiyor?",
+    "altbaslik": "Gerçek İş Tanımlarında Aranan Şartlar",
+    "icerik": "- Temel Sağlık Terminolojisi: ICD-10, SNOMED, LOINC kodlama bilgisi.\n- Veri Araçları: Excel ileri seviye, temel SQL, Google Colab / Python okuryazarlığı.\n- Yasal Yetkinlik: KVKK, hasta mahremiyeti ve etik kurul süreçleri bilgisi.\n- İletişim: Hekimler, hemşireler ve yazılım mühendisleri arasında tercümanlık yapabilme yeteneği.",
+    "gorsel": {
+      "type": "image",
+      "query": "job description resume health data analyst qualifications"
+    }
+  },
+  {
+    "baslik": "Hastane YZ Satın Alma Rehberi: 6 Kritik Soru",
+    "altbaslik": "Yönetim Masasında Veri Teknikerinin Rolü",
+    "icerik": "- 1. Klinik Kanıt: Ürünün hakemli dergilerde dış doğrulanmış (external validation) yayını var mı?\n- 2. Regülasyon: SaMD kapsamında CE-MDR veya FDA onayı mevcut mu?\n- 3. Entegrasyon: Mevcut HBYS ve PACS sistemimizle FHIR/DICOM üzerinden konuşabiliyor mu?\n- 4. Maliyet-Fayda: Gerçekten hekim zamanından tasarruf ettiriyor mu, yoksa ek iş yükü mü getiriyor?\n- 5. Güvenlik: Hasta verileri hastane dışına çıkıyor mu (On-premise vs Cloud)?\n- 6. Sürekli İzleme: Model drift yaşandığında güncelleme desteği veriliyor mu?",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital procurement medical software evaluation checklist"
+    }
+  },
+  {
+    "baslik": "Sağlık Girişimciliği ve İnovasyon Süreci",
+    "altbaslik": "Klinik Fikirden Ticarileşmeye",
+    "icerik": "- Problem Keşfi: Hastanedeki rutin bir veri giriş veya triyaj tıkanıklığını fark etmek.\n- MVP (Minimum Viable Product): Basit bir karar tablosu veya no-code prototip üretmek.\n- Klinik Pilot Test: Etik kurul izniyle kapalı devre denemeler yapmak.\n- Tıbbi Veri Teknikeri İpucu: En iyi YZ ürün fikirleri masa başında değil, hastane koridorlarındaki operasyonel sorunlardan doğar!",
+    "gorsel": {
+      "type": "image",
+      "query": "healthcare innovation startup prototype medical clinic"
+    }
+  },
+  {
+    "baslik": "Atölye: Bireysel Kariyer Portfolyosu Tasarımı",
+    "altbaslik": "Mezuniyet Sonrası CV ve GitHub Hazırlığı",
+    "icerik": "- Adım 1: Dönem boyunca yapılan atölye çalışmalarını (Makale analizi, FHIR JSON parsing, No-code model) listeleyin.\n- Adım 2: LinkedIn ve CV'de 'Sağlıkta YZ Okuryazarlığı, Klinik NLP Denetimi, KVKK Uyum Yönetimi' başlıklarını öne çıkarın.\n- Adım 3: Gerçek bir iş ilanına başvurur gibi niyet mektubu (Cover Letter) taslağı hazırlayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "student portfolio resume building digital health career"
+    }
+  },
+  {
+    "baslik": "Sürekli Mesleki Gelişim: Takip Edilecek Kaynaklar",
+    "altbaslik": "Güncel Kalmak İçin Neleri Okumalıyız?",
+    "icerik": "- Akademik Dergiler: The Lancet Digital Health, Nature Medicine AI, Journal of Medical Internet Research (JMIR).\n- Platformlar ve Topluluklar: HIMSS (Healthcare Information and Management Systems Society), Coursera, Kaggle Health.\n- Yerli Kaynaklar: TÜSEB Sağlıkta Yapay Zeka Enstitüsü bültenleri ve Sağlık Bakanlığı dijital sağlık rehberleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical informatics journals publications learning resources"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 13. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Sağlıkta YZ sektörü hızla büyümekte ve yeni hibrit meslek rolleri doğurmaktadır.\n- Tıbbi veri teknikeri, tıbbi bilgi ile veri bilimini buluşturan stratejik bir aktördür.\n- Hastane satın alma süreçlerinde kanıta dayalı tıp ve standartlara uyum en temel kriterdir.\n- Kariyer başarısı, sürekli öğrenme ve teknolojik adaptasyon yeteneğine dayanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary infographic healthtech career future skills"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Sektör ve Kariyer Kontrolü",
+    "icerik": "- Soru 1: Bir hastane yönetiminin YZ satın alırken mutlaka araması gereken yasal tıbbi cihaz belgesi nedir?\n  Cevap: CE-MDR veya FDA SaMD (Software as a Medical Device) onayı.\n- Soru 2: Tıbbi veri teknikerinin bir YZ Ar-Ge şirketinde üstlenebileceği temel rol nedir?\n  Cevap: Sağlık Veri Küratörü / Klinik Etiketleme ve Kalite Denetim Uzmanı.",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions healthtech industry career"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 13. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Mezun olduğunuzda kendinizi hangi YZ rolünde (Denetçi, Küratör, Koordinatör) görmek istersiniz?\n- 2. Bir hastanede YZ satın alma komisyonunda olsanız firmaya soracağınız ilk soru ne olurdu?\n- 3. Gelecek hafta konusu: Final Projesi Sunumları ve Dönem Kapanışı.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış (Final Haftası)",
+    "altbaslik": "14. Hafta: Final Projesi Sunumları",
+    "icerik": "- Konu: Dönem boyunca hazırladığınız sağlık YZ projelerinin bilimsel sunumu ve savunması.\n- Format: 5 dakikalık sunum + 2 dakikalık soru-cevap ve akran değerlendirmesi.\n- Hazırlık: Slaytlarınızı, metrik tablolarınızı ve sınırlılık analizlerinizi son kontrolden geçiriniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "final project presentation capstone defense preview"
+    }
+  },
+  {
+    "baslik": "Küresel Medikal YZ Girişimleri ve Başarı Hikayeleri",
+    "altbaslik": "Dünyayı Değiştiren Sağlık Startupları",
+    "icerik": "- Aidoc & Viz.ai: Beyin BT'lerinde inme ve kanamayı saniyeler içinde tespit edip nöroloğu uyaran triyaj yazılımları.\n- PathAI: Kanser patolojisinde hücre tespiti yapan dijital patoloji platformu.\n- Babylon Health Dersleri: Aşırı pazarlama vaatleri verip klinik doğrulamayı ihmal eden şirketlerin iflası.\n- Çıkarım: Sağlıkta başarı gösterişli sunumlara değil, sağlam klinik kanıta dayanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "healthtech unicorn startup AI medical imaging pathology"
+    }
+  },
+  {
+    "baslik": "Türkiye'de Sağlıkta Yapay Zeka Ekosistemi",
+    "altbaslik": "Yerli Girişimler ve Teknoparklar",
+    "icerik": "- Yerli Başarılar: Virasoft (Dijital Patoloji), Albert Health (Kronik Hasta Sesli Asistanı), Borda Technology (Hastane Nesnelerin İnterneti).\n- Destek Mekanizmaları: TÜBİTAK 1501/1507 Ar-Ge destekleri, TÜSEB Sağlıkta YZ Çağrıları.\n- İhracat Potansiyeli: Yerli sağlık yazılımlarının Körfez, Avrupa ve Türk Cumhuriyetlerine satışı.",
+    "gorsel": {
+      "type": "image",
+      "query": "turkey healthtech technopark innovation biotechnology"
+    }
+  },
+  {
+    "baslik": "Hastane İçi YZ Proje Yönetimi (AI Project Lifecycle)",
+    "altbaslik": "Bir Fikir Hastanede Nasıl Hayata Geçer?",
+    "icerik": "- Faz 1: Klinik İhtiyaç Analizi (Klinisyenlerle toplantı).\n- Faz 2: Veri Keşfi ve Fizibilite (HBYS'de bu veri var mı ve temiz mi?).\n- Faz 3: Etik Kurul ve KVKK İzinleri.\n- Faz 4: Pilot Entegrasyon (Sessiz modda çalışma / Silent testing).\n- Faz 5: Kullanıcı Eğitimi ve Canlıya Geçiş (Go-Live).\n- Faz 6: Aylık Performans ve Güvenlik Denetimi.",
+    "gorsel": {
+      "type": "image",
+      "query": "AI project management lifecycle healthcare clinical deployment"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Mülakat Hazırlığı",
+    "altbaslik": "İş Görüşmesinde Fark Yaratan Cevaplar",
+    "icerik": "- Klasik Soru: 'Bize kendinizden ve teknik becerilerinizden bahseder misiniz?'\n- Güçlü Cevap: 'Önlisans eğitimimde tıbbi terminoloji ve HBYS standartlarının yanı sıra, klinik NLP denetimi, FHIR JSON ayrıştırma, eksik veri tamamlama ve YZ modellerinin hata analizi üzerine uygulamalı projeler gerçekleştirdim.'\n- Etki: Sıradan bir sekreter adayından 'Veri Teknikeri' kimliğine sıçrama.",
+    "gorsel": {
+      "type": "image",
+      "query": "job interview health data specialist confident candidate"
+    }
+  },
+  {
+    "baslik": "Sektörel Sertifikasyonlar ve Değeri",
+    "altbaslik": "CV'nizi Güçlendirecek Global Belgeler",
+    "icerik": "- 1. GCP (Good Clinical Practice - İyi Klinik Uygulamalar): Klinik araştırma veri yönetimi için zorunludur.\n- 2. HIMSS Certified Healthcare Associate: Sağlık bilişimi küresel yeterlilik belgesi.\n- 3. HL7 Fundamentals Certificate: FHIR ve veri standartları uzmanlığı.\n- 4. Google Data Analytics / Python for Healthcare sertifikaları.",
+    "gorsel": {
+      "type": "image",
+      "query": "professional certification diploma HIMSS GCP healthcare"
+    }
+  },
+  {
+    "baslik": "Sağlıkta Veri Etiketleme (Data Labeling) Sektörü",
+    "altbaslik": "Mikro-Görevlerden Uzman Küratörlüğe",
+    "icerik": "- Pazar Büyüklüğü: Dünya genelinde medikal veri etiketleme pazarı yıllık milyarlarca dolara ulaşmıştır.\n- Neden Uzman Şart?: Sıradan bir çalışan röntgendeki milimetrik nodülü veya epikrizdeki latent tüberkülozu etiketleyemez.\n- Fırsat: Tıbbi veri teknikerlerinin medikal etiketleme şirketlerinde (Ör. Scale AI, CloudFactory Medical) uzaktan çalışma imkanları.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical image labeling annotation platform remote work"
+    }
+  },
+  {
+    "baslik": "HIMSS EMRAM Seviyeleri ve Dijital Hastane",
+    "altbaslik": "Hastanelerin Dijital Olgunluk Karnesi",
+    "icerik": "- EMRAM (Electronic Medical Record Adoption Model): 0'dan 7'ye kadar hastane dijitalleşme skalası.\n- Seviye 6 & 7 (Dijital Hastane): Kağıtsız hastane, kapalı devre ilaç güvenliği ve aktif klinik karar destek sistemleri.\n- Türkiye'nin Başarısı: Türkiye, Avrupa'da en çok HIMSS 6 ve 7 onaylı devlet hastanesine sahip lider ülkedir.\n- İstihdam: HIMSS 7 hastaneleri yüksek nitelikli tıbbi veri teknikerleri istihdam eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "HIMSS stage 7 digital hospital award turkey healthcare"
+    }
+  },
+  {
+    "baslik": "Büyük Dil Modelleri ve Sağlıkta Gelecek Meslekler",
+    "altbaslik": "Önümüzdeki 5 Yılda Neler Değişecek?",
+    "icerik": "- Klinik Prompt Mühendisi: Hekimlerin ve hemşirelerin LLM'lerden en doğru klinik çıktıyı alması için özel medikal promptlar yazan uzman.\n- AI Triage Operatörü: Dijital sağlık uygulamalarından gelen acil hasta başvurularını YZ ön elemesinden sonra yöneten tekniker.\n- Biyomedikal Veri Güvenliği Memuru: KVKK ve siber güvenlik uyumunu denetleyen yönetici.",
+    "gorsel": {
+      "type": "image",
+      "query": "future jobs medical prompt engineering artificial intelligence"
+    }
+  },
+  {
+    "baslik": "Klinik İletişim: Hekimlerle ve Mühendislerle Konuşmak",
+    "altbaslik": "İki Farklı Dünyanın Tercümanı Olmak",
+    "icerik": "- Hekimin Dili: 'Hastada dispne var, satürasyon düşüyor, pnömoni ekarte edilmeli.'\n- Mühendisin Dili: 'Loss fonksiyonu converge etmiyor, learning rate'i düşürüp batch size'ı artıralım.'\n- Teknikerin Köprüsü: Hekimin klinik ihtiyacını mühendisin anlayacağı tablo formatına ve etiket kurallarına dönüştürmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "communication bridge doctor software engineer meeting healthcare"
+    }
+  },
+  {
+    "baslik": "Sağlıkta Yapay Zeka ve İş Kaybı Korkusu",
+    "altbaslik": "'Yapay Zeka Mesleğimi Elimden Alacak mı?'",
+    "icerik": "- Gerçekçi Değerlendirme: Rutin, mekanik ve tekrarlayan klavye yazımı görevleri YZ tarafından otomatikleştirilecektir.\n- Kazananlar: YZ'yi denetleyen, veriyi yöneten, doğruluğu teyit eden ve etik filtreleri uygulayan profesyoneller.\n- Temel Kural: 'Yapay zeka sağlıkçıların yerine geçmeyecek; fakat yapay zeka kullanan sağlıkçılar kullanmayanların yerine geçecek!'",
+    "gorsel": {
+      "type": "image",
+      "query": "ai collaboration future of work human technology partnership"
+    }
+  },
+  {
+    "baslik": "Girişimcilik Atölyesi: Kendi Sağlık YZ Projenizi Fikirlendirin",
+    "altbaslik": "Problemden Çözüme 4 Adım",
+    "icerik": "- 1. Problem: Hastanede gözlemlediğiniz en büyük zaman kaybı veya hata riski nedir?\n- 2. Veri: Bu problemi çözmek için hangi veriye ihtiyaç var (Metin, Ses, Görüntü, Tablo)?\n- 3. Çözüm: Kural tabanlı bir uyarı mı, sınıflandırma modeli mi, yoksa LLM özeti mi?\n- 4. Fayda: Hastaneye ve hastaya ne kazandıracak?",
+    "gorsel": {
+      "type": "image",
+      "query": "brainstorming startup idea whiteboard sticky notes medical"
+    }
+  },
+  {
+    "baslik": "Açık Kaynak Sağlık Bilişimi Toplulukları",
+    "altbaslik": "Yalnız Değilsiniz!",
+    "icerik": "- OpenMRS: Gelişmekte olan ülkeler için açık kaynak elektronik tıbbi kayıt sistemi.\n- OHDSI Community: Küresel sağlık büyük verisi araştırma topluluğu.\n- PhysioNet: Milyonlarca saatlik açık erişimli EKG, EEG ve yoğun bakım (MIMIC) veri havuzu.\n- Katılım: Bu toplulukların forumlarını takip etmek global bir vizyon kazandırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "open source community global healthcare collaboration online"
+    }
+  },
+  {
+    "baslik": "Sağlık Yönetimi Perspektifi: Yatırım Getirisi (ROI)",
+    "altbaslik": "Başhekimliğe YZ Bütçesini Savunmak",
+    "icerik": "- Maliyet: Sunucu, yazılım lisansı, entegrasyon ve personel eğitimi.\n- Getiri (ROI): Azalan hasta yatış süresi, engellenen tıbbi malpraktis davaları, düşen faturalandırma ve kodlama cezaları, artan hekim verimliliği.\n- Raporlama: YZ'nin hastaneye sağladığı net tasarrufun somut grafiklerle yönetime sunulması.",
+    "gorsel": {
+      "type": "image",
+      "query": "return on investment ROI chart hospital management presentation"
+    }
+  },
+  {
+    "baslik": "Kariyer Ağınızı Kurmak: LinkedIn ve HIMSS Türkiye",
+    "altbaslik": "Görünür Olmak ve Bağlantı Kurmak",
+    "icerik": "- LinkedIn Stratejisi: Dönem boyunca yaptığınız atölye özetlerini ve öğrendiğiniz veri standartlarını gönderi olarak paylaşmak.\n- Kongre ve Sempozyumlar: HIMSS Türkiye, Ulusal Sağlık Bilişimi Kongresi ve Tıp Bilişimi etkinliklerine öğrenci katılımı.\n- Network: Henüz mezun olmadan sektör liderleriyle tanışma fırsatı.",
+    "gorsel": {
+      "type": "image",
+      "query": "networking professional conference healthcare informatics"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin 5 Yıllık Kariyer Vizyonu",
+    "altbaslik": "Teknikerlikten Bilişim Liderliğine",
+    "icerik": "- 1. Yıl: Hastane HBYS veri girişi, kodlama ve e-Nabız gönderim uzmanlığı.\n- 2. Yıl: Klinik araştırma koordinatörlüğü veya YZ Ar-Ge veri küratörlüğü.\n- 3-4. Yıl: Hastane YZ kalite ve entegrasyon sorumluluğu.\n- 5. Yıl: Sağlık Bilişimi Yöneticiliği / Sağlık Teknolojisi Danışmanlığı.",
+    "gorsel": {
+      "type": "image",
+      "query": "career progression ladder success healthcare informatics"
+    }
+  },
+  {
+    "baslik": "Haftanın Özeti: Gelecek Sizinle Başlıyor",
+    "altbaslik": "13. Haftanın İlham Verici Kapanışı",
+    "icerik": "- Sağlık teknolojisi sektörü kapılarını tıbbi bilgiye ve veri okuryazarlığına sahip profesyonellere sonuna kadar açmaktadır.\n- Kendinize yatırım yapmaktan, yeni araçlar öğrenmekten ve soru sormaktan asla vazgeçmeyiniz.\n- Gelecek hafta büyük gün: Final Projesi Sunumları!",
+    "gorsel": {
+      "type": "image",
+      "query": "inspirational future vision health data leadership graduate"
+    }
+  },
+  {
+    "baslik": "Final Projesi Öncesi Kontrol Listesi",
+    "altbaslik": "Sunuma 1 Hafta Kala!",
+    "icerik": "- [ ] Slaytlarınız 6 adımlı bilimsel sunum şablonuna uygun mu?\n- [ ] Hata matrisi ve metrik tablonuz slaytlarda net görünüyor mu?\n- [ ] Modelin sınırlılıklarını ve hata yaptığı vakaları dürüstçe hazırladınız mı?\n- [ ] Sunum sürenizi 5 dakikaya göre prova ettiniz mi?\n- Başarılar Dileriz!",
+    "gorsel": {
+      "type": "image",
+      "query": "final presentation rehearsal checklist countdown"
+    }
+  },
+  {
+    "baslik": "Final Haftasına Davet",
+    "altbaslik": "14. Hafta: Büyük Final!",
+    "icerik": "- Tüm dönem boyunca döktüğünüz alın terinin ve ürettiğiniz projelerin meyvesini toplama zamanı.\n- Gelecek hafta tüm ekiplerimizi sahnede dinlemek için sabırsızlanıyoruz!",
+    "gorsel": {
+      "type": "image",
+      "query": "stage podium spotlight academic presentation"
+    }
+  }
+]

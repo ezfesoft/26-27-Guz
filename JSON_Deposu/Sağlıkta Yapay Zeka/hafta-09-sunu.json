@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Genomik Veri ve Kişiselleştirilmiş Tıp",
+    "altbaslik": "Büyük Biyolojik Veri, NGS ve Hasta Segmentasyonu",
+    "icerik": "- Kapsam: İnsan genom projesi, Yeni Nesil Dizileme (NGS) ve kişiye özel tedavi yaklaşımları.\n- Kişiselleştirilmiş Tıp (Precision Medicine): 'Tek beden herkese uymaz' ilkesiyle doğru hastaya doğru ilaç seçimi.\n- YZ Uygulaması: Genomik ve klinik verilerle hasta gruplarını K-Means ile kümeleme.\n- Mesleki Bağlam: Genomik veri boyutları, biyoinformatik veri akışları ve veri saklama standartları.",
+    "gorsel": {
+      "type": "image",
+      "query": "genomics precision medicine DNA sequencing big data healthcare"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "9. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Genomik verinin hacim, çeşitlilik ve karmaşıklık özelliklerini açıklar.\n- ÖÇ2: Kişiselleştirilmiş tıp paradigmasında yapay zekanın rolünü tanımlar.\n- ÖÇ3: K-Means kümeleme algoritmasını hasta segmentasyonu için uygular ve yorumlar.\n- ÖÇ4: Genomik veri analizinde karşılaşılan boyutsallık laneti (Curse of Dimensionality) sorununu değerlendirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning goals genomics bioinformatics personalized medicine"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Geleneksel Tıptan Kişiselleştirilmiş Tıbba",
+    "altbaslik": "Deneme-Yanılma Tedavisinin Sonu",
+    "icerik": "- Geleneksel Model: Aynı kanser türüne sahip 100 hastaya aynı kemoterapi ilacının verilmesi.\n- Gerçek: İlaç 40 hastada tümörü küçültürken, 30 hastada etkisiz kalmakta, 30 hastada ise toksik yan etki yaratmaktadır!\n- Genetik Faktör: İlaçların metabolize edilme hızı (Farmakogenomik) ve tümör mutasyonları kişiden kişiye değişir.\n- Çözüm: YZ ile hastaları genetik profillerine göre alt gruplara (subgroups) ayırmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "precision medicine personalized drug therapy patient subgroups"
+    }
+  },
+  {
+    "baslik": "Genomik Verinin Büyüklüğü ve Formatları",
+    "altbaslik": "Gigabaytlarca DNA Dizisi Nasıl Saklanır?",
+    "icerik": "- İnsan Genomu: Yaklaşık 3.2 milyar baz çifti (A, T, C, G).\n- Ham Veri Boyutu: Tek bir tam genom dizilemesi (WGS) 100-200 GB ham veri üretir.\n- Standart Formatlar:\n  * FASTQ (Ham dizileme okumaları ve kalite skorları)\n  * BAM/SAM (Referans genoma hizalanmış diziler)\n  * VCF (Variant Call Format - Sadece mutasyon ve varyantların listesi)\n- Tıbbi Veri Teknikeri: VCF dosyalarındaki mutasyon kodlarını klinik veritabanlarıyla eşleştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "genomic data formats FASTQ BAM VCF DNA sequencing bioinformatics"
+    }
+  },
+  {
+    "baslik": "Boyutsallık Laneti (Curse of Dimensionality)",
+    "altbaslik": "20.000 Gen vs 100 Hasta Problemi",
+    "icerik": "- Matematiksel Problem: p >> n durumu (Özellik sayısı p = 20.000 gen, Hasta sayısı n = 100).\n- Sonuç: Modelin rastgele gürültüleri gerçek biyolojik ilişki sanması (Aşırı öğrenme / Spurious correlations).\n- Çözüm: Boyut İndirgeme (Dimensionality Reduction - PCA) ve Özellik Seçimi (Feature Selection).\n- Klinik İlke: Sadece bilinen onkolojik biyobelirteç genlerin modele dahil edilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "curse of dimensionality high dimensional genomic data PCA graph"
+    }
+  },
+  {
+    "baslik": "Temel Bileşenler Analizi (PCA) ile Boyut İndirgeme",
+    "altbaslik": "20.000 Boyuttan 2 Boyuta Haritalama",
+    "icerik": "- PCA Nedir?: Verideki en yüksek varyansı (farklılığı) açıklayan yeni yapay eksenler (Principal Components) oluşturma.\n- Görselleştirme: 20.000 genlik hasta verisini 2 boyutlu saçılım grafiğinde (PC1 vs PC2) çizme.\n- Kümeleme Kolaylığı: Genetik olarak benzer tümör tipleri grafikte doğal olarak yan yana kümelenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "PCA principal component analysis plot genomics clustering"
+    }
+  },
+  {
+    "baslik": "Denetimsiz Öğrenme: Hasta Segmentasyonu",
+    "altbaslik": "Etiketsiz Veride Gizli Alt Tipleri Keşfetmek",
+    "icerik": "- Denetimli vs Denetimsiz: Önceden tanımlı sınıf etiketi olmadan benzer hastaları bir araya getirme.\n- Amaç: Bilinmeyen kanser alt tiplerini veya tedaviye dirençli hasta gruplarını keşfetmek.\n- Kullanılan Yöntem: Kümeleme (Clustering - K-Means, Hiyerarşik Kümeleme).\n- Klinik Değer: Benzer moleküler profile sahip hastaların benzer tedaviye yanıt vermesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "unsupervised clustering patient segmentation clusters scatter plot"
+    }
+  },
+  {
+    "baslik": "K-Means Kümeleme Algoritmasının Hatırlanması",
+    "altbaslik": "Geçen Dönem Bilgisiyle Köprü Kurmak",
+    "icerik": "- 1. Adım: k adet rastgele merkez (Centroid) seçilir.\n- 2. Adım: Her hasta en yakın merkeze Öklid mesafesi ile atanır.\n- 3. Adım: Kümeye atanan hastaların ortalaması alınarak yeni merkez hesaplanır.\n- 4. Adım: Merkezler değişmeyene kadar işlem tekrarlanır.\n- Optimal K Seçimi: Dirsek Yöntemi (Elbow Method) ve Silhouette Skoru.",
+    "gorsel": {
+      "type": "image",
+      "query": "k-means clustering algorithm centroid update steps diagram"
+    }
+  },
+  {
+    "baslik": "Atölye: K-Means ile Diyabet / Genomik Hasta Kümeleme",
+    "altbaslik": "Python / Orange ile Uygulama Adımları",
+    "icerik": "- Veri Seti: 500 hastanın glukoz, insülin direnci ve 5 temel gen ekspresyon skoru.\n- Adım 1: Veriyi standartlaştırın (StandardScaler).\n- Adım 2: Elbow yöntemi ile ideal küme sayısını belirleyin (Ör. k=3).\n- Adım 3: Kümelerin klinik profillerini inceleyin:\n  * Küme 1: İnsülin Dirençli Ağır Tip\n  * Küme 2: Genetik Yatkın Genç Tip\n  * Küme 3: Hafif Yaşlı Tip",
+    "gorsel": {
+      "type": "image",
+      "query": "elbow method silhouette score optimal clusters python code"
+    }
+  },
+  {
+    "baslik": "Farmakogenomik ve İlaç Yanıtı Tahmini",
+    "altbaslik": "Genlerin İlaç Yanıtına Etkisi",
+    "icerik": "- Örnek İlaç: Varfarin (Kan sulandırıcı).\n- Genetik Etki: CYP2C9 ve VKORC1 genlerindeki varyasyonlar ilacın vücutta parçalanma hızını belirler.\n- YZ Modeli: Hastanın genotipi + yaşı + kilosu => Doğru başlangıç dozu tahmini.\n- Sonuç: Kanama ve pıhtılaşma komplikasyonlarının %40 oranında azaltılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "pharmacogenomics warfarin dosing genetic variant CYP2C9"
+    }
+  },
+  {
+    "baslik": "Onkolojide Hedefe Yönelik Tedaviler (Targeted Therapy)",
+    "altbaslik": "Tümör Mutasyonuna Özel Akıllı İlaçlar",
+    "icerik": "- Akciğer Kanseri: EGFR mutasyonu olan hastaya kemoterapi yerine EGFR inhibitörü tablet verilmesi.\n- Meme Kanseri: HER2 geni aşırı çoğalan (amplifiye) hastalara Trastuzumab antikor tedavisi.\n- YZ'nin Katkısı: Biyopsi NGS raporundan mutasyon profilini okuyup en uygun ruhsatlı veya klinik araştırma aşamasındaki akıllı ilacı eşleştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "targeted cancer therapy EGFR HER2 mutation precision oncology"
+    }
+  },
+  {
+    "baslik": "Etik ve Mahremiyet: Genomik Veri Asla Değiştirilemez!",
+    "altbaslik": "Kişinin En Mahrem ve Değişmez Bilgisi",
+    "icerik": "- Fark: Şifreniz çalınırsa değiştirebilirsiniz; ancak DNA diziniz çalınırsa ömür boyu değiştiremezsiniz!\n- Ailevi Risk: Kişinin genetik verisi çocuklarının ve akrabalarının da hastalık risklerini açığa çıkarır.\n- Genetik Ayrımcılık: Sigorta şirketlerinin ve işverenlerin genetik risk profillerini kötüye kullanma tehlikesi (GINA Yasası).\n- Güvenlik: Genomik veriler özel şifreli sunucularda saklanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "genetic privacy DNA cybersecurity ethics discrimination"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Biyoinformatik Veri Rolü",
+    "altbaslik": "Genetik Raporların HBYS'ye Entegrasyonu",
+    "icerik": "- 1. VCF Dosyası Yönetimi: Genetik laboratuvarından gelen mutasyon listelerinin hasta dosyasına doğru formatta eklenmesi.\n- 2. Onkoloji Konsey Raporları: Tümör konseyi için genomik ve klinik verileri tek bir özet panelde birleştirmek.\n- 3. Veri Güvenliği: Genetik test sonuçlarının yetkisiz personelin erişimine karşı şifrelenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "bioinformatics data technician genetic records oncology dashboard"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 9. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Kişiselleştirilmiş tıp, tedaviyi bireyin genetik ve moleküler profiline uyarlamayı hedefler.\n- Genomik veri devasa boyuttadır; boyutsallık lanetini aşmak için boyut indirgeme şarttır.\n- K-Means kümeleme, bilinmeyen hasta alt gruplarını keşfetmek için güçlü bir denetimsiz yöntemdir.\n- Genomik verilerin mahremiyeti en yüksek yasal ve etik güvenlik standartlarını gerektirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary infographic precision medicine genomics"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Genomik ve Kümeleme Kontrolü",
+    "icerik": "- Soru 1: 100 hasta üzerinde 15.000 genin analiz edilmesinde karşılaşılan temel zorluğa ne ad verilir?\n  Cevap: Boyutsallık Laneti (Curse of Dimensionality).\n- Soru 2: Önceden etiketlenmemiş hasta kayıtlarında benzer tedavi yanıtı veren gizli alt grupları bulmak için hangi öğrenme türü kullanılır?\n  Cevap: Denetimsiz Öğrenme / Kümeleme (Clustering).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz questions genomics bioinformatics clustering"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Klinik Uygulama Sorusu",
+    "altbaslik": "Farmakogenomik Karar",
+    "icerik": "- Senaryo: Bir YZ algoritması, onkoloji hastasının genetik mutasyon profiline göre iki ilaçtan A ilacının %85, B ilacının %15 fayda sağlayacağını tahmin etmiştir.\n- Soru: Tıbbi veri teknikeri bu bilgiyi onkoloğa raporlarken hangi parametreleri eklemelidir?\n- Cevap: İlgili mutasyonun VCF varyant kodu, modelin güven aralığı ve ilacın olası toksisite skoru eklenmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "oncology precision medicine report genetic mutation"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 9. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Kişiselleştirilmiş tıpta 'K-Means kümeleme' algoritmasının hekime sağladığı en büyük fayda nedir?\n- 2. Genetik verilerin gizliliği neden normal bir kan tahlili gizliliğinden çok daha kritiktir?\n- 3. Gelecek hafta konusu: İlaç Geliştirme ve Klinik Araştırmalarda Yapay Zeka.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "10. Hafta: İlaç Geliştirme ve Klinik Araştırmalarda YZ",
+    "icerik": "- Konu: Yeni molekül keşfi, sanal tarama (Virtual Screening) ve klinik araştırma fazları (Faz I-IV).\n- Odak: İstatistiksel anlamlılık, p-değeri, hipotez testleri ve güven aralıkları.\n- Hazırlık: İlaç geliştirme süreçlerinin kaç yıl sürdüğünü ve maliyetini araştırınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "drug discovery pharmaceutical research clinical trials preview"
+    }
+  },
+  {
+    "baslik": "DNA, RNA ve Protein: Santral Doğma",
+    "altbaslik": "Genetik Bilginin Akışı",
+    "icerik": "- Replikasyon: DNA'nın kendini kopyalaması.\n- Transkripsiyon: DNA'dan haberci RNA (mRNA) üretimi.\n- Translasyon: mRNA dizisinden amino asitlerin ve fonksiyonel proteinlerin sentezlenmesi.\n- YZ Uygulaması: Gen ekspresyonu (mRNA miktarı) verilerinden kanser teşhisi ve alt tip tahmini.",
+    "gorsel": {
+      "type": "image",
+      "query": "central dogma molecular biology DNA RNA protein translation"
+    }
+  },
+  {
+    "baslik": "Tek Nükleotid Polimorfizmi (SNP / Tek Harf Değişimi)",
+    "altbaslik": "Bireysel Genetik Farklılıklarımızın Kaynağı",
+    "icerik": "- SNP Nedir?: DNA dizisinde tek bir harfin (Ör. A yerine G) farklı olması.\n- Tıbbi Önemi: İnsanlar arasındaki genetik varyasyonların %90'ı SNP'lerden kaynaklanır.\n- Hastalık Riski: Belirli bir SNP kombinasyonuna sahip olmak diyabet veya Alzheimer yatkınlığını 3 kat artırabilir.\n- Poligenik Risk Skoru (PRS): YZ'nin binlerce SNP'yi ağırlıklandırarak bireyin toplam genetik riskini hesaplaması.",
+    "gorsel": {
+      "type": "image",
+      "query": "single nucleotide polymorphism SNP genetic variation DNA"
+    }
+  },
+  {
+    "baslik": "Gen Ekspresyon Verisi ve Mikroarray Analizi",
+    "altbaslik": "Binlerce Genin Aynı Anda Aktivitesini Ölçmek",
+    "icerik": "- Gen Ekspresyonu: Bir genin o hücrede ne kadar 'açık/aktif' olduğu (Üretilen mRNA miktarı).\n- Isı Haritası (Heatmap): Tümör dokusunda normal dokuya göre aşırı çalışan (kırmızı) ve suskunlaşan (mavi) genlerin matrisi.\n- Kümeleme: Benzer gen aktivite profiline sahip hastaların hiyerarşik kümeleme ile gruplanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "gene expression microarray heatmap hierarchical clustering"
+    }
+  },
+  {
+    "baslik": "Silhouette Skoru ile Küme Kalitesi Ölçümü",
+    "altbaslik": "Kümeler Birbirinden Ne Kadar İyi Ayrıldı?",
+    "icerik": "- Silhouette Değeri: -1 ile +1 arasında değişen kalite metriği.\n- +1'e Yakın: Hasta kendi kümesine çok yakın, diğer kümelere çok uzaktır (Mükemmel kümeleme).\n- 0 Civarı: Kümeler birbiriyle iç içe geçmiştir (Sınırda hastalar).\n- -1'e Yakın: Hasta yanlış kümeye atanmıştır.\n- Kullanım: İdeal hasta alt grup sayısını doğrulamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "silhouette analysis score clustering validation plot"
+    }
+  },
+  {
+    "baslik": "Hiyerarşik Kümeleme ve Dendrogram Grafiği",
+    "altbaslik": "Ağaç Yapısında Hasta Benzerliği",
+    "icerik": "- Dendrogram Nedir?: Hastaların genetik yakınlıklarını gösteren aile ağacı benzeri grafik.\n- Birleştirici (Agglomerative) Yaklaşım: Her hasta başlangıçta tek bir kümedir; en yakın olanlar adım adım birleşir.\n- Klinik Karar: Ağacı belirli bir yükseklikten keserek 2, 3 veya 4 ana hasta grubu elde etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "dendrogram hierarchical clustering tree genomics data"
+    }
+  },
+  {
+    "baslik": "AlphaFold ve 3D Protein Yapısı Devrimi",
+    "altbaslik": "DeepMind'ın Biyolojiye En Büyük Katkısı",
+    "icerik": "- 50 Yıllık Problem: Bir amino asit dizisinin 3 boyutlu uzayda nasıl katlanacağını (Protein Folding) tahmin etmek.\n- AlphaFold Başarısı: 200 milyondan fazla proteinin 3D yapısını atomik hassasiyette modelledi.\n- Tıbbi Devrim: İlaçların hedef proteinlere nasıl bağlanacağını laboratuvarda yıllarca beklemeden bilgisayarda görmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "alphafold 3d protein structure prediction molecular biology"
+    }
+  },
+  {
+    "baslik": "Kişiselleştirilmiş İmmünoterapi ve Kanser Aşıları",
+    "altbaslik": "Bağışıklık Sistemini Tümöre Karşı Eğitmek",
+    "icerik": "- Neoantijen Keşfi: Kanserli hücrenin yüzeyinde oluşan ve sağlıklı hücrede olmayan mutasyonlu protein parçaları.\n- YZ Algoritması: Hastanın DNA dizisinden hangi neoantijenin bağışıklık sistemini (T hücrelerini) en güçlü tetikleyeceğini tahmin etme.\n- mRNA Aşısı: Hastaya özel tasarlanan mRNA kanser aşısı ile bağışıklığın sadece tümöre saldırmasını sağlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "personalized cancer vaccine mRNA immunotherapy neoantigen"
+    }
+  },
+  {
+    "baslik": "Sıvı Biyopsi (Liquid Biopsy) ve Dolaşımdaki Tümör DNA'sı (ctDNA)",
+    "altbaslik": "Kandan Kanser Taraması",
+    "icerik": "- Klasik Biyopsi: İğne veya ameliyatla organdan doku parçası almak (Ağrılı ve invaziv).\n- Sıvı Biyopsi: Basit bir kan tüpündeki serbest dolaşan tümör DNA kırıntılarını (ctDNA) NGS ile dizilemek.\n- YZ'nin Gücü: Milyonlarca normal DNA arasında binde bir oranındaki kanser mutasyonunu gürültüden ayıklamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "liquid biopsy circulating tumor DNA blood test cancer"
+    }
+  },
+  {
+    "baslik": "Nadir Hastalıkların Genomik Tanısı",
+    "altbaslik": "Yıllar Süren 'Tanısal Yolculuğu' Günlere İndirmek",
+    "icerik": "- Problem: Nadir genetik hastalığı olan çocukların doğru tanı alana kadar ortalama 5-7 yıl hastane hastane gezmesi.\n- Çözüm: Bebeğin tam genom dizilemesi yapılıp YZ ile fenotip-genotip eşleştirmesi yapılması.\n- Başarı: Tanı süresinin 48 saate indirilmesi ve erken gen tedavisiyle kalıcı sakatlıkların önlenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "rare genetic disease diagnosis whole genome sequencing child"
+    }
+  },
+  {
+    "baslik": "Biyoinformatik Veri Tabanları (NCBI, ClinVar, COSMIC)",
+    "altbaslik": "Dünya Tıp Literatürünün Genetik Arşivi",
+    "icerik": "- ClinVar: Hangi genetik mutasyonun hangi hastalığa yol açtığını gösteren açık klinik veritabanı.\n- COSMIC: Kanser mutasyonlarının küresel kataloğu.\n- dbSNP: Bilinen tüm tek harf varyasyonlarının veri tabanı.\n- Veri Teknikeri: Genetik raporları bu küresel kütüphanelerdeki ID kodlarıyla (rsID, COSMIC ID) eşleştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "bioinformatics databases NCBI ClinVar COSMIC genome browser"
+    }
+  },
+  {
+    "baslik": "Genomik Veri Yönetiminde Bulut Mimarisi",
+    "altbaslik": "Petabaytlarca Biyolojik Veriyi İşlemek",
+    "icerik": "- Donanım İhtiyacı: 1.000 hastanın tam genomu 100 Terabayt yer tutar.\n- AWS Omics / Google Cloud Life Sciences: Genomik boru hatlarını paralel çalıştıran bulut altyapıları.\n- Maliyet Optimizasyonu: Ham FASTQ dosyalarını işlendikten sonra VCF varyant formatına dönüştürüp arşive almak.",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud computing genomics big data life sciences"
+    }
+  },
+  {
+    "baslik": "Doğrudan Tüketiciye Genetik Testler (DTC-GT)",
+    "altbaslik": "23andMe ve Tüketici Genetiği Riskleri",
+    "icerik": "- Tanım: Tüketicinin internetten kit sipariş edip tükürük örneğiyle genetik risk raporu alması.\n- Tıbbi Risk: Klinik geçerliliği olmayan sahte risk raporlarının yarattığı gereksiz panik veya yalancı rahatlama.\n- Tıbbi İlke: Genetik testler mutlaka bir Tıbbi Genetik Uzmanı ve Genetik Danışman gözetiminde yorumlanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "direct to consumer genetic test kit saliva DNA"
+    }
+  },
+  {
+    "baslik": "Genomik Çağda Tıbbi Dokümantasyonun Dönüşümü",
+    "altbaslik": "Geleneksel Dosyadan Moleküler Sağlık Kaydına",
+    "icerik": "- Yeni Standart: Hasta dosyasında sadece tansiyon değil; HLA doku grubu, CYP enzim hızı ve BRCA mutasyon durumu yer alacaktır.\n- Tekniker Yetkinliği: Moleküler terminolojiye aşinalık ve genetik test sonuçlarının gizlilik protokollerini yönetebilme becerisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "molecular electronic health record genomics EHR precision medicine"
+    }
+  }
+]

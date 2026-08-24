@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 8",
+    "altbaslik": "Hafta 8: Temel Mantık ve Küme İşlemleri",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Ayrık Matematik ve Karar Yapıları\nHaftalık Odak: Boole Mantığı (AND/OR/NOT/XOR), Firewall Kuralları ve Küme Kesişim/Birleşim ile Log Filtreleme\nHedef: Güvenlik kurallarını ve veri sorgularını mantık/küme kurallarıyla hatasız yapılandırmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean logic firewall rules venn diagram cybersecurity"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Firewall ve SIEM Filtreleme Mantığı",
+    "icerik": "Bir güvenlik duvarında (Firewall) 'Port 80 VE Kaynak IP = X' kuralı ile 'Port 80 VEYA Kaynak IP = X' kuralı tamamen farklı çalışır.\n- 'VE' (AND) kesişim kümesini daraltır (daha sıkı filtre).\n- 'VEYA' (OR) birleşim kümesini genişletir (daha geniş izin).\nBoole mantığını yanlış kurmak, yetkisiz erişime veya meşru trafiğin engellenmesine yol açar.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall access control list rules configuration"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. Önerme ve doğruluk tablosu (0 ve 1) kavramlarını açıklar.\n2. AND, OR, NOT ve XOR mantıksal bağlaçlarını güvenlik kurallarında uygular.\n3. De Morgan kurallarını kural sadeleştirmede kullanır.\n4. Kümeler teorisi (Kesişim, Birleşim, Fark) ile log ve kullanıcı gruplarını filtreler.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Önerme (Proposition) Nedir?",
+    "altbaslik": "Kesin Doğru veya Yanlış Bildiren İfadeler",
+    "icerik": "Tanım: Doğru (1) ya da Yanlış (0) kesin bir hüküm bildiren ifadelere önerme denir.\nBilişim Örnekleri:\n- p: 'Kaynak portu 443'tür' (Doğru veya Yanlış)\n- q: 'Kullanıcı yönetici rolündedir' (1 veya 0)\n- r: 'Paket boyutu 1500 Byte'tan büyüktür'\nSistem kararları (if-else blokları) önermelerin doğruluk değerine göre çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean proposition logic true false visual"
+    }
+  },
+  {
+    "baslik": "Mantıksal Bağlaçlar: VE (AND - ^)",
+    "altbaslik": "Her İki Şartın da Sağlanması Gerekliliği",
+    "icerik": "Tanım: p VE q ifadesi, sadece her iki önerme de 1 (Doğru) iken 1 olur.\nDoğruluk Tablosu:\n- 1 AND 1 = 1\n- 1 AND 0 = 0\n- 0 AND 1 = 0\n- 0 AND 0 = 0\nKullanım: 'Kullanıcı adı doğru VE Parola doğru' ise giriş yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "logic gate AND truth table circuit"
+    }
+  },
+  {
+    "baslik": "Mantıksal Bağlaçlar: VEYA (OR - v)",
+    "altbaslik": "En Az Bir Şartın Sağlanması Yeterlidir",
+    "icerik": "Tanım: p VEYA q ifadesi, en az biri 1 iken 1 (Doğru) olur. Yalnızca 0-0 durumunda 0'dır.\nDoğruluk Tablosu:\n- 1 OR 1 = 1\n- 1 OR 0 = 1\n- 0 OR 1 = 1\n- 0 OR 0 = 0\nKullanım: 'Admin rolü VEYA Güvenlik rolü' varsa panele erişebilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "logic gate OR truth table diagram"
+    }
+  },
+  {
+    "baslik": "DEĞİL (NOT) ve XOR (Özel VEYA)",
+    "altbaslik": "Ters Çevirme ve Eşitsizlik Mantığı",
+    "icerik": "- DEĞİL (NOT - ~p): 1 ise 0, 0 ise 1 yapar.\n- XOR (Özel VEYA - (+) ): İki girdi FARKLI ise 1, AYNI ise 0 üretir.\n  * 1 XOR 0 = 1 | 0 XOR 1 = 1 | 1 XOR 1 = 0 | 0 XOR 0 = 0\nXOR, simetrik şifrelemenin (One-Time Pad, Vernam Şifresi) temel yapı taşıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "XOR logic gate cryptography truth table"
+    }
+  },
+  {
+    "baslik": "De Morgan Kuralları",
+    "altbaslik": "NOT(p AND q) = NOT p OR NOT q",
+    "icerik": "1. Kural: ~(p ^ q) = ~p v ~q  (VE ifadesinin olumsuzu VEYA'ya dönüşür)\n2. Kural: ~(p v q) = ~p ^ ~q  (VEYA ifadesinin olumsuzu VE'ye dönüşür)\nFirewall ve SQL sorgularında karmaşık NOT şartlarını sadeleştirmek için kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "de morgan laws discrete mathematics formula"
+    }
+  },
+  {
+    "baslik": "Küme İşlemleri: Kesişim (Intersection)",
+    "altbaslik": "A kesişim B (AND Mantığı)",
+    "icerik": "Tanım: Hem A hem de B kümesinde ortak bulunan elemanlar kümesidir.\nSembol: A n B\nBilişim Örneği:\n- A = 'Zararlı IP Listesi'\n- B = 'Şirket Sunucularına Bağlanan IP'ler'\n- A n B = 'Sisteme Sızmaya Çalışan Tehdit Aktörleri' (Acil Engellenmeli).",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram intersection set theory"
+    }
+  },
+  {
+    "baslik": "Küme İşlemleri: Birleşim (Union)",
+    "altbaslik": "A birleşim B (OR Mantığı)",
+    "icerik": "Tanım: A veya B kümelerindeki tüm benzersiz elemanların toplamıdır.\nSembol: A u B\nEleman Sayısı Formülü: s(A u B) = s(A) + s(B) - s(A n B)\n(Kesişim iki kez sayılmaması için bir kez çıkarılır).",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram union set theory math"
+    }
+  },
+  {
+    "baslik": "Küme İşlemleri: Fark ve Tümleyen",
+    "altbaslik": "A \\ B ve A' (NOT Mantığı)",
+    "icerik": "- Fark (A \\ B): A'da olup B'de olmayan elemanlar (Yetkili olup MFA açmayan kullanıcılar)\n- Tümleyen (A'): Evrensel kümede olup A'da olmayanlar (Kurum ağı dışındaki tüm IP adresleri)\nLog analizinde 'anomali' tespiti fark kümesi ile yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "set difference complement diagram"
+    }
+  },
+  {
+    "baslik": "Doğruluk Tablosu Kurma Prosedürü",
+    "altbaslik": "Adım Adım Değerlendirme",
+    "icerik": "1. Değişken sayısına göre 2^n satır oluştur (Örn: 2 değişken -> 4 satır, 3 değişken -> 8 satır).\n2. Tüm 0 ve 1 permütasyonlarını sırala.\n3. Parantez içlerindeki bağlaçları sırayla hesapla.\n4. En dıştaki ana bağlacı hesaplayıp sonuç sütununu belirle.",
+    "gorsel": {
+      "type": "image",
+      "query": "truth table construction steps table"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Doğruluk Tablosu Değerlendirme",
+    "altbaslik": "Seviye: Başlangıç (p ^ ~q)",
+    "icerik": "Soru: (p ^ ~q) ifadesinin p=1, q=1 iken sonucu nedir?\nAdım 1: ~q değerini bul -> ~1 = 0\nAdım 2: p ^ ~q -> 1 ^ 0\nAdım 3: 1 AND 0 = 0 (Yanlış).\nSonuç: İfade 0 üretir.",
+    "gorsel": {
+      "type": "image",
+      "query": "truth table evaluation step by step"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Kümelerde Eleman Sayısı",
+    "altbaslik": "Seviye: Kolay (Birleşim Formülü)",
+    "icerik": "Soru: Bir şirkette;\n- 45 personel VPN kullanıyor (V)\n- 30 personel SSH bağlantısı yapıyor (S)\n- 15 personel hem VPN hem SSH kullanıyor (V n S)\nVPN veya SSH kullanan toplam kaç farklı personel vardır?\nFormül: s(V u S) = s(V) + s(S) - s(V n S)\nİşlem: s(V u S) = 45 + 30 - 15 = 60 personel.",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram calculation 45 30 15 sets"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Firewall Kuralı Sadeleştirme",
+    "altbaslik": "Seviye: Orta (De Morgan)",
+    "icerik": "Soru: Güvenlik duvarındaki 'NOT (IP_A VEYA Port_80)' kuralını De Morgan kuralı ile eşdeğer hale getiriniz.\nÇözüm:\n~(A v B) = ~A ^ ~B\nEşdeğer Kural: '(IP_A DEĞİL) VE (Port_80 DEĞİL)'\nYani paket IP_A olmayacak VE Port 80 olmayacak şartı birlikte aranır.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall rule simplification logic"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: XOR ile Basit Şifreleme / Çözme",
+    "altbaslik": "Seviye: Orta (Kripto)",
+    "icerik": "Soru: 4-bitlik '1011' verisi, '1100' anahtarı ile XOR'lanarak şifreleniyor. Şifreli metin nedir? Tekrar anahtarla XOR'layınca orijinal veri çıkar mı?\nŞifreleme: 1011 XOR 1100 = 0111 (Şifreli Metin)\nÇözme: 0111 XOR 1100 = 1011 (Orijinal Veri)\nÖzellik: (A XOR K) XOR K = A (Simetrik şifreleme ilkesi).",
+    "gorsel": {
+      "type": "image",
+      "query": "xor encryption decryption demonstration"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: SIEM Log Filtreleme (3 Kümeli Problem)",
+    "altbaslik": "Seviye: İleri (Venn Şeması Analizi)",
+    "icerik": "Soru: 100 log kaydı incelenmiştir:\n- 50 kayıt Port 443 (A)\n- 40 kayıt Dış IP (B)\n- 20 kayıt Başarısız Giriş (C)\n- 15 kayıt (A n B), 10 kayıt (B n C), 5 kayıt (A n C), 3 kayıt (A n B n C)\nHem Dış IP olup hem Başarısız olan ama Port 443 OLMAYAN kaç log vardır?\nİşlem: s(B n C) - s(A n B n C) = 10 - 3 = 7 kayıt.",
+    "gorsel": {
+      "type": "image",
+      "query": "three set venn diagram siem log analysis"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Çok Faktörlü Kimlik Doğrulama (MFA) Mantığı",
+    "altbaslik": "Seviye: İleri (Doğruluk Tablosu)",
+    "icerik": "Soru: Giriş kuralı = (Parola Doğru) AND ((SMS Kodu Doğru) OR (Biyometrik Doğru))\nKullanıcının parolası doğru (1), SMS yanlış (0), Biyometrik onaylı (1) ise giriş izni verilir mi?\nİşlem:\n1 AND (0 OR 1) = 1 AND 1 = 1 (GİRİŞE İZİN VERİLİR).",
+    "gorsel": {
+      "type": "image",
+      "query": "multi factor authentication boolean logic flow"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Erişim Kontrol Listesi (ACL) Çelişki Tespiti",
+    "altbaslik": "Seviye: İleri (Mantıksal Tutarlılık)",
+    "icerik": "Soru: Kural 1: 'Tüm trafiği ENGELLE (DENY ALL)' kuralı listenin başına yazılırsa sonraki kurallara ne olur?\nAnaliz: Kural 1 önermesi her zaman TRUE olacağı için paket alt satırlara inemez.\nSonuç: Mantıksal çelişki (Shadowing kuralı) oluşur. Özel kurallar üste, genel kurallar alta yazılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "acl rule order shadowing conflict network"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Bağlaç ve Küme Hataları",
+    "icerik": "1. VE (AND) ile VEYA (OR) bağlaçlarını karıştırmak (AND şartı sıkılaştırır, OR genişletir).\n2. De Morgan uygularken parantez açıldığında bağlacı tersine çevirmeyi unutmak (~(A ^ B) != ~A ^ ~B).\n3. Küme birleşiminde kesişimi iki kere toplayıp çıkarmayı unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "logic error warning signs math"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "XOR ve Filtreleme Tuzakları",
+    "icerik": "1. XOR'u normal OR sanmak (XOR'da iki girdi de 1 ise sonuç 0'dır!).\n2. SQL sorgusunda 'WHERE x=1 AND x=2' yazmak (Tek değişken aynı anda iki farklı değer alamaz, sonuç daima boştur).",
+    "gorsel": {
+      "type": "image",
+      "query": "sql query logic error caution"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Hatalı Güvenlik Duvarı Kuralı",
+    "altbaslik": "Web Servisi Kesintisi Olayı",
+    "icerik": "Olay: Ağ yöneticisi 'Sadece Türkiye dışından GELEN VE Port 80 kullananları engelle' yerine yanlışlıkla 'Türkiye dışından gelenler VEYA Port 80 kullananları engelle' kuralı yazdı.\nSonuç: Türkiye içindeki tüm yerel kullanıcıların da Port 80 web erişimi kilitlendi.\nAnaliz: 'VE' yerine 'VEYA' yazılması filtre kümesini tüm meşru kullanıcıları kapsayacak şekilde genişletmiştir.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall misconfiguration network outage incident"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve İnceleme",
+    "altbaslik": "Kural Zincirinin Düzeltilmesi",
+    "icerik": "Uygulanan Düzeltme:\nKural: DENY IF (Geo != TR) AND (Port == 80)\nEk olarak kural test ortamında doğruluk tablosu ile simüle edilip canlıya öyle alınmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "firewall rule testing verification dashboard"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Doğruluk Değeri",
+    "icerik": "Soru: p = 1 ve q = 0 iken (p OR q) AND (NOT q) ifadesinin sonucu nedir?\nA) 0\nB) 1\n\nDoğru Cevap: B ( (1 OR 0) AND NOT(0) = 1 AND 1 = 1 )",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean logic quiz question exam"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "XOR İşlemi",
+    "icerik": "Soru: 1 XOR 1 işleminin sonucu nedir?\nA) 0\nB) 1\n\nDoğru Cevap: A (XOR'da girdiler aynıysa sonuç 0'dır)",
+    "gorsel": {
+      "type": "image",
+      "query": "xor operation logic gate test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Küme Birleşimi",
+    "icerik": "Soru: s(A)=20, s(B)=15 ve s(A n B)=5 ise s(A u B) kaçtır?\nA) 25\nB) 30\nC) 35\nD) 40\n\nDoğru Cevap: B (20 + 15 - 5 = 30)",
+    "gorsel": {
+      "type": "image",
+      "query": "set union calculation quiz"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "De Morgan",
+    "icerik": "Soru: ~(p v q) ifadesinin De Morgan dengi nedir?\nA) ~p v ~q\nB) ~p ^ ~q\nC) p ^ q\nD) ~p v q\n\nDoğru Cevap: B (~p ^ ~q)",
+    "gorsel": {
+      "type": "image",
+      "query": "de morgan law question test"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Önermeler 1 (Doğru) veya 0 (Yanlış) değer alır.\n- AND kesişimi daraltır, OR birleşimi genişletir, XOR fark durumunda 1 üretir.\n- De Morgan kuralları karmaşık güvenlik kurallarını sadeleştirir.\n- Küme teorisi log filtreleme ve yetkilendirme mimarisinin temelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary logic sets discrete math diagram"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 9: Temel Permütasyon ve Kombinasyon",
+    "icerik": "Gelecek Konular:\n- Temel Sayma İlkeleri (Toplama ve Çarpma)\n- Faktöriyel Kavramı (n!)\n- Parola Karmaşıklığı ve Brute-Force Deneme Uzayı\n- Permütasyon (Sıralama) vs Kombinasyon (Seçim).",
+    "gorsel": {
+      "type": "image",
+      "query": "permutation combination password cracking probability"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Bir güvenlik logunda 80 adet IP adresi bulunmaktadır. Bunların 50 tanesi Port 22 (SSH) kullanmış, 40 tanesi Port 80 (HTTP) kullanmıştır. 20 IP adresi ise her iki portu da kullanmıştır. Sadece Port 22 kullanan (Port 80 kullanmayan) kaç IP adresi vardır?'\n\nKümeyi çizip çözümü yazınız.",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram log exit ticket classroom"
+    }
+  }
+]

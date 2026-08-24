@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 6",
+    "altbaslik": "Dunder (Sihirli) Metotlar ve Hata Yönetimi",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Dunder Metotlar (__str__, __len__, __repr__), try-except Blokları ve Güvenli Kodlama\nUygulama Teması: Kütüphane Kitaplığı ve Güvenli ATM Para Çekme Konsolu",
+    "gorsel": {
+      "type": "image",
+      "query": "magic methods dunder python exception handling try except"
+    }
+  },
+  {
+    "baslik": "Motivasyon: print(kitap) Deyince Ne Görüyoruz?",
+    "altbaslik": "Çirkin Bellek Adreslerinden Türkçe Açıklamalara",
+    "icerik": "Bir nesneyi ekrana yazdırdığımızda <__main__.Kitap object at 0x000001B...> görmek kullanıcıya hiçbir şey anlatmaz.\n- Biz 'Suç ve Ceza - Dostoyevski (600 Sayfa)' görmek isteriz.\n- Ayrıca kullanıcı harf girdiğinde programın kırmızı hata verip aniden kapanmasını istemeyiz.\n- Bugün kodlarımızı hem kullanıcı dostu hem de kurşun geçirmez yapacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "console error stack trace debug clean display"
+    }
+  },
+  {
+    "baslik": "Dunder (Double Underscore) Metotlar Nedir?",
+    "altbaslik": "Python'ın Sihirli Metotları",
+    "icerik": "Dunder metotlar, isimleri çift alt çizgiyle başlayıp biten özel metotlardır:\n- `__init__`: Nesne doğarken çalışır.\n- `__str__`: print() dendiğinde çalışır.\n- `__len__`: len() çağrıldığında çalışır.\n- `__repr__`: Geliştirici için teknik temsil metnidir.\nPython'ın yerleşik kurallarını kendi sınıflarımıza kazandırırlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "magic wand wizard python double underscore code"
+    }
+  },
+  {
+    "baslik": "__str__() Metodu ile Güzel Yazdırma",
+    "altbaslik": "Son Kullanıcı İçin Açıklama",
+    "icerik": "class Kitap:\n    def __init__(self, baslik, yazar, sayfa):\n        self.baslik = baslik\n        self.yazar = yazar\n        self.sayfa = sayfa\n\n    def __str__(self):  # print(kitap) dendiğinde otomatik çalışır!\n        return f'📖 \"{self.baslik}\" - {self.yazar} ({self.sayfa} sayfa)'\n\nk = Kitap('Nutuk', 'Mustafa Kemal Atatürk', 600)\nprint(k)  # 📖 \"Nutuk\" - Mustafa Kemal Atatürk (600 sayfa)",
+    "gorsel": {
+      "type": "image",
+      "query": "open book library bookmark reading reading"
+    }
+  },
+  {
+    "baslik": "__len__() Metodu",
+    "altbaslik": "Kendi Nesnelerimize len() Desteği Vermek",
+    "icerik": "class Kitaplik:\n    def __init__(self):\n        self.kitaplar = []\n\n    def ekle(self, kitap):\n        self.kitaplar.append(kitap)\n\n    def __len__(self):  # len(kitaplik) çağrılınca çalışır!\n        return len(self.kitaplar)\n\nraf = Kitaplik()\nraf.ekle('Kitap 1')\nraf.ekle('Kitap 2')\nprint('Kitap Sayısı:', len(raf))  # 2",
+    "gorsel": {
+      "type": "image",
+      "query": "bookshelf organizing books library measurement"
+    }
+  },
+  {
+    "baslik": "__repr__() Metodu",
+    "altbaslik": "Geliştirici ve Debugging İçin Temsil",
+    "icerik": "class Kitap:\n    # ...\n    def __repr__(self):\n        return f'Kitap(baslik=\"{self.baslik}\", sayfa={self.sayfa})'\n\n# Bir liste içindeki nesneler ekrana basıldığında __repr__ çalışır:\nliste = [Kitap('A', 'X', 100), Kitap('B', 'Y', 200)]\nprint(liste)\n# [Kitap(baslik=\"A\", sayfa=100), Kitap(baslik=\"B\", sayfa=200)]",
+    "gorsel": {
+      "type": "image",
+      "query": "debugging tool software developer inspect code"
+    }
+  },
+  {
+    "baslik": "__eq__() ile Nesne Eşitlik Karşılaştırması",
+    "altbaslik": "İki Kitap Aynı mı?",
+    "icerik": "class Kitap:\n    def __init__(self, isbn, baslik):\n        self.isbn = isbn\n        self.baslik = baslik\n\n    def __eq__(self, diger):\n        return self.isbn == diger.isbn\n\nk1 = Kitap('978-1', 'Nutuk')\nk2 = Kitap('978-1', 'Nutuk')\nprint(k1 == k2)  # True (ISBN numaraları eşit olduğu için)",
+    "gorsel": {
+      "type": "image",
+      "query": "equality comparison scales balance object"
+    }
+  },
+  {
+    "baslik": "Hata Yönetimi: Program Neden Çöker?",
+    "altbaslik": "Çalışma Zamanı Hataları (Runtime Exceptions)",
+    "icerik": "1. ValueError: Sayı beklenirken harf girilmesi (int('abc'))\n2. ZeroDivisionError: Bir sayının 0'a bölünmeye çalışılması (10 / 0)\n3. IndexError: Listede var olmayan bir sıranın çağrılması (liste[99])\n4. KeyError: Sözlükte olmayan bir anahtarın istenmesi\n5. FileNotFoundError: Dosyanın bulunamaması",
+    "gorsel": {
+      "type": "image",
+      "query": "crash error warning computer screen alert"
+    }
+  },
+  {
+    "baslik": "try - except Bloğu Mantığı",
+    "altbaslik": "Hatanın Önüne Güvenlik Ağı Çekmek",
+    "icerik": "try bloğundaki kodda bir hata çıkarsa program çökmez; anında except bloğuna atlar:\n\ntry:\n    sayi = int(input('Lütfen bir sayı girin: '))\n    print('Karesi:', sayi * sayi)\nexcept ValueError:\n    print('⚠️ HATA: Sayı yerine geçersiz karakter girdiniz!')\n\nProgram çalışmaya güvenle devam eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "safety net circus acrobat error protection"
+    }
+  },
+  {
+    "baslik": "Birden Fazla Hatayı Yakalama",
+    "altbaslik": "Her Hataya Ayrı Uyarı",
+    "icerik": "try:\n    tutar = float(input('Hesap Tutarı: '))\n    kisi = int(input('Kişi Sayısı: '))\n    kisi_basi = tutar / kisi\n    print(f'Kişi Başı: {kisi_basi:.2f} TL')\nexcept ValueError:\n    print('⚠️ Geçersiz sayı formatı!')\nexcept ZeroDivisionError:\n    print('⚠️ Kişi sayısı 0 olamaz!')",
+    "gorsel": {
+      "type": "image",
+      "query": "split bill dining cafe calculator restaurant"
+    }
+  },
+  {
+    "baslik": "finally ve else Blokları",
+    "altbaslik": "Her Koşulda Çalışan Kodlar",
+    "icerik": "try:\n    # Riskli kodlar\n    sonuc = 10 / 2\nexcept ZeroDivisionError:\n    print('Hata!')\nelse:\n    print('Tebrikler! Hiç hata çıkmadı. Sonuç:', sonuc)\nfinally:\n    print('İşlem tamamlandı (Her zaman çalışır).')",
+    "gorsel": {
+      "type": "image",
+      "query": "flowchart workflow decision programming"
+    }
+  },
+  {
+    "baslik": "Kendi Hatamızı Fırlatma: raise",
+    "altbaslik": "Kurallara Uymayana Hata Çıkarmak",
+    "icerik": "Bazen Python kendisi hata vermez ama bizim iş kuralımız gereği hata fırlatmamız gerekir:\n\ndef para_cek(bakiye, miktar):\n    if miktar > bakiye:\n        raise ValueError('Yetersiz Bakiye! Çekilemez.')\n    return bakiye - miktar\n\ntry:\n    yeni_bakiye = para_cek(100, 250)\nexcept ValueError as e:\n    print(f'Reddedildi: {e}')",
+    "gorsel": {
+      "type": "image",
+      "query": "referee red card penalty soccer exception"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Kitap Sınıfında __str__",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "class Kitap:\n    def __init__(self, baslik, yazar, sayfa):\n        self.baslik = baslik\n        self.yazar = yazar\n        self.sayfa = sayfa\n\n    def __str__(self):\n        return f'📚 {self.baslik} ({self.yazar}) - {self.sayfa} Sayfa'\n\nk1 = Kitap('Simyacı', 'Paulo Coelho', 184)\nprint(k1)",
+    "gorsel": {
+      "type": "image",
+      "query": "book cover printing visual terminal"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Kitaplık Rafı ve __len__",
+    "altbaslik": "Koleksiyon Sınıfı Tasarımı",
+    "icerik": "class Kitaplik:\n    def __init__(self):\n        self.raf = []\n\n    def ekle(self, kitap):\n        self.raf.append(kitap)\n\n    def __len__(self):\n        return len(self.raf)\n\nkutuphanem = Kitaplik()\nkutuphanem.ekle(k1)\nprint(f'Kitaplıkta {len(kutuphanem)} kitap var.')",
+    "gorsel": {
+      "type": "image",
+      "query": "library archive shelf inventory books"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Güvenli ATM Para Girişi",
+    "altbaslik": "try-except ile Sonsuz Döngüde Doğru Sayı Alma",
+    "icerik": "while True:\n    try:\n        tutar = float(input('Yatırılacak Tutar (TL): '))\n        if tutar <= 0:\n            print('Pozitif bir tutar giriniz!')\n            continue\n        print(f'{tutar:.2f} TL başarıyla yatırıldı.')\n        break\n    except ValueError:\n        print('Lütfen sadece sayısal değer giriniz!')",
+    "gorsel": {
+      "type": "image",
+      "query": "atm touchscreen cash deposit machine"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Liste İndeks Hatasını Engelleme",
+    "altbaslik": "IndexError Yakalama",
+    "icerik": "menu = ['Çay', 'Kahve', 'Tost']\n\ntry:\n    secim = int(input('Seçiminiz (1-3): ')) - 1\n    print(f'Seçilen Ürün: {menu[secim]}')\nexcept IndexError:\n    print('⚠️ Geçersiz menü numarası seçtiniz!')\nexcept ValueError:\n    print('⚠️ Lütfen bir rakam tuşlayınız!')",
+    "gorsel": {
+      "type": "image",
+      "query": "cafe menu order selection terminal"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Dosya Okuma Güvenliği",
+    "altbaslik": "FileNotFoundError Yakalama",
+    "icerik": "try:\n    with open('notlar.txt', 'r', encoding='utf-8') as f:\n        icerik = f.read()\nexcept FileNotFoundError:\n    print('⚠️ notlar.txt dosyası bulunamadı! Yeni dosya oluşturuluyor...')\n    with open('notlar.txt', 'w', encoding='utf-8') as f:\n        f.write('Başlangıç Notu\\n')",
+    "gorsel": {
+      "type": "image",
+      "query": "file not found error folder document"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Sıcaklık Dönüştürücü",
+    "altbaslik": "Celsius -> Fahrenheit Güvenli Çeviri",
+    "icerik": "def c_to_f(c_str):\n    try:\n        c = float(c_str)\n        return (c * 9/5) + 32\n    except ValueError:\n        return None\n\nprint('25 C =', c_to_f('25'), 'F')\nprint('Geçersiz =', c_to_f('yirmi beş'))",
+    "gorsel": {
+      "type": "image",
+      "query": "thermometer temperature weather conversion"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Kod:\nsözlük = {'ad': 'Ali'}\nprint(sözlük['yas'])\n\nProblem Nedir?\n'yas' anahtarı sözlükte olmadığı için KeyError fırlatılır!\nÇözüm:\ntry:\n    print(sözlük['yas'])\nexcept KeyError:\n    print('Yaş bilgisi bulunamadı.')",
+    "gorsel": {
+      "type": "image",
+      "query": "key error python dictionary debugging"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "class Kutu:\n    def __len__(self):\n        return 5\n\nk = Kutu()\nprint(len(k) * 2)\n\nÇıktı: 10 (len(k) __len__ metodundan 5 döner, 5 * 2 = 10 olur).",
+    "gorsel": {
+      "type": "image",
+      "query": "cardboard box length measurement package"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Hata Yönetiminde 3 Kritik Yanlış",
+    "icerik": "1. Çıplak except kullanmak (except: pass diyerek tüm hataları yutmak hataları gizler).\n2. __str__ metodunda return yerine print() kullanmak (None döner ve bozulur).\n3. try bloğunun içine 100 satır gereksiz kod koymak (Sadece hata çıkabilecek riskli satırları koyun).",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution software quality checklist"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Dunder Metotlar",
+    "icerik": "Soru: print(nesne) çağrıldığında tetiklenen dunder metot hangisidir?\nA) __print__\nB) __str__\nC) __main__\nD) __init__\n\nDoğru Cevap: B (__str__ metodu çalışır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Hata Yakalama",
+    "icerik": "Soru: int('abc') satırı hangi hata türünü fırlatır?\nA) TypeError\nB) KeyError\nC) ValueError\nD) ZeroDivisionError\n\nDoğru Cevap: C (Geçersiz değer tip dönüşümü -> ValueError).",
+    "gorsel": {
+      "type": "image",
+      "query": "error type testing classroom test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "finally Bloğu",
+    "icerik": "Soru: finally bloğunun özelliği nedir?\nA) Sadece hata çıkarsa çalışır\nB) Sadece hata çıkmazsa çalışır\nC) Hata çıksa da çıkmasa da HER ZAMAN çalışır\nD) Programı durdurur\n\nDoğru Cevap: C (Her zaman çalışır).",
+    "gorsel": {
+      "type": "image",
+      "query": "workflow sequence finalization step"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Bankacılık ATM Çökmesi",
+    "altbaslik": "try-except Olmazsa Ne Olur?",
+    "icerik": "Gerçek Yaşam Vakası:\nBir banka ATM'sinde kullanıcı kartı çekmeden önce harf tuşlamış ve yazılım çökmüştür.\nATM yeniden başlarken kullanıcının kartı cihazın içinde kilitli kalmıştır.\nEğer try-except ValueError kullanılsaydı ekran sadece 'Geçersiz tuş' uyarısı verecekti.",
+    "gorsel": {
+      "type": "image",
+      "query": "atm machine error blue screen out of order"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Çökmeyen Kütüphane Kitap Arama Konsolu",
+    "icerik": "Göreviniz:\n1. Kitap sınıfı oluşturun (__str__ metodu olsun).\n2. 4 adet kitap nesnesini bir listeye koyun.\n3. Kullanıcıdan aramak istediği kitap sıra numarasını isteyin.\n4. Eğer kullanıcı harf girerse ValueError, 1-4 aralığı dışında girerse IndexError yakalayın.\n5. Program hiçbir koşulda kırmızı hata verip çökmemelidir.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "bulletproof solid code programming mission"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "kitaplar = [\n    Kitap('Nutuk', 'Atatürk', 600),\n    Kitap('Simyacı', 'Coelho', 180)\n]\n\ntry:\n    sira = int(input('Kitap No (1-2): ')) - 1\n    print('Bulunan:', kitaplar[sira])\nexcept (ValueError, IndexError):\n    print('⚠️ Geçersiz bir seçim yaptınız!')",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint code solution help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- __str__ nesnelerin insan dilinde güzel yazdırılmasını sağlar.\n- __len__ nesnelere len() yeteneği kazandırır.\n- try-except beklenmedik hataları yakalayarak programın çökmesini engeller.\n- raise ile kendi iş kurallarımız gereği özel hatalar fırlatabiliriz.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 7: Modüler Proje Yönetimi ve venv/pip",
+    "icerik": "Ön Hazırlık:\n- Kodlarımızı modeller.py, servisler.py ve main.py olarak 3 ayrı dosyaya böleceğiz.\n- PyCharm üzerinde sanal ortamları (venv) ve pip paket yöneticisini öğreneceğiz.\n- Renkli konsol kütüphaneleri kuracağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "modular software structure folders files python"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir Urun sınıfı yazın. __str__ metodu içinde 'Ürün: {self.ad} - {self.fiyat} TL' döndürsün. 2 satırlık test kodunu da ekleyerek kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

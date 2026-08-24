@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 5",
+    "altbaslik": "Sayısal Veri Tipleri, 4 İşlem ve .ToString()",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Temel Matematiksel Modelleme\nHaftalık Odak: int (Tam Sayı), double (Ondalıklı Sayı), Operatörler, .ToString() Köprüsü\nHedef: Matematik korkusunu yenerek hesaplama yapan otomasyonlar üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "mathematics calculator arithmetic logic programming"
+    }
+  },
+  {
+    "baslik": "Neden Sayısal Tipleri Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Ticari ve Finansal Hesaplamalar",
+    "icerik": "Yazılım dünyasındaki neredeyse tüm uygulamalar hesaplama yapar:\n- Bankacılık faiz ve bakiye hesabı,\n- E-ticaret sepet toplamı ve KDV hesabı,\n- Oyunlardaki can, cephane ve skor sistemleri.\nTüm bunlar sayısal değişkenler üzerinden yürütülür.",
+    "gorsel": {
+      "type": "image",
+      "query": "financial dashboard accounting calculation computer"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. int (Tam Sayı) ve double (Ondalıklı Sayı) arasındaki farkları açıklar.\n2. 4 işlem (+, -, *, /) ve Mod (%) operatörlerini C# kodunda uygular.\n3. Tamsayı bölmesi (Integer Division) tuzağını ve çözümünü açıklar.\n4. Sayısal sonuçları .ToString() metoduyla görsel Label kontrolüne aktarır.\n5. 'Kampüs Kantini Hızlı Adisyon' projesini başarıyla tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning goals math coding programming target"
+    }
+  },
+  {
+    "baslik": "Sayısal Veri Tipleri: 2 Temel Kategori",
+    "altbaslik": "Tam Sayılar vs Ondalıklı Sayılar",
+    "icerik": "Programlamada sayılar temel olarak ikiye ayrılır:\n\n1. Tam Sayılar (int):\n- Kesirli kısmı olmayan pozitif, negatif ve sıfır sayılarıdır (Örn: 5, -12, 100).\n\n2. Ondalıklı Sayılar (double):\n- Virgülden sonra küsuratı/kesri olan sayılardır (Örn: 3.14, 45.75, 0.5).",
+    "gorsel": {
+      "type": "image",
+      "query": "integer vs floating point numbers mathematics diagram"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Yumurta Kolisi vs Su Şişesi",
+    "altbaslik": "int ve double Ayrımı",
+    "icerik": "- int (Yumurta Kolisi): Markette yarım yumurta veya 2.3 tane yumurta satılmaz. Adetler daima tam sayıdır (int ogrenciSayisi = 30).\n- double (Su Şişesi): Bir şişede 0.5 litre, 1.5 litre gibi buçuklu su bulunabilir. Fiyat, kilo ve boy daima ondalıklıdır (double fiyat = 14.50).",
+    "gorsel": {
+      "type": "image",
+      "query": "egg carton vs water bottle measurement concept"
+    }
+  },
+  {
+    "baslik": "int (Integer) Veri Tipi Özellikleri",
+    "altbaslik": "32-bit Tam Sayı Kapasitesi",
+    "icerik": "- Bellek Boyutu: 32-bit (4 Bayt).\n- Değer Aralığı: -2 Milyar ile +2 Milyar arası tam sayılar.\n- Kullanım Alanları: Adet, yaş, sıra no, gün sayısı, stok miktarı.\n\nÖrnek:\nint urunAdedi = 12;\nint kalanHak = 3;",
+    "gorsel": {
+      "type": "image",
+      "query": "binary integer memory bytes bits data representation"
+    }
+  },
+  {
+    "baslik": "double Veri Tipi Özellikleri",
+    "altbaslik": "64-bit Hassas Ondalıklı Sayı",
+    "icerik": "- Bellek Boyutu: 64-bit (8 Bayt).\n- 15-17 basamak hassasiyet sunar.\n- C# dilinde ondalık ayıracı olarak MUTLAKA nokta (.) kullanılır!\n\nÖrnek:\ndouble benzinLitresi = 42.85;\ndouble kdvOrani = 0.20;",
+    "gorsel": {
+      "type": "image",
+      "query": "decimal point precision digits mathematics formula"
+    }
+  },
+  {
+    "baslik": "Diğer Sayısal Tipler: float ve decimal",
+    "altbaslik": "Finans ve Yüksek Hassasiyet",
+    "icerik": "- float (32-bit): Grafikler ve oyun motorları için tek hassasiyetli tip.\n- decimal (128-bit): Bankacılık ve finansal muhasebe hesapları için kuruş hatasını sıfırlayan özel tip.\n- Standart masaüstü uygulamalarında double ve int fazlasıyla yeterlidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "finance banking decimal precision calculation"
+    }
+  },
+  {
+    "baslik": "Temel Matematiksel Operatörler",
+    "altbaslik": "C# Aritmetik Sembolleri",
+    "icerik": "| Operatör | İşlem | Örnek | Sonuç |\n| :---: | :---: | :---: | :---: |\n| + | Toplama | int t = 10 + 20; | 30 |\n| - | Çıkarma | int f = 50 - 15; | 35 |\n| * | Çarpma | int c = 6 * 7; | 42 |\n| / | Bölme | double b = 20.0 / 4; | 5.0 |\n| % | Mod (Kalan) | int k = 14 % 4; | 2 |",
+    "gorsel": {
+      "type": "image",
+      "query": "math operators plus minus multiply divide symbols"
+    }
+  },
+  {
+    "baslik": "Mod (%) Operatörü Nedir?",
+    "altbaslik": "Bölümden Kalanı Bulmak",
+    "icerik": "Mod (%) operatörü, bir sayının diğerine bölünmesinden kalan sayıyı verir:\n- 10 % 3 = 1 (10'u 3'e bölünce 1 artar)\n- 14 % 2 = 0 (Kalan 0 ise sayı ÇİFTTİR!)\n- 15 % 2 = 1 (Kalan 1 ise sayı TEKTİR!)\nSektörde tek/çift sayı tespitinde ve vardiya hesaplarında sıkça kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "modular arithmetic clock remainder mathematics concept"
+    }
+  },
+  {
+    "baslik": "İşlem Önceliği Kuralları",
+    "altbaslik": "Çarpma/Bölme mi Önce, Toplama/Çıkarma mı?",
+    "icerik": "C# matematikteki evrensel işlem sırasına uyar:\n1. Parantez İçi ( )\n2. Çarpma (*), Bölme (/), Mod (%)\n3. Toplama (+), Çıkarma (-)\n\nÖrnek:\nint sonuc = 10 + 5 * 2; // Sonuç: 20 (Önce 5*2=10, sonra 10+10=20)\nint sonuc2 = (10 + 5) * 2; // Sonuç: 30 (Önce parantez 15, sonra 15*2=30)",
+    "gorsel": {
+      "type": "image",
+      "query": "order of operations pemdas parentheses math logic"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: Tamsayı Bölmesi (Integer Division)",
+    "altbaslik": "10 / 4 Neden 2 Çıkar?",
+    "icerik": "Tahtaya şu kodu yazın:\nint a = 10;\nint b = 4;\ndouble sonuc = a / b;\n\nSoru: sonuc değişkeninde 2.5 mi saklanır 2 mi?\nCevap: 2 saklanır!\nNeden? C#, iki tamsayı bölündüğünde virgülden sonrasını acımasızca atar.",
+    "gorsel": {
+      "type": "image",
+      "query": "trap warning integer division truncation decimal loss"
+    }
+  },
+  {
+    "baslik": "Tamsayı Bölmesi Tuzağını Çözmek",
+    "altbaslik": "Doğru Ondalıklı Sonuç Alma Yöntemi",
+    "icerik": "Doğru küsuratlı sonuç almak için bölenlerden en az birinin ondalıklı olması gerekir:\n\n1. Yöntem: 10.0 / 4 (Sonuç: 2.5)\n2. Yöntem (Tip Dönüştürme - Casting):\nint a = 10;\nint b = 4;\ndouble sonuc = (double)a / b; // Sonuç: 2.5 (Doğru!)",
+    "gorsel": {
+      "type": "image",
+      "query": "type casting double integer conversion programming"
+    }
+  },
+  {
+    "baslik": "Kısa Yol Atama Operatörleri",
+    "altbaslik": "Yazılımcı Kısayolları",
+    "icerik": "- sayac++ : sayacı 1 artır (sayac = sayac + 1)\n- sayac-- : sayacı 1 azalt (sayac = sayac - 1)\n- toplam += 5 : toplama 5 ekle (toplam = toplam + 5)\n- bakiye -= 20 : bakiyeden 20 düş (bakiye = bakiye - 20)\n- fiyat *= 2 : fiyatı ikiye katla",
+    "gorsel": {
+      "type": "image",
+      "query": "increment decrement arithmetic shortcuts keyboard"
+    }
+  },
+  {
+    "baslik": "Sayıyı Ekrana Yazdırma Köprüsü: .ToString()",
+    "altbaslik": "Sayısal Değeri Metne Çevirmek",
+    "icerik": "Label.Text sadece string (metin) kabul eder. Sayıyı doğrudan Label.Text'e veremezsiniz!\n\nint toplam = 150;\n// lblSonuc.Text = toplam; // HATA! Sayıyı metin kutusuna doğrudan koyamazsınız.\nlblSonuc.Text = toplam.ToString(); // DOĞRU! .ToString() köprü görevi görür.",
+    "gorsel": {
+      "type": "image",
+      "query": "bridge connecting data types integer to string"
+    }
+  },
+  {
+    "baslik": "Daktiloculuğu Önleyen 'Hesap Tahmini'",
+    "altbaslik": "Bu Kod Ekranda Ne Yazar?",
+    "icerik": "Aşağıdaki kod parçasını inceleyin:\n\nint cay = 3;\nint fiyat = 15;\nint toplam = cay * fiyat;\nlblHesap.Text = \"Ödenecek: \" + toplam + \" TL\";\n\nSoru: '+' işareti burada ne yaptı?\nCevap: C#, metin ile sayıyı '+' ile bağlarken sayıyı otomatik metne çevirip yan yana yapıştırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "receipt calculation tea coffee price tag"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Kampüs Kantini Hızlı Adisyon",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Üniversite kantininde garsonun kullandığı hızlı adisyon hesabı.\n- Sipariş: Çay (10 TL), Kaşarlı Tost (60 TL), Şişe Su (10 TL).\n- Kullanıcı adetleri belirler, masa kişi sayısını girer.\n- 'Hesapla' butonuna basılınca Toplam Tutar ve Kişi Başı Ödenecek Pay hesaplanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "campus cafe bistro pos terminal receipt bill"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Sipariş Girdileri:\n- txtCayAdet (Çay Adedi)\n- txtTostAdet (Tost Adedi)\n- txtSuAdet (Su Adedi)\n- txtKisiSayisi (Masadaki Kişi Sayısı)\n\nButon: btnHesapla ('💰 Hesabı Çıkar')\nÇıktı Etiketleri: lblToplamTutar, lblKisiBasiPay (14pt Bold)",
+    "gorsel": {
+      "type": "image",
+      "query": "pos user interface design restaurant fast food"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Adım Adım)",
+    "altbaslik": "Adisyon Hesaplama Algoritması",
+    "icerik": "private void btnHesapla_Click(object sender, EventArgs e)\n{\n    // Sabit Birim Fiyatlar\n    int cayFiyat = 10;\n    int tostFiyat = 60;\n    int suFiyat = 10;\n\n    // Sipariş Adetleri (Örnek başlangıç)\n    int cayAdet = 4;\n    int tostAdet = 2;\n    int suAdet = 3;\n    int kisiSayisi = 3;\n\n    // Hesaplama\n    int toplamTutar = (cayAdet * cayFiyat) + (tostAdet * tostFiyat) + (suAdet * suFiyat);\n    double kisiBasiPay = (double)toplamTutar / kisiSayisi;\n\n    // Ekrana Formatlı Basma\n    lblToplamTutar.Text = \"Toplam Tutar: \" + toplamTutar.ToString() + \" TL\";\n    lblKisiBasiPay.Text = \"Kişi Başı Pay: \" + kisiBasiPay.ToString(\"0.00\") + \" TL\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code calculation bill split arithmetic"
+    }
+  },
+  {
+    "baslik": "Format Belirteçleri (.ToString(\"0.00\"))",
+    "altbaslik": "Kuruş Hassasiyetini Sabitlemek",
+    "icerik": "Kişi başı pay 46.66666667 çıkarsa çirkin durur.\n- kisiBasiPay.ToString(\"0.00\") ifadesi sayıyı virgülden sonra 2 basamağa yuvarlar.\n- Çıktı: '46.67 TL' olarak profesyonelce görünür.",
+    "gorsel": {
+      "type": "image",
+      "query": "currency rounding financial formatting receipt"
+    }
+  },
+  {
+    "baslik": "Math Sınıfı ve Faydalı Fonksiyonlar",
+    "altbaslik": "C# Yerleşik Matematik Kütüphanesi",
+    "icerik": "- Math.Sqrt(16) -> Karekök alır (Sonuç: 4)\n- Math.Pow(2, 3) -> Üs alır (2'nin 3. kuvveti = 8)\n- Math.Abs(-15) -> Mutlak değer (Sonuç: 15)\n- Math.PI -> Pi sayısı sabiti (3.14159...)",
+    "gorsel": {
+      "type": "image",
+      "query": "mathematics functions sqrt power pi formula"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Aritmetik Hatalar",
+    "altbaslik": "Yazılımcıların Düştüğü Tuzaklar",
+    "icerik": "1. 0'a Bölme Hatası (DivideByZeroException): Bir sayıyı asla 0'a bölemezsiniz!\n2. Taşma (Overflow): int tipine 3 milyar yazarsanız sayı taşar ve eksiye döner.\n3. Parantez hatası: Ortalama alırken parantezi unutmak (vize + final / 2 -> önce finali 2'ye böler!).",
+    "gorsel": {
+      "type": "image",
+      "query": "divide by zero error warning calculator"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Market Barkod Terazisi",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Manav reyonundaki akıllı terazi:\n- Ağırlık = 1.450 kg (double)\n- Birim Fiyat = 35.00 TL (double)\n- Tutar = 1.450 * 35.00 = 50.75 TL\nBarkod terazilerinde ondalıklı dört işlem mekanizması tam olarak bu kodla çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "barcode scale grocery supermarket weight calculation"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "İşlem Önceliği",
+    "icerik": "Soru: int x = 20 - 4 * 2 + 6 / 2; ifadesinin sonucu kaçtır?\n\nA) 19\nB) 15\nC) 21\nD) 27\n\nDoğru Cevap: B (Önce çarpma 4*2=8 ve bölme 6/2=3 yapılır. 20 - 8 + 3 = 15).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question math exam chalkboard"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Sayı Dönüştürme",
+    "icerik": "Soru: Sayısal bir değişkeni Label kontrolüne yazdırmak için hangi metot kullanılır?\n\nA) .ToNumber()\nB) .ToString()\nC) .ToText()\nD) .Convert()\n\nDoğru Cevap: B (.ToString() metodu herhangi bir sayısal değeri metne çevirir).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice question programming test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Mod Operatörü",
+    "icerik": "Soru: 25 % 4 işleminin sonucu kaçtır?\n\nA) 6\nB) 1\nC) 0\nD) 4\n\nDoğru Cevap: B (25'i 4'e böldüğümüzde bölüm 6, kalan 1 olur).",
+    "gorsel": {
+      "type": "image",
+      "query": "math remainder modulo arithmetic question"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Taksi Taksimetre Hesabı",
+    "icerik": "Görev:\n- Açılış Ücreti (25 TL) ve Kilometre Başı Ücret (18 TL) sabitlerini belirleyin.\n- Gidilen km (örn: 12.5) için toplam taksimetre tutarını hesaplayıp ekrana yazdırın.",
+    "gorsel": {
+      "type": "image",
+      "query": "taxi taximeter digital receipt calculation"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- int: 32-bit tam sayı veri tipi.\n- double: 64-bit ondalıklı sayı veri tipi.\n- Operator Precedence: İşlem önceliği sırası.\n- Integer Division: Tamsayı bölmesinde küsuratın kaybolması.\n- ToString(): Sayıyı görsel metne çeviren köprü metot.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- int ve double veri tiplerinin sınırlarını ve kullanım alanlarını öğrendik.\n- 4 İşlem, Mod alma (%) ve işlem önceliği kurallarını inceledik.\n- Tamsayı bölmesi tuzağını ve (double) casting çözümünü kavradık.\n- .ToString() ile sayıları görsel ekrana aktararak kantin adisyonunu tamamladık.",
+    "gorsel": {
+      "type": "image",
+      "query": "weekly summary success mathematics programming"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'int a = 15; int b = 2; double c = (double)a / b; satırında c değişkeninin değeri ne olur?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 6: Veri Dönüşümü ve try-catch Güvenliği",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- TextBox'a girilen sayıları Convert.ToInt32() ile dinamik okuma.\n- Kullanıcı harf girerse program neden çöker?\n- Hava yastığı ve güvenlik zırhı: try-catch blokları.\n- Çökmez Vize-Final Ortalama Hesaplayıcı projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "safety shield error handling preview next week"
+    }
+  }
+]

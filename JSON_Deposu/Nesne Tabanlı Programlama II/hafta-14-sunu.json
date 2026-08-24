@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 14",
+    "altbaslik": "Büyük Final: Proje Refactoring ve Portföy Hazırlığı",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: APIRouter Mimarisi, Modüler Refactoring, Profesyonel README.md ve CV Portföy Projesi\nUygulama Teması: Mezuniyet Portföy REST API Projesi",
+    "gorsel": {
+      "type": "image",
+      "query": "software engineering final project graduation portfolio python fastapi"
+    }
+  },
+  {
+    "baslik": "14 Haftalık Büyük Başarı Hikayesi",
+    "altbaslik": "Nereden Nereye Geldik?",
+    "icerik": "Dönem başında sadece konsolda toplama yaparken:\n- 1. Ay: Python temellerini ve veri yapılarını (list, dict) fethettiniz.\n- 2. Ay: Sınıflarla (OOP), Kalıtım ve Kapsülleme ile hayatı kodladınız.\n- 3. Ay: FastAPI, Pydantic ve Swagger UI ile modern web dünyasına adım attınız.\n- 4. Ay: SQLite veritabanı, CRUD, JWT Güvenlik ve Frontend entegrasyonunu başardınız!\nBugün bu şaheseri taçlandırma günü!",
+    "gorsel": {
+      "type": "image",
+      "query": "growth learning progress timeline mountain top success"
+    }
+  },
+  {
+    "baslik": "Bugünkü Hedefimiz: Portföy Projesi",
+    "altbaslik": "Mülakatlarda Masaya Koyacağınız Proje",
+    "icerik": "İş görüşmesine gittiğinizde 'Ben Python biliyorum' demek yetmez.\n- 'İşte benim geliştirdiğim, SQLite veritabanlı, JWT güvenlikli, Swagger dokümantasyonlu REST API projem' diyeceksiniz.\n- Bugün tüm kodlarımızı profesyonel kurumsal mimariye (Refactoring) dönüştüreceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "job interview software engineer portfolio demonstration"
+    }
+  },
+  {
+    "baslik": "Refactoring Nedir?",
+    "altbaslik": "Çalışan Kodu Temiz ve Modüler Hale Getirmek",
+    "icerik": "Refactoring (Yeniden Yapılandırma):\n- Kodun dış davranışını değiştirmeden, iç yapısını daha temiz, okunabilir ve modüler hale getirmektir.\n- 500 satırlık `main.py` dosyasını mantıksal `routers/` klasörlerine böleceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "code refactoring clean architecture organizing lego"
+    }
+  },
+  {
+    "baslik": "Kurumsal Proje Klasör Mimarisi",
+    "altbaslik": "Sektör Standartı Proje Ağacı",
+    "icerik": "kampus_api_projesi/\n├── database.py       (Veritabanı bağlantısı ve get_db)\n├── models.py         (SQLAlchemy ORM tabloları)\n├── schemas.py        (Pydantic doğrulama modelleri)\n├── auth.py           (JWT ve şifreleme fonksiyonları)\n├── routers/\n│   ├── __init__.py\n│   ├── kitaplar.py   (Kitap CRUD endpoint'leri)\n│   └── uyeler.py     (Giriş ve üye endpoint'leri)\n├── requirements.txt  (Proje kütüphaneleri)\n├── README.md         (GitHub tanıtım vitrini)\n└── main.py           (Router'ları birleştiren ana dosya)",
+    "gorsel": {
+      "type": "image",
+      "query": "software project folder tree clean directory structure"
+    }
+  },
+  {
+    "baslik": "FastAPI APIRouter Nedir?",
+    "altbaslik": "Endpoint'leri Modüllere Ayırmak",
+    "icerik": "Her konunun endpoint'lerini kendi dosyasına koymamızı sağlar:\n- `routers/kitaplar.py` -> Sadece kitap işlemleri\n- `routers/uyeler.py` -> Sadece üye ve login işlemleri\n- `main.py` -> Sadece bu router'ları `app.include_router()` ile birleştirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "network router traffic splitter modular architecture"
+    }
+  },
+  {
+    "baslik": "Adım 1: routers/kitaplar.py Oluşturma",
+    "altbaslik": "Kitap Rotalarını İzolasyon Alanına Almak",
+    "icerik": "from fastapi import APIRouter, Depends, HTTPException\nfrom sqlalchemy.orm import Session\nfrom typing import List\nimport models, schemas, database\n\nrouter = APIRouter(\n    prefix='/kitaplar',\n    tags=['Kitap Yönetimi 📚']\n)\n\n@router.get('/', response_model=List[schemas.KitapYanit])\ndef kitaplari_getir(db: Session = Depends(database.get_db)):\n    return db.query(models.KitapModel).all()",
+    "gorsel": {
+      "type": "image",
+      "query": "python apirouter modular endpoint code"
+    }
+  },
+  {
+    "baslik": "Adım 2: routers/uyeler.py Oluşturma",
+    "altbaslik": "Kimlik Doğrulama Rotaları",
+    "icerik": "from fastapi import APIRouter, Depends, HTTPException\nfrom fastapi.security import OAuth2PasswordRequestForm\nimport auth, schemas\n\nrouter = APIRouter(\n    prefix='/auth',\n    tags=['Kimlik Doğrulama 🔒']\n)\n\n@router.post('/login')\ndef login(form: OAuth2PasswordRequestForm = Depends()):\n    # Token üretimi...\n    return {'access_token': 'bilet_123', 'token_type': 'bearer'}",
+    "gorsel": {
+      "type": "image",
+      "query": "user auth routes login token python code"
+    }
+  },
+  {
+    "baslik": "Adım 3: Tertemiz main.py Dosyası",
+    "altbaslik": "Sadece 15 Satırda Ana Uygulama",
+    "icerik": "from fastapi import FastAPI\nfrom routers import kitaplar, uyeler\nimport database, models\n\n# Veritabanı tablolarını oluştur\nmodels.Base.metadata.create_all(bind=database.engine)\n\napp = FastAPI(\n    title='Giresun Kampüs Kütüphane API',\n    description='Python, FastAPI, SQLAlchemy ve SQLite ile geliştirilmiş kurumsal REST API.',\n    version='1.0.0'\n)\n\n# Router'ları ana uygulamaya bağlıyoruz:\napp.include_router(kitaplar.router)\napp.include_router(uyeler.router)",
+    "gorsel": {
+      "type": "image",
+      "query": "clean main python script include router"
+    }
+  },
+  {
+    "baslik": "Swagger UI'da Gruplandırılmış Rotalar (Tags)",
+    "altbaslik": "Düzenli ve Şık API Dokümantasyonu",
+    "icerik": "Tarayıcıda `/docs` sayfasına baktığınızda:\n- **Kitap Yönetimi 📚** başlığı altında kitap endpoint'leri,\n- **Kimlik Doğrulama 🔒** başlığı altında giriş endpoint'leri\ntertemiz bölümler halinde listelenecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "swagger ui tags organized grouped endpoints"
+    }
+  },
+  {
+    "baslik": "Adım 4: requirements.txt Dosyasını Üretme",
+    "altbaslik": "Kütüphaneleri Paketleme",
+    "icerik": "PyCharm Terminalinde çalıştırın:\n\n`pip freeze > requirements.txt`\n\nİçinde `fastapi`, `uvicorn`, `sqlalchemy`, `pydantic`, `httpx` gibi tüm dönem boyunca kullandığımız kütüphanelerin sürümleri kaydedilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal freeze command requirements text"
+    }
+  },
+  {
+    "baslik": "Adım 5: Profesyonel README.md Vitrini",
+    "altbaslik": "Projenizin Kartviziti",
+    "icerik": "# 📚 Giresun Kampüs Kütüphane REST API\n\nBu proje, Giresun Üniversitesi Bilgisayar Programcılığı NTP II dersi bitirme portföyü olarak geliştirilmiştir.\n\n## 🚀 Özellikler\n- **FastAPI & Uvicorn** ile yüksek performanslı REST mimarisi\n- **SQLite & SQLAlchemy ORM** ile kalıcı veri yönetimi\n- **Pydantic** ile otomatik veri doğrulama\n- **JWT Bearer Token** ile güvenli kimlik doğrulama\n- **Swagger UI** (/docs) otomatik interaktif test paneli",
+    "gorsel": {
+      "type": "image",
+      "query": "github readme markdown file documentation preview"
+    }
+  },
+  {
+    "baslik": "README.md: Kurulum ve Çalıştırma Adımları",
+    "altbaslik": "Projeyi İndiren Kişi Nasıl Çalıştırır?",
+    "icerik": "## 🛠️ Kurulum Adımları\n1. Depoyu klonlayın veya indirin.\n2. Sanal ortamı kurun: `python -m venv .venv`\n3. Sanal ortamı aktifleştirin: `.venv\\Scripts\\activate`\n4. Bağımlılıkları yükleyin: `pip install -r requirements.txt`\n5. Sunucuyu başlatın: `uvicorn main:app --reload`\n6. Tarayıcıdan test edin: `http://127.0.0.1:8000/docs`",
+    "gorsel": {
+      "type": "image",
+      "query": "installation steps command line terminal guide"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: routers/ Klasörü Açma",
+    "altbaslik": "PyCharm'da Modüler Refactoring",
+    "icerik": "1. Proje ana dizininde `routers` adında bir klasör (Package) açın.\n2. İçine `kitaplar.py` ve `uyeler.py` dosyalarını oluşturun.\n3. Eski `main.py` içindeki rotaları bu dosyalara taşıyın.",
+    "gorsel": {
+      "type": "image",
+      "query": "pycharm creating package directory refactoring"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: include_router Bağlantısı",
+    "altbaslik": "Ana Dosyada Birleştirme",
+    "icerik": "- `main.py` dosyasını açın.\n- `app.include_router(kitaplar.router)` ve `app.include_router(uyeler.router)` satırlarını ekleyin.\n- Sunucuyu çalıştırıp `/docs` ekranında rotaların çalıştığını test edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "connecting modules together python server"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: README.md Dosyasını Yazma",
+    "altbaslik": "Markdown ile Proje Sunumu",
+    "icerik": "- Projenize `README.md` dosyası ekleyin.\n- Başlıkları, kullanılan teknolojileri ve kendi adınızı, öğrenci numaranızı yazın.",
+    "gorsel": {
+      "type": "image",
+      "query": "markdown editor writing documentation preview"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: GitHub Deposu Hazırlığı",
+    "altbaslik": ".gitignore Kontrolü",
+    "icerik": "`.gitignore` dosyanızda şunların olduğundan emin olun:\n- `.venv/`\n- `__pycache__/`\n- `*.pyc`\n\nBöylece projeniz tertemiz bir şekilde GitHub'a yüklenmeye hazır hale gelir.",
+    "gorsel": {
+      "type": "image",
+      "query": "git repository clean status commit push"
+    }
+  },
+  {
+    "baslik": "CV'nize Bu Dersi Nasıl Yazacaksınız?",
+    "altbaslik": "Özgeçmişinizi Parlatacak Cümleler",
+    "icerik": "💼 **Yetenekler (Skills):**\n- Python, Nesne Tabanlı Programlama (OOP)\n- FastAPI, RESTful API Mimarisi, Uvicorn\n- SQLAlchemy ORM, SQLite Veritabanı (CRUD)\n- Pydantic Veri Doğrulama, JWT Kimlik Doğrulama\n- Postman API Testi, Swagger UI Dokümantasyonu",
+    "gorsel": {
+      "type": "image",
+      "query": "resume cv software developer skills section modern"
+    }
+  },
+  {
+    "baslik": "Mülakat Sorusu 1: FastAPI vs Flask/Django",
+    "altbaslik": "Neden FastAPI Seçtiniz?",
+    "icerik": "Cevabınız:\n'FastAPI, modern Python tip belirteçlerini (Type Hints) ve Pydantic'i temel alır. Hem NodeJS kadar yüksek asenkron performans sunar hem de Swagger UI dokümantasyonunu otomatik üretir.'",
+    "gorsel": {
+      "type": "image",
+      "query": "interview questions answering professional confidence"
+    }
+  },
+  {
+    "baslik": "Mülakat Sorusu 2: ORM Kullanmanın Faydası",
+    "altbaslik": "SQLAlchemy Neden Önemli?",
+    "icerik": "Cevabınız:\n'SQLAlchemy ORM sayesinde veritabanı işlemlerini nesne tabanlı Python sınıflarıyla yürütürüz. Bu durum bizi SQL enjeksiyon açıklarından korur, kodun okunabilirliğini artırır ve veritabanı bağımsızlığı sağlar.'",
+    "gorsel": {
+      "type": "image",
+      "query": "database security sql injection protection orm"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod (main.py):\napp.include_router(kitaplar)\n\nProblem Nedir?\n`kitaplar` dosyasının içindeki `router` nesnesi verilmelidir: `app.include_router(kitaplar.router)` olmalıdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "router object include error code fix"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "router = APIRouter(prefix='/urunler')\n@router.get('/liste')\ndef f(): pass\n\nBu endpoint'in tam URL yolu nedir?\nÇıktı: `/urunler/liste` (prefix ile metot yolu otomatik birleşir).",
+    "gorsel": {
+      "type": "image",
+      "query": "url prefix routing path concatenation"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Proje Paketlemede 3 Hata",
+    "icerik": "1. `requirements.txt` dosyasını güncellemeyi unutmak.\n2. Proje dizininde `__pycache__` dosyalarını silmeden paylaşmak.\n3. `README.md` dosyasında çalıştırma komutlarını eksik bırakmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution final checklist quality"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "APIRouter",
+    "icerik": "Soru: FastAPI'de rotaları modüler dosyalara bölmek için kullanılan sınıf hangisidir?\nA) URLRouter\nB) APIRouter\nC) SubApp\nD) PathRouter\n\nDoğru Cevap: B (APIRouter).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Refactoring Tanımı",
+    "icerik": "Soru: Çalışan kodun dış işleyişini değiştirmeden iç yapısını daha temiz ve modüler hale getirmeye ne ad verilir?\nA) Debugging\nB) Refactoring (Yeniden Yapılandırma)\nC) Compiling\nD) Deploying\n\nDoğru Cevap: B (Refactoring).",
+    "gorsel": {
+      "type": "image",
+      "query": "refactoring concept software quality test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "README Dosyası",
+    "icerik": "Soru: GitHub projelerinde projenin vitrini ve kullanım kılavuzu olan dosya uzantısı nedir?\nA) .txt\nB) .md (Markdown)\nC) .doc\nD) .html\n\nDoğru Cevap: B (.md - Markdown).",
+    "gorsel": {
+      "type": "image",
+      "query": "markdown file format badge"
+    }
+  },
+  {
+    "baslik": "BÜYÜK FİNAL GÖREVİ (Final Boss Fight)",
+    "altbaslik": "Kendi Portföy REST API Projenizi Teslim Edin!",
+    "icerik": "Göreviniz:\n1. Kendi seçtiğiniz bir temada (Kütüphane, Kampüs Kafe, Öğrenci Not Otomasyonu veya E-Ticaret) tam CRUD projenizi derleyin.\n2. `routers/` yapısına ayırın.\n3. `requirements.txt` ve `README.md` dosyalarını ekleyin.\n4. Swagger `/docs` panelinden çalışan canlı ekran görüntüsüyle projenizi teslim edin!\n\nBaşarılar Dileriz! 🎓🎉",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation trophy achievement diploma software success"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Başarı Mesajı",
+    "altbaslik": "Öğr. Gör. Süleyman EZDEMİR'den Mesaj",
+    "icerik": "'Değerli öğrencilerim, bu dönem gösterdiğiniz çaba ve azimle sıfırdan modern bir Backend Yazılımcısı adayına dönüştünüz.\nKod yazmaktan asla vazgeçmeyin; merak edin, deneyin ve üretin.\nYolunuz açık, başarılarınız daim olsun!'",
+    "gorsel": {
+      "type": "image",
+      "query": "teacher professor congratulating university students celebration"
+    }
+  },
+  {
+    "baslik": "Dönem Özeti ve Kapanış",
+    "altbaslik": "Giresun Üniversitesi Bilgisayar Programcılığı",
+    "icerik": "14 Haftada Neler Başardık?\n- Python OOP Felsefesi & Kalıtım / Kapsülleme\n- FastAPI & Uvicorn ile Modern Web Servisleri\n- SQLite & SQLAlchemy ile Kalıcı Veritabanı\n- Pydantic & JWT ile Veri Doğrulama ve Güvenlik\n- Postman & Web Entegrasyonu ile Full-Stack Deneyimi\n\nTebrikler!",
+    "gorsel": {
+      "type": "image",
+      "query": "university campus giresun graduation celebration diploma"
+    }
+  },
+  {
+    "baslik": "Son Çıkış Bileti (Mezuniyet Bileti)",
+    "altbaslik": "Dönem Sonu Değerlendirmesi",
+    "icerik": "Günün Sorusu:\n'Bu 14 haftalık NTP II dersinde öğrendiğiniz ve sizi en çok heyecanlandıran teknoloji/konu hangisi oldu? Nedenini 2 cümleyle yazınız.'\n\nTeşekkür ederiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation diploma celebration happy students"
+    }
+  }
+]

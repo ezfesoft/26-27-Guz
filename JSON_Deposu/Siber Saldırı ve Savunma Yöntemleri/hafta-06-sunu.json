@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 6",
+    "altbaslik": "Siber Güvenlikte Parola Kırma Teknikleri ve Hash Analizi",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Kimlik Doğrulama Güvenliği ve Kriptografik Kırma\nHaftalık Odak: Hash vs Şifreleme, Crunch ile Wordlist Üretimi, John the Ripper ve Salt\nHedef: Parola özetlerini analiz etmek ve çevrimdışı parola kırma testlerini yürütmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "password cracking security terminal hash cryptography"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: En Zayıf Halka Parolalar",
+    "icerik": "Siber saldırıların yüzde 80'inde ele geçirilen veya zayıf parolalar kullanılır.\n- Veritabanları çalındığında saldırganlar kullanıcı şifrelerini çevrimdışı ortamda kırmaya çalışır.\n- Güvenlik uzmanı, parolanın ne kadar sürede kırılabileceğini test ederek güçlü politikalar oluşturur.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber attack password breach database leak security"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Parola, Şifreleme, Hash ve Encoding kavramlarını hatasız ayırt eder.\n2. Çevrimiçi (Online) ve Çevrimdışı (Offline) parola saldırı farklarını açıklar.\n3. Crunch aracıyla hedefe özel kelime listesi (Wordlist) üretir.\n4. John the Ripper ile MD5 ve parola özetlerini kırar.\n5. Salt (Tuzlama) mekanizmasının parolaları nasıl koruduğunu gösterir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives password cracking checklist"
+    }
+  },
+  {
+    "baslik": "Temel Kavramlar: Hash vs Şifreleme vs Encoding",
+    "altbaslik": "Dörtlü Karşılaştırma",
+    "icerik": "- Şifreleme (Encryption): Gizli anahtarla çift yönlü kilitleme (AES, RSA). Geri çözülür.\n- Özet (Hash): Tek yönlü matematiksel parmak izi (MD5, SHA-256, NTLM). Geri dönüşü YOKTUR.\n- Kodlama (Encoding): Veri formatını değiştirme (Base64, Hex). Güvenlik amacı taşımaz, anında çözülür.\n- Parola (Password): Kullanıcının belirlediği açık metin karakter dizisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "hash vs encryption vs encoding comparison table"
+    }
+  },
+  {
+    "baslik": "Çevrimiçi vs Çevrimdışı Parola Saldırıları",
+    "altbaslik": "Saldırı Ortamı ve Riskler",
+    "icerik": "Çevrimiçi (Online) Saldırı:\n- Canlı sisteme (SSH, FTP, Web Giriş Formu) parola denenir.\n- Risk: Hesap kilitlenmesi, IP engelleme ve loglara yakalanma.\nÇevrimdışı (Offline) Saldırı:\n- Çalınan veritabanı saldırganın kendi güçlü bilgisayarına/GPU'suna indirilir.\n- Saniyede milyarlarca parola engelsiz ve iz bırakmadan denenir!",
+    "gorsel": {
+      "type": "image",
+      "query": "online vs offline password attack diagram gpu cracking"
+    }
+  },
+  {
+    "baslik": "Parola Kırma Stratejileri",
+    "altbaslik": "Saldırganın Cephanesi",
+    "icerik": "1. Kaba Kuvvet (Brute Force): Tüm karakter kombinasyonlarını (aaa, aab...) dener. Kesin sonuç verir ama uzun sürer.\n2. Sözlük Saldırısı (Dictionary Attack): En popüler şifrelerin olduğu listeleri (rockyou.txt) sırayla dener.\n3. Kural Tabanlı Saldırı: Kelimelerin sonuna yıl veya sembol ekleyerek dener (admin -> Admin2026!).\n4. Rainbow Tables: Önceden hesaplanmış devasa hash tablolarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "brute force dictionary attack rainbow table diagram"
+    }
+  },
+  {
+    "baslik": "Salt (Tuz) Kavramı ve Savunma",
+    "altbaslik": "Rainbow Tablolarını Yok Eden Yöntem",
+    "icerik": "Kullanıcı parolası: '123456'\nSistem rastgele bir tuz üretir: 'x9#kL!'\nVeritabanına kaydedilen hash: SHA256('123456' + 'x9#kL!')\nFaydaları:\n1. Önceden hesaplanmış Rainbow tablolarını tamamen işe yaramaz kılar.\n2. Aynı parolaya sahip iki kullanıcının hash değerleri birbirinden tamamen farklı olur!",
+    "gorsel": {
+      "type": "image",
+      "query": "salted hash password storage security diagram"
+    }
+  },
+  {
+    "baslik": "CeWL: Web Sayfasından Özel Sözlük Çıkarma",
+    "altbaslik": "Hedefe Özel Kelime Madenciliği",
+    "icerik": "CeWL (Custom Word List Generator):\nHedef şirketin web sitesini örümcek gibi tarar ve sitede geçen tüm teknik terimleri, yönetici adlarını toplayıp özel wordlist yapar.\n- cewl https://hedefsite.com -m 5 -w ozel_liste.txt\nŞirket içi parolalar çoğunlukla şirketle ilgili kelimelerden seçildiği için başarı oranı çok yüksektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cewl wordlist generator spider web crawler terminal"
+    }
+  },
+  {
+    "baslik": "Crunch: Özel Wordlist Üretim Aracı",
+    "altbaslik": "Hedefe Özel Sözlük Oluşturma",
+    "icerik": "Crunch, belirli karakter seti ve uzunluk kurallarına göre kelime listesi üreten güçlü araçtır.\nSözdizimi:\ncrunch <min> <max> <karakterler> -o <dosya_adi>\nÖrnek:\ncrunch 4 6 siber123 -o ozel_liste.txt\n4 ile 6 karakter arası sadece siber123 harflerini içeren tüm kombinasyonları dosyaya yazar.",
+    "gorsel": {
+      "type": "image",
+      "query": "crunch wordlist generator terminal screen linux"
+    }
+  },
+  {
+    "baslik": "John the Ripper (JTR)",
+    "altbaslik": "Efsanevi Çevrimdışı Parola Kırıcı",
+    "icerik": "John the Ripper, yüzlerce farklı hash formatını (MD5, SHA-256, NTLM, Linux Shadow) kırabilen modüler araçtır.\nNasıl Çalışır?\n1. Verilen wordlistteki her kelimenin hashini anında hesaplar.\n2. Hedef hash ile karşılaştırır.\n3. Eşleşme bulduğu anda şifreyi ekrana basar!",
+    "gorsel": {
+      "type": "image",
+      "query": "john the ripper password cracker logo matrix terminal"
+    }
+  },
+  {
+    "baslik": "Hashcat ve GPU ile Parola Kırma",
+    "altbaslik": "Ekran Kartlarının Devasa Gücü",
+    "icerik": "İşlemciler (CPU) saniyede milyonlarca hash hesaplarken, modern ekran kartları (GPU) saniyede MİLYARLARCA hash hesaplayabilir.\n- Hashcat dünyanın en hızlı GPU tabanlı parola kırma aracıdır.\n- Karmaşık 8 karakterli bir NTLM hash'i modern GPU çiftiyle birkaç saatte kırılabilir!",
+    "gorsel": {
+      "type": "image",
+      "query": "gpu mining rig password cracking hashcat graphics card"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Hash Kırma",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n1. Crunch ile hedefe özel kelime listesi üreteceğiz.\n2. 'siber' parolasının MD5 hashini alacağız.\n3. John the Ripper ile bu hashi kıracağız.\n4. Base64 kod çözme mantığını inceleyeceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "students typing terminal password lab kali linux"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Crunch ile Liste Üretme",
+    "altbaslik": "Wordlist Dosyası Hazırlama",
+    "icerik": "Masaüstünde parola_lab klasörü açıp içine girelim:\nmkdir -p ~/Desktop/parola_lab && cd ~/Desktop/parola_lab\nCrunch ile 4-6 karakterlik liste üretelim:\ncrunch 4 6 siber123 -o ozel_liste.txt\nDosyanın ilk 10 satırına bakalım:\nhead -n 10 ozel_liste.txt",
+    "gorsel": {
+      "type": "image",
+      "query": "crunch command output terminal list generated"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Hedef MD5 Hashi Oluşturma",
+    "altbaslik": "Özet Dosyası Hazırlama",
+    "icerik": "'siber' parolasının MD5 hashini alıp hedef_hash.txt içine yazalım:\necho -n \"siber\" | md5sum | tr -d \" -\" > hedef_hash.txt\nDosyayı kontrol edelim:\ncat hedef_hash.txt\nEkranda 32 karakterli MD5 hashini göreceksiniz:\n20f06f7902d8479eeb13a36bb33b1e3d",
+    "gorsel": {
+      "type": "image",
+      "query": "md5 hash generation terminal screen linux"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: John the Ripper ile Kırma",
+    "altbaslik": "Hash'i Parolaya Dönüştürme",
+    "icerik": "John the Ripper'a kendi listemizi vererek hash'i kıralım:\njohn --wordlist=ozel_liste.txt --format=raw-md5 hedef_hash.txt\nKırılan parolayı görüntüleyelim:\njohn --show --format=raw-md5 hedef_hash.txt\nBeklenen Çıktı:\nhedef_hash.txt:siber\n1 password hash cracked!",
+    "gorsel": {
+      "type": "image",
+      "query": "john the ripper cracked password output terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Base64 Encoding Çözme",
+    "altbaslik": "Encoding vs Encryption Kanıtı",
+    "icerik": "Base64 ile kodlanmış şu gizli metni terminalde çözelim:\necho \"R2lyZXN1biBVbml2ZXJzaXRlc2kgU2liZXIgR3V2ZW5saWs=\" | base64 -d\necho \"\"\nSonuç:\nHiçbir şifre sormadan anında 'Giresun Universitesi Siber Guvenlik' metnini göreceksiniz.\nÇünkü Base64 şifreleme değil, kodlamadır!",
+    "gorsel": {
+      "type": "image",
+      "query": "base64 decode command terminal output"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Parola Kırmada Karşılaşılan Sorunlar",
+    "icerik": "1. echo -n Unutulması: echo komutuna -n koymazsanız satır sonu eklenir ve hash tamamen yanlış çıkar!\n2. 'No password hashes left to crack' Hatası: John bu hashi daha önce kırmıştır. Görmek için --show parametresi kullanılmalıdır.\n3. Yanlış Format: MD5 için --format=raw-md5 belirtilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting error checklist warning screen"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: RockYou Veri İhlali",
+    "altbaslik": "Tarihin En Büyük Parola Sızıntısı",
+    "icerik": "Vaka: Sosyal oyun platformu RockYou hacklendi ve 32 milyon kullanıcının parolası AÇIK METİN (şifrelenmemiş) olarak çalındı.\nEtkisi: Bu dosya (rockyou.txt) bugün tüm siber güvenlik uzmanlarının ve hackerların kullandığı 1 numaralı parola sözlüğü haline geldi.\nDers: Parolalar asla açık metin veya tuzsuz hash olarak saklanmamalıdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "rockyou text leak password database hacker cyber"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Güçlü Parola Politikası",
+    "altbaslik": "Kurumsal Standartlar (NIST)",
+    "icerik": "NIST Parola Kılavuzu Önerileri:\n- En az 12-16 karakter uzunluk.\n- Sözlükte bulunan kelimelerden ve isimlerden kaçınma.\n- 2FA / MFA (İki Faktörlü Doğrulama) zorunluluğu.\n- Çok sık şifre değiştirme zorunluluğu yerine karmaşık ve uzun parola teşviki.",
+    "gorsel": {
+      "type": "image",
+      "query": "strong password policy security checklist shield"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Kavram Karşılaştırma",
+    "icerik": "Soru: Veriyi tek yönlü olarak özetleyen ve matematiksel olarak tersi alınamayan işlem hangisidir?\nA) AES Şifreleme\nB) Base64 Kodlama\nC) Hash (Özetleme)\nD) RSA\n\nDoğru Cevap: C (Hash)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Saldırı Türleri",
+    "icerik": "Soru: Bir kullanıcının parolasını bulmak için en çok kullanılan şifre listelerinin sırayla denenmesi yöntemine ne ad verilir?\nA) Kaba Kuvvet (Brute Force)\nB) Sözlük Saldırısı (Dictionary Attack)\nC) DoS Saldırısı\nD) XSS\n\nDoğru Cevap: B (Sözlük Saldırısı)",
+    "gorsel": {
+      "type": "image",
+      "query": "dictionary attack question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Savunma Mekanizmaları",
+    "icerik": "Soru: Parolalara rastgele karakterler ekleyerek Rainbow Table saldırılarını etkisiz kılan yönteme ne ad verilir?\nA) Encoding\nB) Salt (Tuzlama)\nC) Port Forwarding\nD) Tracing\n\nDoğru Cevap: B (Salt / Tuzlama)",
+    "gorsel": {
+      "type": "image",
+      "query": "salt cryptography security question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Araç Tanıma",
+    "icerik": "Soru: Belirlenen karakter seti ve uzunluğa göre hedefe özel kelime listesi (wordlist) üreten Linux aracı hangisidir?\nA) Crunch\nB) Nmap\nC) Wireshark\nD) OpenSSL\n\nDoğru Cevap: A (Crunch)",
+    "gorsel": {
+      "type": "image",
+      "query": "crunch tool question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Kırma Araçları",
+    "icerik": "Soru: Çevrimdışı parola kırmada kullanılan ve popüler hash formatlarını çözen araç hangisidir?\nA) John the Ripper\nB) Ping\nC) Traceroute\nD) Telnet\n\nDoğru Cevap: A (John the Ripper)",
+    "gorsel": {
+      "type": "image",
+      "query": "john the ripper tool question test"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Kendi Hashinizi Kırdırın",
+    "icerik": "Uygulama Görevi:\n4 harfli gizli bir kelime belirleyin ve MD5 hashini alıp yanınızdaki arkadaşınıza verin.\nArkadaşınız Crunch ile liste üretip John ile sizin parolanızı kırsın!\nİlk kıran grup el kaldırsın.",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "Parola Politikaları ve Karmaşıklık",
+    "altbaslik": "NIST ve ISO 27001 Standartları",
+    "icerik": "İdeal Kurumsal Parola Kriterleri:\n- En az 12-16 karakter uzunluk\n- Büyük harf, küçük harf, rakam ve özel karakter kombinasyonu\n- Sözlük kelimeleri ve isimlerin yasaklanması\n- Eski parolaların tekrar kullanılmasının engellenmesi (Parola Geçmişi).",
+    "gorsel": {
+      "type": "image",
+      "query": "strong password policy security checklist shield"
+    }
+  },
+  {
+    "baslik": "Parola Yöneticileri (Password Managers)",
+    "altbaslik": "Her Servise Farklı Parola",
+    "icerik": "Kullanıcıların en büyük hatası aynı şifreyi tüm sitelerde kullanmaktır.\nÇözüm: Parola Yöneticileri (KeePass, Bitwarden, 1Password).\n- Tüm şifreler tek bir ana parola (Master Password) ve AES-256 ile şifrelenmiş kasada saklanır.\n- Kullanıcı sadece tek bir güçlü ana şifreyi aklında tutar.",
+    "gorsel": {
+      "type": "image",
+      "query": "password manager vault keepass security key"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama: Parola Güç Analizi",
+    "altbaslik": "Adım Adım Hesaplama",
+    "icerik": "Soru: Sadece 6 haneli küçük harflerden oluşan bir parola ('siber') ile 12 haneli karmaşık bir parolanın ('S1b3r!Guv2026') kaba kuvvetle kırılma sürelerini kıyaslayınız.\nAnaliz:\n- 6 Harfli: 26^6 = 308 Milyon kombinasyon -> GPU ile 0.01 saniyede kırılır!\n- 12 Karmaşık: 94^12 = 4.7 x 10^23 kombinasyon -> Kırılması yüzyıllar sürer!",
+    "gorsel": {
+      "type": "image",
+      "query": "password entropy calculation chart math security"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Parola hashleri tek yönlüdür; kırma işlemi olası kelimelerin hashlerini eşleştirmektir.\n- Çevrimdışı saldırılar GPU gücüyle saniyede milyarlarca parola dener.\n- Salt (Tuzlama) ve güçlü parola politikaları sistemin en önemli savunmasıdır.\n- Crunch ve John the Ripper temel penetrasyon testi araçlarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 7: Ağ Dinleme (Sniffing) ve Wireshark Analizi",
+    "icerik": "Ön Hazırlık:\n- Ağdaki veri paketleri kablodan geçerken nasıl dinlenir (Sniffing)?\n- Wireshark ile şifresiz HTTP form şifreleri nasıl yakalanır?\n- ARP Zehirlenmesi (ARP Spoofing) ile araya nasıl girilir?",
+    "gorsel": {
+      "type": "image",
+      "query": "wireshark packet sniffing network analysis concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir veritabanında kullanıcı parolalarını düz MD5 yerine Salt + SHA-256 olarak saklamanın sağladığı 2 kritik güvenlik avantajını yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

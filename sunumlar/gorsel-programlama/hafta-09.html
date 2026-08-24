@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 09 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 09</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 38 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 38</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (38 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 9", "altbaslik": "Çoklu Karar Yapıları: if-else if-else Merdiveni", "icerik": "Program: Bilgisayar Programcılığı\nModül: Çok Durumlu Karar Mekanizmaları\nHaftalık Odak: Çoklu Şart Zinciri, Sayısal Aralık Kontrolü, Şart Sıralama Kuralları\nHedef: 3 veya daha fazla duruma sahip karmaşık iş kurallarını kodlamak.", "gorsel": {"type": "image", "query": "staircase steps decision tree branches software"}}, {"baslik": "Neden else if Merdiveni Kullanırız?", "altbaslik": "Sektörel Bağlam: Çok Seçenekli Dünyayı Yönetmek", "icerik": "Hayat sadece 2 seçenekten ibaret değildir:\n- Üniversitede notlar: AA, BA, BB, CB, CC, DC, DD, FF (8 durum)\n- Otopark tarifeleri: 1 saat, 3 saat, 8 saat, tam gün\n- Müşteri sadakat kartı: Bronz, Gümüş, Altın, Platin\nBu çoklu durumları birbirini dışlayacak şekilde sıralamak için merdiven yapısı kullanılır.", "gorsel": {"type": "image", "query": "multiple options tiers loyalty levels parking rates"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Bağımsız if blokları yerine neden else if kullanılması gerektiğini açıklar.\n2. if-else if-else merdiveninin yukarıdan aşağıya çalışma mantığını kavrar.\n3. Sayısal aralıkları (&& ile) çakışma olmadan modeller.\n4. Sıralama hatası (Ordering Error) tuzağını fark eder ve çözer.\n5. 'Akıllı Otopark Ücret Otomasyonu' projesini başarıyla tamamlar.", "gorsel": {"type": "image", "query": "learning goals flowchart decision making steps"}}, {"baslik": "Somut Analoji: AVM Yürüyen Merdivenleri", "altbaslik": "Merdiven Mantığını Zihinde Canlandırmak", "icerik": "Bir AVM'de yürüyen merdivenden yukarı çıkıyorsunuz:\n- 1. Kat aradığınız yer mi? (Koşul 1) -> Evet ise inersiniz, üst katlara bakmazsınız!\n- Değilse -> 2. Kata çıkarsınız (else if 2).\n- Hiçbir kat uymadıysa -> En son terasa (else bloğuna) çıkarsınız.\n- Kural: Doğru olan ilk katta işlem biter, kalan basamaklar atlanır!", "gorsel": {"type": "image", "query": "escalator shopping mall levels floors steps"}}, {"baslik": "Merdiven Yapısının Temel Sentaksı", "altbaslik": "C# Şablonu", "icerik": "if (kosul1)\n{\n    // 1. Koşul DOĞRU ise çalışır ve merdivenden çıkılır.\n}\nelse if (kosul2)\n{\n    // 1. Yanlış VE 2. Doğru ise çalışır.\n}\nelse if (kosul3)\n{\n    // İlk ikisi Yanlış VE 3. Doğru ise çalışır.\n}\nelse\n{\n    // Yukarıdaki HİÇBİR şart tutmazsa (Varsayılan) çalışır.\n}", "gorsel": {"type": "image", "query": "csharp code if else if syntax flowchart"}}, {"baslik": "Sayısal Aralıkları Belirlemek (&& Kullanımı)", "altbaslik": "İki Sınır Arasındaki Sayıları Yakalamak", "icerik": "Matematikteki '80 <= not < 90' ifadesi C# dilinde şöyle yazılır:\n\nif (not >= 80 && not < 90)\n{\n    lblHarf.Text = \"BB\";\n}\n\nHer iki sınırın arasına mutlaka '&&' (Mantıksal VE) konulmalıdır.", "gorsel": {"type": "image", "query": "number line range interval mathematical inequality"}}, {"baslik": "Büyük Tuzak: Sıralama Hatası (Ordering Error)", "altbaslik": "En Dar Koşulu En Üste Yazmak Şarttır!", "icerik": "Tahtadaki hatalı koda bakın:\n\nint puan = 95;\nif (puan >= 50) { lblNot.Text = \"Geçti\"; }\nelse if (puan >= 90) { lblNot.Text = \"AA\"; } // ASLA ÇALIŞMAZ!\n\nNeden? 95 sayısı ilk kapıdan (>=50) içeri dalar ve C# alttaki AA kontrolüne hiç bakmaz.\nAltın Kural: Şartlar her zaman en dar/en yüksek değerden başlayarak dizilmelidir!", "gorsel": {"type": "image", "query": "ordering error logic bug hierarchy flowchart"}}, {"baslik": "Sayı Sınıflandırma: Pozitif, Negatif, Sıfır", "altbaslik": "3 Durumlu Karar Örneği", "icerik": "int sayi = Convert.ToInt32(txtSayi.Text);\n\nif (sayi > 0)\n{\n    lblSonuc.Text = \"Sayı Pozitiftir (+)\";\n}\nelse if (sayi < 0)\n{\n    lblSonuc.Text = \"Sayı Negatiftir (-)\";\n}\nelse\n{\n    lblSonuc.Text = \"Sayı Sıfırdır (0)\";\n}", "gorsel": {"type": "image", "query": "positive negative zero number classification math"}}, {"baslik": "Günün Büyük Uygulaması: Akıllı Otopark Otomasyonu", "altbaslik": "Senaryo ve Belediye Tarifesi", "icerik": "Senaryo: Şehirlerarası otoparkta gişe görevlisinin kullandığı ücret hesaplama sistemi.\n- Giriş: Aracın kaldığı süre (Saat).\n- Belediye Tarifesi:\n  * 0 - 1 Saat: 40 TL (Kısa Park)\n  * 2 - 4 Saat: 90 TL (Standart Park)\n  * 5 - 8 Saat: 160 TL (Uzun Park)\n  * 8+ Saat: 160 TL + Fazla her saat için 25 TL\n  * Negatif/0: Geçersiz Süre Uyarısı!", "gorsel": {"type": "image", "query": "parking barrier gate ticket automated system"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi", "icerik": "Girdi: txtSaat (Otoparkta Kalınan Saat)\nButon: btnHesapla ('🅿️ Ücreti Hesapla')\nÇıktılar:\n- lblTarife (Tarife Kategorisi Adı)\n- lblUcret (Ödenecek Toplam Tutar - 16pt Yeşil)", "gorsel": {"type": "image", "query": "parking checkout user interface ticket machine"}}, {"baslik": "Uygulama Kodları (Tam Çözüm)", "altbaslik": "Otopark Ücret Merdiveni", "icerik": "private void btnHesapla_Click(object sender, EventArgs e)\n{\n    try\n    {\n        double saat = Convert.ToDouble(txtSaat.Text);\n        double ucret = 0;\n        string tarifeAdi = \"\";\n\n        if (saat <= 0)\n        {\n            MessageBox.Show(\"Lütfen 0'dan büyük bir süre giriniz!\");\n            return;\n        }\n        else if (saat <= 1)\n        {\n            ucret = 40; tarifeAdi = \"Kısa Süreli Park\";\n        }\n        else if (saat <= 4)\n        {\n            ucret = 90; tarifeAdi = \"Standart Park\";\n        }\n        else if (saat <= 8)\n        {\n            ucret = 160; tarifeAdi = \"Uzun Süreli Park\";\n        }\n        else\n        {\n            double fazla = saat - 8;\n            ucret = 160 + (fazla * 25);\n            tarifeAdi = \"Gün Boyu Park (Ek Saatli)\";\n        }\n        lblTarife.Text = \"Tarife: \" + tarifeAdi;\n        lblUcret.Text = \"Ödenecek: \" + ucret.ToString(\"0.00\") + \" TL\";\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli bir saat giriniz!\"); }\n}", "gorsel": {"type": "image", "query": "csharp code parking calculation if else if ladder"}}, {"baslik": "return Komutu Nedir?", "altbaslik": "Metottan Acil Çıkış Kapısı", "icerik": "Kodumuzun başındaki 'return;' komutu:\n- Hatalı bir durum tespit edildiğinde (Örn: saat <= 0) uyarı verir ve alt satırlardaki hesaplamaları hiç çalıştırmadan metottan hemen çıkar.\n- Bu teknik kodun gereksiz yere hata vermesini önler.", "gorsel": {"type": "image", "query": "emergency exit sign return early programming concept"}}, {"baslik": "Aralık Çakışması Hatası (Overlap Error)", "altbaslik": "Aralıkları Net Tanımlamak", "icerik": "Eğer aralıklar şöyle yazılırsa:\n- not >= 80 (BB)\n- not >= 70 (CB)\nSıralama doğruysa C# yukarıdan yakalar. Ancak aralıkların sınırlarını açıkça belirtmek (not >= 80 && not < 90) kodu çok daha güvenli ve hatasız kılar.", "gorsel": {"type": "image", "query": "venn diagram overlap sets logic mathematics"}}, {"baslik": "Sektörel Vaka: E-Ticaret Kargo Kampanyası", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Sepet tutarına göre kargo ücreti:\n- Sepet < 500 TL -> Kargo 50 TL\n- 500 - 1000 TL arası -> Kargo 25 TL (%50 İndirimli)\n- 1000 TL ve üzeri -> KARGO ÜCRETSİZ! (0 TL)\nBu kampanya kuralı doğrudan else if merdiveni ile kodlanır.", "gorsel": {"type": "image", "query": "free shipping badge ecommerce shopping cart"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Merdiven Akışı", "icerik": "Soru: Bir if-else if merdiveninde 2. koşul doğruysa C# ne yapar?\n\nA) 2. bloğu çalıştırır ve 3., 4. koşulları da kontrol eder.\nB) 2. bloğu çalıştırır ve merdivenden tamamen çıkar (alttakileri atlar).\nC) Tüm blokları aynı anda çalıştırır.\nD) Hata verir.\n\nDoğru Cevap: B (İlk doğru koşul çalıştığında kalan tüm else if blokları atlanır).", "gorsel": {"type": "image", "query": "quiz question logic examination test"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "else Bloğunun Rolü", "icerik": "Soru: else if merdiveninin en sonundaki 'else' bloğu ne zaman çalışır?\n\nA) Her zaman çalışır.\nB) Hiçbir zaman çalışmaz.\nC) Yukarıdaki hiçbir koşul sağlanmadığında çalışır.\nD) Sadece ilk koşul doğruysa çalışır.\n\nDoğru Cevap: C (else bloğu yukarıdaki hiçbir şart eşleşmediğinde devreye giren varsayılan durumdur).", "gorsel": {"type": "image", "query": "multiple choice exam correct answer question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "return Komutu", "icerik": "Soru: Bir event handler metodu içinde 'return;' komutu çağrıldığında ne olur?\n\nA) Form anında kapanır.\nB) O anki metot derhal sonlanır ve alt satırlar çalıştırılmaz.\nC) Program çöker.\nD) Bilgisayar kilitlenir.\n\nDoğru Cevap: B (return komutu o an çalışmakta olan metottan hemen çıkılmasını sağlar).", "gorsel": {"type": "image", "query": "exit return code execution quiz"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Hava Durumu Öneri Motoru", "icerik": "Görev:\n- Sıcaklık (°C) kutusunu okuyun.\n- < 0 ise: 'Don Tehlikesi! Kalın giyinin.'\n- 0 - 15 arası ise: 'Hava serin, mont alın.'\n- 16 - 25 arası ise: 'Hava ılık ve güzel.'\n- > 25 ise: 'Hava sıcak, bol su için!'", "gorsel": {"type": "image", "query": "weather forecast temperature thermometer icons"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Bu Haftanın Anahtar Terimleri", "icerik": "- Ladder (Merdiven): Birbirini izleyen sıralı çoklu şart blokları.\n- Mutually Exclusive: Birbirini dışlayan (aynı anda gerçekleşemeyen) durumlar.\n- Boundary Testing: Sınır değerlerinin (örn: 0, 50, 100) ayrı ayrı test edilmesi.\n- return: Metot yürütmesini erken durdurma anahtar kelimesi.", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Çoklu karar durumlarında if-else if merdiveninin gücünü gördük.\n- && ile aralık kontrollerini ve doğru sıralama kuralını kavradık.\n- return komutuyla erken çıkış stratejisini uyguladık.\n- Akıllı Otopark Otomasyonu ile tam çalışan bir tarife motoru geliştirdik.", "gorsel": {"type": "image", "query": "summary roadmap knowledge learning complete"}}, {"baslik": "Not Baremi Harf Sistemi Analizi", "altbaslik": "Üniversite Harf Notu Motoru", "icerik": "Ağırlıklı ortalamaya göre:\n- >= 90 : AA (Mükemmel)\n- >= 80 : BA (Çok İyi)\n- >= 70 : BB (İyi)\n- >= 60 : CB (Orta)\n- >= 50 : CC (Geçer)\n- < 50  : FF (Kaldı)\nBu barem klasik merdiven yapısının en saf örneğidir.", "gorsel": {"type": "image", "query": "grade letters university transcript AA BA BB CC FF"}}, {"baslik": "Sayısal Aralık Kontrolünde Yaygın Tuzak", "altbaslik": "Tek Taraflı Kontrol vs Çift Taraflı", "icerik": "Eğer else if sıralaması yukarıdan aşağıya doğruysa (90, 80, 70...):\n'else if (not >= 80)' yazmak yeterlidir; çünkü 90 ve üzeri zaten ilk if tarafından yakalanmıştır!\nBu C#'ın sıralı çalışma garantisidir.", "gorsel": {"type": "image", "query": "logical deduction step by step ladder reasoning"}}, {"baslik": "Beden Kitle İndeksi (BKİ) Sınıflandırması", "altbaslik": "Sağlık Bakanlığı Ölçeği", "icerik": "- BKİ < 18.5 -> Zayıf\n- 18.5 - 24.9 -> Normal Kilo\n- 25.0 - 29.9 -> Fazla Kilolu\n- 30.0 ve üzeri -> Obez\nelse if merdiveni sağlık ve diyetisyen yazılımlarının temelidir.", "gorsel": {"type": "image", "query": "body mass index chart health fitness"}}, {"baslik": "Performans İncelemesi: Merdiven Uzunluğu", "altbaslik": "Kaç Şart Kontrol Edilmeli?", "icerik": "Bir if-else if merdiveninde 20'den fazla basamak varsa kod okunabilirliği bozulur (Spaghetti Code).\n- Böyle durumlarda switch-case veya sözlük (Dictionary) yapıları tercih edilir.\n- 3-8 durum arası için merdiven yapısı en ideal çözümdür.", "gorsel": {"type": "image", "query": "clean code refactoring spaghetti code vs structured"}}, {"baslik": "Sektörel Vaka: Banka Kredi Faiz Oranları", "altbaslik": "Kredi Notuna Göre Faiz", "icerik": "- Kredi Skoru >= 1800 -> %1.99 Faiz (VIP Müşteri)\n- Kredi Skoru >= 1500 -> %2.49 Faiz\n- Kredi Skoru >= 1100 -> %3.19 Faiz\n- Kredi Skoru < 1100 -> Kredi Başvurusu Reddedildi!\nBankacılık risk analizleri merdiven mimarisiyle çalışır.", "gorsel": {"type": "image", "query": "credit score rating financial bank loan interest"}}, {"baslik": "Kullanıcı Arayüzü: Duruma Göre Renkli Etiket", "altbaslik": "Görsel Geri Bildirimi Güçlendirmek", "icerik": "Harf notuna göre etiketin rengini değiştirebilirsiniz:\nif (harf == \"AA\") lblSonuc.ForeColor = Color.DarkGreen;\nelse if (harf == \"FF\") lblSonuc.ForeColor = Color.Red;\nelse lblSonuc.ForeColor = Color.DarkBlue;\nBu görsel ipuçları kullanıcı deneyimini zenginleştirir.", "gorsel": {"type": "image", "query": "color coding success error warning badges"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Aralık Mantığı", "icerik": "Soru: 0 ile 100 arasında olması gereken bir sınav notunun sınır dışı olduğunu hangi şart yakalar?\n\nA) not < 0 && not > 100\nB) not < 0 || not > 100\nC) not == 0 && not == 100\nD) not >= 0 || not <= 100\n\nDoğru Cevap: B (Bir sayı aynı anda hem 0'dan küçük hem 100'den büyük olamaz; VEYA || kullanılmalıdır).", "gorsel": {"type": "image", "query": "logic quiz boolean OR condition boundary"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir sinemada Yaş < 12 ise Çocuk (50 TL), 12-65 arası Tam (100 TL), > 65 ise Emekli (70 TL) tarifesini kodlayan else if şablonunu yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Not Baremi Harf Sistemi Analizi", "altbaslik": "Üniversite Harf Notu Motoru", "icerik": "Ağırlıklı ortalamaya göre:\n- >= 90 : AA (Mükemmel)\n- >= 80 : BA (Çok İyi)\n- >= 70 : BB (İyi)\n- >= 60 : CB (Orta)\n- >= 50 : CC (Geçer)\n- < 50  : FF (Kaldı)\nBu barem klasik merdiven yapısının en saf örneğidir.", "gorsel": {"type": "image", "query": "grade letters university transcript AA BA BB CC FF"}}, {"baslik": "Sayısal Aralık Kontrolünde Yaygın Tuzak", "altbaslik": "Tek Taraflı Kontrol vs Çift Taraflı", "icerik": "Eğer else if sıralaması yukarıdan aşağıya doğruysa (90, 80, 70...):\n'else if (not >= 80)' yazmak yeterlidir; çünkü 90 ve üzeri zaten ilk if tarafından yakalanmıştır!\nBu C#'ın sıralı çalışma garantisidir.", "gorsel": {"type": "image", "query": "logical deduction step by step ladder reasoning"}}, {"baslik": "Beden Kitle İndeksi (BKİ) Sınıflandırması", "altbaslik": "Sağlık Bakanlığı Ölçeği", "icerik": "- BKİ < 18.5 -> Zayıf\n- 18.5 - 24.9 -> Normal Kilo\n- 25.0 - 29.9 -> Fazla Kilolu\n- 30.0 ve üzeri -> Obez\nelse if merdiveni sağlık ve diyetisyen yazılımlarının temelidir.", "gorsel": {"type": "image", "query": "body mass index chart health fitness"}}, {"baslik": "Performans İncelemesi: Merdiven Uzunluğu", "altbaslik": "Kaç Şart Kontrol Edilmeli?", "icerik": "Bir if-else if merdiveninde 20'den fazla basamak varsa kod okunabilirliği bozulur (Spaghetti Code).\n- Böyle durumlarda switch-case veya sözlük (Dictionary) yapıları tercih edilir.\n- 3-8 durum arası için merdiven yapısı en ideal çözümdür.", "gorsel": {"type": "image", "query": "clean code refactoring spaghetti code vs structured"}}, {"baslik": "Sektörel Vaka: Banka Kredi Faiz Oranları", "altbaslik": "Kredi Notuna Göre Faiz", "icerik": "- Kredi Skoru >= 1800 -> %1.99 Faiz (VIP Müşteri)\n- Kredi Skoru >= 1500 -> %2.49 Faiz\n- Kredi Skoru >= 1100 -> %3.19 Faiz\n- Kredi Skoru < 1100 -> Kredi Başvurusu Reddedildi!\nBankacılık risk analizleri merdiven mimarisiyle çalışır.", "gorsel": {"type": "image", "query": "credit score rating financial bank loan interest"}}, {"baslik": "Kullanıcı Arayüzü: Duruma Göre Renkli Etiket", "altbaslik": "Görsel Geri Bildirimi Güçlendirmek", "icerik": "Harf notuna göre etiketin rengini değiştirebilirsiniz:\nif (harf == \"AA\") lblSonuc.ForeColor = Color.DarkGreen;\nelse if (harf == \"FF\") lblSonuc.ForeColor = Color.Red;\nelse lblSonuc.ForeColor = Color.DarkBlue;\nBu görsel ipuçları kullanıcı deneyimini zenginleştirir.", "gorsel": {"type": "image", "query": "color coding success error warning badges"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Aralık Mantığı", "icerik": "Soru: 0 ile 100 arasında olması gereken bir sınav notunun sınır dışı olduğunu hangi şart yakalar?\n\nA) not < 0 && not > 100\nB) not < 0 || not > 100\nC) not == 0 && not == 100\nD) not >= 0 || not <= 100\n\nDoğru Cevap: B (Bir sayı aynı anda hem 0'dan küçük hem 100'den büyük olamaz; VEYA || kullanılmalıdır).", "gorsel": {"type": "image", "query": "logic quiz boolean OR condition boundary"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir sinemada Yaş < 12 ise Çocuk (50 TL), 12-65 arası Tam (100 TL), > 65 ise Emekli (70 TL) tarifesini kodlayan else if şablonunu yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'0 ile 100 arasındaki bir not için: not >= 90 şartı mı en üste yazılmalıdır yoksa not >= 50 şartı mı? Neden?'\n\nCevabınızı 1 cümleyle kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 10: switch-case Yapısı ve Timer ile Durum Yönetimi", "icerik": "Gelecek Hafta Neler Yapacağız?\n- TV kumandası gibi çalışan hızlı switch-case yapısı.\n- break; anahtar kelimesinin zorunluluğu.\n- Ekranda hareket yaratan Timer (Zamanlayıcı) kontrolü.\n- Animasyonlu Akıllı Trafik Lambası projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "traffic lights timer animation preview next week"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

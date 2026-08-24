@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Görüntü Tabanlı Tanı Sistemleri",
+    "altbaslik": "Radyoloji, Patoloji ve Dermatolojide Yapay Zeka",
+    "icerik": "- Odak: Tıbbi görüntülerle çalışan yapay zeka modellerinin mimarisi, eğitimi ve denetimi.\n- Uygulama Alanları: Röntgen (X-Ray), Bilgisayarlı Tomografi (BT), MR, Dermatoskopi ve Dijital Patoloji.\n- Mesleki Bağlam: Tıbbi görüntü arşivleri (PACS), etiketleme standartları ve klinik onay süreçleri.\n- Temel Amaç: Görüntü işleme modellerinin klinik güvenilirlik sınırlarını kavramak.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical imaging radiology AI chest x-ray ct scan pathology"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "2. Hafta Hedef Yetkinlikleri",
+    "icerik": "- ÖÇ1: Görüntü tabanlı tıbbi YZ eğitimi için gerekli veri ve etiketleme koşullarını açıklar.\n- ÖÇ2: Bir sınıflandırma modelinin çıktı metriklerini klinik vaka üzerinden yorumlar.\n- ÖÇ3: FDA ve CE gibi düzenleyici onay süreçlerinin gerekliliğini ve sınırlarını değerlendirir.\n- ÖÇ4: No-code araçlarla (Teachable Machine / Orange) temel bir medikal görüntü sınıflandırıcı kurar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives medical imaging computer vision"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Tıbbi Görüntülemenin Önemi",
+    "altbaslik": "Pikselden Teşhise Giden Yol",
+    "icerik": "- Yüksek Hacim: Modern bir hastanede günde binlerce radyolojik ve patolojik görüntü üretilir.\n- İnsan Faktörü: Radyolog ve patologların uzun nöbetlerdeki görsel yorgunluğu (Visual Fatigue).\n- Erken Teşhis: Milimetrik nodüllerin veya erken evre melanomların yakalanmasında YZ desteği.\n- Veri Teknikeri Görevi: Görüntülerin PACS sisteminden anonim ve standart formatta çıkarılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "radiologist working with dual screens pacs system hospital"
+    }
+  },
+  {
+    "baslik": "Tıbbi Görüntü Formatları: DICOM Nedir?",
+    "altbaslik": "Digital Imaging and Communications in Medicine",
+    "icerik": "- Tanım: Tıbbi görüntülerin ve ilişkili hasta/cihaz üst verilerinin (metadata) uluslararası standardı.\n- Yapısı: Sadece görsel piksel verisi değil; çekim dozu, hasta kimliği, çekim açısı ve tarih bilgilerini de içerir.\n- YZ İçin Önemi: Modeller eğitilmeden önce DICOM üst verilerinin mahremiyet gereği anonimleştirilmesi zorunludur.\n- Yaygın Hata: DICOM piksellerini doğrudan JPEG'e dönüştürürken kontrast ve bit derinliği kaybı yaşamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "dicom file structure medical imaging metadata header"
+    }
+  },
+  {
+    "baslik": "Piksel ve Voksel: 2D vs 3D Görüntüleme",
+    "altbaslik": "Düz Grafilerden Hacimsel Kesitlere",
+    "icerik": "- Piksel (2D): Röntgen ve mamografi gibi tek düzlemli görüntülerdeki en küçük resim hücresi.\n- Voksel (3D): Bilgisayarlı Tomografi (BT) ve MR gibi hacimsel kesitlerdeki 3 boyutlu piksel.\n- Hounsfield Birimi (HU): BT görüntülerinde dokuların yoğunluğunu ifade eden sayısal ölçek (Hava: -1000, Su: 0, Kemik: +1000 HU).\n- YZ Ön İşleme: Belirli dokuları (ör. kanama veya kemik) öne çıkarmak için HU pencereleme (windowing) yapılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "hounsfield unit ct scan windowing brain bone tissue"
+    }
+  },
+  {
+    "baslik": "Evrişimli Sinir Ağları (CNN) Mimarisi",
+    "altbaslik": "Tıbbi Görüntü Tanımanın Temel Motoru",
+    "icerik": "- Evrişim (Convolution) Katmanı: Kenar, köşe, doku ve yoğunluk farklılıklarını otomatik filtreler.\n- Havuzlama (Pooling) Katmanı: Görüntü boyutunu küçülterek işlem hızını artırır ve hesaplama yükünü azaltır.\n- Tam Bağlantılı (Dense) Katman: Çıkarılan özellikleri birleştirerek nihai tanı olasılığını hesaplar.\n- Tıbbi Örnek: 'Zatürre (Pneumonia) var: %92, Sağlıklı: %8'.",
+    "gorsel": {
+      "type": "image",
+      "query": "convolutional neural network CNN layers medical image classification"
+    }
+  },
+  {
+    "baslik": "Etiketleme (Annotation) ve Uzman Doğrulaması",
+    "altbaslik": "Kaliteli Modelin Temel Taşı: Ground Truth",
+    "icerik": "- Etiketleme Türleri: Sınıflandırma (tüm görüntüye etiket), Sınırlayıcı Kutu (Bounding Box), Segmentasyon (Piksel piksel boyama).\n- Ground Truth (Altın Standart): Etiketin kesin doğruluğunu ifade eder (Biyopsi sonucu veya uzman konsensüsü).\n- İnter-Observer Variability: İki farklı radyoloğun aynı lezyona farklı yorum yapabilme gerçeği.\n- Çözüm: En az 3 bağımsız uzmanın ortak kararıyla oluşturulan etiket setleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical image annotation bounding box segmentation radiology"
+    }
+  },
+  {
+    "baslik": "Görüntü Segmentasyonu (U-Net Mimarisi)",
+    "altbaslik": "Lezyonun Sınırlarını Piksel Düzeyinde Çizmek",
+    "icerik": "- Segmentasyon Nedir?: Tümörün, organın veya kanamanın tam sınırlarının piksellerle boyanması.\n- U-Net Modeli: Biyomedikal görüntü segmentasyonu için geliştirilmiş U şeklindeki özel derin öğrenme mimarisi.\n- Klinik Değer: Radyoterapide ışın verilecek tümör hacminin ve sağlıklı çevre dokuların tam korunması.\n- Başarı Metriği: Dice Katsayısı ve IoU (Intersection over Union - Kesişim/Birleşim Oranı).",
+    "gorsel": {
+      "type": "image",
+      "query": "u-net architecture medical image segmentation tumor boundary"
+    }
+  },
+  {
+    "baslik": "Radyolojide YZ Uygulamaları",
+    "altbaslik": "Akciğer Grafisi, BT ve MR Analizleri",
+    "icerik": "- Akciğer Röntgeni: Zatürre, tüberküloz, pnömotoraks ve nodül tespiti.\n- Beyin BT: İntrakraniyal kanama (acil inme triyajı) tespiti.\n- Meme MR: Yoğun meme dokusundaki malign lezyonların ayrımı.\n- Önceliklendirme (Triyaj): YZ, acil kanamalı hastanın filmini radyoloğun iş listesinde en üste taşır.",
+    "gorsel": {
+      "type": "image",
+      "query": "chest x-ray pneumonia detection deep learning heat map"
+    }
+  },
+  {
+    "baslik": "Dermatolojide YZ: Cilt Lezyonu Sınıflandırma",
+    "altbaslik": "Melanom vs İyi Huylu Nevüs",
+    "icerik": "- Yöntem: Dermatoskopik görüntülerin renk, simetri, sınır düzensizliği ve çap analizi.\n- Başarı Hikayesi: 2017 Stanford çalışması (CNN modelinin uzman dermatolog seviyesinde lezyon tanıması).\n- Sahadaki Sorun: Farklı ten renklerinde (cilt tiplerinde) ve yetersiz ışıkta model başarımının düşmesi.\n- Veri Teknikeri Notu: Veri setinde tüm cilt tiplerinin dengeli temsil edilmesi şarttır.",
+    "gorsel": {
+      "type": "image",
+      "query": "dermatoscopy skin lesion melanoma classification ai"
+    }
+  },
+  {
+    "baslik": "Dijital Patolojide YZ (Whole Slide Imaging)",
+    "altbaslik": "Gigapiksel Boyutundaki Dokuların Taranması",
+    "icerik": "- Bütün Slayt Görüntüleme (WSI): Biyopsi camının dijital mikroskopla taranarak devasa görüntülere dönüşmesi.\n- YZ Görevi: Kanserli hücre çekirdeklerinin sayımı, mitoz tespiti ve tümör derecelendirmesi.\n- Veri Büyüklüğü: Tek bir patoloji görüntüsü 2-5 GB boyutunda olabilir.\n- Donanım İhtiyacı: Güçlü sunucular ve optimize edilmiş veri transfer boru hatları (pipeline).",
+    "gorsel": {
+      "type": "image",
+      "query": "digital pathology whole slide imaging cancer cell detection"
+    }
+  },
+  {
+    "baslik": "Klinik Güvenlik Riski: Yanlış Pozitifin Etkisi",
+    "altbaslik": "Gereksiz İnvaziv Girişimler ve Hasta Stresi",
+    "icerik": "- Senaryo: YZ modeli sağlıklı bir akciğer nodülünü malign (kanser) olarak etiketliyor (FP).\n- Sonuç: Hastaya gereksiz biyopsi, ek tomografi çekimleri ve yoğun psikolojik stres.\n- Maliyet: Sağlık bütçesine gereksiz tetkik yükü.\n- Klinik Denge: Tarama sistemlerinde yüksek hassasiyet istenirken, doğrulama aşamasında özgüllük artırılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "false positive medical diagnosis patient anxiety healthcare cost"
+    }
+  },
+  {
+    "baslik": "Klinik Güvenlik Riski: Yanlış Negatifin Etkisi",
+    "altbaslik": "Atlanan Tanı ve Hayati Tehlike",
+    "icerik": "- Senaryo: Model, erken evre agresif bir tümörü 'normal doku' olarak değerlendiriyor (FN).\n- Sonuç: Tedaviye başlanamayan hastalık ilerler; hastanın hayatta kalma şansı düşer.\n- Hukuki Boyut: Hekim ve hastanenin YZ önerisine körü körüne güvenmesi durumunda malpraktis sorumluluğu.\n- Kural: Hiçbir görüntüleme YZ modeli tek başına nihai teşhis koyamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "missed medical diagnosis clinical risk malpractice"
+    }
+  },
+  {
+    "baslik": "Açıklanabilir YZ (XAI) ve Isı Haritaları (Grad-CAM)",
+    "altbaslik": "Kara Kutunun İçine Işık Tutmak",
+    "icerik": "- Kara Kutu (Black Box) Sorunu: Derin öğrenme modelinin kararı neden verdiğinin bilinememesi.\n- Grad-CAM (Class Activation Mapping): Modelin karara varırken görüntünün hangi piksellerine odaklandığını gösteren ısı haritası.\n- Tıbbi Güven: Isı haritası lezyonun üzerinde mi, yoksa filmin kenarındaki 'Sağ/Sol' cetvelinde mi parlıyor?\n- Güvenlik Filtresi: Yanlış yere bakan model doğru sonuç verse bile güvenilmezdir!",
+    "gorsel": {
+      "type": "image",
+      "query": "grad-cam heat map medical imaging explainable AI x-ray"
+    }
+  },
+  {
+    "baslik": "Düzenleyici Kurumlar ve Onay Süreçleri",
+    "altbaslik": "FDA (ABD) ve CE-MDR (Avrupa) Perspektifi",
+    "icerik": "- SaMD (Software as a Medical Device): Tıbbi cihaz olarak değerlendirilen tıbbi yazılımlar.\n- FDA Onay Yolları: 510(k) (önceki cihaza eşdeğerlik) ve De Novo (yeni teknoloji) onayları.\n- CE Belgesi (MDR): Avrupa Birliği tıbbi cihaz regülasyonu klinik etkinlik ve güvenlik şartları.\n- Türkiye Boyutu: TİTCK (Türkiye İlaç ve Tıbbi Cihaz Kurumu) ve ÜTS (Ürün Takip Sistemi) kayıtları.",
+    "gorsel": {
+      "type": "image",
+      "query": "fda approved medical device CE mark regulation compliance"
+    }
+  },
+  {
+    "baslik": "Büyük Yanılgı: 'Onaylı Model Kusursuzdur'",
+    "altbaslik": "Sahada Performans Kaybı (Model Drift)",
+    "icerik": "- Laboratuvarda %95, Sahada %75: Hastanedeki cihaz kalibrasyonu, hasta profili veya çekim protokolü farklı olabilir.\n- Cihaz Değişimi: Hastaneye yeni marka bir röntgen cihazı geldiğinde model performansı düşebilir.\n- Sürekli İzleme: YZ modelleri tıpkı biyokimya cihazları gibi periyodik kalite kontrol testlerine tabi tutulmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "model drift machine learning performance degradation over time"
+    }
+  },
+  {
+    "baslik": "No-Code Uygulama: Teachable Machine & Orange",
+    "altbaslik": "Kod Yazmadan Tıbbi Görüntü Sınıflandırma",
+    "icerik": "- Araçlar: Google Teachable Machine veya Orange Data Mining Image Analytics eklentisi.\n- Adım 1: Sınıf klasörlerini oluşturun (Ör. 'Normal' ve 'Zatürre').\n- Adım 2: Açık kaynaklı Kaggle X-Ray veri setinden görüntüleri yükleyin.\n- Adım 3: Transfer Öğrenme (Transfer Learning) ile modeli eğitin.\n- Adım 4: Canlı test görüntüleriyle modelin tahmin olasılıklarını inceleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "google teachable machine interface image classification"
+    }
+  },
+  {
+    "baslik": "Model Eğitimi Parametreleri (Epoch, Batch Size)",
+    "altbaslik": "Temel Kavramların Anlamı",
+    "icerik": "- Epoch (Döngü): Modelin tüm eğitim veri setini baştan sona kaç kez gördüğü.\n- Batch Size (Grup Boyutu): Ağırlıkların güncellenmesi için bir seferde işlenen görüntü sayısı.\n- Learning Rate (Öğrenme Katsayısı): Modelin her adımda hatadan ne büyüklükte ders çıkardığı.\n- Denge: Çok fazla epoch ezberlemeye (overfitting), çok az epoch yetersiz öğrenmeye (underfitting) yol açar.",
+    "gorsel": {
+      "type": "image",
+      "query": "training loss validation curve epoch batch size"
+    }
+  },
+  {
+    "baslik": "Veri Artırma (Data Augmentation) Yöntemleri",
+    "altbaslik": "Az Sayıda Tıbbi Görüntüyü Çoğaltmak",
+    "icerik": "- Neden Gerekli?: Tıpta etiketli görüntü bulmak zor ve pahalıdır.\n- Teknikler: Döndürme (Rotation), Yakınlaştırma (Zoom), Aynalama (Horizontal Flip), Parlaklık Değişimi.\n- Tıbbi Kısıt: Radyolojide sağ-sol ayrımı hayati olduğu için kontrolsüz aynalama (flip) organ anomalisi gibi algılanabilir!\n- Kural: Artırma adımları biyolojik gerçekliğe aykırı olmamalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "data augmentation techniques image processing medical"
+    }
+  },
+  {
+    "baslik": "Atölye Raporlama Standardı",
+    "altbaslik": "Elde Edilen Sonuçları Nasıl Belgelendireceğiz?",
+    "icerik": "- 1. Veri Tanımı: Kaç adet eğitim, kaç adet test görüntüsü kullanıldı?\n- 2. Metrik Tablosu: Sınıflara göre Duyarlılık, Özgüllük ve F1-Skoru nedir?\n- 3. Hata Analizi: Modelin yanlış sınıflandırdığı 3 görüntünün görsel özellikleri nelerdi?\n- 4. Klinik Yorum: Model hangi durumlarda yanıltıcı kararlar üretmeye meyilli?",
+    "gorsel": {
+      "type": "image",
+      "query": "technical report writing laboratory documentation checklist"
+    }
+  },
+  {
+    "baslik": "Görüntü Kalitesi ve Ön İşleme Adımları",
+    "altbaslik": "Çöp Girdi, Çöp Çıktı (Garbage In, Garbage Out)",
+    "icerik": "- Çözünürlük ve Boyutlandırma: Tüm görüntülerin standart piksel boyutuna getirilmesi (Ör. 224x224).\n- Kontrast Eşitleme (CLAHE): Doku detaylarının belirginleştirilmesi.\n- Gürültü Temizleme: Çekim kaynaklı artefaktların filtrelenmesi.\n- Veri Teknikeri Rolü: Arşivdeki bozuk veya hatalı pozlanmış görüntülerin elenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "image preprocessing clahe contrast enhancement medical x-ray"
+    }
+  },
+  {
+    "baslik": "Saha Hatası 1: Pozisyonlama ve Artefakt Yanılgısı",
+    "altbaslik": "Modelin Yanlış İpuçlarına Odaklanması",
+    "icerik": "- Vaka: COVID-19 tespit modelinin yatan hasta grafilerinde kabloları virüs sanması.\n- Neden: Yatan ağır hastaların filmlerinde elektrot kabloları ve 'yatarak çekim' etiketi mevcuttu.\n- Hata: Model hastalığı değil, yatak başı çekim işaretlerini öğrendi!\n- Çözüm: Görüntülerdeki harici işaretlerin kırpılması veya maskelenmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "radiology artifacts medical x-ray shortcut learning"
+    }
+  },
+  {
+    "baslik": "Saha Hatası 2: Çözünürlük Uyuşmazlığı",
+    "altbaslik": "Yüksek Çözünürlükten Düşük Çözünürlüğe Geçiş",
+    "icerik": "- Vaka: 4K dijital patoloji görüntüsüyle eğitilen modelin düşük çözünürlüklü tarayıcıda başarısız olması.\n- Neden: İnce hücre sınırlarının ve nükleer detayların pikselleşme nedeniyle kaybolması.\n- Önlem: Modelin sahada kullanılacağı farklı cihaz çözünürlükleriyle eğitilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "image resolution comparison pathology cells micro details"
+    }
+  },
+  {
+    "baslik": "İnsan-Yapay Zeka İşbirliği Modelleri (Human-in-the-Loop)",
+    "altbaslik": "Otomasyon Değil, Yetenek Artırma (Augmentation)",
+    "icerik": "- Bağımsız Çalışma (Autonomous): YZ tek başına karar verir (Sağlıkta sadece çok sınırlı alanlarda).\n- Karar Destek (Assisted/Augmented): YZ şüpheli alanı işaretler, son kararı hekim verir.\n- İkinci Okuyucu (Second Reader): Hekim filmi inceler, YZ bağımsız inceler; uyuşmazlıkta konsensüs aranır.\n- Veri Teknikeri Desteği: Uyuşmazlık vakalarının istatistiksel kaydını tutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "human in the loop doctor reviewing AI diagnostic findings"
+    }
+  },
+  {
+    "baslik": "PACS ve Radyoloji İş Listesi Entegrasyonu",
+    "altbaslik": "Görüntü Arşivinde YZ Köprüsü",
+    "icerik": "- PACS (Picture Archiving and Communication System): Hastanenin merkezi görüntü deposu.\n- DICOM Router: Yeni çekilen grafileri otomatik olarak YZ çıkarım sunucusuna yönlendiren modül.\n- DICOM SR (Structured Report): YZ bulgularının hekimin ekranına standart formatta aktarılması.\n- İş Akışı İyileştirmesi: Kritik beyin kanaması vakalarının bekleme süresini 45 dakikadan 3 dakikaya indirme.",
+    "gorsel": {
+      "type": "image",
+      "query": "pacs radiology workflow server AI DICOM integration"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Görüntüleme Süreçlerindeki Rolü",
+    "altbaslik": "3 Temel Operasyonel Sorumluluk",
+    "icerik": "- 1. Veri Anonimleştirme: Araştırma veya YZ eğitimi öncesi DICOM başlıklarından hasta kimliğini temizlemek.\n- 2. Kalite Ön Elemesi: Pozisyon hatası olan, bulanık veya artefaktlı görüntüleri arşivden ayıklamak.\n- 3. İstatistiksel Takip: Radyoloğun YZ önerisini reddettiği vakaların log kaydını tutarak IT'ye raporlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical imaging technician working at workstation data quality"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet: 2. Haftanın Ana Fikirleri",
+    "altbaslik": "Akılda Kalması Gerekenler",
+    "icerik": "- Görüntü tabanlı YZ'nin kalbi kaliteli veri ve uzman etiketlemesidir (Ground Truth).\n- CNN mimarileri özellikleri otomatik çıkarır; Grad-CAM ile nereye baktığı denetlenmelidir.\n- FDA/CE onayı tek başına sahada kusursuzluk garantisi vermez; model izlemi şarttır.\n- Yanlış Pozitif gereksiz tetkik/anksiyete yaratırken, Yanlış Negatif hayati risk taşır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary infographic medical computer vision radiology"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Teknik ve Düzenleyici Bilgi Kontrolü",
+    "icerik": "- Soru 1: Bir YZ modelinin görüntüdeki hangi piksellere odaklandığını görselleştiren yöntem hangisidir?\n  Cevap: Grad-CAM (Isı haritası).\n- Soru 2: FDA onaylı bir SaMD yazılımı yeni kurulan bir hastanede neden beklenenden düşük başarım gösterebilir?\n  Cevap: Cihaz farklılıkları, görüntü kalibrasyonu ve hasta popülasyonu değişimi (Model drift).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz examination questions radiology AI"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Vaka Sorusu",
+    "altbaslik": "Klinik Karar ve Risk Değerlendirmesi",
+    "icerik": "- Senaryo: Cilt kanseri taramasında bir YZ modelinin Yanlış Negatif oranı %15'tir.\n- Soru: Bir tıbbi veri teknikeri olarak bu yazılımın birinci basamak sağlık ocağında tek başına kullanılmasına neden itiraz etmelisiniz?\n- Cevap: Her 100 melanom hastasının 15'i atlanacak ve teşhis gecikerek hastaların hayatı tehlikeye girecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical case skin cancer diagnostic evaluation"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı: 2. Hafta Geri Bildirimi",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Tıbbi görüntülerde 'Grad-CAM' olmasaydı hekimler neden YZ'ye güvenemezdi?\n- 2. No-code araçla yaptığınız denemede en çok hangi adımda zorlandınız?\n- 3. Gelecek hafta konusu: Sağlık Kayıtlarında Doğal Dil İşleme (NLP) ve Epikriz Özetleme.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student classroom reflection medical"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "3. Hafta: Sağlık Kayıtlarında Doğal Dil İşleme (NLP)",
+    "icerik": "- Konu: Epikriz raporları, doktor notları ve sesli dikte sistemlerinin YZ ile işlenmesi.\n- Odak: Büyük Dil Modelleri (LLM), ICD/SNOMED otomatik kodlama ve halüsinasyon riskleri.\n- Hazırlık: Hastanelerde epikriz raporlarının nasıl yazıldığını ve ICD-10 kodlama mantığını gözden geçiriniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical records natural language processing preview"
+    }
+  }
+]

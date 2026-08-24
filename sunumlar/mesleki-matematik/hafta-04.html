@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 04 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 04</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-03.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 4", "altbaslik": "Hafta 4: Kesirler, Ondalık Sayılar ve Yüzdeler", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Rasyonel Hesaplamalar ve Oransal Analiz\nHaftalık Odak: SLA Uptime (%99.9), Paket Kaybı, Disk Doluluğu ve Sıkıştırma Oranı\nHedef: Sistem ve ağ performans metriklerini yüzde ve kesirlerle analiz etmek.", "gorsel": {"type": "image", "query": "system uptime analytics percentages pie chart dashboard"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: %99.9 vs %99.99 Uptime (SLA Farkı)", "icerik": "Bir bulut sağlayıcısı %99.9 kesintisiz çalışma taahhüt ederken, diğeri %99.99 taahhüt ediyor.\nAradaki fark sadece %0.09 gibi görünse de:\n- %99.9 Uptime: Yılda 8.76 saat kesinti\n- %99.99 Uptime: Yılda sadece 52.6 dakika kesinti demektir!\nFinans ve sağlık sektöründe bu fark kritik iş sürekliliğini belirler.", "gorsel": {"type": "image", "query": "cloud server uptime 99.9 SLA service reliability"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. Kesir, ondalık sayı ve yüzde arasındaki dönüşümleri hatasız yapar.\n2. Sistem metriklerinde yüzde artış ve azalış hesaplar.\n3. Ağ paket kaybı ve hata oranlarını kesir/yüzde olarak modeller.\n4. Veri sıkıştırma ve disk doluluk oranlarını operasyonel olarak yorumlar.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "Kesir Kavramı ve Sadeleştirme", "altbaslik": "Pay ve Payda İlişkisi", "icerik": "Kesir: a / b (Pay / Payda, b != 0)\n- Pay: Alınan parça sayısı\n- Payda: Bütünün kaç eşit parçaya bölündüğü\nSadeleştirme: Pay ve paydayı aynı sayıya bölerek en yalın hali bulma.\nÖrnek: 1000 ağ paketinin 250'si hatalı ise hata kesri = 250 / 1000 = 1 / 4'tür.", "gorsel": {"type": "image", "query": "fraction simplification numerator denominator visual"}}, {"baslik": "Kesir Türleri", "altbaslik": "Basit, Bileşik ve Tam Sayılı Kesirler", "icerik": "- Basit Kesir: Payı paydasından küçük (Örn: 3/4 - Disk doluluk oranı)\n- Bileşik Kesir: Payı paydasına eşit veya büyük (Örn: 5/4 - Aşırı tahsis / Overprovisioning)\n- Tam Sayılı Kesir: 1 tam 1/2 GB (1.5 GB)\nSistem kaynaklarının %100'ü aşması bileşik kesir mantığıyla izlenir.", "gorsel": {"type": "image", "query": "types of fractions proper improper mixed diagram"}}, {"baslik": "Kesirden Ondalığa ve Yüzdeye Geçiş", "altbaslik": "Üçlünün Birbirine Dönüşümü", "icerik": "- Kesir -> Ondalık: Pay paydaya bölünür (3/4 = 0.75)\n- Ondalık -> Yüzde: Sayı 100 ile çarpılır ve % işareti konur (0.75 x 100 = %75)\n- Yüzde -> Kesir: Sayı paydaya 100 yazılarak sadeleştirilir (%20 = 20/100 = 1/5)\nÖnemli Değerler: 1/2 = %50 | 1/4 = %25 | 3/4 = %75 | 1/10 = %10 | 1/5 = %20", "gorsel": {"type": "image", "query": "conversion fraction decimal percentage diagram"}}, {"baslik": "Ondalık Sayıların Bilişimdeki Anlamı", "altbaslik": "Hassasiyet ve Ölçüm Metrikleri", "icerik": "Bilişimde ondalık gösterim hassasiyet göstergesidir:\n- Yanıt süresi: 12.45 ms (Milisaniye seviyesi)\n- Saat frekansı: 3.8 GHz\n- Hata olasılığı: 0.0001 (Binde bir)\nOndalık basamak sayısı arttıkça hassasiyet ve ölçüm doğruluğu yükselir.", "gorsel": {"type": "image", "query": "decimal precision latency measurement metrics"}}, {"baslik": "Kesirlerde Dört İşlem Kuralları", "altbaslik": "Payda Eşitleme ve Ters Çarpma", "icerik": "- Toplama/Çıkarma: Paydalar MUTLAKA eşitlenir. (1/4 + 2/3 = 3/12 + 8/12 = 11/12)\n- Çarpma: Paylar paylarla, paydalar paydalarla çarpılır. ((2/3) * (5/7) = 10/21)\n- Bölme: İlk kesir aynen kalır, ikinci kesir ters çevrilip çarpılır. ((3/4) / (1/2) = (3/4) * (2/1) = 6/4 = 3/2)", "gorsel": {"type": "image", "query": "fractions arithmetic operations rules blackboard"}}, {"baslik": "Yüzde Hesaplama Temel Formülleri", "altbaslik": "Parça, Bütün ve Yüzde Bağıntısı", "icerik": "1. Bir Sayının Yüzdesini Bulma:\n   Sonuç = Bütün * (Yüzde / 100)\n   Örnek: 800 GB diskin %35'i = 800 * 0.35 = 280 GB.\n2. Parçanın Bütüne Yüzde Oranı:\n   Yüzde = (Parça / Bütün) * 100\n   Örnek: 500 istekten 15'i başarısız ise başarısızlık yüzdesi = (15 / 500) * 100 = %3.", "gorsel": {"type": "image", "query": "percentage calculation formula math business"}}, {"baslik": "Yüzde Değişim (Artış ve Azalış) Formülü", "altbaslik": "Trafik ve Tehdit Artış Oranları", "icerik": "Formül:\nYüzde Değişim = ((Yeni Değer - Eski Değer) / Eski Değer) * 100\n- Sonuç pozitif ise: Yüzde Artış\n- Sonuç negatif ise: Yüzde Azalış\nÖrnek: Günlük saldırı sayısı 400'den 500'e çıkarsa:\n((500 - 400) / 400) * 100 = (100 / 400) * 100 = %25 artış olmuştur.", "gorsel": {"type": "image", "query": "growth percentage increase trend graph cyber attacks"}}, {"baslik": "Veri Sıkıştırma Oranı (Compression Ratio)", "altbaslik": "Depolama Tasarruf Matematiği", "icerik": "Tanım:\nSıkıştırma Yüzdesi = ((Orijinal Boyut - Sıkıştırılmış Boyut) / Orijinal Boyut) * 100\nÖrnek: 200 MB log dosyası gzip ile 40 MB'a düşürülmüştür.\nTasarruf = ((200 - 40) / 200) * 100 = (160 / 200) * 100 = %80 tasarruf sağlanmıştır.", "gorsel": {"type": "image", "query": "data compression file size reduction visual"}}, {"baslik": "SLA ve Uptime Kesinti Süresi Hesabı", "altbaslik": "Hizmet Kesinti Süresinin Dakikaya Dönüşümü", "icerik": "Bir ayda 30 gün = 30 x 24 = 720 saat = 43,200 dakika vardır.\n%99.5 Uptime taahhüdü olan bir sistemde izin verilen kesinti (Downtime):\n- İzin verilen kesinti yüzdesi = %100 - %99.5 = %0.5 = 0.005\n- İzin verilen süre = 43,200 dakika x 0.005 = 216 dakika (3.6 saat).\nSistem ayda 3.6 saatten fazla kesilirse SLA ihlali ve ceza uygulanır.", "gorsel": {"type": "image", "query": "server SLA downtime clock countdown alert"}}, {"baslik": "Çözümlü Uygulama 1: Basit Yüzde Bulma", "altbaslik": "Seviye: Başlangıç (Disk Doluluğu)", "icerik": "Soru: 2 TB (2000 GB) kapasiteli bir sunucu diskinin %65'i doludur. Diskte kaç GB boş alan kalmıştır?\nÇözüm Yolu 1:\nDolu alan = 2000 x 0.65 = 1300 GB\nBoş alan = 2000 - 1300 = 700 GB.\nÇözüm Yolu 2:\nBoş alan yüzdesi = %100 - %65 = %35\nBoş alan = 2000 x 0.35 = 700 GB.", "gorsel": {"type": "image", "query": "pie chart disk storage free space calculation"}}, {"baslik": "Çözümlü Uygulama 2: Ağ Paket Kaybı Oranı", "altbaslik": "Seviye: Kolay (Ping Testi Analizi)", "icerik": "Soru: Bir sunucuya 2500 adet ping paketi gönderilmiştir. 75 adet paket zaman aşımına uğrayıp kaybolmuştur. Paket kaybı yüzdesi (Packet Loss) kaçtır?\nİşlem: Kayıp Oranı = (Kayıp Paket / Toplam Paket) * 100\nKayıp = (75 / 2500) * 100\nSadeleştirme: 75 / 25 = %3\nYorum: %3 paket kaybı ses ve canlı video yayını için kabul edilemez, hat incelenmelidir.", "gorsel": {"type": "image", "query": "network ping test packet loss latency terminal"}}, {"baslik": "Çözümlü Uygulama 3: Kesirli Kaynak Paylaşımı", "altbaslik": "Seviye: Orta (Sanallaştırma RAM Dağıtımı)", "icerik": "Soru: 64 GB RAM'e sahip bir ESXi sunucusunda;\n- Web VM: RAM'in 3/8'ini\n- Veritabanı VM: RAM'in 1/4'ünü\n- Firewall VM: RAM'in 1/8'ini kullanmaktadır.\nBoşta kalan RAM kaç GB'tır?\nÇözüm:\nToplam kullanım = 3/8 + 1/4 + 1/8 = 3/8 + 2/8 + 1/8 = 6/8 = 3/4\nKullanılan RAM = 64 * (3/4) = 48 GB\nBoşta Kalan RAM = 64 - 48 = 16 GB (veya 64 * 1/4 = 16 GB).", "gorsel": {"type": "image", "query": "virtual machine ram memory allocation virtualization"}}, {"baslik": "Çözümlü Uygulama 4: Tehdit Seviyesinde Yüzde Artışı", "altbaslik": "Seviye: Orta (SOC Raporlama)", "icerik": "Soru: Ocak ayında 80 adet brute-force saldırısı tespit edilen bir kuruma, Şubat ayında 140 saldırı gerçekleşmiştir. Saldırı sayısındaki artış yüzdesi kaçtır?\nFormül: ((Yeni - Eski) / Eski) * 100\nİşlem: ((140 - 80) / 80) * 100 = (60 / 80) * 100\nSadeleştirme: (3 / 4) * 100 = %75 artış.\nYorum: SOC yönetimine 'Brute-force saldırıları %75 arttı' raporu sunulmalıdır.", "gorsel": {"type": "image", "query": "threat intelligence chart brute force attack rise"}}, {"baslik": "Çözümlü Uygulama 5: İndirim ve Lisans Maliyeti", "altbaslik": "Seviye: Orta (BT Satınalma Bütçesi)", "icerik": "Soru: 50 kullanıcılı bir EDR antivirüs yazılımının liste fiyatı 12,000 TL'dir. Yazılım firması eğitim kurumuna %30 indirim, peşin ödemede ise indirimli fiyat üzerinden ek %10 indirim yapmıştır. Son ödenen tutar nedir?\nAdım 1: %30 indirim = 12000 x 0.70 = 8400 TL\nAdım 2: 8400 TL üzerinden %10 indirim = 8400 x 0.90 = 7560 TL.\nDikkat: %30 + %10 = %40 indirim yapılmaz! İndirimler ardışık uygulanır.", "gorsel": {"type": "image", "query": "it software license budget invoice calculation"}}, {"baslik": "Çözümlü Uygulama 6: Yıllık SLA Downtime Hesabı", "altbaslik": "Seviye: İleri (Kritik Altyapı Yönetimi)", "icerik": "Soru: Bir yıl 365 gün kabul edilirse, %99.95 SLA garantisi veren bir veri tabanı kümesi yılda en fazla kaç saat ve dakika kesintiye uğrayabilir?\nAdım 1: Yıllık toplam saat = 365 x 24 = 8760 saat\nAdım 2: Kesinti yüzdesi = %100 - %99.95 = %0.05 = 0.0005\nAdım 3: İzin verilen kesinti = 8760 x 0.0005 = 4.38 saat\nAdım 4: Dakikaya çevirme = 4 saat + (0.38 x 60) dakika = 4 saat 22.8 dakika.", "gorsel": {"type": "image", "query": "data center high availability SLA calculation timeline"}}, {"baslik": "Çözümlü Uygulama 7: Veri Sıkıştırma ve Bant Genişliği", "altbaslik": "Seviye: İleri (Ağ Optimizasyonu)", "icerik": "Soru: Saatte 50 GB ham log verisi sıkıştırılarak %70 oranında küçültülüyor. Sıkıştırılmış veri 24 saat boyunca uzak merkeze aktarılacaktır. Günlük aktarılacak toplam sıkıştırılmış veri kaç GB'tır?\nAdım 1: Kalan veri oranı = %100 - %70 = %30\nAdım 2: Saatlik sıkıştırılmış veri = 50 x 0.30 = 15 GB/saat\nAdım 3: Günlük toplam = 15 x 24 = 360 GB (Ham kalsaydı 1200 GB olacaktı).", "gorsel": {"type": "image", "query": "network data compression bandwidth optimization"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Kesir ve Yüzde İşlem Hataları", "icerik": "1. Kesirleri toplarken paydaları eşitlemeden payları ve paydaları doğrudan toplamak (1/2 + 1/3 != 2/5).\n2. Yüzdeleri toplamak yerine ardışık çarpmayı unutmak (%20 artışın üzerine %20 azalış ilk sayıya eşit olmaz: 100 -> 120 -> 96).\n3. Yüzde değişiminde paydaya yeni değeri koymak (Paydaya her zaman ESKİ/BAŞLANGIÇ değeri yazılır).", "gorsel": {"type": "image", "query": "caution alert common mistakes percentage arithmetic"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Ondalık ve Gösterim Tuzakları", "icerik": "1. Yüzde ile ondalık gösterimi karıştırmak (%5 = 0.05'tir, 0.5 DEĞİLDİR!).\n2. %0.1 ifadesini 0.1 sanmak (%0.1 = 0.001'dir).\n3. SLA taahhütlerinde aylık ve yıllık kesinti sürelerini birim çevirmeden doğrudan kullanmak.", "gorsel": {"type": "image", "query": "warning decimal point confusion percentage"}}, {"baslik": "Sektörel Vaka: Şirket Yedekleme Alanı Krizi", "altbaslik": "Kapasite Planlama Senaryosu", "icerik": "Vaka: 10 TB'lık bir NAS depolama ünitesinin doluluğu %85'e ulaşmıştır.\nŞirket politikası gereği doluluk %90'ı geçemez.\nVeriler günlük 150 GB artmaktadır.\nAnaliz:\n- Maksimum izin verilen alan: 10 TB x 0.90 = 9 TB = 9000 GB\n- Şu anki dolu alan: 10 TB x 0.85 = 8.5 TB = 8500 GB\n- Kalan pay: 9000 - 8500 = 500 GB\n- Kalan Gün: 500 / 150 = 3.33 gün (3 gün içinde yeni disk takılmalıdır).", "gorsel": {"type": "image", "query": "NAS storage alert capacity planning hard drive"}}, {"baslik": "Vaka Çözüm Planı ve Otomasyon", "altbaslik": "Kriz Önleme Mekanizması", "icerik": "Uygulanan Çözümler:\n1. Log dosyalarına 30 günden eski olanları sıkıştıran otomatik cron job tanımlandı.\n2. SNMP izleme aracına %80 ve %85 için erken uyarı e-postası eklendi.\n3. Matematiksel modelleme ile yıllık bütçeye 2 adet ek disk ünitesi dahil edildi.", "gorsel": {"type": "image", "query": "automation cron job system monitoring storage"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Kesir Sadeleştirme", "icerik": "Soru: 36/48 kesrinin en sade hali nedir?\nA) 2/3\nB) 3/4\nC) 4/5\nD) 6/8\n\nDoğru Cevap: B (Her iki taraf 12'ye bölünür -> 3/4)", "gorsel": {"type": "image", "query": "fraction reduction multiple choice question"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Yüzde Bulma", "icerik": "Soru: 500 GB'ın %12'si kaç GB'tır?\nA) 50 GB\nB) 60 GB\nC) 70 GB\nD) 120 GB\n\nDoğru Cevap: B (500 x 0.12 = 60 GB)", "gorsel": {"type": "image", "query": "percentage calculation test question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Yüzde Değişim", "icerik": "Soru: CPU kullanımı %40'tan %60'a çıkarsa, CPU kullanımındaki artış yüzdesi kaçtır?\nA) %20\nB) %40\nC) %50\nD) %60\n\nDoğru Cevap: C (((60 - 40) / 40) * 100 = (20/40)*100 = %50 artış)", "gorsel": {"type": "image", "query": "cpu utilization percentage increase metric"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Sıkıştırma Oranı", "icerik": "Soru: 80 MB boyutundaki bir veritabanı yedeği sıkıştırılınca 20 MB olmuştur. Tasarruf yüzdesi nedir?\nA) %25\nB) %50\nC) %75\nD) %80\n\nDoğru Cevap: C (((80 - 20) / 80) * 100 = 60/80 = %75)", "gorsel": {"type": "image", "query": "database compression percentage quiz"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Kesirler parçanın bütüne oranını temsil eder; paydalar eşitlenerek toplanır/çıkarılır.\n- Yüzde, 100 paydasına normalize edilmiş kesirdir ve metrik analizinde evrensel dildir.\n- SLA uptime, paket kaybı, sıkıştırma ve disk doluluğu yüzdeler üzerinden yönetilir.\n- Yüzde değişim formülünde payda daima başlangıç değeridir.", "gorsel": {"type": "image", "query": "summary concept board percentages and fractions"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 5: Oran-Orantı ve Ölçeklendirme", "icerik": "Gelecek Konular:\n- Doğru ve Ters Orantı mantığı\n- Ağ bant genişliği ve indirme süresi ilişkisi\n- Sunucu yük dengeleme (Load Balancing) ve kapasite ölçekleme\n- Bileşik orantı problemleri.", "gorsel": {"type": "image", "query": "load balancer scale servers proportion network"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'Bir güvenlik duvarı günde 200,000 bağlantı isteği almaktadır. Bunların %0.4'ü (binde dördü) zararlı yazılım şüphesiyle engellenmiştir. Günlük engellenen istek sayısı kaçtır?'\n\nİşlem adımlarınızı kağıda yazıp çıkarken kutuya atınız.", "gorsel": {"type": "image", "query": "firewall blocked requests security graph exit ticket"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 07 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 07</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 42 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-06.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 42</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (42 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 7", "altbaslik": "İlk 6 Haftanın Entegrasyonu ve Ticari Otomasyon", "icerik": "Program: Bilgisayar Programcılığı\nModül: Dönem Ortası Entegrasyon ve Pekiştirme\nHaftalık Odak: Girdi-Dönüşüm-İşlem-Formatlı Çıktı Zinciri, Para Formatlama\nHedef: Tüm temel becerileri birleştirerek ticari bir kasa otomasyonu üretmek.", "gorsel": {"type": "image", "query": "pos retail billing invoice cash register software"}}, {"baslik": "Neden Bu Tekrarı Yapıyoruz?", "altbaslik": "Sektörel Bağlam: Parçaları Birleştirmek", "icerik": "Yazılım sadece tek tek komutları ezberlemek değildir; parçaları bir araya getirip çalışan bir sistem kurma sanatıdır.\n- Tasarım + TextBox + Convert + try-catch + Matematik + Formatlı Çıktı.\nBu 6 parçayı bir araya getirdiğinizde profesyonel bir yazılımcı gibi düşünmeye başlarsınız.", "gorsel": {"type": "image", "query": "jigsaw puzzle integration software engineering"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. İlk 6 haftada öğrenilen tüm kavramları tek bir iş akışında birleştirir.\n2. .ToString(\"0.00\") ve .ToString(\"C\") ile profesyonel para formatlaması yapar.\n3. Vize sınavında sıkça sorulan klasik kodlama sorularını çözer.\n4. 'Akaryakıt Pompası ve KDV Kasa Fişi' projesini tek başına inşa eder.", "gorsel": {"type": "image", "query": "achievement checklist targets exam preparation"}}, {"baslik": "İlk 6 Haftanın Büyük Haritası", "altbaslik": "Veri Akış Diyagramı", "icerik": "1. Kullanıcı Girişi (TextBox) -> string metin\n2. Veri Dönüşümü (Convert.ToDouble) -> try-catch korumasında sayısal tip\n3. Matematiksel Mantık -> Toplama, Çarpma, Yüzde/KDV hesabı\n4. Formatlama (.ToString(\"0.00\")) -> Şık ve okunaklı metin\n5. Görsel Çıktı (Label / MessageBox) -> Kullanıcıya geri bildirim", "gorsel": {"type": "image", "query": "software data pipeline workflow diagram"}}, {"baslik": "Sayısal Sonuçları Formatlama Sihirbazı", "altbaslik": "Virgülden Sonraki Basamakları Sabitlemek", "icerik": "Ekranda '45.66666666666667' gibi çirkin bir sayı göstermek yerine:\n- sonuc.ToString(\"0.00\") -> Virgülden sonra kesin 2 basamak gösterir (Örn: '45.67').\n- sonuc.ToString(\"C\") -> İşletim sisteminin yerel para birimini ekler (Örn: '₺45.67').", "gorsel": {"type": "image", "query": "currency formatting money decimals financial ui"}}, {"baslik": "Klasik Vize Sorusu 1: Dairenin Alanı", "altbaslik": "Kullanıcıdan Yarıçap Alarak Hesaplama", "icerik": "Soru: Kullanıcıdan yarıçapı (r) alıp dairenin alanını (pi * r * r) hesaplayan güvenli kodu yazınız.\n\nÇözüm:\ntry\n{\n    double r = Convert.ToDouble(txtYaricap.Text);\n    double alan = Math.PI * r * r;\n    lblAlan.Text = alan.ToString(\"0.00\") + \" cm²\";\n}\ncatch\n{\n    MessageBox.Show(\"Lütfen geçerli bir yarıçap giriniz!\");\n}", "gorsel": {"type": "image", "query": "circle geometry radius area math formula"}}, {"baslik": "Klasik Vize Sorusu 2: String Birleştirme", "altbaslik": "Ad ve Soyadı Büyük Harfle Birleştirmek", "icerik": "Soru: txtAd ve txtSoyad kutularındaki metinleri aralarında boşlukla birleştirip tüm harfleri BÜYÜK harfe çeviren satırı yazınız.\n\nÇözüm:\nstring tamAd = txtAd.Text + \" \" + txtSoyad.Text;\nlblSonuc.Text = tamAd.ToUpper();", "gorsel": {"type": "image", "query": "text uppercase string functions programming"}}, {"baslik": "Klasik Vize Sorusu 3: İndirimli Fiyat Hesabı", "altbaslik": "Yüzde Hesaplama Algoritması", "icerik": "Soru: 200 TL'lik bir ürüne %15 indirim uygulayıp yeni fiyatı hesaplayan C# satırlarını yazınız.\n\nÇözüm:\ndouble fiyat = 200.0;\ndouble indirimTutari = fiyat * 0.15;\ndouble odenecek = fiyat - indirimTutari;\nlblSonuc.Text = odenecek.ToString(\"0.00\") + \" TL\";", "gorsel": {"type": "image", "query": "discount percentage sale tag math"}}, {"baslik": "Günün Büyük Uygulaması: Akaryakıt Pompası ve Kasa Fişi", "altbaslik": "Senaryo ve Arayüz Tasarımı", "icerik": "Senaryo: Bir benzin istasyonunda yakıt dolumu yapan pompacının kullandığı kasa otomasyonu.\n- Kullanıcı Litre Fiyatını (örn: 44.50 TL) ve Alınan Litreyi (örn: 25.5 L) girer.\n- 'Fiş Kes ve Hesapla' butonuna basar.\n- Sistem Ara Toplamı, %20 KDV Tutarını ve Ödenecek Genel Toplamı hesaplayıp fatura paneline basar.", "gorsel": {"type": "image", "query": "gas station fuel pump digital screen receipt"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi", "icerik": "Girdi Kutuları:\n- txtLitreFiyat (Litre Satış Fiyatı)\n- txtAlinanLitre (Pompalanan Yakıt Miktarı)\n\nButon: btnFisKes ('⛽ Fiş Kes ve Hesapla')\nÇıktı Paneli: lblAraToplam, lblKdv, lblGenelToplam (Yeşil Kasa Paneli)", "gorsel": {"type": "image", "query": "gas station pos interface form controls layout"}}, {"baslik": "Uygulama Kodları (Tam Çözüm)", "altbaslik": "Bütünleşik Kasa Hesaplama Kodu", "icerik": "private void btnFisKes_Click(object sender, EventArgs e)\n{\n    try\n    {\n        // 1. Güvenli Okuma ve Dönüşüm\n        double litreFiyati = Convert.ToDouble(txtLitreFiyat.Text);\n        double alinanLitre = Convert.ToDouble(txtAlinanLitre.Text);\n\n        // 2. Matematiksel Hesaplamalar\n        double araToplam = litreFiyati * alinanLitre;\n        double kdvTutari = araToplam * 0.20; // %20 KDV\n        double genelToplam = araToplam + kdvTutari;\n\n        // 3. Formatlı Yazdırma\n        lblAraToplam.Text = \"Ara Toplam : \" + araToplam.ToString(\"0.00\") + \" TL\";\n        lblKdv.Text       = \"KDV (%20)   : \" + kdvTutari.ToString(\"0.00\") + \" TL\";\n        lblGenelToplam.Text = \"ÖDENECEK   : \" + genelToplam.ToString(\"0.00\") + \" TL\";\n        lblGenelToplam.ForeColor = Color.DarkGreen;\n    }\n    catch\n    {\n        MessageBox.Show(\"Lütfen litre fiyatı ve miktarını doğru girdiğinizden emin olun!\", \n                        \"Girdi Hatası\", MessageBoxButtons.OK, MessageBoxIcon.Warning);\n    }\n}", "gorsel": {"type": "image", "query": "csharp code calculation invoice receipt gas station"}}, {"baslik": "Vize Sınavı Taktikleri ve İpuçları", "altbaslik": "Sınavda Puan Kaybettiren Hatalar", "icerik": "1. Noktalı virgülü (;) unutmayın.\n2. Değişken isimlerinde Türkçe karakter (ç, ğ, ı, ö, ş, ü) kullanmayın.\n3. Girdileri okurken Convert yapmayı atlamayın.\n4. .Text özelliğini büyük harfle yazmayı unutmayın.", "gorsel": {"type": "image", "query": "exam tips checklist academic success"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Formatlama", "icerik": "Soru: double sayi = 15.5; sayi.ToString(\"0.00\") ifadesinin çıktısı nedir?\n\nA) 15.5\nB) 15.50\nC) 15\nD) 15.00\n\nDoğru Cevap: B (0.00 formatı virgülden sonra 2 basamağa zorlar ve eksik basamağa 0 ekler).", "gorsel": {"type": "image", "query": "quiz test examination correct answer option"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Vize Konsepti", "icerik": "Soru: Aşağıdakilerden hangisi bir kullanıcı arayüzü uygulamasının temel döngüsüdür?\n\nA) Çıktı -> Girdi -> İşlem\nB) İşlem -> Girdi -> Çıktı\nC) Girdi -> İşlem -> Çıktı\nD) Girdi -> Çıktı -> İşlem\n\nDoğru Cevap: C (Girdi okunur, mantık işlenir ve sonuç ekrana yazılır).", "gorsel": {"type": "image", "query": "multiple choice exam quiz correct answer test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Bellek Tipi", "icerik": "Soru: Fiyat ve bakiye gibi kuruşlu değerleri saklamak için hangi veri tipi tercih edilir?\n\nA) int\nB) bool\nC) double\nD) string\n\nDoğru Cevap: C (double ondalıklı sayıları saklar).", "gorsel": {"type": "image", "query": "data types double floating point quiz"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Vizeye Tam Hazırız!", "icerik": "- İlk 6 haftanın tüm taşlarını yerine oturttuk.\n- Sayısal formatlamayı (.ToString(\"0.00\")) profesyonelce kullandık.\n- Akaryakıt Pompası projesiyle eksiksiz bir ticari form ürettik.\n- Vize sınavı için hazır ve özgüvenliyiz!", "gorsel": {"type": "image", "query": "graduation success target achieved programming"}}, {"baslik": "Vize Konsepti: Label vs TextBox Seçimi", "altbaslik": "Hangi Durumda Hangisi?", "icerik": "- Kullanıcıdan veri alınacaksa -> TextBox (txt)\n- Kullanıcıya sonuç, mesaj, başlık gösterilecekse -> Label (lbl)\n- Sadece gösterilecek bilgi için TextBox kullanmak gereksizdir ve kullanıcının yanlışlıkla veriyi silmesine yol açabilir.", "gorsel": {"type": "image", "query": "ui decision textbox vs label forms"}}, {"baslik": "Vize Konsepti: İşlem Sıralaması", "altbaslik": "Değişkenleri Ne Zaman Tanımlamalıyız?", "icerik": "Doğru Sıralama Şablonu:\n1. Değişkenleri tanımla ve TextBox'lardan Convert ile oku.\n2. Matematiksel formülleri işlet.\n3. Sonuç değişkenini .ToString(\"0.00\") ile Label'a bas.\nBu sıra bozulursa unassigned variable hataları oluşur.", "gorsel": {"type": "image", "query": "sequential workflow order code execution"}}, {"baslik": "Vize Konsepti: Yüzde Hesaplama Formülü", "altbaslik": "Yüzdeyi Matematiksel Çarpmaya Çevirmek", "icerik": "- %18 KDV -> tutar * 0.18\n- %20 KDV -> tutar * 0.20\n- %15 İndirim -> tutar * 0.15\n- %40 Vize Notu -> vize * 0.40\nOndalık katsayılarla çarpmak en hızlı ve hatasız hesaplama yöntemidir.", "gorsel": {"type": "image", "query": "percentage calculation math discount tax"}}, {"baslik": "Vize Konsepti: Form Başlığı ve İkonu", "altbaslik": "Profesyonel Uygulama İpuçları", "icerik": "- Form.Text = 'Giresun Akaryakıt İstasyonu v1.0'\n- Form.StartPosition = CenterScreen\n- Form.MaximizeBox = false (Pencerenin tam ekran yapılmasını engellemek)\nBu ayarlar projenin tam profesyonel bir masaüstü aracı gibi görünmesini sağlar.", "gorsel": {"type": "image", "query": "form title properties window maximize button"}}, {"baslik": "Sık Yapılan Sınav Hataları Listesi", "altbaslik": "Puan Kırılmasına Yol Açan Detaylar", "icerik": "1. int yerine double kullanılması gereken yerde int kullanıp küsuratı kaybetmek.\n2. try-catch yazmayıp uygulamanın çökmesine izin vermek.\n3. .ToString() eklemeyi unutup derleme hatası almak.\n4. Buton adını kodda yanlış yazmak.", "gorsel": {"type": "image", "query": "grading rubric checklist exam points"}}, {"baslik": "Örnek Vize Sorusu 4: Sıcaklık Dönüşümü", "altbaslik": "Celsius -> Fahrenheit Hesabı", "icerik": "Soru: Girilen Santigrat (°C) derecesini Fahrenheit'a (F = C * 1.8 + 32) çeviren C# kodunu yazınız.\n\nÇözüm:\ndouble c = Convert.ToDouble(txtCelsius.Text);\ndouble f = (c * 1.8) + 32;\nlblFahrenheit.Text = f.ToString(\"0.0\") + \" °F\";", "gorsel": {"type": "image", "query": "thermometer temperature conversion celsius fahrenheit"}}, {"baslik": "Örnek Vize Sorusu 5: Kasiyer Para Üstü Hesabı", "altbaslik": "Basit Çıkarma ve Para Formatı", "icerik": "Soru: Toplam Tutar ve Müşterinin Verdiği Nakit tutarı alıp Para Üstünü hesaplayınız.\n\nÇözüm:\ndouble tutar = Convert.ToDouble(txtTutar.Text);\ndouble nakit = Convert.ToDouble(txtNakit.Text);\ndouble paraUstu = nakit - tutar;\nlblParaUstu.Text = paraUstu.ToString(\"C\");", "gorsel": {"type": "image", "query": "change cash money register supermarket cashier"}}, {"baslik": "Sektörel Vaka: Restoran Fiş Yazıcısı", "altbaslik": "Adisyon Entegrasyonu", "icerik": "Bir kafe yazılımı masadaki siparişleri toplar, KDV ekler ve fiş yazıcısına formatlı çıktı gönderir.\nİlk 6 haftada öğrendiğiniz mimari tam olarak bu sistemin kalbidir.", "gorsel": {"type": "image", "query": "thermal receipt printer pos restaurant cafe"}}, {"baslik": "Sınav Günü Kontrol Listesi", "altbaslik": "Sınava Başlarken", "icerik": "1. Projeyi masaüstünde adınız_soyadınız klasörüne kaydedin.\n2. Kontrolleri ekledikten sonra isimlerini (btn, txt, lbl) hemen verin.\n3. Kodları yazarken her adımda F5 ile çalıştırıp test edin.\n4. Sınav bitmeden önce projeyi kaydedip kapatın.", "gorsel": {"type": "image", "query": "exam checklist student success classroom"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "İlk 6 Haftanın Sözlüğü", "icerik": "- IDE: Entegre geliştirme ortamı.\n- Event Handler: Olaylara tepki veren metot.\n- Casting: Veri tipini dönüştürme.\n- Defensive Code: Çökmeyen güvenli kod.\n- Format String: Sayıların ekrandaki biçimi (.ToString(\"0.00\")).", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Kendi Kasa Ekranınızı Test Edin", "icerik": "Görev:\n- Fiyat = 120 TL, Adet = 3 için %20 KDV dahil toplam tutarı hesaplayın.\n- Sonucu lblGenelToplam üzerinde para birimi simgesiyle gösterin.", "gorsel": {"type": "image", "query": "cash register total bill calculation receipt"}}, {"baslik": "Vize Başarı Mesajı", "altbaslik": "Kendinize Güvenin!", "icerik": "Artık bir bilgisayara arayüz çizdirebiliyor, veri okutabiliyor, hata yakalatabiliyor ve matematik yaptırabiliyorsunuz.\nVize sınavında sakin olun, adım adım ilerleyin ve ilk haftalardaki başarılarınızı hatırlayın!", "gorsel": {"type": "image", "query": "confidence success inspiration student computer"}}, {"baslik": "Vize Konsepti: Label vs TextBox Seçimi", "altbaslik": "Hangi Durumda Hangisi?", "icerik": "- Kullanıcıdan veri alınacaksa -> TextBox (txt)\n- Kullanıcıya sonuç, mesaj, başlık gösterilecekse -> Label (lbl)\n- Sadece gösterilecek bilgi için TextBox kullanmak gereksizdir ve kullanıcının yanlışlıkla veriyi silmesine yol açabilir.", "gorsel": {"type": "image", "query": "ui decision textbox vs label forms"}}, {"baslik": "Vize Konsepti: İşlem Sıralaması", "altbaslik": "Değişkenleri Ne Zaman Tanımlamalıyız?", "icerik": "Doğru Sıralama Şablonu:\n1. Değişkenleri tanımla ve TextBox'lardan Convert ile oku.\n2. Matematiksel formülleri işlet.\n3. Sonuç değişkenini .ToString(\"0.00\") ile Label'a bas.\nBu sıra bozulursa unassigned variable hataları oluşur.", "gorsel": {"type": "image", "query": "sequential workflow order code execution"}}, {"baslik": "Vize Konsepti: Yüzde Hesaplama Formülü", "altbaslik": "Yüzdeyi Matematiksel Çarpmaya Çevirmek", "icerik": "- %18 KDV -> tutar * 0.18\n- %20 KDV -> tutar * 0.20\n- %15 İndirim -> tutar * 0.15\n- %40 Vize Notu -> vize * 0.40\nOndalık katsayılarla çarpmak en hızlı ve hatasız hesaplama yöntemidir.", "gorsel": {"type": "image", "query": "percentage calculation math discount tax"}}, {"baslik": "Vize Konsepti: Form Başlığı ve İkonu", "altbaslik": "Profesyonel Uygulama İpuçları", "icerik": "- Form.Text = 'Giresun Akaryakıt İstasyonu v1.0'\n- Form.StartPosition = CenterScreen\n- Form.MaximizeBox = false (Pencerenin tam ekran yapılmasını engellemek)\nBu ayarlar projenin tam profesyonel bir masaüstü aracı gibi görünmesini sağlar.", "gorsel": {"type": "image", "query": "form title properties window maximize button"}}, {"baslik": "Sık Yapılan Sınav Hataları Listesi", "altbaslik": "Puan Kırılmasına Yol Açan Detaylar", "icerik": "1. int yerine double kullanılması gereken yerde int kullanıp küsuratı kaybetmek.\n2. try-catch yazmayıp uygulamanın çökmesine izin vermek.\n3. .ToString() eklemeyi unutup derleme hatası almak.\n4. Buton adını kodda yanlış yazmak.", "gorsel": {"type": "image", "query": "grading rubric checklist exam points"}}, {"baslik": "Örnek Vize Sorusu 4: Sıcaklık Dönüşümü", "altbaslik": "Celsius -> Fahrenheit Hesabı", "icerik": "Soru: Girilen Santigrat (°C) derecesini Fahrenheit'a (F = C * 1.8 + 32) çeviren C# kodunu yazınız.\n\nÇözüm:\ndouble c = Convert.ToDouble(txtCelsius.Text);\ndouble f = (c * 1.8) + 32;\nlblFahrenheit.Text = f.ToString(\"0.0\") + \" °F\";", "gorsel": {"type": "image", "query": "thermometer temperature conversion celsius fahrenheit"}}, {"baslik": "Örnek Vize Sorusu 5: Kasiyer Para Üstü Hesabı", "altbaslik": "Basit Çıkarma ve Para Formatı", "icerik": "Soru: Toplam Tutar ve Müşterinin Verdiği Nakit tutarı alıp Para Üstünü hesaplayınız.\n\nÇözüm:\ndouble tutar = Convert.ToDouble(txtTutar.Text);\ndouble nakit = Convert.ToDouble(txtNakit.Text);\ndouble paraUstu = nakit - tutar;\nlblParaUstu.Text = paraUstu.ToString(\"C\");", "gorsel": {"type": "image", "query": "change cash money register supermarket cashier"}}, {"baslik": "Sektörel Vaka: Restoran Fiş Yazıcısı", "altbaslik": "Adisyon Entegrasyonu", "icerik": "Bir kafe yazılımı masadaki siparişleri toplar, KDV ekler ve fiş yazıcısına formatlı çıktı gönderir.\nİlk 6 haftada öğrendiğiniz mimari tam olarak bu sistemin kalbidir.", "gorsel": {"type": "image", "query": "thermal receipt printer pos restaurant cafe"}}, {"baslik": "Sınav Günü Kontrol Listesi", "altbaslik": "Sınava Başlarken", "icerik": "1. Projeyi masaüstünde adınız_soyadınız klasörüne kaydedin.\n2. Kontrolleri ekledikten sonra isimlerini (btn, txt, lbl) hemen verin.\n3. Kodları yazarken her adımda F5 ile çalıştırıp test edin.\n4. Sınav bitmeden önce projeyi kaydedip kapatın.", "gorsel": {"type": "image", "query": "exam checklist student success classroom"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "İlk 6 Haftanın Sözlüğü", "icerik": "- IDE: Entegre geliştirme ortamı.\n- Event Handler: Olaylara tepki veren metot.\n- Casting: Veri tipini dönüştürme.\n- Defensive Code: Çökmeyen güvenli kod.\n- Format String: Sayıların ekrandaki biçimi (.ToString(\"0.00\")).", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Kendi Kasa Ekranınızı Test Edin", "icerik": "Görev:\n- Fiyat = 120 TL, Adet = 3 için %20 KDV dahil toplam tutarı hesaplayın.\n- Sonucu lblGenelToplam üzerinde para birimi simgesiyle gösterin.", "gorsel": {"type": "image", "query": "cash register total bill calculation receipt"}}, {"baslik": "Vize Başarı Mesajı", "altbaslik": "Kendinize Güvenin!", "icerik": "Artık bir bilgisayara arayüz çizdirebiliyor, veri okutabiliyor, hata yakalatabiliyor ve matematik yaptırabiliyorsunuz.\nVize sınavında sakin olun, adım adım ilerleyin ve ilk haftalardaki başarılarınızı hatırlayın!", "gorsel": {"type": "image", "query": "confidence success inspiration student computer"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir market kasasında %10 indirim tutarını hesaplayan tek satırlık formülü yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 8: Karar Yapılarına Giriş: if ve if-else", "icerik": "Gelecek Hafta Neler Yapacağız?\n- Bilgisayara 'Akıl ve İrade' kazandırıyoruz.\n- Karar anları: if, else ve tren rayı analojisi.\n- Karşılaştırma (==, !=, <, >) ve Mantıksal (&&, ||) operatörler.\n- Akıllı Sayı Tahmin Oyunu projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "decision making crossroads fork in the road preview"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 13",
+    "altbaslik": "Veri Yapıları: Tek Boyutlu Diziler (Arrays) ve Random",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Temel Veri Yapıları ve Algoritmalar\nHaftalık Odak: Dizi Tanımlama, 0 Tabanlı İndeks, Random Sınıfı, Min/Max Algoritması\nHedef: Çoklu verileri tek çatı altında toplayıp analiz eden algoritmalar üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "array data structure index boxes computer memory"
+    }
+  },
+  {
+    "baslik": "Neden Dizi (Array) Kullanırız?",
+    "altbaslik": "Sektörel Bağlam: Yüzlerce Veriyi Tek Çatıda Toplamak",
+    "icerik": "Sınıfta 50 öğrenci varsa, 50 tane ayrı ayrı 'string ogr1, ogr2, ogr3... ogr50;' tanımlamak bir kabustur!\n- Diziler, aynı türdeki yüzlerce veriyi tek bir değişken adı altında yan yana sıraya dizen sabit boyutlu veri yapılarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "row of lockers pigeon holes mailboxes array concept"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Dizi kavramını ve bellekteki ardışık yerleşim mantığını açıklar.\n2. C#'ta 0 tabanlı (Zero-based) indeksleme kurallarını uygular.\n3. Random sınıfı ile rastgele sayı üretip diziye aktarır.\n4. Dizi üzerinde for döngüsü ile En Büyük ve En Küçük sayıyı bulur (Lineer Arama).\n5. 'Süper Loto Çekiliş Simülatörü' projesini tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets algorithms arrays coding"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Otelin Numaralı Odaları",
+    "altbaslik": "Dizileri Zihinde Canlandırmak",
+    "icerik": "Bir otel binası düşünün, adı: sayilar\n- 5 odası var: new int[5];\n- Oda Numaraları (İndeksler): 0, 1, 2, 3, 4 (C#'ta oda numaraları DAİMA 0'dan başlar!)\n- Odaya Misafir Koymak: sayilar[0] = 45; (0 numaralı odaya 45 sayısını koyduk).",
+    "gorsel": {
+      "type": "image",
+      "query": "hotel room doors numbered zero one two three"
+    }
+  },
+  {
+    "baslik": "Dizi Tanımlama Sentaksı",
+    "altbaslik": "C# Dizi Deklarasyonu",
+    "icerik": "1. Yöntem: Boyut Belirterek (Boş Dizi Açmak)\nint[] sayilar = new int[6]; // 6 odalı boş sayı dizisi\nstring[] ogrenciler = new string[30]; // 30 kişilik öğrenci listesi\n\n2. Yöntem: Başlangıç Değerleriyle Açmak\nstring[] sehirler = { \"Giresun\", \"Ordu\", \"Trabzon\" }; // 3 elemanlı hazır dizi",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp array declaration code syntax"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: Dizi Sınırını Aşmak (IndexOutOfRange)",
+    "altbaslik": "5 Kişilik Otelde 5 Numaralı Oda Yoktur!",
+    "icerik": "int[] sayilar = new int[5];\nsayilar[5] = 99; // HATA! IndexOutOfRangeException\n\nNeden Hata Verir? 5 elemanlı dizinin indeksleri: 0, 1, 2, 3, 4'tür. 5 numaralı indeks yoktur!\nAltın Kural: N elemanlı bir dizinin son elemanı daima 'N - 1' indeksindedir.",
+    "gorsel": {
+      "type": "image",
+      "query": "out of bounds barrier error warning sign"
+    }
+  },
+  {
+    "baslik": "Dizi Boyutu: .Length Özelliği",
+    "altbaslik": "Dizide Kaç Eleman Var?",
+    "icerik": "Bir dizinin kaç elemanlı olduğunu elle yazmak yerine .Length özelliği kullanılır:\n\nfor (int i = 0; i < sayilar.Length; i++)\n{\n    listBox1.Items.Add(sayilar[i]);\n}\n\n.Length kullanımı kodun dinamik ve hatasız olmasını sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "array length property count measuring"
+    }
+  },
+  {
+    "baslik": "Rastgele Sayı Üretici: Random Sınıfı",
+    "altbaslik": "Bilgisayara Zar Attırmak",
+    "icerik": "C#'ta rastgele sayı üretmek için Random nesnesi kullanılır:\n\nRandom rnd = new Random();\nint zar = rnd.Next(1, 7); // 1 ile 6 arasında rastgele sayı (7 dahil DEĞİLDİR!)\nint sansliSayi = rnd.Next(1, 50); // 1 ile 49 arası sayı",
+    "gorsel": {
+      "type": "image",
+      "query": "dice rolling random number generator probability"
+    }
+  },
+  {
+    "baslik": "En Büyük ve En Küçük Elemanı Bulma Algoritması",
+    "altbaslik": "Lineer Arama (Linear Search)",
+    "icerik": "Dizideki en büyük sayıyı bulmak için:\n1. İlk elemanı lider (en büyük) kabul ederiz: int enBuyuk = sayilar[0];\n2. Döngü ile diğer tüm odalara sırayla bakarız.\n3. Eğer baktığımız oda liderden daha büyükse, yeni lider o olur: enBuyuk = sayilar[i];",
+    "gorsel": {
+      "type": "image",
+      "query": "searching leader algorithm podium winner first place"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Süper Loto Simülatörü",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Milli Piyango canlı çekiliş simülasyonu.\n- 'Çekilişi Başlat' butonuna basılır.\n- Program 6 elemanlı diziye 1-49 arası rastgele 6 şanslı top üretir ve ListBox'a döker.\n- Tek bir döngü ile Çekilişin En Büyük Sayısı, En Küçük Sayısı ve Toplamı hesaplanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "lottery balls sphere draw winning numbers bingo"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Buton: btnCekilis ('🎲 Şanslı Çekilişi Başlat')\nListe: listBoxToplar (Geniş Liste Kutusu, 12pt Bold)\nİstatistik Etiketleri: lblEnBuyuk, lblEnKucuk, lblToplam (Alt Bilgi Paneli)",
+    "gorsel": {
+      "type": "image",
+      "query": "lottery ui user interface layout screen forms"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Tam Çözüm)",
+    "altbaslik": "Çekiliş ve Analiz Algoritması",
+    "icerik": "private void btnCekilis_Click(object sender, EventArgs e)\n{\n    int[] sansliSayilar = new int[6];\n    Random rnd = new Random();\n    listBoxToplar.Items.Clear();\n\n    // 1. Diziye Rastgele Sayıları Yükle ve Listele\n    for (int i = 0; i < sansliSayilar.Length; i++)\n    {\n        sansliSayilar[i] = rnd.Next(1, 50); // 1-49 arası\n        listBoxToplar.Items.Add((i + 1) + \". Şanslı Top: \" + sansliSayilar[i]);\n    }\n\n    // 2. En Büyük / En Küçük Bulma\n    int enBuyuk = sansliSayilar[0];\n    int enKucuk = sansliSayilar[0];\n    int toplam = 0;\n\n    for (int i = 0; i < sansliSayilar.Length; i++)\n    {\n        if (sansliSayilar[i] > enBuyuk) enBuyuk = sansliSayilar[i];\n        if (sansliSayilar[i] < enKucuk) enKucuk = sansliSayilar[i];\n        toplam += sansliSayilar[i];\n    }\n    lblEnBuyuk.Text = \"En Büyük Sayı: \" + enBuyuk;\n    lblEnKucuk.Text = \"En Küçük Sayı: \" + enKucuk;\n    lblToplam.Text  = \"Çekiliş Toplamı: \" + toplam;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code array processing random max min logic"
+    }
+  },
+  {
+    "baslik": "foreach Döngüsü ile Dizi Okuma",
+    "altbaslik": "İndekssiz Hızlı Gezinme",
+    "icerik": "Dizideki her elemanı sırayla okumak için 'foreach' kullanılır:\n\nstring[] sehirler = { \"Giresun\", \"Ordu\", \"Trabzon\" };\nforeach (string sehir in sehirler)\n{\n    listBox1.Items.Add(sehir);\n}\n\nforeach sadece okuma (read-only) yapar, diziye yeni değer yazamaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "foreach loop array traversal elements iteration"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Hava Durumu Sensör Analizi",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Meteoroloji istasyonunda 24 saat boyunca her saat ölçülen sıcaklıklar:\ndouble[] saatlikSicaklik = new double[24];\nfor döngüsü ile günün EN SICAK ve EN SOĞUK anı belirlenir.\nSensör verileri diziler üzerinden modellenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "weather sensor temperature 24 hour chart meteorology"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Dizi İndeksleri",
+    "icerik": "Soru: string[] gunler = new string[7]; dizisinin ilk ve son eleman indeksleri hangisidir?\n\nA) 1 ve 7\nB) 0 ve 6\nC) 0 ve 7\nD) 1 ve 6\n\nDoğru Cevap: B (C#'ta indeksler 0'dan başlar, 7 elemanlı dizinin son indeksi 7-1 = 6'dır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination array index answer"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Random Sınıfı",
+    "icerik": "Soru: rnd.Next(1, 10) kodu hangi aralıkta rastgele tam sayı üretir?\n\nA) 1 ile 10 arasında (10 dahil)\nB) 1 ile 9 arasında (10 dahil DEĞİL)\nC) 0 ile 10 arasında\nD) 2 ile 9 arasında\n\nDoğru Cevap: B (Next(min, max) metodunda üst sınır olan max değeri aralığa dahil edilmez).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam correct answer question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Dizi Özelliği",
+    "icerik": "Soru: Bir dizinin toplam eleman sayısını veren özellik hangisidir?\n\nA) .Count\nB) .Size\nC) .Length\nD) .Total\n\nDoğru Cevap: C (.Length özelliği dizinin boyutunu tam sayı olarak döndürür).",
+    "gorsel": {
+      "type": "image",
+      "query": "array length size quiz question"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "En Yüksek Notu Bulma",
+    "icerik": "Görev:\n- 5 elemanlı bir int[] notlar = { 65, 80, 45, 95, 70 }; dizisi tanımlayın.\n- for döngüsü ile sınıftaki en yüksek notu (95) bulup ekrana yazdırın.",
+    "gorsel": {
+      "type": "image",
+      "query": "student exam scores maximum grade classroom"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- Array (Dizi): Sabit boyutlu, ardışık bellek veri yapısı.\n- Index (İndeks): Dizi hücresinin 0 tabanlı sıra numarası.\n- Length: Dizinin toplam eleman kapasitesi.\n- Random: Rastgele sayı üreten sistem sınıfı.\n- Linear Search: Baştan sona sırayla arama algoritması.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Dizi (Array) tanımlamayı ve 0 tabanlı indeks mimarisini kavradık.\n- Random sınıfı ile rastgele veri üretmeyi öğrendik.\n- Dizi üzerinde for döngüsü ile Min/Max ve toplam bulma algoritmasını uyguladık.\n- Süper Loto Çekiliş Simülatörü ile tam teşekküllü bir proje geliştirdik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "Dizilerde Arama: İkili Arama (Binary Search)",
+    "altbaslik": "Akademik Algoritma",
+    "icerik": "- Lineer Arama (Linear Search): Baştan sona tek tek bakar -> O(N)\n- İkili Arama (Binary Search): Dizi SIRALI ise ortadan bölerek arar -> O(log N)\n1 Milyon elemanlı bir listede Lineer arama 1 Milyon adım sürerken, Binary Search sadece 20 adımda bulur!",
+    "gorsel": {
+      "type": "image",
+      "query": "binary search tree algorithm dividing list"
+    }
+  },
+  {
+    "baslik": "Dizileri Sıralamak: Array.Sort()",
+    "altbaslik": "Küçükten Büyüğe Otomatik Sıralama",
+    "icerik": "C#'ın yerleşik sıralama metodu:\n\nint[] puanlar = { 85, 40, 95, 60 };\nArray.Sort(puanlar); // Dizi: { 40, 60, 85, 95 } haline gelir!\nArray.Reverse(puanlar); // Diziyi ters çevirir (Büyükten küçüğe)",
+    "gorsel": {
+      "type": "image",
+      "query": "sorting ascending descending order array"
+    }
+  },
+  {
+    "baslik": "Dizilerde Ortalama Hesaplama",
+    "altbaslik": "Dizi ve for Entegrasyonu",
+    "icerik": "int[] notlar = { 70, 80, 90, 100 };\nint toplam = 0;\n\nfor (int i = 0; i < notlar.Length; i++)\n{\n    toplam += notlar[i];\n}\ndouble ortalama = (double)toplam / notlar.Length;\nlblOrtalama.Text = \"Sınıf Ortalaması: \" + ortalama.ToString(\"0.00\");",
+    "gorsel": {
+      "type": "image",
+      "query": "class average grade calculation array loop"
+    }
+  },
+  {
+    "baslik": "Değer ve Referans Tipleri (Stack vs Heap)",
+    "altbaslik": "Bellek Mimarisi",
+    "icerik": "- int, double, bool gibi tipler STACK bellekte doğrudan değerleriyle saklanır.\n- Diziler (Arrays) ve string tipleri HEAP bellekte saklanır; değişken adı ise Heap'teki adresi (referansı) tutar.",
+    "gorsel": {
+      "type": "image",
+      "query": "stack vs heap memory architecture diagram"
+    }
+  },
+  {
+    "baslik": "Çok Boyutlu Diziler (Matrisler)",
+    "altbaslik": "Satır ve Sütun Tabloları",
+    "icerik": "Satır ve sütunlardan oluşan 2 boyutlu tablolar:\n\nint[,] matris = new int[3, 4]; // 3 satır, 4 sütunlu matris\nmatris[0, 0] = 5;\n\nSatranç tahtası, harita ve pikseller çok boyutlu dizilerle modellenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "2d matrix grid table array rows columns"
+    }
+  },
+  {
+    "baslik": "Dinamik Diziler: List<T> Koleksiyonu",
+    "altbaslik": "Sınırları Olmayan Esnek Listeler",
+    "icerik": "Standart dizilerin boyutu sabittir (new int[10]).\nBoyutu dinamik büyüyen esnek listeler için C#'ta 'List<T>' kullanılır:\n\nList<string> ogrenciListesi = new List<string>();\nogrenciListesi.Add(\"Mehmet\"); // İstedikçe eklenir, sınır yoktur!",
+    "gorsel": {
+      "type": "image",
+      "query": "dynamic list collection expandable storage"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Array.Sort",
+    "icerik": "Soru: int[] sayilar = { 5, 2, 8, 1 }; dizisine Array.Sort(sayilar); uygulandıktan sonra sayilar[0] ne olur?\n\nA) 5\nB) 8\nC) 1\nD) 2\n\nDoğru Cevap: C (Array.Sort diziyi küçükten büyüğe sıralar, ilk eleman en küçük olan 1 olur).",
+    "gorsel": {
+      "type": "image",
+      "query": "array sort result question quiz"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Random rnd = new Random(); rnd.Next(10, 20); kodu hangi en küçük ve en büyük sayıyı üretebilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Dizilerde Arama: İkili Arama (Binary Search)",
+    "altbaslik": "Akademik Algoritma",
+    "icerik": "- Lineer Arama (Linear Search): Baştan sona tek tek bakar -> O(N)\n- İkili Arama (Binary Search): Dizi SIRALI ise ortadan bölerek arar -> O(log N)\n1 Milyon elemanlı bir listede Lineer arama 1 Milyon adım sürerken, Binary Search sadece 20 adımda bulur!",
+    "gorsel": {
+      "type": "image",
+      "query": "binary search tree algorithm dividing list"
+    }
+  },
+  {
+    "baslik": "Dizileri Sıralamak: Array.Sort()",
+    "altbaslik": "Küçükten Büyüğe Otomatik Sıralama",
+    "icerik": "C#'ın yerleşik sıralama metodu:\n\nint[] puanlar = { 85, 40, 95, 60 };\nArray.Sort(puanlar); // Dizi: { 40, 60, 85, 95 } haline gelir!\nArray.Reverse(puanlar); // Diziyi ters çevirir (Büyükten küçüğe)",
+    "gorsel": {
+      "type": "image",
+      "query": "sorting ascending descending order array"
+    }
+  },
+  {
+    "baslik": "Dizilerde Ortalama Hesaplama",
+    "altbaslik": "Dizi ve for Entegrasyonu",
+    "icerik": "int[] notlar = { 70, 80, 90, 100 };\nint toplam = 0;\n\nfor (int i = 0; i < notlar.Length; i++)\n{\n    toplam += notlar[i];\n}\ndouble ortalama = (double)toplam / notlar.Length;\nlblOrtalama.Text = \"Sınıf Ortalaması: \" + ortalama.ToString(\"0.00\");",
+    "gorsel": {
+      "type": "image",
+      "query": "class average grade calculation array loop"
+    }
+  },
+  {
+    "baslik": "Değer ve Referans Tipleri (Stack vs Heap)",
+    "altbaslik": "Bellek Mimarisi",
+    "icerik": "- int, double, bool gibi tipler STACK bellekte doğrudan değerleriyle saklanır.\n- Diziler (Arrays) ve string tipleri HEAP bellekte saklanır; değişken adı ise Heap'teki adresi (referansı) tutar.",
+    "gorsel": {
+      "type": "image",
+      "query": "stack vs heap memory architecture diagram"
+    }
+  },
+  {
+    "baslik": "Çok Boyutlu Diziler (Matrisler)",
+    "altbaslik": "Satır ve Sütun Tabloları",
+    "icerik": "Satır ve sütunlardan oluşan 2 boyutlu tablolar:\n\nint[,] matris = new int[3, 4]; // 3 satır, 4 sütunlu matris\nmatris[0, 0] = 5;\n\nSatranç tahtası, harita ve pikseller çok boyutlu dizilerle modellenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "2d matrix grid table array rows columns"
+    }
+  },
+  {
+    "baslik": "Dinamik Diziler: List<T> Koleksiyonu",
+    "altbaslik": "Sınırları Olmayan Esnek Listeler",
+    "icerik": "Standart dizilerin boyutu sabittir (new int[10]).\nBoyutu dinamik büyüyen esnek listeler için C#'ta 'List<T>' kullanılır:\n\nList<string> ogrenciListesi = new List<string>();\nogrenciListesi.Add(\"Mehmet\"); // İstedikçe eklenir, sınır yoktur!",
+    "gorsel": {
+      "type": "image",
+      "query": "dynamic list collection expandable storage"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Array.Sort",
+    "icerik": "Soru: int[] sayilar = { 5, 2, 8, 1 }; dizisine Array.Sort(sayilar); uygulandıktan sonra sayilar[0] ne olur?\n\nA) 5\nB) 8\nC) 1\nD) 2\n\nDoğru Cevap: C (Array.Sort diziyi küçükten büyüğe sıralar, ilk eleman en küçük olan 1 olur).",
+    "gorsel": {
+      "type": "image",
+      "query": "array sort result question quiz"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Random rnd = new Random(); rnd.Next(10, 20); kodu hangi en küçük ve en büyük sayıyı üretebilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'10 elemanlı bir dizinin son elemanına hangi indeks numarasıyla erişilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 14: Dönem Sonu Büyük Final Projesi",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- 14 haftalık tüm bilgileri tek bir dev yazılımda birleştiriyoruz.\n- Paralel Diziler (Parallel Arrays) ile veritabanı simülasyonu.\n- Giresun MYO Öğrenci Not Kayıt, Raporlama ve İstatistik Otomasyonu.",
+    "gorsel": {
+      "type": "image",
+      "query": "final project graduation trophy success software"
+    }
+  }
+]

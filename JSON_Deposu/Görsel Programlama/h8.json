@@ -1,0 +1,335 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 8",
+    "altbaslik": "Akış Kontrolü (Control Flow): if ve if-else Yapıları",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Algoritmik Karar Verme Mekanizmaları\nHaftalık Odak: if-else Mantığı, Karşılaştırma ve Mantıksal Operatörler (&&, ||)\nHedef: Şartlara göre farklı yollara sapan akıllı masaüstü yazılımları üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "decision tree if else condition flow logic"
+    }
+  },
+  {
+    "baslik": "Neden Karar Yapılarını Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Akıllı Yazılımların Temeli",
+    "icerik": "Şimdiye kadar yazdığımız programlar düz bir çizgide akıyordu. Ama gerçek hayatta şartlar vardır:\n- Şifre doğruysa içeri al, yanlışsa 'Hata' ver!\n- Bakiye yetersizse parayı verme!\n- Yaş 18'den küçükse ehliyet başvurusunu reddet!\nProgramın düşünebilmesi için 'if-else' karar yapıları kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "crossroads road sign choice decision logic"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Programlama akış kontrolü (Control Flow) mantığını açıklar.\n2. if ve if-else bloklarının çalışma prensibini kavrar.\n3. Karşılaştırma (==, !=, <, >, <=, >=) operatörlerini hatasız kullanır.\n4. Mantıksal VE (&&) ve VEYA (||) ile çoklu koşulları birleştirir.\n5. 'Akıllı Sayı Tahmin Oyunu' projesini başarıyla tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets decision making coding skills"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Tren Rayındaki Makas",
+    "altbaslik": "if-else'i Zihinde Canlandırmak",
+    "icerik": "Bir tren makas noktasına geldiğinde:\n- Makas kolu AÇIK ise (Koşul Doğru - true) -> 1. Perona gider (if bloğu çalışır).\n- Makas kolu KAPALI ise (Koşul Yanlış - false) -> 2. Perona gider (else bloğu çalışır).\n- Tren ASLA aynı anda iki yoldan birden gidemez!",
+    "gorsel": {
+      "type": "image",
+      "query": "railroad switch track junction train forks"
+    }
+  },
+  {
+    "baslik": "Temel if Sentaksı",
+    "altbaslik": "Koşul Sağlanıyorsa Çalıştır",
+    "icerik": "if (kosul)\n{\n    // Sadece koşul DOĞRU (true) ise bu süslü parantezlerin içi çalışır.\n}\n\nÖrnek:\nif (yas >= 18)\n{\n    lblDurum.Text = \"Reşitsiniz, ehliyet alabilirsiniz.\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "code syntax if block flowchart diagram"
+    }
+  },
+  {
+    "baslik": "if-else Sentaksı",
+    "altbaslik": "İki Kesin Alternatif Yol",
+    "icerik": "if (kosul)\n{\n    // Koşul DOĞRU (true) ise çalışır\n}\nelse\n{\n    // Koşul YANLIŞ (false) ise çalışır\n}\n\nKural: if çalışırsa else asla çalışmaz; if çalışmazsa else mutlaka çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "forking pathway two choices if else structure"
+    }
+  },
+  {
+    "baslik": "Karşılaştırma (İlişkisel) Operatörleri",
+    "altbaslik": "C# Mantıksal Kıyaslama Tablosu",
+    "icerik": "| Operatör | Anlamı | C# Örneği |\n| :---: | :---: | :--- |\n| == | Eşit mi? | if (sifre == \"1234\") |\n| != | Eşit Değil mi? | if (giris != \"admin\") |\n| < | Küçük mü? | if (yas < 18) |\n| > | Büyük mü? | if (puan > 50) |\n| <= | Küçük veya Eşit mi? | if (stok <= 0) |\n| >= | Büyük veya Eşit mi? | if (not >= 70) |",
+    "gorsel": {
+      "type": "image",
+      "query": "comparison operators equality signs logic"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: = ile == Farkı",
+    "altbaslik": "Atama ile Eşitlik Kontrolünü Karıştırmamak",
+    "icerik": "- Tek Eşittir (=) -> Atama Operatörüdür (Kutunun içine değer koyar).\n  sayi = 10; (sayının içine 10 yaz)\n\n- Çift Eşittir (==) -> Soru / Karşılaştırma Operatörüdür (Eşit mi diye sorar).\n  if (sayi == 10) (sayı 10'a eşit mi?)",
+    "gorsel": {
+      "type": "image",
+      "query": "single equals vs double equals comparison sign"
+    }
+  },
+  {
+    "baslik": "Mantıksal Operatörler: Koşulları Birleştirmek",
+    "altbaslik": "VE (&&) ve VEYA (||)",
+    "icerik": "1. Mantıksal VE (&&):\n- Tüm şartların AYNI ANDA doğru olmasını şart koşar.\n- Örn: if (kullanici == \"admin\" && sifre == \"123\") (Her ikisi de doğru olmalı!)\n\n2. Mantıksal VEYA (||):\n- Şartlardan EN AZ BİRİNİN doğru olması yeterlidir.\n- Örn: if (gun == \"Cumartesi\" || gun == \"Pazar\") (Hafta sonu tatili)",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean logic gates AND OR truth table"
+    }
+  },
+  {
+    "baslik": "Kısa Devre Değerlendirmesi (Short-Circuit)",
+    "altbaslik": "C#'ın Akıllı Mantık Kontrolü",
+    "icerik": "- && (VE) işleminde ilk şart yanlışsa (false), C# ikinci şarta hiç bakmaz (Sonuç kesin yanlıştır).\n- || (VEYA) işleminde ilk şart doğruysa (true), C# ikinci şarta hiç bakmaz (Sonuç kesin doğrudur).\nBu optimizasyon programın çok daha hızlı çalışmasını sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "short circuit evaluation logic efficiency electrical"
+    }
+  },
+  {
+    "baslik": "Daktiloculuğu Önleyen 'Sınır Değeri Testi'",
+    "altbaslik": "50 Puan Alan Geçer mi Kalır mı?",
+    "icerik": "Tahtadaki koda bakın:\nint puan = 50;\nif (puan > 50) { lblSonuc.Text = \"Geçti\"; }\nelse { lblSonuc.Text = \"Kaldı\"; }\n\nSoru: Ekranda ne yazar?\nCevap: 'Kaldı' yazar! Çünkü > sembolü 50'yi kapsamaz. 50'yi dahil etmek için >= yazılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "boundary testing edge cases score threshold"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Akıllı Sayı Tahmin Oyunu",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Bilgisayarın aklında tuttuğu gizli sayıyı (örn: 42) bulmaya çalışıyoruz.\n- Kullanıcı kutuya bir sayı yazar ve 'Tahmin Et' butonuna tıklar.\n- Program: 'Daha BÜYÜK bir sayı söyle!' veya 'Daha KÜÇÜK bir sayı söyle!' der.\n- Doğru bilince ekran yeşile döner ve kaçıncı denemede bildiği tebrik edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "guessing game number prediction bullseye target"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdi: txtTahmin (Tahmin Kutusu)\nButon: btnTahminEt ('🎯 Tahmin Et')\nÇıktılar:\n- lblIpucu (Yönlendirme Etiketi - 14pt Bold)\n- lblDeneme (Deneme Sayacı)",
+    "gorsel": {
+      "type": "image",
+      "query": "guessing game ui controls layout visual studio"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Tam Çözüm)",
+    "altbaslik": "Sayı Tahmin Karar Algoritması",
+    "icerik": "// Form seviyesinde değişkenler\nint gizliSayi = 42;\nint denemeSayisi = 0;\n\nprivate void btnTahminEt_Click(object sender, EventArgs e)\n{\n    try\n    {\n        int tahmin = Convert.ToInt32(txtTahmin.Text);\n        denemeSayisi++;\n\n        if (tahmin == gizliSayi)\n        {\n            lblIpucu.Text = \"🎉 TEBRİKLER! \" + denemeSayisi + \". denemede BİLDİNİZ!\";\n            this.BackColor = Color.LightGreen;\n            btnTahminEt.Enabled = false; // Oyunu bitir\n        }\n        else if (tahmin < gizliSayi)\n        {\n            lblIpucu.Text = \"⬆️ Daha BÜYÜK bir sayı söyle!\";\n            this.BackColor = Color.LightSalmon;\n        }\n        else\n        {\n            lblIpucu.Text = \"⬇️ Daha KÜÇÜK bir sayı söyle!\";\n            this.BackColor = Color.LightSkyBlue;\n        }\n        txtTahmin.Clear();\n        txtTahmin.Focus();\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli bir sayı giriniz!\"); }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code number guessing if else structure"
+    }
+  },
+  {
+    "baslik": "Ternary Operatörü (?:) Nedir?",
+    "altbaslik": "Tek Satırlık Pratik if-else",
+    "icerik": "Küçük kararlarda tek satırda atama yapmak için kullanılır:\n\nstring durum = (yas >= 18) ? \"Yetişkin\" : \"Çocuk\";\n\nKalıp: (Koşul) ? DoğruysaDeğer : YanlışsaDeğer;",
+    "gorsel": {
+      "type": "image",
+      "query": "ternary operator conditional inline code expression"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Karar Yapısı Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. if (kosul); -> if parantezinin hemen sonuna noktalı virgül koymak if'i etkisiz hale getirir!\n2. Küme parantezlerini { } yazmamak -> Tek satırdan sonraki komutlar if dışı kalır.\n3. Metinleri karşılaştırırken ToLower() unutmak (Büyük/Küçük harf uyuşmazlığı).",
+    "gorsel": {
+      "type": "image",
+      "query": "semicolon bug error after if statement"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Akıllı Ev Termostatı",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Akıllı kombi kontrol yazılımı:\n- if (odaSicakligi < 20) -> Kombiyi yak! (Arka plan Kırmızı)\n- else if (odaSicakligi > 24) -> Kombiyi kapat, klimayı aç! (Arka plan Mavi)\n- else -> Sıcaklık ideal, beklemede kal.",
+    "gorsel": {
+      "type": "image",
+      "query": "smart home thermostat temperature control iot"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Mantıksal Operatörler",
+    "icerik": "Soru: if (kullanici == \"admin\" && sifre == \"123\") koşulunun doğru olması için ne gereklidir?\n\nA) Sadece kullanıcının admin olması yeterlidir.\nB) Sadece şifrenin 123 olması yeterlidir.\nC) Hem kullanıcının hem şifrenin aynı anda doğru olması zorunludur.\nD) Hiçbirinin doğru olmasına gerek yoktur.\n\nDoğru Cevap: C (&& mantıksal VE operatörü her iki şartın da sağlanmasını zorunlu kılar).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question login authentication security"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Operatör Anlamları",
+    "icerik": "Soru: C# dilinde 'Eşit Değildir' anlamına gelen karşılaştırma operatörü hangisidir?\n\nA) <>\nB) !=\nC) ==\nD) =!\n\nDoğru Cevap: B (!= operatörü eşit olmama durumunu kontrol eder).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice question programming logic"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Karar Mantığı",
+    "icerik": "Soru: int bakiye = 100; int cekilen = 150; if (cekilen <= bakiye) koşulu true mu döner false mu?\n\nA) true döner.\nB) false döner.\nC) Hata verir.\nD) 0 döner.\n\nDoğru Cevap: B (150 <= 100 yanlış olduğu için false döner).",
+    "gorsel": {
+      "type": "image",
+      "query": "atm balance check withdrawal logic quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Hız Radarı Cezası",
+    "icerik": "Görev:\n- Hız sınırı 82 km/s olan bir yolda araç hızını kutudan okuyun.\n- if (hiz > 82) ise ekrana 'Ceza Kesildi: 1500 TL' yazın ve arka planı kırmızı yapın.",
+    "gorsel": {
+      "type": "image",
+      "query": "speed camera radar traffic ticket police"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- Control Flow (Akış Kontrolü): Kodların şartlara göre çalışma sırası.\n- Boolean: Sadece true (Doğru) veya false (Yanlış) değer alan mantıksal tip.\n- Relational Operators: Karşılaştırma operatörleri (==, !=, <, >).\n- Short-Circuit: Mantıksal şartlarda erken sonuçlandırma optimizasyonu.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Program akışını yönlendiren if ve if-else yapılarını öğrendik.\n- Karşılaştırma (==, !=, <, >) ve Mantıksal (&&, ||) operatörleri kavradık.\n- Sınır değeri testlerinin ve = ile == ayrımının önemini gördük.\n- Akıllı Sayı Tahmin Oyunu ile etkileşimli bir oyun otomasyonu geliştirdik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "Mantıksal DEĞİL (!) Operatörü",
+    "altbaslik": "Durumu Tersine Çevirmek",
+    "icerik": "! operatörü boolean değeri tersine çevirir:\n- !true -> false\n- !false -> true\n\nÖrnek:\nbool sistemeGirdiMi = false;\nif (!sistemeGirdiMi) // Sisteme girmemişse\n{\n    lblUyari.Text = \"Lütfen önce giriş yapınız!\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "logical NOT operator inversion flip boolean"
+    }
+  },
+  {
+    "baslik": "String Karşılaştırmalarında Büyük/Küçük Harf",
+    "altbaslik": "Equals ve StringComparison",
+    "icerik": "txtKullanici.Text == \"admin\" kontrolünde kullanıcı 'Admin' veya 'ADMIN' yazarsa eşitlik sağlanmaz!\n\nÇözüm 1: txtKullanici.Text.ToLower() == \"admin\"\nÇözüm 2: string.Equals(txtKullanici.Text, \"admin\", StringComparison.OrdinalIgnoreCase)",
+    "gorsel": {
+      "type": "image",
+      "query": "case insensitive string comparison lowercase"
+    }
+  },
+  {
+    "baslik": "İç İçe if Blokları (Nested if)",
+    "altbaslik": "Şart İçinde Şart Aramak",
+    "icerik": "if (kullaniciAdi == \"admin\")\n{\n    if (sifre == \"1234\")\n    {\n        lblSonuc.Text = \"Giriş Başarılı!\";\n    }\n    else\n    {\n        lblSonuc.Text = \"Kullanıcı doğru ama şifre yanlış!\";\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "nested boxes nested if logic branching"
+    }
+  },
+  {
+    "baslik": "Form Elemanlarının Durumunu Kontrol Etmek",
+    "altbaslik": "CheckBox ve RadioButton Şartları",
+    "icerik": "Onay kutuları (CheckBox) ve seçenek düğmeleri (RadioButton) boolean değer taşır:\n\nif (chkSozlesme.Checked == true)\n{\n    btnKaydol.Enabled = true;\n}\nelse\n{\n    btnKaydol.Enabled = false;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "checkbox checked toggle ui control forms"
+    }
+  },
+  {
+    "baslik": "Kodlama Taktikleri: Erken Çıkış (Guard Clause)",
+    "altbaslik": "İç İçe Kod Karmaşasını Engellemek",
+    "icerik": "if (yas < 18)\n{\n    MessageBox.Show(\"Yaşınız yetersiz!\");\n    return; // Alt satırlara hiç inme!\n}\n// Buraya ulaştıysa yaş kesinlikle 18 veya büyüktür\nEhliyetIslemleriniBaslat();",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code guard clause early return pattern"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Stok Kontrolü",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Müşteri 'Satın Al' butonuna bastığında:\nif (stokMiktari >= talepEdilenAdet)\n{\n    StokDus(talepEdilenAdet);\n    SiparisiOnayla();\n}\nelse\n{\n    MessageBox.Show(\"Yetersiz Stok! Kalan: \" + stokMiktari);\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "inventory stock warehouse out of stock notice"
+    }
+  },
+  {
+    "baslik": "Mantıksal DEĞİL (!) Operatörü",
+    "altbaslik": "Durumu Tersine Çevirmek",
+    "icerik": "! operatörü boolean değeri tersine çevirir:\n- !true -> false\n- !false -> true\n\nÖrnek:\nbool sistemeGirdiMi = false;\nif (!sistemeGirdiMi) // Sisteme girmemişse\n{\n    lblUyari.Text = \"Lütfen önce giriş yapınız!\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "logical NOT operator inversion flip boolean"
+    }
+  },
+  {
+    "baslik": "String Karşılaştırmalarında Büyük/Küçük Harf",
+    "altbaslik": "Equals ve StringComparison",
+    "icerik": "txtKullanici.Text == \"admin\" kontrolünde kullanıcı 'Admin' veya 'ADMIN' yazarsa eşitlik sağlanmaz!\n\nÇözüm 1: txtKullanici.Text.ToLower() == \"admin\"\nÇözüm 2: string.Equals(txtKullanici.Text, \"admin\", StringComparison.OrdinalIgnoreCase)",
+    "gorsel": {
+      "type": "image",
+      "query": "case insensitive string comparison lowercase"
+    }
+  },
+  {
+    "baslik": "İç İçe if Blokları (Nested if)",
+    "altbaslik": "Şart İçinde Şart Aramak",
+    "icerik": "if (kullaniciAdi == \"admin\")\n{\n    if (sifre == \"1234\")\n    {\n        lblSonuc.Text = \"Giriş Başarılı!\";\n    }\n    else\n    {\n        lblSonuc.Text = \"Kullanıcı doğru ama şifre yanlış!\";\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "nested boxes nested if logic branching"
+    }
+  },
+  {
+    "baslik": "Form Elemanlarının Durumunu Kontrol Etmek",
+    "altbaslik": "CheckBox ve RadioButton Şartları",
+    "icerik": "Onay kutuları (CheckBox) ve seçenek düğmeleri (RadioButton) boolean değer taşır:\n\nif (chkSozlesme.Checked == true)\n{\n    btnKaydol.Enabled = true;\n}\nelse\n{\n    btnKaydol.Enabled = false;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "checkbox checked toggle ui control forms"
+    }
+  },
+  {
+    "baslik": "Kodlama Taktikleri: Erken Çıkış (Guard Clause)",
+    "altbaslik": "İç İçe Kod Karmaşasını Engellemek",
+    "icerik": "if (yas < 18)\n{\n    MessageBox.Show(\"Yaşınız yetersiz!\");\n    return; // Alt satırlara hiç inme!\n}\n// Buraya ulaştıysa yaş kesinlikle 18 veya büyüktür\nEhliyetIslemleriniBaslat();",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code guard clause early return pattern"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Stok Kontrolü",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Müşteri 'Satın Al' butonuna bastığında:\nif (stokMiktari >= talepEdilenAdet)\n{\n    StokDus(talepEdilenAdet);\n    SiparisiOnayla();\n}\nelse\n{\n    MessageBox.Show(\"Yetersiz Stok! Kalan: \" + stokMiktari);\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "inventory stock warehouse out of stock notice"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir sayının hem 3'e hem de 5'e tam bölündüğünü kontrol eden if şartını C# ile yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 9: Çoklu Karar Yapıları (if-else if-else Merdiveni)",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- 2'den fazla seçenek olduğunda ne yaparız?\n- AVM merdiveni analojisi ve basamak basamak şart kontrolü.\n- Not harf sistemi ve Otopark Ücret Hesaplama otomasyonu.",
+    "gorsel": {
+      "type": "image",
+      "query": "ladder stairs multiple paths decision preview"
+    }
+  }
+]

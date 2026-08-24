@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 04 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 04</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-03.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 4", "altbaslik": "Kali Linux ve Temel Komut Satırı Kullanımı (CLI)", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Linux Sistem Yönetimi ve Temel Komutlar\nHaftalık Odak: FHS Hiyerarşisi, Dosya İzinleri (chmod), Süreç Yönetimi (ps/kill) ve Nano\nHedef: Linux komut satırını siber güvenlik operasyonlarında yetkin biçimde kullanmak.", "gorsel": {"type": "image", "query": "kali linux terminal hacker command line screen"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Güvenlik Dünyasının Dili Linux'tur", "icerik": "Dünyadaki sunucuların yüzde 90'ı ve güvenlik araçlarının tamamı Linux tabanlıdır.\n- Sızma testlerinde grafik arayüz (GUI) değil, komut satırı (CLI) kullanılır.\n- İzinleri yanlış verilmiş tek bir dosya tüm sunucunun ele geçirilmesine yol açar.\nYetkin bir güvenlik uzmanı Linux terminaline tamamen hakim olmalıdır.", "gorsel": {"type": "image", "query": "linux system administrator typing commands terminal"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Linux Dosya Sistemi Hiyerarşisini (FHS) açıklar.\n2. Dosya ve dizin oluşturma, kopyalama ve silme komutlarını hatasız uygular.\n3. Sekizlik (Octal) dosya izinlerini (chmod 755/700/644) hesaplar ve yönetir.\n4. Çalışan süreçleri (Process) listeler ve filtreleyip sonlandırır (ps/kill).\n5. Sembolik (Soft) ve Sabit (Hard) link farklarını uygulayarak gösterir.", "gorsel": {"type": "image", "query": "learning objectives linux command line checklist"}}, {"baslik": "Linux Dosya Sistemi Hiyerarşisi (FHS)", "altbaslik": "Kök Dizin (/) ve Kritik Klasörler", "icerik": "Linux'ta Windows'taki gibi C: veya D: sürücüleri yoktur; her şey kök dizinden (/) başlar:\n- /bin : Temel sistem komutları (ls, cp, ping)\n- /etc : Sistem ve servis yapılandırma dosyaları (passwd, shadow, network)\n- /home : Kullanıcıların kişisel ev dizinleri\n- /var/log : Güvenlik ve sistem olay günlükleri (Loglar)\n- /tmp : Geçici dosyalar (Yeniden başlatmada silinir)", "gorsel": {"type": "image", "query": "linux filesystem hierarchy standard directory tree structure"}}, {"baslik": "Kritik Sistem Dosyaları: passwd ve shadow", "altbaslik": "Kullanıcı ve Parola Depoları", "icerik": "- /etc/passwd : Sistemdeki tüm kullanıcıların listesi ve varsayılan kabuklarıdır (Herkes okuyabilir).\n- /etc/shadow : Kullanıcıların tuzlanmış parola özetlerinin (Hash) saklandığı çok gizli dosyadır (Sadece root okuyabilir).\nSiber saldırganların ilk hedefi bu dosyaları ele geçirmektir.", "gorsel": {"type": "image", "query": "linux shadow file password hashes security"}}, {"baslik": "Temel Dosya ve Dizin Komutları", "altbaslik": "Terminalde Hızlı Gezinme", "icerik": "- pwd : Şu an hangi dizinde olduğunu gösterir (Print Working Directory)\n- ls -la : Dizin içeriğini gizli dosyalar ve izinlerle birlikte detaylı listeler\n- cd <dizin> : Hedef dizine geçer (cd .. bir üst dizine çıkar)\n- mkdir <ad> : Yeni klasör oluşturur (mkdir -p iç içe klasör açar)\n- rm -rf <hedef> : Dosya veya klasörü zorla siler (DİKKAT!)", "gorsel": {"type": "image", "query": "linux command prompt terminal navigation commands"}}, {"baslik": "Linux Dosya İzinleri Mimarisi", "altbaslik": "rwx Mantığını Çözmek", "icerik": "ls -la çıktısındaki 10 karakterlik izin dizilimi:\n- r w x  r - x  r - -\n| -----  -----  -----\n|   |      |      └── Diğerleri (Others): Okuma (r--)\n|   |      └───────── Grup (Group): Okuma ve Çalıştırma (r-x)\n|   └──────────────── Sahibi (Owner/User): Okuma, Yazma, Çalıştırma (rwx)\n└──────────────────── Dosya Türü (- : Dosya, d : Dizin)", "gorsel": {"type": "image", "query": "linux file permissions rwx owner group others diagram"}}, {"baslik": "Sekizlik (Octal) İzin Hesaplama", "altbaslik": "4 - 2 - 1 Kuralı", "icerik": "Her iznin matematiksel bir puanı vardır:\n- r (Read / Okuma) = 4\n- w (Write / Yazma) = 2\n- x (Execute / Çalıştırma) = 1\nToplamlar:\n- 7 = 4 + 2 + 1 (Tam Yetki - rwx)\n- 6 = 4 + 2 (Okuma + Yazma - rw-)\n- 5 = 4 + 1 (Okuma + Çalıştırma - r-x)\n- 0 = Hiçbir izin yok (---)", "gorsel": {"type": "image", "query": "octal permissions calculation table math 4 2 1"}}, {"baslik": "chmod ve chown Komutları", "altbaslik": "İzin ve Sahiplik Değiştirme", "icerik": "- chmod 755 script.sh : Sahibine tam yetki (7), grup ve diğerlerine okuma+çalıştırma (5) verir.\n- chmod 700 ozel.txt : Sadece sahibine tam yetki verir, diğer herkese tamamen yasaklar.\n- chmod +x script.sh : Dosyaya doğrudan çalıştırma hakkı ekler.\n- chown kali:kali dosya.txt : Dosyanın sahibini ve grubunu 'kali' kullanıcısı yapar.", "gorsel": {"type": "image", "query": "chmod chown terminal command line permission change"}}, {"baslik": "SUID ve SGID Özel Yetkileri", "altbaslik": "Yetki Yükseltme Tuzakları", "icerik": "SUID (Set User ID - chmod u+s):\nNormal bir kullanıcı bu dosyayı çalıştırdığında dosya sahibinin (genellikle root) yetkileriyle çalışır.\n- Örnek: /usr/bin/passwd dosyası root şifresini değiştirmek için SUID bitine sahiptir.\n- Pentest Açığı: Yanlış programlara SUID biti verilirse (örn: vim, find) saldırgan anında root olur!", "gorsel": {"type": "image", "query": "suid binary linux privilege escalation vulnerability"}}, {"baslik": "Süreç (Process) Yönetimi", "altbaslik": "Arka Planda Neler Çalışıyor?", "icerik": "Linux'ta çalışan her program bir PID (Process ID) numarası alır.\n- ps aux : Sistemde o an çalışan TÜM süreçleri ve CPU/RAM kullanımını döker.\n- ps aux | grep apache : Sadece Apache servisine ait süreçleri filtreler.\n- top / htop : Canlı sistem kaynak izleme ekranıdır.\n- kill -9 <PID> : Kilitlenen veya şüpheli süreci zorla anında sonlandırır.", "gorsel": {"type": "image", "query": "htop process viewer terminal monitor linux system"}}, {"baslik": "Metin Editörleri: Nano ve Vim", "altbaslik": "Terminalde Dosya Düzenleme", "icerik": "Nano: Başlangıç dostu, kolay komut satırı editörüdür.\n- nano dosya.sh ile açılır.\n- CTRL + O -> Enter : Dosyayı kaydeder.\n- CTRL + X : Editörden çıkar.\nVim: İleri düzey, çok hızlı ve modüler sistem yöneticisi editörüdür (:wq kaydeder ve çıkar).", "gorsel": {"type": "image", "query": "nano text editor linux terminal coding screen"}}, {"baslik": "Sabit (Hard) ve Sembolik (Soft) Link", "altbaslik": "Dosya Kısayolları ve Inode Mantığı", "icerik": "- Soft Link (Kısayol - ln -s): Orijinal dosyanın yolunu tutar. Orijinal dosya silinirse kısayol kırılır ve çalışmaz.\n- Hard Link (Sabit Link - ln): Dosyanın diskteki fiziksel Inode adresine doğrudan işaret eder. Orijinal dosya silinse bile hard link üzerinden veriye erişilmeye devam eder!", "gorsel": {"type": "image", "query": "hard link vs soft link inode diagram linux"}}, {"baslik": "Uygulama Laboratuvarı: Linux CLI", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Tüm öğrenciler Kali terminallerini açsın:\n1. Yeni çalışma dizini oluşturacağız.\n2. Nano ile bir Bash scripti yazıp izinlerini (chmod 755) ayarlayacağız.\n3. Arka planda süreç başlatıp kill -9 ile sonlandıracağız.\n4. Sembolik link oluşturacağız.", "gorsel": {"type": "image", "query": "students typing on linux keyboards computer lab"}}, {"baslik": "Uygulama 1: Dizin ve Script Oluşturma", "altbaslik": "Masaüstünde Çalışma Alanı", "icerik": "Adım 1: Klasör açıp içine girelim:\nmkdir -p ~/Desktop/siberlab\ncd ~/Desktop/siberlab\nAdım 2: Nano ile script dosyamızı açalım:\nnano selam.sh", "gorsel": {"type": "image", "query": "mkdir cd terminal command line screen"}}, {"baslik": "Uygulama 2: Bash Scripti Kodlama", "altbaslik": "Nano Editöründe Yazım", "icerik": "Nano ekranının içine şunları yazın:\n#!/bin/bash\necho \"==========================================\"\necho \"Siber Guvenlik Laboratuvarina Hos Geldiniz!\"\necho \"Giris Yapan Kullanici: $(whoami)\"\necho \"Tarih: $(date)\"\necho \"==========================================\"\nKaydetmek için: CTRL + O -> Enter, Çıkmak için: CTRL + X", "gorsel": {"type": "image", "query": "bash script code in nano editor terminal"}}, {"baslik": "Uygulama 3: İzin Verme ve Çalıştırma", "altbaslik": "chmod 755 ile Yetkilendirme", "icerik": "Adım 1: Mevcut izinlere bakın:\nls -la selam.sh\n(x çalıştırma izni olmadığını görün)\nAdım 2: Çalıştırma izni verelim:\nchmod 755 selam.sh\nAdım 3: Scripti koşturalım:\n./selam.sh\nBeklenen Çıktı: Ekranda yeşil renkli kullanıcı adı ve tarih mesajı belirecektir.", "gorsel": {"type": "image", "query": "chmod execution permission terminal script run"}}, {"baslik": "Uygulama 4: Süreç Başlatma ve Sonlandırma", "altbaslik": "ps aux ve kill -9", "icerik": "Adım 1: Arka planda 500 saniyelik sahte bir görev başlatalım:\nsleep 500 &\n(Ekranda [1] 2345 gibi PID numarası verecektir)\nAdım 2: Süreci listede bulalım:\nps aux | grep sleep\nAdım 3: Süreci zorla sonlandıralım:\nkill -9 <PID_NUMARASI>\nps aux | grep sleep ile kapandığını doğrulayın.", "gorsel": {"type": "image", "query": "kill process terminal linux pid process management"}}, {"baslik": "Uygulama 5: Kısayol (Symlink) Oluşturma", "altbaslik": "ln -s Komutu", "icerik": "selam.sh scriptimize masaüstünden hızlı erişim linki yapalım:\nln -s ~/Desktop/siberlab/selam.sh ~/Desktop/hizli_baslat\nMasaüstündeki kısayoldan çalıştıralım:\n~/Desktop/hizli_baslat", "gorsel": {"type": "image", "query": "symbolic link shortcut terminal linux desktop"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Terminalde Hayat Kurtaran Bilgiler", "icerik": "1. 'Permission denied' Hatası: Dosyaya chmod +x izni verilmemiştir.\n2. Komut Bulunamadı: ./selam.sh yerine selam.sh yazarsanız Linux mevcut dizinde aramaz, mutlaka başına ./ konulmalıdır.\n3. Nano'dan Çıkamama: CTRL + X tuş kombinasyonu kullanılır.\n4. TAB Tuşu: Dosya ve komut adlarını otomatik tamamlar, yazım hatasını önler.", "gorsel": {"type": "image", "query": "troubleshooting checklist keyboard shortcuts tab key"}}, {"baslik": "Sektörel Vaka: 777 İzni Felaketi", "altbaslik": "Hatalı Yapılandırma Zafiyeti", "icerik": "Vaka: Bir web yazılımcısı yüklenen resimler hata vermesin diye /var/www/html klasörüne 'chmod -R 777' izni verdi.\nİstismar: Saldırgan web sitesine bir PHP arka kapı (Web Shell) yükledi ve 777 izni sayesinde bu dosyayı rahatça çalıştırdı.\nSonuç: Saldırgan tüm sunucu veritabanını ve kullanıcı kayıtlarını ele geçirdi.\nDers: Asla tembellik yapıp klasörlere 777 izni verilmemelidir!", "gorsel": {"type": "image", "query": "web server hacked shell script permission vulnerability"}}, {"baslik": "Vaka Analizi: Doğru İzin Standartları", "altbaslik": "En Az Yetki İlkesi", "icerik": "Web ve Sistem Güvenliği Standartları:\n- Web Dizinleri: 755 (drwxr-xr-x) - Sadece sahibi yazar, diğerleri sadece okur ve gezinir.\n- Web Dosyaları: 644 (-rw-r--r--) - Kimse doğrudan çalıştıramaz.\n- Hassas Yapılandırmalar (config.php): 600 (-rw-------) - Yalnızca web sunucu kullanıcısı okuyabilir.", "gorsel": {"type": "image", "query": "secure file permissions standard checklist server"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "FHS Dizinleri", "icerik": "Soru: Linux sisteminde sistem günlüklerinin (log dosyalarının) tutulduğu standart dizin hangisidir?\nA) /bin\nB) /var/log\nC) /home\nD) /tmp\n\nDoğru Cevap: B (/var/log)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "İzin Hesaplama", "icerik": "Soru: Bir dosyanın sahibine Okuma+Yazma (rw-), grubuna sadece Okuma (r--), diğerlerine Hiçbir İzin (---) vermek için chmod komutuna hangi sayı yazılmalıdır?\nA) 777\nB) 755\nC) 640\nD) 600\n\nDoğru Cevap: C (6 = 4+2, 4 = 4, 0 = 0)", "gorsel": {"type": "image", "query": "mathematical calculation permissions quiz"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Süreç Yönetimi", "icerik": "Soru: Sistemde çalışan şüpheli bir süreci PID numarasını kullanarak zorla sonlandırmak için hangi komut kullanılır?\nA) stop -all\nB) kill -9 <PID>\nC) delete process\nD) rm -rf <PID>\n\nDoğru Cevap: B (kill -9 <PID>)", "gorsel": {"type": "image", "query": "linux process termination question board"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Link Türleri", "icerik": "Soru: Orijinal dosya silindiğinde çalışmayı durduran ve kırılan link türü hangisidir?\nA) Hard Link\nB) Sembolik (Soft) Link\nC) Inode Link\nD) Root Link\n\nDoğru Cevap: B (Sembolik Link)", "gorsel": {"type": "image", "query": "symbolic link soft link question test"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Özel İzinler", "icerik": "Soru: Normal bir kullanıcının bir programı root yetkisiyle çalıştırmasını sağlayan özel Linux izni hangisidir?\nA) SUID\nB) Sticky Bit\nC) Read Only\nD) Hidden Bit\n\nDoğru Cevap: A (SUID)", "gorsel": {"type": "image", "query": "suid permission test question"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Gizli Süreci Bulma Oyunu", "icerik": "Uygulama Görevi:\nEğitmen sistemde rastgele bir isimle arka plan görevi başlattı.\n- ps aux komutu ve grep filtresi kullanarak bu sürecin PID numarasını bulun.\n- Süreci kill -9 ile ilk sonlandıran öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Linux dosya yapısı tek kökten (/) yönetilir ve FHS standartlarına bağlıdır.\n- Dosya izinleri 4-2-1 kuralıyla hesaplanır; 777 izni büyük bir güvenlik açığıdır.\n- ps aux çalışan her şeyi gösterir, kill komutu süreçleri sonlandırır.\n- Nano ve temel CLI refleksleri siber güvenlikte başarının anahtarıdır.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 5: Bilgi Toplama ve Nmap Port Taramaları", "icerik": "Ön Hazırlık:\n- Pasif ve aktif bilgi toplama arasındaki fark nedir?\n- Shodan IoT arama motoru ile açık kameralar nasıl keşfedilir?\n- Nmap ile ağdaki sunucuların açık portları ve servis sürümleri nasıl taranır?", "gorsel": {"type": "image", "query": "nmap port scanning network reconnaissance concept"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Bir Linux betiğini (script.sh) doğrudan terminalde ./script.sh yazarak çalıştırabilmek için en az hangi izne sahip olunmalıdır ve bu izin chmod ile nasıl verilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

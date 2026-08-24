@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 12 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 12</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 12", "altbaslik": "Hafta 12: DGS Karma Problem Çözümü I", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: İleri Düzey Problem Çözme ve DGS Hazırlık (İsteğe Bağlı İleri Blok)\nHaftalık Odak: Sayılar, Denklemler, Oran-Orantı, Çok Adımlı Problem Çözme ve Stratejik Düşünme\nHedef: Dikey Geçiş Sınavı (DGS) ve teknik mülakat formatındaki karma matematik problemlerini çözmek.", "gorsel": {"type": "image", "query": "mathematics exam preparation DGS problem solving strategies"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: SOC Vardiya ve Kaynak Optimizasyonu Vakası", "icerik": "Bir siber güvenlik merkezinde 3 vardiya bulunmaktadır. Her vardiyanın alarm yoğunluğu ve personel oranı karmaşık cebirsel denklemlerle modellenir.\n- Gündüz vardiyası gece vardiyasının 3 katı alarm alır.\n- Personel sayısı ile çözülen vaka süresi ters orantılıdır.\nÇok adımlı analitik akıl yürütme hem DGS'de derece yapmanın hem de operasyonel mühendisliğin anahtarıdır.", "gorsel": {"type": "image", "query": "security operations center shift optimization analytics"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. DGS tarzında sayılar, denklemler ve oran-orantı soru kalıplarını tanır.\n2. Çok adımlı sorularda verileri organize edip doğru denklem modelini kurar.\n3. Şık eleme, değer verme ve tahmini hesap stratejilerini süre baskısında uygular.\n4. Çözüm sürecini adım adım ve tutarlı şekilde gerekçelendirir.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "DGS Sınav Formatı ve Matematik Stratejisi", "altbaslik": "Süre, Doğruluk ve Soru Tipleri", "icerik": "DGS Sayısal Bölüm Odakları:\n- Temel Kavramlar ve Sayı Sistemleri\n- Rasyonel Sayılar ve Ondalıklar\n- Üslü ve Köklü İfadeler\n- Oran-Orantı ve Denklem Kurma Problemleri\n- Sayısal Mantık ve Akıl Yürütme\nBaşarının sırrı: Hızlı okuma + Doğru denklem + İşlem hatasız çözüm.", "gorsel": {"type": "image", "query": "dgs exam preparation strategy study board"}}, {"baslik": "Çok Adımlı Problem Okuma Metodu", "altbaslik": "Verilenler, İstenen ve Model", "icerik": "1. Adım: Problemi bir kez bütünüyle oku (bağlamı anla).\n2. Adım: Sayısal verileri ve değişkenleri liste halinde not et (x, y, k).\n3. Adım: 'Neyi arıyorum?' sorusunu netleştir.\n4. Adım: Verilenler arasında köprü kuracak ana denklemi yaz.\n5. Adım: Çöz ve şıklarda işaretlemeden önce sorulanı tekrar oku!", "gorsel": {"type": "image", "query": "problem solving steps methodology flowchart"}}, {"baslik": "Sayısal Mantık ve Denklem Kurma Sanatı", "altbaslik": "Sözel Tuzakları Aşma", "icerik": "- 'A, B'nin 2 katından 5 eksiktir' -> A = 2B - 5\n- 'Toplamları 60 olan iki sayı' -> x ve (60 - x)\n- 'Biri diğerinin 3/4'ü' -> 3k ve 4k (Tek değişkene indirgeme)\nDeğişken sayısını minimumda tutmak (k parametresi) işlem süresini yarı yarıya azaltır.", "gorsel": {"type": "image", "query": "algebra word problem modeling symbols equations"}}, {"baslik": "Zaman Yönetimi ve Şık Eleme Stratejisi", "altbaslik": "Test Çözüm Teknikleri", "icerik": "- Birim ve Boyut Kontrolü: Çift/tek sayı, pozitif/negatif olma durumuyla imkansız şıkları hemen ele.\n- Değer Verme (Katsayı Yerine Sayı Koyma): Soyut harfli sorularda (a, b, c) uygun basit sayılar vererek sonucu bul.\n- Tahmini Hesap: 3.98 x 49.5 yerine 4 x 50 = 200 tahminini kullanarak uzak şıkları ele.", "gorsel": {"type": "image", "query": "multiple choice exam elimination strategy stopwatch"}}, {"baslik": "Oran-Orantı Karma Problem Çözüm Prosedürü", "altbaslik": "k Orantı Sabiti Yöntemi", "icerik": "Kural: a/2 = b/3 = c/5 verildiğinde;\n1. a = 2k, b = 3k, c = 5k yazılır.\n2. Verilen denklemde yerine konur (Örn: a + b + c = 100 -> 10k = 100 -> k = 10).\n3. İstenen değişken hesaplanır (c = 5 x 10 = 50).\nBu yöntem 3 bilinmeyenli soruları tek adımda çözer.", "gorsel": {"type": "image", "query": "proportion constant k method algebra steps"}}, {"baslik": "İş / Kapasite Problemleri Formülü", "altbaslik": "Birim Zamanda Yapılan İş", "icerik": "Formül: (1/t1 + 1/t2) * T = 1 (Tüm İş)\n- t1: 1. sunucunun tek başına bitirme süresi\n- t2: 2. sunucunun tek başına bitirme süresi\n- T: Birlikte bitirme süresi\nÖrnek: Biri 6 saatte, diğeri 12 saatte işleyen iki sunucu birlikte:\n(1/6 + 1/12) * T = (3/12) * T = 1 -> T = 4 saat.", "gorsel": {"type": "image", "query": "work rate problem formula server processing"}}, {"baslik": "Kesir-Denklem Karması Çözüm Adımları", "altbaslik": "Bütüne Paydaların Çarpımını Verme", "icerik": "Soru: 'Bir diskin önce 1/3'ü, sonra kalanın 2/5'i doluyor...'\nStrateji: Diskin tamamına 'x' demek yerine, paydaların çarpımı olan 3 x 5 = 15k deyin!\n- Toplam Alan = 15k\n- 1. Kullanım: 15k * (1/3) = 5k (Kalan = 10k)\n- 2. Kullanım: 10k * (2/5) = 4k (Kalan = 6k)\nKesirlerle uğraşmadan tam sayılarla hızlıca çözülür.", "gorsel": {"type": "image", "query": "fraction problem shortcut whole number multiplier"}}, {"baslik": "Sayı Basamakları Çözümleme Formülü", "altbaslik": "AB ve BA İki Basamaklı Sayıları", "icerik": "- AB = 10A + B\n- BA = 10B + A\n- AB + BA = 11(A + B)\n- AB - BA = 9(A - B)\nBasamak sorularında bu özdeşlikler doğrudan sadeleştirme sağlar.", "gorsel": {"type": "image", "query": "digit place value expansion identity formula"}}, {"baslik": "Adım Adım Hata Kontrol Algoritması", "altbaslik": "Sınavda Son 15 Saniye Sağlaması", "icerik": "1. Bulduğun sayıyı sorunun ilk cümlesindeki şartta yerine koy.\n2. Birim doğru mu? (Saat mi, dakika mı sorulmuş?)\n3. 'Kalan' mı soruldu, 'Harcanan' mı?\n4. Şıkkı optik forma kaydırmadan işaretle.", "gorsel": {"type": "image", "query": "checklist exam error verification steps"}}, {"baslik": "Çözümlü Uygulama 1: DGS Tarzı Sayı Basamağı", "altbaslik": "Seviye: Başlangıç-Orta", "icerik": "Soru: İki basamaklı AB sayısı ile BA sayısının toplamı 132'dir. A + B toplamı kaçtır?\nÇözüm:\nAB + BA = (10A + B) + (10B + A) = 11A + 11B = 11(A + B)\n11(A + B) = 132\nA + B = 132 / 11 = 12.", "gorsel": {"type": "image", "query": "algebra digits problem solution blackboard"}}, {"baslik": "Çözümlü Uygulama 2: Kalanlı Kesir Problemi (Kapasite)", "altbaslik": "Seviye: Orta (Katsayı Tekniği)", "icerik": "Soru: Bir yedekleme deposundaki verilerin önce 2/7'si silinmiş, sonra kalanın 1/5'i arşivlenmiştir. Geriye 200 GB veri kaldığına göre deponun başlangıçtaki toplam verisi kaç GB'tır?\nÇözüm: Toplam veriye 7 x 5 = 35k diyelim.\n- 1. Adım (Silinen): 35k x (2/7) = 10k -> Kalan = 25k\n- 2. Adım (Arşiv): 25k x (1/5) = 5k -> Kalan = 20k\n20k = 200 GB -> k = 10 GB.\nBaşlangıç = 35k = 35 x 10 = 350 GB.", "gorsel": {"type": "image", "query": "storage capacity fraction problem solution"}}, {"baslik": "Çözümlü Uygulama 3: Üçlü Orantı Sabiti (Sunucu Yükü)", "altbaslik": "Seviye: Orta (a/2 = b/3 = c/5)", "icerik": "Soru: 3 sunucuya gelen toplam 2000 istek, sunucuların kapasiteleriyle orantılı olarak 2, 3 ve 5 sayılarıyla doğru orantılı dağıtılacaktır. En çok istek alan sunucu kaç istek işler?\nÇözüm:\nSunucu 1 = 2k, Sunucu 2 = 3k, Sunucu 3 = 5k\nToplam = 2k + 3k + 5k = 10k\n10k = 2000 -> k = 200\nEn çok alan = 5k = 5 x 200 = 1000 istek.", "gorsel": {"type": "image", "query": "server load distribution proportion solution"}}, {"baslik": "Çözümlü Uygulama 4: İşçi / Sunucu Paralel İşleme", "altbaslik": "Seviye: Orta-İleri (İş Problemi)", "icerik": "Soru: Bir veri tabanı indekslemesini A sunucusu tek başına 10 saatte, B sunucusu 15 saatte bitirmektedir. İki sunucu birlikte 4 saat çalıştıktan sonra A sunucusu arızalanıyor. Kalan işi B sunucusu tek başına kaç saatte bitirir?\nÇözüm:\nBirlikte 4 saatte yapılan iş = 4 * (1/10 + 1/15) = 4 * (3/30 + 2/30) = 4 * (5/30) = 20/30 = 2/3\nKalan iş = 1 - 2/3 = 1/3\nB sunucusu tamamını 15 saatte yapıyorsa; 1/3'ünü 15 * (1/3) = 5 saatte bitirir.", "gorsel": {"type": "image", "query": "parallel database processing work problem"}}, {"baslik": "Çözümlü Uygulama 5: Şık Eleme ile Değer Verme", "altbaslik": "Seviye: İleri (Sınav Pratiği)", "icerik": "Soru: a, b, c pozitif tam sayılar ve a < b < c olmak üzere; (1 + 1/a)(1 + 1/b)(1 + 1/c) = 2 ise a + b + c toplamı kaçtır?\nStrateji (Değer Verme):\n- a = 2 için (1 + 1/2) = 3/2\n- Kalan çarpım 4/3 olmalı -> b = 3 için (1 + 1/3) = 4/3\n- Kalan çarpım 1 olamaz ama c = 6 için (1 + 1/6) = 7/6 -> (3/2)*(4/3)*(...)\nDeneme: a=2, b=4, c=?, a=2, b=3, c=6 için (3/2)*(4/3)*(7/6) değil;\nDoğru üçlü: a=2, b=3, c=6 -> (3/2) x (4/3) x (7/6) != 2; (3/2) x (4/3) = 2 -> c sonsuz olamaz.\n(2, 4, ?) -> (3/2)*(5/4)*(6/5) = 18/8 != 2.\nDoğru üçlü: (2, 3, 6) yerine (1+1/2)(1+1/3)(1+1/?) -> a=2, b=3, c=6 -> 3/2 * 4/3 * 7/6 = 7/3.\n(2, 3, 6) üçlüsünde a=2, b=4, c=10 değil, a+b+c = 11.", "gorsel": {"type": "image", "query": "algebra substitution problem solving steps"}}, {"baslik": "Çözümlü Uygulama 6: SOC Vardiya Problemi", "altbaslik": "Seviye: İleri (Karmaşık Denklem)", "icerik": "Soru: Bir SOC merkezinde gündüz vardiyasında x analist, gece vardiyasında y analist çalışmaktadır. Gündüz kişi başı 12 alarm, gece kişi başı 8 alarm çözülmektedir. Toplam 20 analist 200 alarm çözdüğüne göre gündüz çalışan analist sayısı kaçtır?\nDenklemler:\n1) x + y = 20 -> y = 20 - x\n2) 12x + 8y = 200\nÇözüm:\n12x + 8(20 - x) = 200\n12x + 160 - 8x = 200\n4x = 40 -> x = 10 analist gündüz çalışmaktadır.", "gorsel": {"type": "image", "query": "soc analyst shift linear equation solution"}}, {"baslik": "Çözümlü Uygulama 7: Yaş / Zaman Problemi Modeli", "altbaslik": "Seviye: İleri (Zaman Akışı)", "icerik": "Soru: Bir şirketin kıdemli güvenlik uzmanının tecrübesi stajyerin tecrübesinin 4 katıdır. 6 yıl sonra uzmanın tecrübesi stajyerin tecrübesinin 2 katı olacağına göre şu anki tecrübeleri nedir?\nDenklem: Uzman = 4x, Stajyer = x\n6 yıl sonra: 4x + 6 = 2(x + 6)\n4x + 6 = 2x + 12 -> 2x = 6 -> x = 3 yıl (Stajyer), Uzman = 4x = 12 yıl.", "gorsel": {"type": "image", "query": "algebra time progression problem solution"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Problem Çözümünde Zaman Kaybettiren Hatalar", "icerik": "1. Soruyu tam okumadan hemen denklem kurmaya çalışmak.\n2. 'Kalanın' ifadesini kaçırıp baştaki bütünden kesir çıkarmak.\n3. İki bilinmeyenli sorularda tek değişkene indirgemek yerine gereksiz 3-4 değişken tanımlamak.", "gorsel": {"type": "image", "query": "exam time management mistakes warning"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "İşlem ve Sağlama Hataları", "icerik": "1. Bulunan x değerini hemen şıklarda işaretlemek (Soru 2x+1'i veya y'yi soruyor olabilir!).\n2. Parantez dağıtırken çarpma işaretlerini unutmak.", "gorsel": {"type": "image", "query": "algebra verification double check test"}}, {"baslik": "Sektörel Vaka: Siber Güvenlik İhale Kaynak Dağılımı", "altbaslik": "Bütçe ve İş Gücü Optimizasyonu", "icerik": "Vaka: Bir kamu kurumu 180 sunucunun sızma testini yaptırmak için 3 farklı danışmanlık firmasından karma ekip kurmuştur.\n- Firma A: Günde 4 sunucu\n- Firma B: Günde 6 sunucu\n- Firma C: Günde 8 sunucu taramaktadır.\nKurum tüm firmaları aynı anda başlatırsa ihale kaç iş gününde tamamlanır?\nÇözüm: Günlük toplam iş = 4 + 6 + 8 = 18 sunucu/gün\nToplam Süre = 180 / 18 = 10 iş günü.", "gorsel": {"type": "image", "query": "cyber security project management resource allocation"}}, {"baslik": "Vaka Çözüm Planı ve Performans Denetimi", "altbaslik": "Maliyet / Gün Oranı", "icerik": "Yönetim Raporu:\n10 günlük süre hedeflenen 15 günlük yasal sınırın 5 gün altındadır.\nErken bitirme sayesinde kurum %33 operasyonel maliyet tasarrufu sağlamıştır.", "gorsel": {"type": "image", "query": "project completion timeline gantt chart savings"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Basamak Analizi", "icerik": "Soru: AB - BA = 45 ise A - B farkı kaçtır?\nA) 3\nB) 4\nC) 5\nD) 9\n\nDoğru Cevap: C ( 9(A - B) = 45 -> A - B = 5 )", "gorsel": {"type": "image", "query": "digit algebra question test"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Oran Problemi", "icerik": "Soru: a/3 = b/4 ve a + b = 35 ise b sayısı kaçtır?\nA) 15\nB) 20\nC) 25\nD) 28\n\nDoğru Cevap: B (3k + 4k = 7k = 35 -> k = 5; b = 4 x 5 = 20)", "gorsel": {"type": "image", "query": "proportion math quiz question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "İş / Süre", "icerik": "Soru: Bir işi tek başına A 6 saatte, B 12 saatte bitiriyor. İkisi birlikte kaç saatte bitirir?\nA) 3\nB) 4\nC) 5\nD) 9\n\nDoğru Cevap: B ( (1/6 + 1/12) * t = 1 -> 3/12 * t = 1 -> t = 4 )", "gorsel": {"type": "image", "query": "work problem multiple choice question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Kalan Kesir", "icerik": "Soru: Bir sayının 1/3'ünün 1/4'ü 5 ise bu sayının tamamı kaçtır?\nA) 20\nB) 40\nC) 60\nD) 120\n\nDoğru Cevap: C ( x * (1/12) = 5 -> x = 60 )", "gorsel": {"type": "image", "query": "fractions equation test question"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- DGS problemlerinde tek değişkene indirgeme (k orantı sabiti) en hızlı yöntemdir.\n- Kesir problemlerinde paydaların çarpımını bütüne vermek işlem kolaylığı sağlar.\n- Şık eleme ve tahmini hesap süre kazandırır.\n- Çok adımlı problemlerde adım adım mantıksal kurgu esastır.", "gorsel": {"type": "image", "query": "summary problem solving algebra dgs strategy"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 13: DGS Karma Problem Çözümü II", "icerik": "Gelecek Konular (İsteğe Bağlı İleri Blok II):\n- Temel Geometri ve Şekil Yorumlama (Alan, Çevre, Dik Üçgen)\n- Fonksiyonel Değişim ve Grafik Okuma\n- Güvenlik Panolarındaki Trend Grafikleri\n- Sınav Zaman Yönetimi.", "gorsel": {"type": "image", "query": "geometry functions graphs exam mathematics"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'Bir güvenlik log sunucusu A işlemcisi ile 12 saatte, daha yeni olan B işlemcisi ile 6 saatte taranmaktadır. İki işlemci birlikte çalıştırılırsa bu tarama kaç saatte tamamlanır?'\n\nİşlemlerinizi yazıp kağıdı teslim ediniz.", "gorsel": {"type": "image", "query": "cpu core processing problem exit ticket"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

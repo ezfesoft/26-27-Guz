@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 07 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 07</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-06.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 7", "altbaslik": "Ağ Dinleme (Sniffing) Yöntemleri ve Uygulamaları", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Ağ Analizi ve Ortadaki Adam (MITM) Saldırıları\nHaftalık Odak: Promiscuous Mode, Wireshark Filtreleri, Tcpdump ve ARP Zehirlenmesi\nHedef: Ağ paketlerini yakalamak, protokolleri analiz etmek ve şifresiz trafiğin risklerini görmek.", "gorsel": {"type": "image", "query": "wireshark network sniffer packet analysis cybersecurity"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Ağın Mikroskobu Wireshark", "icerik": "Ağda akan veriyi görmeyen bir güvenlik uzmanı kör uçuş yapar.\n- Sniffing ile ağdaki şüpheli sızıntılar ve saldırı paketleri tespit edilir.\n- Şifresiz HTTP veya Telnet kullanan sistemlerin parolaları saniyeler içinde yakalanır.\nWireshark, ağ sorun giderme ve adli bilişimin en temel aracıdır.", "gorsel": {"type": "image", "query": "network engineer analyzing packets wireshark screen"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Ağ Dinleme (Sniffing) ve Promiscuous (Karma) mod mantığını açıklar.\n2. Hub ve Switch mimarisinin paket iletim farkını kavrar.\n3. Tcpdump ile komut satırından paket yakalar ve filtreler.\n4. Wireshark arayüzünde protokol filtreleri (http, arp, icmp, dns) kullanır.\n5. Şifresiz HTTP POST form girişlerini Wireshark ile yakalar.", "gorsel": {"type": "image", "query": "learning objectives network sniffing checklist"}}, {"baslik": "Ağ Dinleme (Sniffing) Nedir?", "altbaslik": "Kablodan Geçen Veriyi Yakalamak", "icerik": "Sniffing: Yerel bir ağ ortamında iletilen veri paketlerinin ağ arayüz kartı (NIC) üzerinden yakalanıp incelenmesidir.\nYasal/Etik Amaçlar: Ağ yönetimi, performans analizi, sorun giderme ve saldırı tespiti.\nKötü Niyetli Amaçlar: Şifrelenmemiş hassas verileri (kullanıcı adları, parolalar, oturum çerezleri) çalmak.", "gorsel": {"type": "image", "query": "packet sniffing network wire tap data intercept"}}, {"baslik": "Promiscuous (Karma) Mod Nedir?", "altbaslik": "Ağ Kartının Filtresini Kaldırmak", "icerik": "Normal Mod: Ağ kartı (NIC) sadece KENDİ MAC adresine gelen veya Broadcast (herkese açık) paketleri kabul eder; diğerlerini atar.\nPromiscuous Mod: Ağ kartı filtremeyi kapatır ve kablodan geçen HER paketi doğrudan işletim sistemine iletir!\nWireshark ve Tcpdump çalışırken ağ kartını otomatik olarak bu moda alır.", "gorsel": {"type": "image", "query": "promiscuous mode network interface card packet capture"}}, {"baslik": "Hub vs Switch Mimarisi", "altbaslik": "Switch Saldırganı Nasıl Zorlaştırır?", "icerik": "Hub (Eski Mimari): Gelen her paketi tüm portlara birden basar. Ağdaki herkes herkesin trafiğini dinleyebilir!\nSwitch (Modern Mimari): Paketleri MAC adres tablosuna (CAM Table) bakarak SADECE ilgili porta gönderir.\nSoru: Saldırgan Switch olan bir ağda trafiği nasıl dinler?\nCevap: MAC Flooding veya ARP Zehirlenmesi ile!", "gorsel": {"type": "image", "query": "hub vs switch packet routing diagram networking"}}, {"baslik": "MAC Seli Saldırısı (MAC Flooding)", "altbaslik": "Switch'i Hub'a Dönüştürmek", "icerik": "Switch'in belleğindeki MAC tablosu (CAM) sınırlı kapasitededir.\n- macof aracıyla switch'e saniyede 100.000 sahte MAC adresi gönderilir.\n- Tablo dolunca switch kilitlenir ve 'Fail-Open' moduna geçip tüm paketleri tüm portlara basmaya başlar (Hub gibi davranır!).\nSavunma: Port Güvenliği (Port Security) - Her porta tek MAC sınırı koymak.", "gorsel": {"type": "image", "query": "mac flooding attack switch buffer overflow diagram"}}, {"baslik": "ARP Protokolü ve Zayıflığı", "altbaslik": "IP'den MAC Adresine Geçiş", "icerik": "ARP (Address Resolution Protocol): '192.168.1.10 IP'sine sahip cihaz, MAC adresin nedir?' diye ağa sorar.\nZayıflığı: ARP protokolünde kimlik doğrulama YOKTUR! Gelen yanıta sorgusuz sualsiz inanılır.\nSaldırgan sahte bir ARP yanıtı göndererek ağ cihazlarını kolayca aldatabilir.", "gorsel": {"type": "image", "query": "arp protocol request reply networking diagram"}}, {"baslik": "ARP Zehirlenmesi (ARP Spoofing / Poisoning)", "altbaslik": "Ortadaki Adam (MITM) Saldırısı", "icerik": "Saldırgan ağdaki kurbana: 'Ben Ağ Geçidiyim (Gateway)' der.\nAğ Geçidine: 'Ben Kurban Bilgisayarım' der.\nSonuç:\nKurban internete çıkarken tüm trafiği önce saldırganın bilgisayarına gönderir!\nSaldırgan trafiği dinler, kaydeder ve hedefe iletir (Man in the Middle).", "gorsel": {"type": "image", "query": "arp spoofing man in the middle attack diagram"}}, {"baslik": "Tcpdump: Komut Satırı Paket Analizcisi", "altbaslik": "Hızlı ve Hafif Dinleyici", "icerik": "Tcpdump, Linux konsolundan ağ trafiğini yakalayan güçlü bir araçtır.\nSözdizimi:\nsudo tcpdump -i eth0 -n -c 10 icmp\nParametreler:\n-i eth0 : Dinlenecek ağ kartı\n-n : IP adreslerini isim çözmeden sayısal göster\n-c 10 : 10 paket yakalayınca dur\nicmp : Sadece ping paketlerini filtrele", "gorsel": {"type": "image", "query": "tcpdump terminal command line output packet capture"}}, {"baslik": "Wireshark: Ağın Görsel Mikroskobu", "altbaslik": "Dünyanın En Popüler Paket İnceleyicisi", "icerik": "Wireshark, yakalanan paketleri OSI katmanlarına göre renkli ve detaylı ayrıştıran grafik arayüzlü araçtır.\nAna Bölümler:\n1. Üst Panel: Paket listesi (Zaman, Kaynak IP, Hedef IP, Protokol)\n2. Orta Panel: Paket başlık detayları (Ethernet, IP, TCP/UDP, HTTP)\n3. Alt Panel: Paketin ham Hex ve ASCII baytları.", "gorsel": {"type": "image", "query": "wireshark graphical interface packet tree hex view"}}, {"baslik": "En Popüler Wireshark Filtreleri", "altbaslik": "Samanlıkta İğne Aramak", "icerik": "Filtre Çubuğu Komutları:\n- http : Sadece web trafiğini gösterir.\n- icmp : Sadece ping istek ve yanıtlarını süzer.\n- arp : Sadece ARP istek ve anonslarını getirir.\n- dns : Alan adı sorgularını listeler.\n- ip.addr == 192.168.1.10 : Sadece Windows Server ile olan trafiği süzer.\n- tcp.port == 80 : 80 portuna ait trafiği gösterir.", "gorsel": {"type": "image", "query": "wireshark display filters cheat sheet green bar"}}, {"baslik": "Uygulama Laboratuvarı: Paket Yakalama", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Laboratuvarımızda:\n1. Tcpdump ile komut satırından ICMP trafiği yakalayacağız.\n2. Wireshark'ı başlatıp filtreleri deneyeceğiz.\n3. Windows Server test web sayfasına girip gönderilen kullanıcı adı ve parolayı Wireshark ile yakalayacağız!", "gorsel": {"type": "image", "query": "students typing network lab wireshark terminals"}}, {"baslik": "Uygulama 1: Tcpdump ile Ping Yakalama", "altbaslik": "Terminalde Hızlı Dinleme", "icerik": "Adım 1: Terminalde tcpdump'ı başlatın:\nsudo tcpdump -i eth0 -n -c 5 icmp\nAdım 2: Eğitmen ağa bir ping gönderdiğinde terminalinizdeki paket akışını izleyin!\nIP paketlerinin nereden nereye gittiğini ve TTL değerlerini görün.", "gorsel": {"type": "image", "query": "tcpdump icmp packet capture terminal output"}}, {"baslik": "Uygulama 2: Wireshark'ı Başlatma ve Arayüz", "altbaslik": "Grafik Ekranda Dinleme", "icerik": "Adım 1: Terminalden Wireshark'ı arka planda açın:\nsudo wireshark &\nAdım 2: Karşılama ekranında 'eth0' ağ kartına çift tıklayarak dinlemeyi başlatın.\nPaketlerin mavi, yeşil, siyah renklerle aktığını gözlemleyin.", "gorsel": {"type": "image", "query": "wireshark capturing packets live screen ethernet"}}, {"baslik": "Uygulama 3: Şifresiz Web Girişini Yakalama", "altbaslik": "HTTP POST Analizi", "icerik": "Adım 1: Kali Firefox tarayıcısını açıp şu adrese gidin:\nhttp://192.168.1.10/login_test.html\nAdım 2: Forma bilgileri girip Gönder butonuna basın:\nKullanıcı Adı: ogrenci2026\nParola: CokGizliSifre!#", "gorsel": {"type": "image", "query": "web browser login form test html page"}}, {"baslik": "Uygulama 4: Parolayı Wireshark'ta Bulma", "altbaslik": "Follow HTTP Stream", "icerik": "Adım 1: Wireshark arama çubuğuna şunu yazın:\nhttp.request.method == \"POST\"\nAdım 2: Çıkan pakete sağ tıklayın -> Follow -> HTTP Stream seçeneğine tıklayın.\nEkranda Çıkan Kırmızı Metin:\nusername=ogrenci2026&password=CokGizliSifre!#\nParolayı açıkça yakaladınız!", "gorsel": {"type": "image", "query": "wireshark follow http stream red text credentials"}}, {"baslik": "Uygulama 5: Kendi ARP Tablonuzu İnceleme", "altbaslik": "arp -n Komutu", "icerik": "Terminalde bilgisayarınızın ARP tablosunu kontrol edin:\narp -n\nİnceleyin: Windows Server 2019'un ve Ağ Geçidinin IP ve MAC adres eşleşmelerini listeleyin.", "gorsel": {"type": "image", "query": "arp table terminal command line output"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Paket Analizinde Dikkat Edilecekler", "icerik": "1. Yetki Hatası: Wireshark 'No interface found' derse sudo wireshark olarak başlatılmalıdır.\n2. Büyük Harf Hatası: Filtre kutusuna HTTP değil, küçük harfle http yazılmalıdır.\n3. HTTPS Trafiği: HTTPS şifreli olduğu için paket içeriği görünmez, sadece TLS el sıkışması görünür.", "gorsel": {"type": "image", "query": "troubleshooting wireshark errors checklist warning"}}, {"baslik": "Sektörel Vaka: Açık Wifi Otel Skandalı", "altbaslik": "Halka Açık Ağlarda Sniffing", "icerik": "Vaka: Bir iş insanı otelin şifresiz Wi-Fi ağına bağlandı ve HTTP üzerinden şirket e-posta paneline giriş yaptı.\nİstismar: Aynı otel ağında oturan saldırgan Wireshark çalıştırarak yöneticinin tüm oturum çerezlerini (Cookies) yakaladı.\nSonuç: Saldırgan oturumu çalarak (Session Hijacking) şirketin tüm iç yazışmalarını sızdırdı.", "gorsel": {"type": "image", "query": "public wifi hacking coffee shop packet sniffer alert"}}, {"baslik": "Vaka Analizi: Ağ Dinlemeye Karşı Savunma", "altbaslik": "Ağda Nasıl Güvende Kalırız?", "icerik": "Alınacak Önlemler:\n1. Protokol Şifreleme: HTTP yerine HTTPS, Telnet yerine SSH, FTP yerine SFTP zorunlu tutulmalıdır.\n2. Dynamic ARP Inspection (DAI): Switch düzeyinde sahte ARP paketleri otomatik engellenmelidir.\n3. VPN Kullanımı: Halka açık ağlarda tüm trafik şifreli bir VPN tüneline sokulmalıdır.", "gorsel": {"type": "image", "query": "vpn encrypted tunnel secure public wifi shield"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Ağ Kartı Modları", "icerik": "Soru: Ağ kartının sadece kendine gelenleri değil, kablodan geçen tüm paketleri dinlemesini sağlayan moda ne ad verilir?\nA) Master Mod\nB) Promiscuous (Karma) Mod\nC) Stealth Mod\nD) Safe Mod\n\nDoğru Cevap: B (Promiscuous Mod)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Ağ Donanımı", "icerik": "Soru: Gelen veri paketini tablosuna bakarak SADECE ilgili hedef porta ileten modern ağ cihazı hangisidir?\nA) Hub\nB) Switch\nC) Repeater\nD) Modem\n\nDoğru Cevap: B (Switch)", "gorsel": {"type": "image", "query": "network switch question multiple choice"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Wireshark Filtreleri", "icerik": "Soru: Wireshark'ta sadece web sayfalarına ait HTTP trafiğini görmek için filtre çubuğuna ne yazılmalıdır?\nA) www\nB) web\nC) http\nD) port=80\n\nDoğru Cevap: C (http)", "gorsel": {"type": "image", "query": "wireshark filter http question board"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Saldırı Tespiti", "icerik": "Soru: Switch'e saniyede binlerce sahte MAC adresi göndererek switch'i bir Hub gibi davranmaya zorlayan saldırı hangisidir?\nA) SQL Injection\nB) MAC Flooding (MAC Seli)\nC) Zero-Day\nD) Phishing\n\nDoğru Cevap: B (MAC Flooding)", "gorsel": {"type": "image", "query": "mac flooding question multiple choice"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Savunma Önlemleri", "icerik": "Soru: Ağ dinleme saldırılarına karşı verilerin açıkta okunmasını engellemenin en kesin çözümü nedir?\nA) Kabloları değiştirmek\nB) Uçtan Uca Şifreleme (HTTPS / SSH / VPN)\nC) Bilgisayarı kapatmak\nD) IP adresini gizlemek\n\nDoğru Cevap: B (Uçtan Uca Şifreleme)", "gorsel": {"type": "image", "query": "encryption defense question test"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Trafik Filtreleme Yarışı", "icerik": "Uygulama Görevi:\nWireshark açıkken tarayıcıdan bir DNS sorgusu tetikleyin (örn: giresun.edu.tr).\n- dns filtresini uygulayıp giden A kaydı sorgusunu ilk yakalayan öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Sniffing ağ trafiğini dinleme işlemidir; Promiscuous mod tüm paketleri yakalar.\n- Wireshark ve Tcpdump paket analizi ve olay müdahalesinin en temel araçlarıdır.\n- Şifresiz HTTP protokolü parolaların açık metin olarak yakalanmasına yol açar.\n- Savunmada HTTPS, SSH, DAI ve VPN tünelleri standart gereksinimdir.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 8: Ağ ve Sistem Güvenliği: Firewall, IDS/IPS", "icerik": "Ön Hazırlık:\n- Güvenlik duvarı (Firewall) kuralları Linux'ta (ufw/iptables) nasıl yazılır?\n- DMZ (Arındırılmış Bölge) neden şirket ağını korur?\n- Sistem sıkılaştırma (Hardening) adımları nelerdir?", "gorsel": {"type": "image", "query": "firewall network security defense system concept"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Neden bankalar HTTP protokolü yerine zorunlu olarak HTTPS protokolünü kullanmak zorundadır? Wireshark örneğiyle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

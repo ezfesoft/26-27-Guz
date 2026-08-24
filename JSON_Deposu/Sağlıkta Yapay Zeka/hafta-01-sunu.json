@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Sağlıkta Yapay Zekanın Bilimsel Temeli",
+    "altbaslik": "Ders Tanıtımı, Kapsam ve Öğrenme Hedefleri",
+    "icerik": "- Dersin Amacı: Tıbbi veri teknikerliği perspektifinden yapay zeka okuryazarlığı kazanmak.\n- Temel Odak: Sağlıkta YZ iddialarını bilimsel kanıt ve performans metrikleri üzerinden değerlendirmek.\n- Hedef Kitle: Önlisans Tıbbi Dokümantasyon ve Sekreterlik / Tıbbi Veri Teknikerliği öğrencileri.\n- Temel Çıktı: Tıbbi YZ iddialarını eleştirel gözle analiz edebilme becerisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "medical artificial intelligence concept healthcare data science"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "- ÖÇ1: Yapay Zeka (AI), Makine Öğrenmesi (ML) ve Derin Öğrenme (DL) kavramlarını ayırt eder.\n- ÖÇ2: Tıbbi bir YZ sisteminin başarı iddialarını metrikler (Doğruluk, Duyarlılık, Özgüllük) üzerinden yorumlar.\n- ÖÇ3: Klinik kullanıma geçiş öncesi zorunlu doğrulama aşamalarını açıklar.\n- ÖÇ4: Bilimsel bir tıbbi YZ makalesinin yöntem ve sonuç tutarlılığını sorgular.",
+    "gorsel": {
+      "type": "image",
+      "query": "bloom taxonomy learning outcomes medical education"
+    }
+  },
+  {
+    "baslik": "Klinik Bağlam: Sağlıkta Neden Yapay Zeka?",
+    "altbaslik": "Sağlık Hizmetlerinde Veri Patlaması ve İhtiyaç",
+    "icerik": "- Artan Sağlık Verisi: Laboratuvar, radyoloji, hasta dosyaları ve sensör verileri hekimlerin iş yükünü katlamaktadır.\n- Hata Payını Azaltma: Yorulma ve dikkat dağınıklığına bağlı gözden kaçan vakaları asgariye indirme hedefi.\n- Hızlı Karar Desteği: Acil servis ve yoğun bakımda kritik zaman tasarrufu sağlama.\n- Veri Teknikerinin Rolü: Kaliteli veri girişi ve YZ çıktılarının operasyonel denetimi.",
+    "gorsel": {
+      "type": "image",
+      "query": "hospital data overload digital healthcare workflow"
+    }
+  },
+  {
+    "baslik": "Yapay Zeka (Artificial Intelligence - AI)",
+    "altbaslik": "Şemsiye Kavram: Tanım ve Sınırlar",
+    "icerik": "- Genel Tanım: İnsan zekasına özgü algılama, muhakeme ve problem çözme yeteneklerini taklit eden bilgisayar sistemleri.\n- Sağlıkta İlk Dönem: 1970'li yıllarda kural tabanlı uzman sistemler (ör. MYCIN).\n- Günümüzdeki Anlamı: Veriden öğrenen, kendini güncelleyebilen ve karmaşık paternleri yakalayan yapılar.\n- Mesleki Not: YZ tıbbi personelin yerine geçmez; personelin karar alma kalitesini artırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "artificial intelligence umbrella diagram machine learning deep learning"
+    }
+  },
+  {
+    "baslik": "Makine Öğrenmesi (Machine Learning - ML)",
+    "altbaslik": "Veriden Kural Çıkarma Sanatı",
+    "icerik": "- Tanım: Açıkça programlanmadan, mevcut verilerdeki örüntüleri (patterns) matematiksel olarak öğrenen algoritmalar.\n- Geleneksel Programlama: Veri + Kural = Sonuç.\n- Makine Öğrenmesi: Veri + Sonuç = Kural (Model).\n- Örnek: Geçmiş 10.000 diyabet hastasının tahlil sonuçlarından risk kalıplarının çıkarılması.",
+    "gorsel": {
+      "type": "image",
+      "query": "traditional programming vs machine learning workflow diagram"
+    }
+  },
+  {
+    "baslik": "Derin Öğrenme (Deep Learning - DL)",
+    "altbaslik": "Çok Katmanlı Yapay Sinir Ağları",
+    "icerik": "- Tanım: İnsan beyninin nöron yapısından esinlenen, çok katmanlı yapay sinir ağlarına (ANN) dayalı ML alt dalı.\n- Neden Gerekli?: Ham veriden (röntgen görüntüsü, MR, ses dalgası) otomatik özellik (feature) çıkarımı yapar.\n- İhtiyaçlar: Yüksek işlem gücü (GPU) ve çok büyük etiketli veri setleri.\n- Tıbbi Örnek: Akciğer grafisindeki lezyonları piksel düzeyinde otomatik tespit etme.",
+    "gorsel": {
+      "type": "image",
+      "query": "deep neural network architecture medical imaging layers"
+    }
+  },
+  {
+    "baslik": "AI, ML ve DL Karşılaştırması",
+    "altbaslik": "İç İçe Geçmiş Üç Halka",
+    "icerik": "- Yapay Zeka: En geniş küme (Kural tabanlı sistemler, mantıksal karar ağaçları, arama algoritmaları).\n- Makine Öğrenmesi: AI içindeki istatistiksel öğrenme kümesi (Karar ağaçları, SVM, Naive Bayes, Regresyon).\n- Derin Öğrenme: ML içindeki çok katmanlı derin yapay sinir ağları (CNN, RNN, Transformer).\n- Tekniker İpucu: Her derin öğrenme modeli bir yapay zekadır, fakat her yapay zeka derin öğrenme değildir!",
+    "gorsel": {
+      "type": "image",
+      "query": "concentric circles AI ML DL relationship medical"
+    }
+  },
+  {
+    "baslik": "Tıbbi YZ İddialarını Anlamak",
+    "altbaslik": "'%99 Başarılı Model' İddiası Ne Kadar Gerçekçi?",
+    "icerik": "- Popüler Medya Yanılgısı: 'Yapay zeka kanseri hekimlerden daha iyi teşhis ediyor' manşetleri.\n- Bilimsel Gerçeklik: Başarı iddiası hangi veri setinde, hangi popülasyonda ve hangi metriklerle ölçüldü?\n- Veri Temsiliyeti: Sadece tek bir hastanenin verisiyle eğitilen model başka hastanede çökebilir.\n- Soru: '%95 Doğruluk' her zaman iyi bir model anlamına gelir mi?",
+    "gorsel": {
+      "type": "image",
+      "query": "media hype vs scientific reality medical AI"
+    }
+  },
+  {
+    "baslik": "Hata Matrisi (Confusion Matrix)",
+    "altbaslik": "Sınıflandırma Performansının Temel Haritası",
+    "icerik": "- Doğru Pozitif (TP / True Positive): Hasta olan ve modelin 'hasta' dediği kişiler.\n- Doğru Negatif (TN / True Negative): Sağlıklı olan ve modelin 'sağlıklı' dediği kişiler.\n- Yanlış Pozitif (FP / False Positive - Tip I Hata): Sağlıklı kişiye yanlışlıkla 'hasta' denmesi.\n- Yanlış Negatif (FN / False Negative - Tip II Hata): Hasta kişiye yanlışlıkla 'sağlıklı' denmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "confusion matrix 2x2 table TP TN FP FN medical diagnostics"
+    }
+  },
+  {
+    "baslik": "Doğruluk (Accuracy) Metriği ve Tehlikesi",
+    "altbaslik": "Dengesiz Veri Kümelerinde Yanıltıcı Gösterge",
+    "icerik": "- Formül: (TP + TN) / (TP + TN + FP + FN)\n- Klinik Tehlike: Nadir görülen bir hastalıkta (Ör. toplumda %1 oranında görülen bir tümör).\n- Senaryo: Model herkese 'sağlıklı' dese bile %99 Doğruluk (Accuracy) elde eder!\n- Sonuç: Tek başına 'Doğruluk' metriği sağlıkta asla yeterli bir kriter değildir.",
+    "gorsel": {
+      "type": "image",
+      "query": "accuracy paradox imbalanced dataset medical statistics"
+    }
+  },
+  {
+    "baslik": "Duyarlılık (Sensitivity / Recall)",
+    "altbaslik": "Gerçek Hastaları Yakalama Gücü",
+    "icerik": "- Formül: TP / (TP + FN)\n- Tanım: Gerçekten hasta olanların yüzde kaçı model tarafından doğru teşhis edildi?\n- Klinik Önemi: Kanser veya bulaşıcı hastalık taramalarında hayati öneme sahiptir.\n- Hedef: Yanlış Negatif (FN) sayısını en aza indirmek (Hastayı kaçırmamak).",
+    "gorsel": {
+      "type": "image",
+      "query": "sensitivity recall calculation medical screening diagnostic"
+    }
+  },
+  {
+    "baslik": "Özgüllük (Specificity)",
+    "altbaslik": "Sağlıklı Bireyleri Doğru Ayırt Etme",
+    "icerik": "- Formül: TN / (TN + FP)\n- Tanım: Gerçekten sağlıklı olanların yüzde kaçı model tarafından doğru elendi?\n- Klinik Önemi: Yanlış alarmları önler; gereksiz biyopsi, radyasyon veya tedavi stresini engeller.\n- Hedef: Yanlış Pozitif (FP) sayısını minimize etmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "specificity test medical healthy patient exclusion"
+    }
+  },
+  {
+    "baslik": "Pozitif ve Negatif Tahmin Değerleri (PPV & NPV)",
+    "altbaslik": "Test Sonucunun Klinik Güvenilirliği",
+    "icerik": "- Kesinlik / Pozitif Tahmin Değeri (Precision / PPV): TP / (TP + FP) -> 'Test pozitif dediğinde hasta olma ihtimalim nedir?'\n- Negatif Tahmin Değeri (NPV): TN / (TN + FN) -> 'Test negatif dediğinde gerçekten sağlıklı olma ihtimalim nedir?'\n- Yaygınlık Etkisi: Hastalığın toplumdaki sıklığı (prevelans) bu oranları doğrudan değiştirir.\n- Klinik Yorum: Prevelansı düşük hastalıklarda PPV beklenenden düşük çıkabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "positive predictive value negative predictive value disease prevalence"
+    }
+  },
+  {
+    "baslik": "ROC Eğrisi ve AUC Skoru",
+    "altbaslik": "Model Ayrım Gücünün Genel Karnesi",
+    "icerik": "- ROC Eğrisi: Farklı eşik değerlerinde Duyarlılık (Y ekseni) ile 1-Özgüllük (X ekseni) arasındaki denge.\n- AUC (Area Under Curve): Eğrinin altında kalan alan (0.50 ile 1.00 arası).\n- 0.50 AUC: Yazı-tura atmakla eşdeğer (Rastgele tahmin).\n- 0.90+ AUC: Mükemmel sınıflandırma yeteneği.\n- Klinik Kullanım: Hekimler eşik değerini (threshold) klinik amaca göre ayarlayabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ROC curve AUC score medical diagnostics comparison"
+    }
+  },
+  {
+    "baslik": "Mini Vaka 1: Yanlış Negatifin Bedeli",
+    "altbaslik": "Acil Servis Göğüs Ağrısı Vakası",
+    "icerik": "- Durum: Bir YZ algoritması acil servisteki kalp krizi (MI) EKG'lerini tarıyor.\n- Model Performansı: %94 Doğruluk, ancak %70 Duyarlılık.\n- Risk: Kalp krizi geçiren 100 hastanın 30'una 'sağlıklı' (FN) deyip evine gönderme riski taşır.\n- Çözüm: Acil tıpta duyarlılığı %98+ olan modeller tercih edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "emergency room ecg heart attack monitoring clinical decision"
+    }
+  },
+  {
+    "baslik": "Mini Vaka 2: Yanlış Pozitifin Bedeli",
+    "altbaslik": "Meme Kanseri Mamografi Taraması",
+    "icerik": "- Durum: Mamografi tarama YZ modeli %60 Özgüllüğe sahip.\n- Sonuç: Sağlıklı 100 kadından 40'ına şüpheli lezyon (FP) alarmı veriyor.\n- Maliyet: Gereksiz biyopsiler, yüksek anksiyete, sağlık sistemi harcamaları ve ek radyasyon.\n- Denge: Tarama testlerinde duyarlılık ve özgüllük dengeli optimize edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "mammography screening radiology false positive biopsy"
+    }
+  },
+  {
+    "baslik": "Klinik Doğrulama Aşamaları (Validation)",
+    "altbaslik": "Laboratuvardan Hastaya Giden Güvenlik Yolu",
+    "icerik": "- Aşama 1: İç Doğrulama (Internal Validation - Eğitim/Test verisi ayrımı).\n- Aşama 2: Çapraz Doğrulama (k-fold Cross Validation).\n- Aşama 3: Dış Doğrulama (External Validation - Farklı hastane ve cihaz verisi).\n- Aşama 4: Prospektif Klinik Denemeler (Canlı ortamda randomize çalışmalar).\n- Kural: Dış doğrulaması yapılmamış model sahada kullanılamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical validation pipeline laboratory to bedside healthcare"
+    }
+  },
+  {
+    "baslik": "Aşırı Öğrenme (Overfitting) Tehlikesi",
+    "altbaslik": "Ezberleyen Ama Genelleştiremeyen Modeller",
+    "icerik": "- Tanım: Modelin eğitim verisindeki gürültüyü ve ayrıntıları ezberlemesi.\n- Belirti: Eğitim verisinde %99 başarı, yeni hasta verisinde %60 başarı.\n- Sağlık Riski: Model hastanedeki röntgen cihazının köşe etiketini tümör sanabilir (Shortcut Learning).\n- Çözüm: Düzenlileştirme, veri artırma ve bağımsız test setleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "overfitting vs underfitting machine learning graph healthcare"
+    }
+  },
+  {
+    "baslik": "Veri Sızıntısı (Data Leakage)",
+    "altbaslik": "Gizli Yanıltıcı Başarı Kaynağı",
+    "icerik": "- Tanım: Test verisindeki bilgilerin yanlışlıkla eğitim sürecine karışması.\n- Tıbbi Örnek: Aynı hastaya ait 5 farklı tomografi kesitinin hem eğitim hem test setine dağılması.\n- Sonuç: Model hastanın genel yapısını tanıyarak yapay yüksek başarı gösterir.\n- Önlem: Veri bölme (split) işlemleri mutlaka hasta (patient-level) bazında yapılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "data leakage machine learning medical patient split"
+    }
+  },
+  {
+    "baslik": "Tıbbi YZ Makalesi Nasıl Okunur?",
+    "altbaslik": "4 Temel Kritik Soru",
+    "icerik": "- Soru 1: Veri nereden geldi? (Kaç hasta, hangi demografik özellikler, tek merkez mi?).\n- Soru 2: Referans standart (Ground Truth) nedir? (Biyopsi mi, uzman paneli mi, tek radyolog mu?).\n- Soru 3: Hangi metrikler raporlandı? (Sadece Accuracy mi, yoksa Sensitivity/Specificity/AUC mi?).\n- Soru 4: Dış merkezlerde test edildi mi? (External cohort validation var mı?).",
+    "gorsel": {
+      "type": "image",
+      "query": "reading scientific paper medical research critical appraisal"
+    }
+  },
+  {
+    "baslik": "Makale İnceleme: Özet (Abstract) Bölümü",
+    "altbaslik": "İddianın Tespiti ve İlk Filtre",
+    "icerik": "- Amacı: Çalışmanın temel iddiasını ve ulaşılan sayısal skoru hızlıca sunmak.\n- Dikkat Edilecekler: Özetlerde genellikle sadece en yüksek başarı metrikleri öne çıkarılır.\n- Tıbbi Veri Teknikeri Notu: Özetteki '%97 başarı' ifadesini yöntem bölümündeki veri boyutuyla eşleştirin.",
+    "gorsel": {
+      "type": "image",
+      "query": "scientific journal abstract analysis medical paper"
+    }
+  },
+  {
+    "baslik": "Makale İnceleme: Yöntem (Methods) Bölümü",
+    "altbaslik": "Bilimsel Güvenilirliğin Kalbi",
+    "icerik": "- Veri Toplama: Hangi yıllar, hangi hasta popülasyonu, dahil etme/dışlama kriterleri.\n- Ön İşleme: Eksik veriler nasıl tamamlandı, gürültüler nasıl temizlendi?\n- Model Mimarisi: Hangi algoritma seçildi ve hiperparametreler nasıl optimize edildi?\n- Doğrulama Şeması: Train/Validation/Test oranları ve hasta bazlı ayrım yapıldı mı?",
+    "gorsel": {
+      "type": "image",
+      "query": "methods section research clinical trial workflow"
+    }
+  },
+  {
+    "baslik": "Makale İnceleme: Sonuçlar (Results) Bölümü",
+    "altbaslik": "Tabloları ve Güven Aralıklarını Okumak",
+    "icerik": "- Güven Aralığı (95% CI): Metriğin güven aralığı ne kadar dar? (Ör. %92 [CI: %90-%94] vs %92 [CI: %65-%99]).\n- Alt Grup Analizleri: Model yaşlılarda, kadınlarda veya kronik hastalarda aynı başarıyı veriyor mu?\n- Karşılaştırma: Mevcut standart klinik yöntem veya uzman hekim ortalamasıyla kıyaslandı mı?",
+    "gorsel": {
+      "type": "image",
+      "query": "statistical results table confidence interval clinical data"
+    }
+  },
+  {
+    "baslik": "Makale İnceleme: Tartışma ve Sınırlılıklar (Discussion)",
+    "altbaslik": "Modelin Zayıf Yönleri ve Dürüst Bilim",
+    "icerik": "- Sınırlılıklar (Limitations): Çalışmanın eksik yönleri nelerdir?\n- Temsil Kısıtı: 'Model sadece Asya kökenli yetişkin erkek popülasyonunda test edilmiştir.'\n- Cihaz Kısıtı: 'Sadece X marka MR cihazında çekilen görüntülerde çalışmaktadır.'\n- Klinik Etki: Bu sınırlılıklar Türkiye'deki bir hastanede kullanımı nasıl etkiler?",
+    "gorsel": {
+      "type": "image",
+      "query": "scientific discussion limitations medical bias"
+    }
+  },
+  {
+    "baslik": "Atölye Çalışması: Örnek Makale Değerlendirme",
+    "altbaslik": "Adım Adım Kritik Değerlendirme Rehberi",
+    "icerik": "- Adım 1: Seçilen makalenin iddia ettiği başarı metriklerini çıkarın.\n- Adım 2: Eğitim ve test veri setindeki hasta sayılarını karşılaştırın.\n- Adım 3: Çalışmanın zayıf ve güçlü yönlerini 3'er maddeyle listeleyin.\n- Adım 4: 'Bu sistem bizim hastanemizde doğrudan kullanılabilir mi?' sorusunu gerekçelendirin.",
+    "gorsel": {
+      "type": "image",
+      "query": "workshop students analyzing clinical research paper"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Doğru Yaklaşımlar",
+    "altbaslik": "Tıbbi YZ Literatüründe Karşılaşılan Tuzaklar",
+    "icerik": "- Hata 1: Dengesiz veride sadece Doğruluk (Accuracy) değerine güvenmek -> Doğru: Duyarlılık ve Özgüllüğü birlikte incelemek.\n- Hata 2: Modelin her hastanede aynı çalışacağını varsaymak -> Doğru: Dış doğrulama (external validation) talep etmek.\n- Hata 3: Veri sızıntısını göz ardı etmek -> Doğru: Hasta düzeyinde bağımsız veri bölme yapmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "common mistakes vs best practices checklist medical data"
+    }
+  },
+  {
+    "baslik": "Tıbbi Veri Teknikerinin Sorumlulukları",
+    "altbaslik": "Klinik YZ Ekosisteminde Neredeyiz?",
+    "icerik": "- Doğru Veri Girişi: Eksiksiz, zamanında ve doğru kodlanmış hasta kayıtları.\n- Veri Hijyeni: Hatalı, mükerrer ve tutarsız kayıtları temizleme.\n- Güvenilirlik Denetimi: YZ çıktılarını protokoller ışığında ön kontrolden geçirme.\n- Geri Bildirim: Modelin sahada ürettiği hatalı tahminleri kayıt altına alıp raporlama.",
+    "gorsel": {
+      "type": "image",
+      "query": "health information technician medical record audit data quality"
+    }
+  },
+  {
+    "baslik": "Haftalık Özet ve Mesleki Yansıma",
+    "altbaslik": "1. Haftanın Ana Fikirleri",
+    "icerik": "- AI/ML/DL birbiriyle hiyerarşik ve tamamlayıcı kavramlardır.\n- Sağlıkta YZ'nin gücü pazarlama sloganlarına değil, sağlam doğrulama aşamalarına dayanır.\n- Hata matrisi metrikleri klinik bağlama göre önceliklendirilir (Ör. Taramada Duyarlılık).\n- Tıbbi veri teknikeri, YZ sistemlerinin beslendiği veri altyapısının temel koruyucusudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept map medical artificial intelligence foundations"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)",
+    "altbaslik": "Kavramsal Anlayış Kontrolü",
+    "icerik": "- Soru 1: Nadir bir kanser türünde (%1 prevelans) herkese negatif diyen bir modelin Doğruluğu ve Duyarlılığı nedir?\n  Cevap: Doğruluk %99, Duyarlılık %0'dır!\n- Soru 2: Ham piksel verilerinden ara özellik çıkarmaya gerek duymadan öğrenen YZ alt dalı hangisidir?\n  Cevap: Derin Öğrenme (Deep Learning - CNN).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test questions medical AI metrics"
+    }
+  },
+  {
+    "baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 3-4)",
+    "altbaslik": "Klinik Yorumlama ve Vaka Sorusu",
+    "icerik": "- Soru 3: Bir modelin eğitim verisinde %98, farklı bir hastanenin test verisinde %61 başarım göstermesi neyi işaret eder?\n  Cevap: Aşırı öğrenme (Overfitting) ve yetersiz genelleştirme yeteneği.\n- Soru 4: Acil serviste inme (stroke) tespitinde hangi metrik önceliklidir?\n  Cevap: Duyarlılık (Sensitivity) - Çünkü inme geçiren hastayı kaçırmanın telafisi yoktur.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical case evaluation stroke diagnosis emergency"
+    }
+  },
+  {
+    "baslik": "Çıkış Kartı (Exit Ticket)",
+    "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız",
+    "icerik": "- 1. Bugün öğrendiğiniz en şaşırtıcı YZ metriği gerçeği neydi?\n- 2. Bir hekim size 'Bu YZ yazılımı %99 doğru çalışıyor' dediğinde ona ilk hangi soruyu sorarsınız?\n- 3. Gelecek hafta konusu: Görüntü Tabanlı Tanı Sistemleri (Radyoloji, Patoloji, Dermatoloji).",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket student reflection classroom feedback"
+    }
+  }
+]

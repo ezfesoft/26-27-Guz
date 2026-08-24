@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Final Projesi Sunumları ve Değerlendirme",
+    "altbaslik": "Dönem Sonu Bilimsel Savunma ve Akran Değerlendirmesi",
+    "icerik": "- Kapsam: 14 haftalık eğitimin somut bir sağlık YZ projesi üzerinde sergilenmesi.\n- Sunum Alanları: Radyolojik görüntüleme, klinik NLP, CDSS kural motoru, FHIR analizi, genomik kümeleme veya etik/bias denetimi.\n- Değerlendirme Esasları: Yalnızca teknik başarı değil; metodoloji, metrik seçimi, sınırlılıklar ve sunum kalitesi.\n- Hedef: Profesyonel bilimsel sunum ve savunma yetkinliği kazanmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "final project presentation capstone graduation healthcare students"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)",
+    "altbaslik": "14. Hafta Hedefleri",
+    "icerik": "- ÖÇ1: Seçtiği sağlık YZ problemini bilimsel literatür ve klinik bağlamla tanımlar.\n- ÖÇ2: Kullandığı veri seti, model ve metriklerin uygunluğunu savunur.\n- ÖÇ3: Projenin metodolojik sınırlılıklarını, hata analizini ve etik boyutunu açık yüreklilikle sunar.\n- ÖÇ4: Akranlarının projelerini objektif değerlendirme rubriğiyle analiz eder.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning outcomes capstone presentation peer review"
+    }
+  },
+  {
+    "baslik": "Bilimsel Proje Sunum Yapısı: 6 Adım",
+    "altbaslik": "5 Dakikada Etkili Sunum Formatı",
+    "icerik": "- 1. Problem ve Klinik Bağlam (1 dk): Sağlıkta hangi somut sorunu çözmeye çalıştınız?\n- 2. Veri Seti ve Etik Notu (0.5 dk): Veri nereden alındı, nasıl anonimleştirildi?\n- 3. Yöntem ve Araçlar (1 dk): Hangi algoritma veya no-code araç kullanıldı?\n- 4. Sonuçlar ve Metrikler (1.5 dk): Hata matrisi, Duyarlılık, Özgüllük sonuçları.\n- 5. Sınırlılıklar ve Hata Analizi (0.5 dk): Model nerelerde ve neden yanıldı?\n- 6. Mesleki Yansıma (0.5 dk): Tıbbi veri teknikerinin bu süreçteki katkısı ne oldu?",
+    "gorsel": {
+      "type": "image",
+      "query": "scientific presentation structure 6 steps flowchart"
+    }
+  },
+  {
+    "baslik": "Adım 1: Problem ve Klinik İhtiyaç Tanımı",
+    "altbaslik": "Neden Bu Konuyu Seçtiniz?",
+    "icerik": "- Kötü Giriş: 'Hocam biz akciğer kanseri üzerine bir yapay zeka yaptık.'\n- İyi Bilimsel Giriş: 'Akciğer kanserinde erken evre nodüllerin %18'i konvansiyonel grafilerde gözden kaçabilmektedir. Amacımız acil serviste çekilen grafilerde triyaj önceliği sağlayacak bir model test etmektir.'\n- Önem: Projenin klinik gerekçesi somut verilere dayanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "clinical problem statement presentation slide healthcare"
+    }
+  },
+  {
+    "baslik": "Adım 2: Veri Seti ve Ön İşleme Süreci",
+    "altbaslik": "Verinin Arkasındaki Hikaye",
+    "icerik": "- Veri Kaynağı: Kaggle, UCI veya açık erişimli anonim araştırma havuzları.\n- Örneklem Boyutu: Kaç hasta, kaç görüntü veya kaç satır metin?\n- Ön İşleme: Eksik veriler nasıl dolduruldu, normalizasyon ve aykırı değer filtrelemesi nasıl yapıldı?\n- Etik Beyan: Gerçek hasta kimliği içermediği ve KVKK'ya uygun olduğu beyan edilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "dataset summary preprocessing workflow table presentation"
+    }
+  },
+  {
+    "baslik": "Adım 3: Metrikler ve Sonuçların Savunulması",
+    "altbaslik": "Sadece Doğruluk (Accuracy) Yetmez!",
+    "icerik": "- Sunulması Gerekenler: 2x2 Hata Matrisi (Confusion Matrix), Duyarlılık (Sensitivity), Özgüllük (Specificity) ve F1-Skoru.\n- Sınıf Dengesizliği: Pozitif ve negatif vaka oranlarının sunumu.\n- Klinik Karşılaştırma: Elde edilen metriklerin literatürdeki benzer çalışmalarla kıyaslanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "confusion matrix results presentation bar chart metrics"
+    }
+  },
+  {
+    "baslik": "Adım 4: Modelin Sınırlılıkları ve Hata Analizi",
+    "altbaslik": "Dürüst ve Şeffaf Bilim",
+    "icerik": "- En Çok Puan Kazandıran Bölüm: 'Modelimiz şu 3 vakada yanlış tahmin üretmiştir; çünkü görüntülerde gürültü ve artefakt mevcuttur.'\n- Temsil Kısıtı: 'Model sadece 40-60 yaş aralığında test edilmiştir; pediatrik hastalarda geçerli değildir.'\n- Çıkarım: Kendi modelinin sınırlarını bilmek en üst düzey profesyonel olgunluktur.",
+    "gorsel": {
+      "type": "image",
+      "query": "scientific limitations error analysis chart honesty"
+    }
+  },
+  {
+    "baslik": "Akran Değerlendirme Rubriği (Peer Review)",
+    "altbaslik": "Sınıf Arkadaşlarımızı Nasıl Puanlayacağız?",
+    "icerik": "- Kriter 1: Klinik İhtiyacın Netliği (%20)\n- Kriter 2: Veri Kalitesi ve Metodoloji Doğruluğu (%25)\n- Kriter 3: Metriklerin Doğru Yorumlanması (%25)\n- Kriter 4: Sınırlılıkların Dürüstçe Raporlanması (%15)\n- Kriter 5: Zaman Yönetimi ve Sunum Becerisi (%15)\n- Prensip: Yapıcı, kanıta dayalı ve mesleki geri bildirim kültürü.",
+    "gorsel": {
+      "type": "image",
+      "query": "peer evaluation rubric scoring assessment classroom"
+    }
+  },
+  {
+    "baslik": "14 Haftanın Genel Özeti: Neler Kazandık?",
+    "altbaslik": "Dönem Boyu Kat Edilen Mesafe",
+    "icerik": "- 1. Hafta: Bilimsel kanıt ve metriklerin (Sensitivity/Specificity) temel mantığını kavradık.\n- 2-4. Haftalar: Görüntüleme, NLP ve Karar Destek sistemlerinin iç yapısını açtık.\n- 5-7. Haftalar: FHIR standartları, veri kalitesi ve giyilebilir teknolojilerle veriyi yönettik.\n- 8-11. Haftalar: Genomik tıp, klinik ilaç araştırmaları ve KVKK/anonimleştirmeyi inceledik.\n- 12-14. Haftalar: Algoritmik yanlılığı denetleyip sektörel vizyon ve projeler ürettik.",
+    "gorsel": {
+      "type": "image",
+      "query": "curriculum journey complete roadmap healthcare AI diploma"
+    }
+  },
+  {
+    "baslik": "Mezuniyet Mesajı: Geleceğin Sağlık Veri Liderleri",
+    "altbaslik": "Teknoloji İle İnsan Arasındaki Güven Köprüsü",
+    "icerik": "- Unutmayın: Yapay zeka tıbbı değiştirecek; ancak bu değişimi veriyi anlayan, denetleyen ve koruyan insanlar yönetecek.\n- İlkeniz: Her zaman eleştirel, kanıta dayalı, etik ve hasta odaklı kalınız.\n- Tebrikler: Sağlıkta Yapay Zeka dersini üstün başarıyla tamamladınız!\n- Başarılar Dileriz!",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success medical healthcare informatics future leader"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Çıkış Kartı (Final Reflection)",
+    "altbaslik": "Tüm Dönemin Değerlendirmesi",
+    "icerik": "- 1. Bu ders tıbbi verilere ve yapay zekaya bakış açınızı nasıl değiştirdi?\n- 2. Mezuniyet sonrası iş mülakatında kendinizi bu alanda nasıl ifade edeceksiniz?\n- 3. Tüm katkılarınız ve harika projeleriniz için teşekkür ederiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation celebration students diploma healthcare"
+    }
+  },
+  {
+    "baslik": "Final Projesi Değerlendirme Komitesi",
+    "altbaslik": "Jüri ve Değerlendirme Süreci",
+    "icerik": "- Jüri Üyeleri: Dersin Öğretim Elemanı, Sağlık Bilişimi Uzmanı ve Sektör Temsilcisi.\n- Değerlendirme Şeffaflığı: Her jüri üyesi akran değerlendirme rubriğindeki kriterlere göre bağımsız puan verir.\n- Amaç: Not vermenin ötesinde, her öğrenciye kariyerinde kullanabileceği yapıcı geri bildirim sunmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic jury evaluation committee defense medical students"
+    }
+  },
+  {
+    "baslik": "Sunum Sırasında Dikkat Edilecek 5 Altın Kural",
+    "altbaslik": "Başarılı Bir Bilimsel Savunma İçin",
+    "icerik": "- 1. Slaytı Okumayın: Slayttaki maddeleri kelimesi kelimesine okumak yerine salona bakarak anlatın.\n- 2. Sayıları Anlamlandırın: '%88 Doğruluk' demek yerine '100 hastanın 88'inde doğru karar' deyiniz.\n- 3. Süreye Sadık Kalın: 5. dakikanın sonunda toparlayıp son slayta geçiniz.\n- 4. Sınırlılıkları Gizlemeyin: Modelinizin zayıf yönünü jüri sormadan önce kendiniz açıklayın.\n- 5. Profesyonel Duruş: Tıbbi ve teknik terminolojiyi doğru ve özgüvenle telaffuz ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "presentation public speaking body language confidence"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 1: Radyoloji Zatürre Tespiti",
+    "altbaslik": "Görüntü İşleme Alanı Sunum Özeti",
+    "icerik": "- Veri: Kaggle Chest X-Ray (5.800 görüntü).\n- Model: CNN Transfer Learning (MobileNetV2).\n- Sonuç: %93 Duyarlılık, %86 Özgüllük, AUC: 0.94.\n- Hata Analizi: Bebek grafilerinde hareket artefaktı nedeniyle 12 vakada yanlış pozitif.\n- Mesleki Katkı: Görüntü ön işlemede CLAHE kontrast artırma filtresinin uygulanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project chest x-ray pneumonia CNN results"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 2: Klinik Epikrizlerden ICD-10 Kodlama",
+    "altbaslik": "NLP ve Metin Madenciliği Sunum Özeti",
+    "icerik": "- Veri: 200 adet anonimleştirilmiş Türkçe taburculuk özeti.\n- Model: BERTurk tabanlı klinik varlık ismi tanıma (NER) ve TF-IDF eşleme.\n- Sonuç: Birincil tanılarda %89 tam eşleşme, ikincil tanılarda %74 eşleşme.\n- Sınırlılık: Doktorların kullandığı yerel kısaltmalarda (Ör. 'HTA', 'KKY') başarı düşüşü.\n- Mesleki Katkı: 500 terimlik medikal kısaltma sözlüğü oluşturulması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project clinical NLP ICD-10 coding results"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 3: Diyabet Hastalarında Yeniden Yatış Tahmini",
+    "altbaslik": "Tabüler Veri ve CDSS Sunum Özeti",
+    "icerik": "- Veri: UCI Diabetes Dataset (100.000 hasta viziti).\n- Model: Karar Ağacı ve Lojistik Regresyon karşılaştırması.\n- Sonuç: 30 gün içinde acil yeniden yatış riskini %78 Duyarlılık ile tahmin etme.\n- En Önemli Değişkenler: Son 1 yıldaki acil başvuru sayısı, HbA1c testi yapılma durumu, ilaç sayısı.\n- Mesleki Katkı: Eksik laboratuvar verilerinin KNN ile doldurulması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project hospital readmission risk prediction tabular"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 4: Cilt Lezyonu Taramasında Yanlılık Denetimi",
+    "altbaslik": "Etik ve Adillik Sunum Özeti",
+    "icerik": "- Veri: ISIC Dermatoskopi Veri Seti (Açık ve koyu ten etiketli).\n- Model: Açık kaynaklı popüler bir melanom sınıflandırıcı.\n- Bulgular: Açık tende %94 Duyarlılık, Koyu tende %62 Duyarlılık!\n- Çözüm Önerisi: Sentetik veri artırma (GAN) ile koyu ten lezyonlarının eğitim setinde eşitlenmesi.\n- Mesleki Katkı: Sağlıkta adillik metriklerinin hesaplanıp raporlanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project bias fairness skin lesion dermatology audit"
+    }
+  },
+  {
+    "baslik": "Soru-Cevap ve Savunma Simülasyonu",
+    "altbaslik": "Jüriden Gelebilecek Tipik Zor Sorular",
+    "icerik": "- Soru 1: 'Modeliniz dengesiz veride %95 doğruluk vermiş; peki F1-Skoru ve Duyarlılığı nedir?'\n- Soru 2: 'Bu veri setini gerçek bir hastaneden alsaydınız hangi KVKK ve anonimleştirme adımlarını uygulardınız?'\n- Soru 3: 'Modelin yanlış karar verdiği bir vakanın hastaya klinik maliyeti ne olurdu?'\n- İpucu: Bu 3 soruya net ve sayısal cevap verebilen ekip tam puan alır!",
+    "gorsel": {
+      "type": "image",
+      "query": "thesis defense Q and A session academic discussion"
+    }
+  },
+  {
+    "baslik": "Akran Değerlendirme Formu Doldurma Yönergesi",
+    "altbaslik": "Objektif ve Adil Puanlama",
+    "icerik": "- Adım 1: Sunum yapan ekibin adını forma yazınız.\n- Adım 2: 5 kriter üzerinden 1-5 arası puanlama yapınız.\n- Adım 3: 'En Beğendiğim Yönü' ve 'Geliştirilmesi Gereken Yönü' kutucuklarına en az 1 yapıcı cümle yazınız.\n- Adım 4: Formları sunum bitiminde dijital olarak teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "peer evaluation scoring form digital survey classroom"
+    }
+  },
+  {
+    "baslik": "14 Haftanın Kazanımları: Bilişsel ve Mesleki Evrim",
+    "altbaslik": "Dönem Başındaki Siz vs Şimdiki Siz",
+    "icerik": "- 1. Hafta: 'Yapay zeka mucizedir, kanseri bitirecek' diyen bir öğrenciydiniz.\n- 14. Hafta: 'Bu model hangi veriyle eğitildi, duyarlılığı nedir, dış doğrulaması yapıldı mı, yanlılık içeriyor mu?' diye soran profesyonel bir Tıbbi Veri Uzmanısınız.\n- En Büyük Başarı: Eleştirel bilimsel düşünceyi bir refleks haline getirmektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "student transformation evolution education medical data expert"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 5: Giyilebilir Cihazlarla Aritmi Tespiti",
+    "altbaslik": "Zaman Serisi ve Sinyal İşleme Sunum Özeti",
+    "icerik": "- Veri: PhysioNet MIT-BIH Aritmi Veri Tabanı (48 adet EKG kaydı).\n- Yöntem: Scipy ile bandpass filtreleme ve R-tepe noktaları tespiti.\n- Sonuç: Atriyal Fibrilasyon ataklarında %96 Duyarlılık ve %91 Özgüllük.\n- Sınırlılık: Koşu ve hareket artefaktlarında Yanlış Pozitif oranının artması.\n- Mesleki Katkı: Sinyal Kalite İndeksi (SQI) filtresinin kurgulanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project ECG arrhythmia detection signal processing results"
+    }
+  },
+  {
+    "baslik": "Proje Örneği 6: Sepsis Erken Uyarı Karar Destek Simülasyonu",
+    "altbaslik": "Kural Tabanlı CDSS ve Vital Bulgu Sunum Özeti",
+    "icerik": "- Veri: MIMIC-III Yoğun Bakım açık hasta veri seti.\n- Model: qSOFA ve NEWS2 skorlama kurallarını içeren Python prototipi.\n- Sonuç: Kritik sepsis hastalarını klinik tanıdan ortalama 4.2 saat önce tespit etme.\n- Hata Analizi: Eksik laktat değerlerinde yanlış negatif riskinin KNN ile telafi edilmesi.\n- Mesleki Katkı: Karar tablosu ve hekim onay arayüzünün tasarlanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "student project sepsis early warning CDSS dashboard results"
+    }
+  },
+  {
+    "baslik": "Bilimsel Poster Formatı ve Görsel İletişim",
+    "altbaslik": "Kongre ve Sempozyum Sunum Standardı",
+    "icerik": "- Boyut ve Düzen: 70x100 cm dikey poster formatı (Giriş, Yöntem, Bulgular, Tartışma, Kaynakça).\n- Görsel Ağırlık: %60 grafik/tablo, %40 kısa ve vurucu metin blokları.\n- QR Kod: Posterin köşesine GitHub kod ve açık veri seti bağlantısını eklemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic scientific poster design medical congress template"
+    }
+  },
+  {
+    "baslik": "Jüri Tarafından Sıkça Eleştirilen 3 Temel Hata",
+    "altbaslik": "Bu Tuzaklara Düşmeyiniz!",
+    "icerik": "- 1. Veri Kaynağını Belirtmemek: 'Veriyi internetten bulduk' demek yerine 'Kaggle üzerinden X hastanesinin anonim açık veri seti' demek.\n- 2. Aşırı Öğrenmeyi Gizlemek: Eğitimde %100, testte %60 olan modeli 'Çok başarılı' diye sunmak.\n- 3. Klinik Sonuç Çıkarmamak: Salt teknik sayı verip hastaya ne fayda sağlayacağını unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "common mistakes thesis defense presentation jury feedback"
+    }
+  },
+  {
+    "baslik": "Gelecek Araştırma ve Geliştirme Önerileri",
+    "altbaslik": "Projenizi Bir Adım İleriye Taşımak",
+    "icerik": "- Çok Merkezli Doğrulama: Modelin farklı şehir ve hastanelerden toplanacak verilerle tekrar test edilmesi.\n- Mobil ve HBYS Entegrasyonu: No-code prototipin FHIR API ile gerçek hastane ortamına bağlanması.\n- TÜBİTAK 2209-A Başvurusu: Başarılı projelerin üniversite öğrenci araştırma bursuyla fonlanması.",
+    "gorsel": {
+      "type": "image",
+      "query": "future research directions tubitak university grant project"
+    }
+  },
+  {
+    "baslik": "Kariyer Portfolyosu Teslimi ve GitHub Bağlantısı",
+    "altbaslik": "Dönem Sonu Dijital Ürün Dosyası",
+    "icerik": "- Teslim Edilecekler:\n  * 1. Final Projesi Raporu (PDF formatında, 4-6 sayfa).\n  * 2. Sunum Slaytları (JSON / Google Slides bağlantısı).\n  * 3. Kullanılan Kod ve No-Code Model Ekran Görüntüleri.\n  * 4. Bireysel Dönem Sonu Öz Değerlendirme Raporu.\n- Arşiv: Tüm projeler bölüm web sitesinde 'Öğrenci Başarı Portfolyosu' olarak sergilenecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "digital portfolio submission github medical informatics archive"
+    }
+  },
+  {
+    "baslik": "Sağlık Bilişiminde Yaşam Boyu Öğrenme",
+    "altbaslik": "Mezuniyet Bir Son Değil, Başlangıçtır",
+    "icerik": "- Teknoloji Durmaz: Önümüzdeki yıllarda kuantum yapay zeka, nöromorfik çipler ve yapay organlar konuşulacak.\n- Değişmeyen İlke: Ne kadar teknoloji gelişirse gelişsin; doğruluk, dürüstlük, hasta sevgisi ve etik değerler her zaman en yüksek erdem olarak kalacaktır.",
+    "gorsel": {
+      "type": "image",
+      "query": "lifelong learning open book globe technology future"
+    }
+  },
+  {
+    "baslik": "Teşekkürler ve Takdir Belgesi",
+    "altbaslik": "Dönem Boyunca Gösterdiğiniz Üstün Gayret İçin",
+    "icerik": "- Hafta boyunca derslere gösterdiğiniz yüksek ilgi, tartışmalara yaptığınız değerli katkılar ve hazırladığınız harika projeler için her birinizi ayrı ayrı tebrik ederiz.\n- Başarılarınız daim, yolunuz açık olsun!",
+    "gorsel": {
+      "type": "image",
+      "query": "standing ovation applause classroom teacher students"
+    }
+  },
+  {
+    "baslik": "Sağlıkta Yapay Zeka Dersi Kapanışı",
+    "altbaslik": "2026-2027 Güz Dönemi Başarıyla Tamamlanmıştır",
+    "icerik": "- 'Geleceği tahmin etmenin en iyi yolu, onu inşa etmektir.' - Alan Kay\n- Sizler sağlık sisteminin geleceğini inşa edecek veri liderlerisiniz.\n- Sevgi ve Saygılarımızla!",
+    "gorsel": {
+      "type": "image",
+      "query": "inspirational quote future health data leadership final slide"
+    }
+  },
+  {
+    "baslik": "İletişimde Kalalım",
+    "altbaslik": "Akademik ve Mesleki Dayanışma",
+    "icerik": "- E-posta: saglikbilisimi@universite.edu.tr\n- LinkedIn Grubu: Sağlıkta YZ Mezunlar Ağı\n- Ofis: Tıbbi Hizmetler ve Teknikler Bölüm Başkanlığı\n- Kapımız her zaman sizlere açıktır!",
+    "gorsel": {
+      "type": "image",
+      "query": "contact information staying in touch university campus"
+    }
+  },
+  {
+    "baslik": "Son Slayt: Başarılar!",
+    "altbaslik": "Dönem Sonu",
+    "icerik": "- Sağlıkta Yapay Zeka Ders Sunumları Sonu.\n- Tüm sınavlarınızda ve meslek hayatınızda üstün başarılar dileriz.",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success celebration healthcare diploma"
+    }
+  }
+]

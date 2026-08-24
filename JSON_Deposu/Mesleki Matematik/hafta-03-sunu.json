@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 3",
+    "altbaslik": "Üslü Sayılar ve Kökler",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Cebirsel Temeller ve Üstel Büyüme\nHaftalık Odak: 2'nin Kuvvetleri, RAM/Disk Adresleme ve Kriptografik Anahtar Uzunlukları\nHedef: Bilişimde katlanarak büyüyen veri ve şifreleme zorluklarını modellemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security cryptography encryption keys mathematical formulas"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: AES-256 Şifreleme Neden Kırılamaz?",
+    "icerik": "AES-128 şifrelemeden AES-256'ya geçildiğinde güvenlik iki katına mı çıkar?\nHAYIR! Güvenlik 2^128 kat artar.\n- 2^128 sayısı evrendeki atom sayısına yakındır.\nÜslü sayı mantığını bilmek, algoritmaların işlem karmaşıklığını (Big-O) ve güvenlik düzeyini anlamanın temelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "AES encryption padlock digital security mathematics"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Ders Çıktıları",
+    "icerik": "1. Üslü sayıların temel kurallarını (çarpma, bölme, üssün üssü) uygular.\n2. 2'nin kuvvetlerini (2^0'dan 2^16'ya kadar) bilişim uygulamalarında ezbere yorumlar.\n3. Karekök ve köklü ifadelerin mantığını hesaplar.\n4. Kriptografi ve bellek adreslemede üstel büyüklükleri karşılaştırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "math learning board exponents and roots"
+    }
+  },
+  {
+    "baslik": "Üslü Sayı Tanımı ve Taban-Üs İlişkisi",
+    "altbaslik": "Tekrarlı Çarpımların Gösterimi",
+    "icerik": "Tanım: a^n ifadesinde;\n- a: Taban (Çarpılan sayı)\n- n: Üs / Kuvvet (Sayının kaç kez kendisiyle çarpılacağı)\nÖrnekler:\n- 2^4 = 2 x 2 x 2 x 2 = 16\n- 10^3 = 10 x 10 x 10 = 1000\nÖzel Kurallar: a^0 = 1 (a != 0), a^1 = a, 0^a = 0.",
+    "gorsel": {
+      "type": "image",
+      "query": "exponents power base formula math diagram"
+    }
+  },
+  {
+    "baslik": "Bilişimde 2'nin Kuvvetleri Tablosu (1)",
+    "altbaslik": "2^0 ile 2^8 Arası Temel Değerler",
+    "icerik": "- 2^0 = 1 (1 durum)\n- 2^1 = 2 (1 bit: 0 veya 1)\n- 2^2 = 4 (2 bit kombinasyonu)\n- 2^3 = 8 (3 bit - 1 Octal basamak)\n- 2^4 = 16 (4 bit - 1 Hex karakter / Nibble)\n- 2^5 = 32\n- 2^6 = 64\n- 2^7 = 128 (Subnet maskelerinde 128 okteti)\n- 2^8 = 256 (1 Byte alabileceği farklı değer sayısı: 0-255)",
+    "gorsel": {
+      "type": "image",
+      "query": "powers of 2 chart memory ram port numbers"
+    }
+  },
+  {
+    "baslik": "Bilişimde 2'nin Kuvvetleri Tablosu (2)",
+    "altbaslik": "2^10 ile 2^32 Arası Kritik Sınırlar",
+    "icerik": "- 2^10 = 1024 (1 Kilo - Bilişimde 1000 yerine 1024)\n- 2^16 = 65,536 (Toplam TCP/UDP Port Sayısı: 0-65535)\n- 2^20 = 1,048,576 (1 MegaByte = 1024 KB)\n- 2^24 = 16,777,216 (24-bit TrueColor / C-sınıfı özel IP bloğu)\n- 2^30 = 1,073,741,824 (1 GigaByte)\n- 2^32 = 4,294,967,296 (Toplam IPv4 Adres Sayısı ~4.3 Milyar)",
+    "gorsel": {
+      "type": "image",
+      "query": "large powers of two memory addressing chart"
+    }
+  },
+  {
+    "baslik": "Üslü Sayılarda Çarpma Kuralı",
+    "altbaslik": "Tabanlar Aynı İse Üsler Toplanır",
+    "icerik": "Kural: a^m * a^n = a^(m+n)\nÖrnek: 2^10 Byte (1 KB) x 2^10 (1024 adet) = 2^(10+10) = 2^20 Byte (1 MB).\nÖrnek: 2^20 (1 MB) x 2^10 = 2^30 Byte (1 GB).\nVeri birimleri her basamakta 2^10 (1024) ile çarpılarak büyür.",
+    "gorsel": {
+      "type": "image",
+      "query": "exponent multiplication rule mathematical calculation"
+    }
+  },
+  {
+    "baslik": "Üslü Sayılarda Bölme Kuralı",
+    "altbaslik": "Tabanlar Aynı İse Üsler Çıkarılır",
+    "icerik": "Kural: a^m / a^n = a^(m-n)\nÖrnek: 1 TB (2^40 Byte) alanı, 1 MB (2^20 Byte) dosyalara bölersek kaç dosya sığar?\nİşlem: 2^40 / 2^20 = 2^(40-20) = 2^20 = 1,048,576 adet dosya sığar.",
+    "gorsel": {
+      "type": "image",
+      "query": "exponent division rule storage file count"
+    }
+  },
+  {
+    "baslik": "Üssün Üssü Kuralı",
+    "altbaslik": "(a^m)^n = a^(m*n)",
+    "icerik": "Kuvvetin kuvveti alınırken üsler çarpılır.\nÖrnek:\n(2^8)^4 = 2^(8*4) = 2^32\n(2^4)^2 = 2^8 = 256\nİşlemci register mimarilerinde 8 bitin katları bu mantıkla katlanarak 64 bite çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "power of a power rule math visualization"
+    }
+  },
+  {
+    "baslik": "Negatif Üsler ve Kesirli Gösterim",
+    "altbaslik": "Ters Çevirme İlkesi: a^(-n) = 1 / a^n",
+    "icerik": "Negatif üs sayının işaretini eksi yapmaz; sayıyı paydaya atarak çarpmaya göre tersini alır.\nÖrnekler:\n- 2^(-1) = 1 / 2 = 0.5\n- 2^(-2) = 1 / 2^2 = 1 / 4 = 0.25\n- 2^(-3) = 1 / 2^3 = 1 / 8 = 0.125\n- 10^(-3) = 1 / 1000 = 0.001 (Milisaniye seviyesi)",
+    "gorsel": {
+      "type": "image",
+      "query": "negative exponents reciprocal math formula"
+    }
+  },
+  {
+    "baslik": "Köklü Sayılar ve Karekök Mantığı",
+    "altbaslik": "Üs Alma İşleminin Tersi",
+    "icerik": "Tanım: sqrt(x) = y ise y^2 = x'tir.\nKarekök, 'Hangi sayının karesi bu sayıyı verir?' sorusunun cevabıdır.\nÖrnekler:\n- sqrt(16) = 4 (Çünkü 4^2 = 16)\n- sqrt(64) = 8\n- sqrt(256) = 16\n- sqrt(1024) = 32\nKöklü ifadeler rasyonel üs olarak da yazılabilir: sqrt(a) = a^(1/2).",
+    "gorsel": {
+      "type": "image",
+      "query": "square root radical mathematics function board"
+    }
+  },
+  {
+    "baslik": "Köklü Sayılarda Çarpma ve Bölme",
+    "altbaslik": "Kök İçinde İşlem Yapabilme",
+    "icerik": "Çarpma: sqrt(a) * sqrt(b) = sqrt(a * b)\n- Örnek: sqrt(4) * sqrt(25) = 2 * 5 = 10 = sqrt(100)\nBölme: sqrt(a) / sqrt(b) = sqrt(a / b)\n- Örnek: sqrt(144) / sqrt(16) = 12 / 4 = 3 = sqrt(9)\nUyarı: Toplama ve çıkarmada kökler ayrı ayrı toplanamaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "square root properties arithmetic operations"
+    }
+  },
+  {
+    "baslik": "Bilişimde Adresleme ve n-Bit Mantığı",
+    "altbaslik": "Kapasite = 2^n",
+    "icerik": "Bir sistemde n adet bit (adres hattı) varsa, üretilebilecek benzersiz durum sayısı 2^n'dir.\n- 8 bit mimari -> 2^8 = 256 farklı durum (0 - 255)\n- 16 bit mimari -> 2^16 = 65,536 port\n- 32 bit mimari -> 2^32 = 4,294,967,296 adres (Maksimum 4 GB RAM sınırı)\n- 64 bit mimari -> 2^64 = 18.4 Kentilyon adres (Pratikte sınırsız bellek).",
+    "gorsel": {
+      "type": "image",
+      "query": "32 bit vs 64 bit processor memory addressing diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: 2'nin Kuvveti ile Çarpma",
+    "altbaslik": "Seviye: Başlangıç",
+    "icerik": "Soru: 2^6 sayısının 2^5 katı kaçtır? Desimal değerini hesaplayınız.\nİşlem Adımı: Tabanlar aynı olduğu için üsler toplanır.\n2^6 * 2^5 = 2^(6+5) = 2^11\nDesimal Değeri: 2^10 = 1024 olduğuna göre;\n2^11 = 1024 x 2 = 2048.",
+    "gorsel": {
+      "type": "image",
+      "query": "math step by step solution powers multiplication"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: RAM Kapasite Hesabı",
+    "altbaslik": "Seviye: Kolay (Mimari Hesaplama)",
+    "icerik": "Soru: 32 bitlik bir işletim sistemi her bellek adresinde 1 Byte saklayabilmektedir. Bu sistem en fazla kaç GB RAM adresleyebilir?\nAdım 1: Adres sayısı = 2^32 Byte\nAdım 2: 1 GB = 2^30 Byte olduğuna göre;\nAdım 3: Kapasite = 2^32 / 2^30 = 2^(32-30) = 2^2 = 4 GB.\nSonuç: 32-bit sistemlerin maksimum 4 GB RAM destekleme sınırı buradan gelir.",
+    "gorsel": {
+      "type": "image",
+      "query": "computer ram modules motherboard 4gb limit"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: Kriptografik Anahtar Uzayı",
+    "altbaslik": "Seviye: Orta (Brute-Force Zorluğu)",
+    "icerik": "Soru: 4 bitlik bir şifreleme anahtarı ile 8 bitlik bir anahtarın olası deneme (kombinasyon) sayılarını karşılaştırınız.\n- 4-bit anahtar: 2^4 = 16 farklı anahtar\n- 8-bit anahtar: 2^8 = 256 farklı anahtar\nOran = 256 / 16 = 16 kat (Yani 2^(8-4) = 2^4 = 16 kat daha zor).\nAnahtar uzunluğu 1 bit arttığında güvenlik 2 katına çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "brute force attack cryptographic keys diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Büyük Depolama Birimlerini Bölme",
+    "altbaslik": "Seviye: Orta (Veri Tabanı Bölümleme)",
+    "icerik": "Soru: 1 PB (Petabyte = 2^50 Byte) kapasiteli bir veri merkezinde, her biri 256 GB (2^38 Byte) olan sanal sunucu disklerinden en fazla kaç tane oluşturulabilir?\nİşlem: 2^50 / 2^38 = 2^(50-38) = 2^12\nDesimal Hesap: 2^10 = 1024 -> 2^12 = 1024 x 4 = 4096 adet sanal sunucu diski oluşturulabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud data center petabyte virtualization server rack"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Karekök ile Ağ Matrisi Boyutu",
+    "altbaslik": "Seviye: Orta-İleri (Köklü Sayı)",
+    "icerik": "Soru: Bir mesh ağ topolojisinde tam kare şeklinde düzenlenmiş 256 adet sunucu düğümü (node) bulunmaktadır. Her satır ve sütunda kaçar adet sunucu vardır?\nÇözüm:\nNokta sayısı N = kenar^2 = 256\nKenar = sqrt(256) = 16\nHer satır ve sütunda 16 sunucu bulunur.",
+    "gorsel": {
+      "type": "image",
+      "query": "grid mesh network topology nodes diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Hash Çarpışma Analizi (Doğum Günü Paradoksu)",
+    "altbaslik": "Seviye: İleri (Karekök ve Kripto)",
+    "icerik": "Kural: n-bitlik bir hash fonksiyonunda (örn: MD5, SHA-256), çarpışma (collision) bulmak için gereken deneme sayısı yaklaşık sqrt(2^n) = 2^(n/2)'dir.\nSoru: 64 bitlik bir hash çıktısında çarpışma bulmak için yaklaşık kaç deneme gerekir?\nİşlem: sqrt(2^64) = (2^64)^(1/2) = 2^32\nSonuç: 2^64 yerine sadece 2^32 (~4.3 milyar) denemede çarpışma bulunabilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "hash collision birthday paradox mathematics crypto"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Şifreleme Anahtarı Karşılaştırma",
+    "altbaslik": "Seviye: İleri (AES-128 vs AES-256)",
+    "icerik": "Soru: AES-256 anahtar uzayı (2^256), AES-128 anahtar uzayından (2^128) kaç kat daha büyüktür?\nİşlem:\nOran = 2^256 / 2^128 = 2^(256-128) = 2^128 kat büyüktür.\nYorum: 'İki kat' değil, '2^128 kat' daha güçlüdür.",
+    "gorsel": {
+      "type": "image",
+      "query": "aes encryption comparison key strength visualization"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Üslü Sayı İşlem Tuzakları",
+    "icerik": "1. 2^3 ifadesini 2 x 3 = 6 olarak çarpmak (En yaygın hata! Doğrusu 2x2x2 = 8).\n2. Tabanlar aynı değilken üsleri toplamaya çalışmak (Örn: 2^3 * 3^3 = 6^3'tür, 2^6 DEĞİLDİR).\n3. Negatif üssü sayının önüne eksi koymak sanmak (2^(-1) = 0.5'tir, -2 değildir).",
+    "gorsel": {
+      "type": "image",
+      "query": "red warning sign math calculation errors"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "Köklü Sayı İşlem Tuzakları",
+    "icerik": "1. Karekök içinde toplama yaparken ayrı ayrı kök dışına çıkarmak (sqrt(a+b) != sqrt(a) + sqrt(b)).\n   Örnek: sqrt(9 + 16) = sqrt(25) = 5 iken, 3 + 4 = 7 olur!\n2. Çift dereceli köklerin içinin negatif olamayacağını unutmak (Reel sayılarda sqrt(-4) tanımsızdır).",
+    "gorsel": {
+      "type": "image",
+      "query": "mathematical caution root errors rules"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Ransomware Şifre Kırma Girişimi",
+    "altbaslik": "Olay Müdahale ve Risk Değerlendirmesi",
+    "icerik": "Olay: Şirket veritabanı RSA-2048 ve AES-128 ile şifrelendi. Yönetim 'En güçlü süper bilgisayarı kiralayıp tüm anahtarları deneyerek şifreyi çözelim' teklifinde bulundu.\nAnalitik İnceleme: Saniyede 1 trilyon (10^12) anahtar deneyen bir süper bilgisayar 2^128 (yaklaşık 3.4 x 10^38) anahtarı test etmek için milyarlarca yıla ihtiyaç duyar.\nUzman Raporu: Kaba kuvvet imkansızdır; yedekten geri dönülmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "ransomware incident supercomputer brute force analysis"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve Kriptografik Önlem",
+    "altbaslik": "Geleceğe Hazırlık: Post-Quantum",
+    "icerik": "Alınan Önlemler:\n1. 3-2-1 Yedekleme kuralı (3 kopya, 2 farklı ortam, 1 offsite/çevrimdışı).\n2. Kuantum bilgisayarların Shor algoritmasına karşı anahtar uzunluklarının AES-256 seviyesine yükseltilmesi.\n3. Matematiksel güvenlik modellerinin operasyonel risk analizine entegrasyonu.",
+    "gorsel": {
+      "type": "image",
+      "query": "quantum computing cryptography future security"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Üslü Çarpma",
+    "icerik": "Soru: 2^8 * 2^4 işleminin sonucu nedir?\nA) 2^32\nB) 4^12\nC) 2^12\nD) 2^2\n\nDoğru Cevap: C (8 + 4 = 12 -> 2^12)",
+    "gorsel": {
+      "type": "image",
+      "query": "math test question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "2'nin Kuvveti Değeri",
+    "icerik": "Soru: 2^10 sayısı desimal olarak kaça eşittir?\nA) 100\nB) 1000\nC) 1024\nD) 2048\n\nDoğru Cevap: C (2^10 = 1024)",
+    "gorsel": {
+      "type": "image",
+      "query": "computer science binary math quiz"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Üslü Bölme",
+    "icerik": "Soru: 2^24 / 2^16 işleminin sonucu nedir?\nA) 2^8\nB) 2^384\nC) 2^(1.5)\nD) 2^40\n\nDoğru Cevap: A (24 - 16 = 8 -> 2^8 = 256)",
+    "gorsel": {
+      "type": "image",
+      "query": "division exponents exam question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Kök Alma",
+    "icerik": "Soru: sqrt(1024) ifadesinin değeri kaçtır?\nA) 16\nB) 32\nC) 64\nD) 512\n\nDoğru Cevap: B (32 x 32 = 1024, yani (2^10)^(1/2) = 2^5 = 32)",
+    "gorsel": {
+      "type": "image",
+      "query": "square root evaluation math test"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Üs, bir sayının kaç kez çarpılacağını belirler.\n- Tabanlar aynı ise çarpmada üsler toplanır, bölmede çıkarılır.\n- Bilişimde tüm kapasite, adres ve portlar 2'nin kuvvetleriyle ifade edilir (2^n).\n- Karekök üssün 1/2 kuvvetidir ve algoritmik karmaşıklık analizinde temel araçtır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary lesson overview mindmap mathematics"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 4: Kesirler, Ondalık Sayılar ve Yüzdeler",
+    "icerik": "Gelecek Konular:\n- SLA (Hizmet Seviyesi Anlaşması): %99.9 Uptime ne anlama gelir?\n- Ağ paket kaybı oranı (%2 packet loss) nasıl hesaplanır?\n- Disk doluluk yüzdesi ve veri sıkıştırma oranları.",
+    "gorsel": {
+      "type": "image",
+      "query": "sla uptime percentage server reliability monitor"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Bir güvenlik kamerası ağında 2^14 adet paket iletilmiştir. Bu paketlerin 2^11 adedi başarıyla hedefe ulaştığına göre, iletilen paketlerin kaçta kaçı (2'nin kuvveti olarak) hedefe varmıştır?'\n\nİşlemlerinizi yazıp kağıdı teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "network packets data flow diagram exit ticket"
+    }
+  }
+]

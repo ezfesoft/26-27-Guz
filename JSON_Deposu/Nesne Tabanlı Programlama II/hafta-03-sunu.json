@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 3",
+    "altbaslik": "Sınıf (Class) ve Nesne (Object) Kavramları",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: OOP Paradigması, Sınıf Şablonu, Nesne Örnekleme, __init__ ve self Mantığı\nUygulama Teması: Instagram Profili ve Oyun Karakter Kartı",
+    "gorsel": {
+      "type": "image",
+      "query": "object oriented programming architecture classes objects"
+    }
+  },
+  {
+    "baslik": "Nesne Tabanlı Programlama (OOP) Nedir?",
+    "altbaslik": "Gerçek Dünyayı Koda Dökmek",
+    "icerik": "Şimdiye kadar değişkenler ve fonksiyonlar ayrı ayrıydı.\n- Gerçek hayatta bir araba sadece 'hız = 100' değildir; hem özellikleri (renk, marka) hem de yetenekleri (gaz_bas(), fren_yap()) vardır.\n- OOP: Nitelikleri (veri) ve Davranışları (metot) tek bir çatı altında toplamaktır.",
+    "gorsel": {
+      "type": "image",
+      "query": "real world objects to code conceptual illustration"
+    }
+  },
+  {
+    "baslik": "Sınıf (Class) ve Nesne (Object) Ayrımı",
+    "altbaslik": "Kalıp vs. Kek Analojisi",
+    "icerik": "1. Sınıf (Class): Bir nesnenin mimari çizimidir, şablonudur veya kek kalıbıdır.\n- Bellekte yer kaplamaz, sadece kuralları belirler.\n\n2. Nesne (Object): O kalıptan üretilen somut varlıktır.\n- Bellekte (RAM) fiziksel yer tutar.\n- Örn: 'Insan' sınıftır; 'Ahmet' o sınıftan üretilmiş bir nesnedir.",
+    "gorsel": {
+      "type": "image",
+      "query": "blueprint to real house construction class object"
+    }
+  },
+  {
+    "baslik": "Durum (State) ve Davranış (Behavior)",
+    "altbaslik": "Nitelik vs. Metot",
+    "icerik": "Bir Nesnenin 2 Ana Bileşeni Vardır:\n\n1. Nitelikler (Attributes / State): Nesnenin sahip olduğu verilerdir.\n(Örn: kullanici_adi, takipci_sayisi, bakiye)\n\n2. Metotlar (Methods / Behavior): Nesnenin yapabildiği eylemlerdir (fonksiyonlardır).\n(Örn: takipci_kazan(), bakiye_yukle(), mesaj_at())",
+    "gorsel": {
+      "type": "image",
+      "query": "properties and actions robot programming"
+    }
+  },
+  {
+    "baslik": "Python'da İlk Sınıfımızı Tanımlıyoruz",
+    "altbaslik": "class Anahtar Kelimesi ve PascalCase",
+    "icerik": "Sınıf isimleri büyük harfle (PascalCase) başlar:\n\nclass Ogrenci:\n    # Sınıf gövdesi\n    pass\n\n# Sınıftan nesne üretme (Instantiation):\nogr1 = Ogrenci()\nogr2 = Ogrenci()\n\nprint(ogr1)  # Bellekteki adresini gösterir",
+    "gorsel": {
+      "type": "image",
+      "query": "python code class definition ide editor"
+    }
+  },
+  {
+    "baslik": "Kurucu Metot: __init__()",
+    "altbaslik": "Nesne Doğarken Çalışan İlk Kod",
+    "icerik": "__init__ (Initializer), bir nesne ilk oluşturulduğu (new) anda otomatik çalışan özel kurucu fonksiyondur:\n\nclass Ogrenci:\n    def __init__(self, ad, numara):\n        self.ad = ad\n        self.numara = numara\n\n# Nesne üretirken __init__ otomatik çağrılır:\nogr1 = Ogrenci('Merve', '24101')",
+    "gorsel": {
+      "type": "image",
+      "query": "constructor initialization birth concept programming"
+    }
+  },
+  {
+    "baslik": "self Anahtar Kelimesi: Ayna Analojisi",
+    "altbaslik": "self Aslında 'Ben' Demektir!",
+    "icerik": "self, o an üzerinde işlem yapılan nesnenin KENDİSİNİ temsil eder.\n- ogr1.bilgi() çağrıldığında self = ogr1 olur.\n- ogr2.bilgi() çağrıldığında self = ogr2 olur.\n- Python sınıflarında her metodun İLK parametresi mutlaka self olmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "mirror reflection self pointer concept programming"
+    }
+  },
+  {
+    "baslik": "Gerçek Hayat Örneği: Instagram Profili",
+    "altbaslik": "Sosyal Medya Profilini Kodla Modelleme",
+    "icerik": "class InstagramProfili:\n    def __init__(self, kullanici_adi, bio):\n        self.kullanici_adi = kullanici_adi\n        self.bio = bio\n        self.takipci_sayisi = 0\n        self.gonderi_sayisi = 0\n\n    def takipci_kazan(self):\n        self.takipci_sayisi += 1\n        print(f'@{self.kullanici_adi} yeni takipçi! Toplam: {self.takipci_sayisi}')",
+    "gorsel": {
+      "type": "image",
+      "query": "instagram social media user profile interface"
+    }
+  },
+  {
+    "baslik": "Nesneler Birbirinden Tamamen Bağımsızdır",
+    "altbaslik": "Bellekteki Ayrı Odalar",
+    "icerik": "profil1 = InstagramProfili('ahmet_kod', 'Yazılımcı')\nprofil2 = InstagramProfili('ayse_tasarim', 'Grafiker')\n\nprofil1.takipci_kazan()\nprofil1.takipci_kazan()\n\nprint(profil1.takipci_sayisi)  # 2\nprint(profil2.takipci_sayisi)  # 0 (Ayşe'nin takipçisi değişmedi!)",
+    "gorsel": {
+      "type": "image",
+      "query": "independent memory blocks heap storage python"
+    }
+  },
+  {
+    "baslik": "Metotlara Parametre Gönderme",
+    "altbaslik": "Davranışları Özelleştirme",
+    "icerik": "class InstagramProfili:\n    # ... (önceki kodlar)\n\n    def post_paylas(self, fotograf_aciklamasi):\n        self.gonderi_sayisi += 1\n        print(f'@{self.kullanici_adi} yeni post paylaştı: \"{fotograf_aciklamasi}\"')\n\np1 = InstagramProfili('giresun_myo', 'Resmi Hesap')\np1.post_paylas('NTP II dersinde OOP öğreniyoruz!')",
+    "gorsel": {
+      "type": "image",
+      "query": "posting photo social media app smartphone"
+    }
+  },
+  {
+    "baslik": "Nitelik Değerlerini Güncelleme",
+    "altbaslik": "Biyografi ve Bilgi Değişimi",
+    "icerik": "Bir nesnenin niteliğini doğrudan değiştirebiliriz:\n\np1 = InstagramProfili('ali_28', 'Öğrenci')\nprint(p1.bio)  # 'Öğrenci'\n\np1.bio = 'Giresun MYO Bilgisayar Programcılığı'\nprint(p1.bio)  # Güncellendi!",
+    "gorsel": {
+      "type": "image",
+      "query": "edit profile settings smartphone update"
+    }
+  },
+  {
+    "baslik": "Sınıf Niteliği vs. Nesne Niteliği",
+    "altbaslik": "Ortak Sayaç vs. Bireysel Veri",
+    "icerik": "class Ogrenci:\n    toplam_ogrenci = 0  # Sınıf Niteliği (Herkes için ORTAK)\n\n    def __init__(self, ad):\n        self.ad = ad     # Nesne Niteliği (Kişiye ÖZEL)\n        Ogrenci.toplam_ogrenci += 1\n\no1 = Ogrenci('Ali')\no2 = Ogrenci('Zeynep')\nprint(Ogrenci.toplam_ogrenci)  # 2",
+    "gorsel": {
+      "type": "image",
+      "query": "counter classroom students attendance shared"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Kafe Masası Sınıfı",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "class Masa:\n    def __init__(self, masa_no):\n        self.masa_no = masa_no\n        self.dolu_mu = False\n        self.hesap = 0.0\n\n    def siparis_ekle(self, tutar):\n        self.hesap += tutar\n        self.dolu_mu = True\n        print(f'Masa {self.masa_no} güncel hesap: {self.hesap:.2f} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "restaurant table order billing point of sale"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Masa Nesnelerini Yönetme",
+    "altbaslik": "Nesneleri Listede Toplama",
+    "icerik": "masa1 = Masa(1)\nmasa2 = Masa(2)\n\nmasa1.siparis_ekle(50)  # Tost\nmasa1.siparis_ekle(15)  # Çay\n\nprint(f'Masa 1 Durumu: Dolu={masa1.dolu_mu}, Hesap={masa1.hesap} TL')\nprint(f'Masa 2 Durumu: Dolu={masa2.dolu_mu}, Hesap={masa2.hesap} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "cafe waiter taking order table management"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Hesap Kapatma Metodu",
+    "altbaslik": "Durumu Sıfırlayan Davranış",
+    "icerik": "class Masa:\n    # ...\n    def hesabi_kapat(self):\n        print(f'Masa {self.masa_no} için {self.hesap:.2f} TL tahsil edildi.')\n        self.hesap = 0.0\n        self.dolu_mu = False\n\nmasa1.hesabi_kapat()\nprint('Masa 1 Boşaldı mı?', not masa1.dolu_mu)",
+    "gorsel": {
+      "type": "image",
+      "query": "credit card payment pos machine restaurant bill"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Oyun Karakter Kartı",
+    "altbaslik": "Can ve Hasar Mantığı",
+    "icerik": "class Savasci:\n    def __init__(self, isim, can=100):\n        self.isim = isim\n        self.can = can\n\n    def hasar_al(self, miktar):\n        self.can -= miktar\n        if self.can <= 0:\n            self.can = 0\n            print(f'💀 {self.isim} elendi!')\n        else:\n            print(f'⚔️ {self.isim} hasar aldı! Kalan can: {self.can}')",
+    "gorsel": {
+      "type": "image",
+      "query": "rpg game character health bar combat"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Kitap Nesnesi",
+    "altbaslik": "Sayfa Okuma İlerlemesi",
+    "icerik": "class Kitap:\n    def __init__(self, baslik, toplam_sayfa):\n        self.baslik = baslik\n        self.toplam_sayfa = toplam_sayfa\n        self.okunan_sayfa = 0\n\n    def sayfa_oku(self, sayfa):\n        self.okunan_sayfa += sayfa\n        print(f'{self.baslik}: {self.okunan_sayfa}/{self.toplam_sayfa} sayfa okundu.')",
+    "gorsel": {
+      "type": "image",
+      "query": "reading book progress bookmark library"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Banka Kartı",
+    "altbaslik": "Bakiye ve Harcama",
+    "icerik": "class Kart:\n    def __init__(self, sahip, limit=500):\n        self.sahip = sahip\n        self.limit = limit\n\n    def harca(self, tutar):\n        if tutar <= self.limit:\n            self.limit -= tutar\n            print(f'Onaylandı. Kalan limit: {self.limit} TL')\n        else:\n            print('Yetersiz limit!')",
+    "gorsel": {
+      "type": "image",
+      "query": "debit card payment terminal balance"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\nclass Araba:\n    def korna_cal():\n        print('Düt düt!')\n\na = Araba()\na.korna_cal()\n\nProblem Nedir?\nkorna_cal() metoduna self parametresi yazılmamıştır!\nÇalıştırıldığında: TypeError: korna_cal() takes 0 positional arguments but 1 was given.",
+    "gorsel": {
+      "type": "image",
+      "query": "type error python method self argument bug"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "class Sayac:\n    def __init__(self):\n        self.deger = 10\n\n    def artir(self):\n        self.deger += 5\n\ns1 = Sayac()\ns1.artir()\ns1.artir()\nprint(s1.deger)\n\nÇıktı: 20 (Başlangıç 10 + 5 + 5 = 20)",
+    "gorsel": {
+      "type": "image",
+      "query": "counter number increment code test"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "OOP'ye Başlayanların 3 Tuzağı",
+    "icerik": "1. Metot tanımlarken ilk parametre olarak self yazmayı unutmak.\n2. Sınıf içindeki niteliklere erişirken self.ad yerine sadece ad yazmak (NameError verir).\n3. __init__ metodunun başına ve sonuna çift alt çizgi yerine tek alt çizgi yazmak (_init_).",
+    "gorsel": {
+      "type": "image",
+      "query": "checklist code review bug fixing"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Kurucu Metot",
+    "icerik": "Soru: Python'da bir nesne oluşturulurken otomatik çalışan kurucu metot hangisidir?\nA) __main__\nB) __init__\nC) __start__\nD) __create__\n\nDoğru Cevap: B (__init__ kurucu fonksiyondur).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question choice classroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "self Kavramı",
+    "icerik": "Soru: Sınıf metotlarındaki self parametresinin temel görevi nedir?\nA) Sınıfın adını tutmak\nB) Bellekteki o anki nesne örneğini temsil etmek\nC) Değişkenleri gizlemek\nD) Döngüleri kontrol etmek\n\nDoğru Cevap: B (Nesnenin kendisini işaret eder).",
+    "gorsel": {
+      "type": "image",
+      "query": "concept question test exam"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Nitelik Erişimi",
+    "icerik": "Soru: ogr = Ogrenci('Ali') nesnesinin ad niteliğine sınıf dışından nasıl erişilir?\nA) ogr.get('ad')\nB) ogr['ad']\nC) ogr.ad\nD) Ogrenci.ad\n\nDoğru Cevap: C (Nokta operatörü ile ogr.ad şeklinde erişilir).",
+    "gorsel": {
+      "type": "image",
+      "query": "object attribute access dot notation"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Kullanıcı Nesnesi",
+    "altbaslik": "Kullanıcı Oturumları Nasıl Yönetilir?",
+    "icerik": "Gerçek Dünyada:\nHer siteye giriş yapan müşteri bir Musteri nesnesi olarak RAM'de oluşur.\n- musteri.sepet_ekle(urun)\n- musteri.kupon_kullan('INDIRIM20')\n- musteri.siparis_tamamla()\nTüm modern web sistemleri bu nesne mimarisi üzerinde koşar.",
+    "gorsel": {
+      "type": "image",
+      "query": "e commerce customer session user account system"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Oyun Karakteri Kartı & Mini Dövüş Simülasyonu",
+    "icerik": "Göreviniz:\n1. Karakter sınıfı oluşturun (isim, can=100, guc=25).\n2. Metotlar:\n   - saldir(hedef_karakter) -> Hedefin canını kendi gücü kadar düşürsün.\n   - can_yenile(miktar) -> Canı artırsın (max 100).\n3. 2 karakter (Savasci ve Buyucu) üretip birbirlerine saldırtın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "game battle combat simulation character card"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "class Karakter:\n    def __init__(self, isim, guc):\n        self.isim = isim\n        self.can = 100\n        self.guc = guc\n\n    def saldir(self, hedef):\n        print(f'{self.isim}, {hedef.isim} karakterine saldırdı!')\n        hedef.can -= self.guc\n        print(f'{hedef.isim} kalan can: {hedef.can}')",
+    "gorsel": {
+      "type": "image",
+      "query": "hints tips code blueprint"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- OOP gerçek dünya problemlerini nesnelerle çözme yaklaşımıdır.\n- Sınıf kalıptır, Nesne o kalıptan çıkan somut örnektir.\n- __init__ kurucu metottur; nesne üretilirken ilk çalışır.\n- self nesnenin kendisini temsil eder ve metotlarda zorunludur.\n- Nitelikler veriyi, metotlar davranışları tanımlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary achievements programming graduation"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 4: Kalıtım (Inheritance) ve Kod Mirası",
+    "icerik": "Ön Hazırlık:\n- Üniversitedeki Öğrenci ve Öğretim Görevlisi aynı ortak özelliklere sahiptir (ad, soyad, eposta).\n- Kod tekrarı yapmadan ortak özellikleri miras nasıl alırız?\n- super() fonksiyonu ne işe yarar?",
+    "gorsel": {
+      "type": "image",
+      "query": "inheritance family tree hierarchy programming"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir BankaHesabi sınıfı tasarlayın. __init__ içinde self.hesap_sahibi ve self.bakiye alanları olsun. Bir nesne üretip bakiyesini ekrana yazdıran kodu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

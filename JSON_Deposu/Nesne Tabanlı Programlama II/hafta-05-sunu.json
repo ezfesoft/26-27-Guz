@@ -1,0 +1,281 @@
+[
+  {
+    "baslik": "NTP II: Hafta 5",
+    "altbaslik": "Kapsülleme ve Çok Biçimlilik",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Veri Gizleme (Private __), Getter/Setter, Dinamik Çok Biçimlilik ve Gevşek Bağlılık\nUygulama Teması: Güvenli Banka/Yemekhane Kartı ve Kasada Çok Biçimli Ödeme Yöntemleri",
+    "gorsel": {
+      "type": "image",
+      "query": "encapsulation polymorphism security object oriented programming"
+    }
+  },
+  {
+    "baslik": "Motivasyon: Bakiyeyi Doğrudan Değiştirebilir miyiz?",
+    "altbaslik": "Kontrolsüz Veri Girişi Sistemi Batırır!",
+    "icerik": "Bir banka hesabı nesnesinde hesap.bakiye = -999999 yazılmasına izin verirsek ne olur?\n- Kötü niyetli kullanıcılar veya hatalı kodlar veritabanını bozar.\n- Verileri doğrudan dışarıya açmak yerine korumalı bir kasanın içine koymalıyız.\n- Bu koruma kalkanına Kapsülleme (Encapsulation) denir.",
+    "gorsel": {
+      "type": "image",
+      "query": "safe vault lock banking security data protection"
+    }
+  },
+  {
+    "baslik": "Kapsülleme (Encapsulation) Nedir?",
+    "altbaslik": "Veri Gizleme (Data Hiding)",
+    "icerik": "Kapsülleme, nesnenin durumunu (niteliklerini) dış müdahalelerden gizlemek ve verilere sadece belirlenen kurallı metotlarla erişilmesini sağlamaktır.\n- Veri Bütünlüğü: Eksi para yatırılamaz, geçersiz yaş girilemez.\n- Güvenlik: Kritik bilgiler dışarıdan rastgele bozulamaz.\n- Bakım Kolaylığı: İç kod değişse bile dışarıdaki kullanıcı etkilenmez.",
+    "gorsel": {
+      "type": "image",
+      "query": "capsule pill data security shield shield"
+    }
+  },
+  {
+    "baslik": "Python'da Erişim Belirleyicileri",
+    "altbaslik": "Public, Protected ve Private",
+    "icerik": "1. Public (Genel): Her yerden doğrudan erişilebilir (`self.ad`)\n2. Protected (Korumalı): Sadece kendi ve alt sınıflar erişmeli (`self._bakiye`)\n3. Private (Özel/Gizli): Dışarıdan doğrudan ERİŞİLEMEZ (`self.__bakiye`)\n\nPython'da çift alt çizgi (__) niteliği private yapar ve Name Mangling uygular.",
+    "gorsel": {
+      "type": "image",
+      "query": "access control privacy padlock levels"
+    }
+  },
+  {
+    "baslik": "Private Nitelik Tanımlama Örneği",
+    "altbaslik": "Korumalı Banka Hesabı",
+    "icerik": "class BankaHesabi:\n    def __init__(self, sahip, bakiye):\n        self.sahip = sahip\n        self.__bakiye = 0.0  # Private nitelik!\n        self.para_yatir(bakiye)\n\nh = BankaHesabi('Ahmet', 100)\n# print(h.__bakiye)  -> HATA VERİR (AttributeError)!",
+    "gorsel": {
+      "type": "image",
+      "query": "private banking lock access denied"
+    }
+  },
+  {
+    "baslik": "Getter Metotları (Okuma Kapısı)",
+    "altbaslik": "Veriyi Sadece Görme İzni Vermek",
+    "icerik": "Getter (Erişici), gizli veriyi dışarıya sadece okuma amacıyla sunan metottur:\n\nclass BankaHesabi:\n    # ...\n    def bakiye_ogren(self):  # Getter\n        return self.__bakiye\n\nh = BankaHesabi('Ahmet', 100)\nprint('Bakiye:', h.bakiye_ogren())  # Güvenli okuma: 100.0 TL",
+    "gorsel": {
+      "type": "image",
+      "query": "read only document glass window display"
+    }
+  },
+  {
+    "baslik": "Setter Metotları (Yazma & Denetim Kapısı)",
+    "altbaslik": "İş Kuralları ve Doğrulama",
+    "icerik": "Setter (Değiştirici), veriyi değiştirmeden önce kuralları denetleyen bekçidir:\n\nclass BankaHesabi:\n    # ...\n    def para_yatir(self, miktar):\n        if miktar > 0:\n            self.__bakiye += miktar\n            print(f'{miktar} TL yatırıldı. Yeni bakiye: {self.__bakiye} TL')\n        else:\n            print('HATA: Yatırılacak tutar 0\\'dan büyük olmalıdır!')",
+    "gorsel": {
+      "type": "image",
+      "query": "security guard checkpoint validation gate"
+    }
+  },
+  {
+    "baslik": "Para Çekme Metodu ve Bakiye Kontrolü",
+    "altbaslik": "Eksiye Düşmeyi Önleme",
+    "icerik": "class BankaHesabi:\n    # ...\n    def para_cek(self, miktar):\n        if 0 < miktar <= self.__bakiye:\n            self.__bakiye -= miktar\n            print(f'{miktar} TL çekildi. Kalan: {self.__bakiye} TL')\n        else:\n            print('HATA: Yetersiz bakiye veya geçersiz tutar!')",
+    "gorsel": {
+      "type": "image",
+      "query": "atm cash withdrawal money transaction"
+    }
+  },
+  {
+    "baslik": "Çok Biçimlilik (Polymorphism) Nedir?",
+    "altbaslik": "Aynı Mesaj, Farklı Davranışlar!",
+    "icerik": "Polymorphism (Çok Biçimlilik), farklı nesnelerin aynı metot çağrısına kendi tarzlarında yanıt verebilmesidir.\n- Günlük Hayat: 'Çal' komutu piyanoda tuşa basar, gitarda tele vurur, flütte üfler.\n- Yazılımda: 'ode(tutar)' komutu Kredi Kartında POS çeker, Nakitte para alır, Havalede IBAN'a yollar.",
+    "gorsel": {
+      "type": "image",
+      "query": "musical instruments piano guitar flute polymorphism"
+    }
+  },
+  {
+    "baslik": "Ödeme Yöntemlerini Modelleme",
+    "altbaslik": "3 Farklı Ödeme Sınıfı",
+    "icerik": "class NakitOdeme:\n    def ode(self, tutar):\n        print(f'💵 {tutar:.2f} TL nakit para kasaya alındı.')\n\nclass KrediKartiOdeme:\n    def __init__(self, kart_no):\n        self.kart_no = kart_no\n\n    def ode(self, tutar):\n        print(f'💳 {self.kart_no} nolu karttan {tutar:.2f} TL çekildi.')",
+    "gorsel": {
+      "type": "image",
+      "query": "cash and credit card payment options"
+    }
+  },
+  {
+    "baslik": "Üçüncü Ödeme Yöntemi: KampusKart",
+    "altbaslik": "Öğrenci Yemekhane Kartı",
+    "icerik": "class KampusKartOdeme:\n    def __init__(self, ogrenci_no):\n        self.ogrenci_no = ogrenci_no\n\n    def ode(self, tutar):\n        print(f'🎓 {self.ogrenci_no} nolu öğrenci kartından {tutar:.2f} TL temassız çekildi.')",
+    "gorsel": {
+      "type": "image",
+      "query": "contactless smart card university payment"
+    }
+  },
+  {
+    "baslik": "Polimorfik Kasa Fonksiyonu",
+    "altbaslik": "Ödeme Aracına Bağımlı Olmayan Temiz Kod",
+    "icerik": "def kasada_odeme_al(odeme_araci, tutar):\n    # Gelen nesnenin tipine bakmaksızın ode() çağırır!\n    odeme_araci.ode(tutar)\n\n# Test Edelim:\nnakit = NakitOdeme()\nkart = KrediKartiOdeme('1234-5678')\nogr = KampusKartOdeme('24101')\n\nkasada_odeme_al(nakit, 50)\nkasada_odeme_al(kart, 150)\nkasada_odeme_al(ogr, 25)",
+    "gorsel": {
+      "type": "image",
+      "query": "point of sale cashier terminal checkout"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Güvenli Cüzdan Sınıfı",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "class Cuzdan:\n    def __init__(self, sahip, para):\n        self.sahip = sahip\n        self.__para = 0.0\n        if para > 0:\n            self.__para = para\n\n    def para_harca(self, miktar):\n        if miktar <= self.__para:\n            self.__para -= miktar\n            print(f'{miktar} TL harcandı. Kalan: {self.__para} TL')\n        else:\n            print('Cüzdanda yeterli para yok!')",
+    "gorsel": {
+      "type": "image",
+      "query": "leather wallet money pocket digital"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Kötü Niyetli Erişim Testi",
+    "altbaslik": "Private Değişkeni Kırmaya Çalışmak",
+    "icerik": "c = Cuzdan('Ali', 200)\n\n# Dışarıdan değiştirmeyi deniyoruz:\nc.__para = 1000000  # Bu sadece yeni sahte bir nitelik açar!\n\n# Gerçek harcamayı test edelim:\nc.para_harca(50)  # Kalan: 150 TL (1000000 TL olmadı!)\nprint('Cüzdan güvenliği başarılı!')",
+    "gorsel": {
+      "type": "image",
+      "query": "hacker penetration test failed security shield"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Bildirim Gönderici Polimorfizmi",
+    "altbaslik": "SMS, E-posta, WhatsApp",
+    "icerik": "class EpostaBildirim:\n    def gonder(self, mesaj):\n        print(f'📧 E-posta atıldı: {mesaj}')\n\nclass SMSBildirim:\n    def gonder(self, mesaj):\n        print(f'📱 SMS gönderildi: {mesaj}')\n\nkanallar = [EpostaBildirim(), SMSBildirim()]\nfor k in kanallar:\n    k.gonder('Sınav notunuz açıklandı!')",
+    "gorsel": {
+      "type": "image",
+      "query": "notifications email sms smartphone alerts"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: Öğrenci Not Ortalaması Kapsülleme",
+    "altbaslik": "0 ile 100 Arasında Not Kuralı",
+    "icerik": "class OgrenciNot:\n    def __init__(self, ad):\n        self.ad = ad\n        self.__vize = 0\n\n    def vize_gir(self, not_degeri):\n        if 0 <= not_degeri <= 100:\n            self.__vize = not_degeri\n            print(f'{self.ad} vize notu: {self.__vize}')\n        else:\n            print('HATA: Not 0 ile 100 arasında olmalıdır!')",
+    "gorsel": {
+      "type": "image",
+      "query": "exam grade input validation system"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Ses Çalar Polimorfizmi",
+    "altbaslik": "MP3, WAV, FLAC Çalar",
+    "icerik": "class MP3Calici:\n    def cal(self, dosya):\n        print(f'🎵 MP3 oynatılıyor: {dosya}')\n\nclass WAVCalici:\n    def cal(self, dosya):\n        print(f'📻 WAV çalınıyor: {dosya}')\n\ndef sarki_oynat(oynatici, sarki):\n    oynatici.cal(sarki)",
+    "gorsel": {
+      "type": "image",
+      "query": "audio player wave mp3 music format"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Şifreli Kullanıcı Kaydı",
+    "altbaslik": "Parolayı Gizleme",
+    "icerik": "class Kullanici:\n    def __init__(self, eposta, parola):\n        self.eposta = eposta\n        self.__parola = parola\n\n    def parola_kontrol(self, girilen):\n        return self.__parola == girilen",
+    "gorsel": {
+      "type": "image",
+      "query": "password asterisks login authentication"
+    }
+  },
+  {
+    "baslik": "Kapsülleme ve Çok Biçimliliğin Uyumu",
+    "altbaslik": "SOLID İlkeleri ile Bağlantı",
+    "icerik": "1. Kapsülleme (Encapsulation) -> Veriyi korur, iç yapıyı gizler.\n2. Çok Biçimlilik (Polymorphism) -> Dış arayüzü sabit tutar, sistemi genişletilebilir yapar (Open/Closed Principle).\n\nİkisi birleştiğinde esnek, güvenli ve profesyonel yazılımlar doğar.",
+    "gorsel": {
+      "type": "image",
+      "query": "gears mechanism clockwork synergy architecture"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\nclass Kisi:\n    def __init__(self, tc):\n        self.__tc = tc\n\nk = Kisi('12345678901')\nprint(k.__tc)\n\nProblem Nedir?\n__tc niteliği private olduğu için sınıf dışından doğrudan okunamaz (AttributeError)!\nÇözüm: get_tc() metodu tanımlanmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "bug inspection private attribute error code"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "class Kedi:\n    def ses(self): return 'Miyav'\n\nclass Kopek:\n    def ses(self): return 'Hav'\n\nhayvanlar = [Kedi(), Kopek()]\nfor h in hayvanlar:\n    print(h.ses())\n\nÇıktı:\nMiyav\nHav",
+    "gorsel": {
+      "type": "image",
+      "query": "cat and dog cute animals polymorphism"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Kapsülleme ve Polimorfizm Tuzakları",
+    "icerik": "1. Private değişken yapıp getter/setter yazmayı unutmak (Veri ulaşılamaz hale gelir).\n2. Setter içinde doğrulama (if) kontrolü yapmamak (Kapsüllemenin anlamı kalmaz).\n3. Çok biçimli sınıflarda metot isimlerini farklı yazmak (Örn: Birine ode(), diğerine odeme_yap() demek ortak döngüyü bozar!).",
+    "gorsel": {
+      "type": "image",
+      "query": "warning checklist software bugs caution"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Erişim Belirleyicileri",
+    "icerik": "Soru: Python'da bir değişkeni private (gizli) yapmak için isminin başına ne konur?\nA) @private\nB) Çift alt çizgi (__)\nC) Tek alt çizgi (_)\nD) # işareti\n\nDoğru Cevap: B (Çift alt çizgi __).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test choice classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Çok Biçimlilik Tanımı",
+    "icerik": "Soru: Farklı nesnelerin aynı metot ismine kendilerine özgü yanıt vermesine ne ad verilir?\nA) Kapsülleme\nB) Kalıtım\nC) Çok Biçimlilik (Polymorphism)\nD) Derleme\n\nDoğru Cevap: C (Çok Biçimlilik).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice examination question test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Getter/Setter Amacı",
+    "icerik": "Soru: Setter metodunun temel görevi nedir?\nA) Veriyi ekrana basmak\nB) Gizli veriye kural denetimi yaparak yeni değer atamak\nC) Sınıfı silmek\nD) Dosya kaydetmek\n\nDoğru Cevap: B (Kurallı veri ataması yapmak).",
+    "gorsel": {
+      "type": "image",
+      "query": "security check verification test question"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Ödeme Altyapısı",
+    "altbaslik": "Iyzico, Stripe ve Garanti Nasıl Bağlanır?",
+    "icerik": "Gerçek Dünyada:\nBir alışveriş sitesinde 10 farklı banka sanal POS'u vardır.\nYazılımcı her banka için if-else yazmak yerine ortak bir OdemeServisi arayüzü kurar.\nSite yeni bir banka eklediğinde ana kodlara dokunmaz, sadece yeni bir polimorfik sınıf ekler.",
+    "gorsel": {
+      "type": "image",
+      "query": "payment gateway stripe pos integration online shopping"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Kampüs Market Sepet Ödeme Simülatörü",
+    "icerik": "Göreviniz:\n1. GuvenliKasa sınıfı yazın (__bakiye niteliği olsun, para_ekle ve para_dus metotları denetimli olsun).\n2. 2 ödeme yöntemi tanımlayın: KrediKarti (kart_no) ve HediyeCeki (cek_kodu).\n3. İki sınıfta da ode(tutar) metodu olsun.\n4. Kullanıcıdan sepet tutarını alıp seçtiği ödeme yöntemiyle kasadan ödemeyi tamamlayın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "supermarket checkout payment terminal mission"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "class HediyeCeki:\n    def __init__(self, kod):\n        self.kod = kod\n    def ode(self, tutar):\n        print(f'🎁 {self.kod} kodlu hediye çekiyle {tutar} TL ödendi.')\n\n# Kasa fonksiyonu:\ndef sepet_ode(yontem, tutar):\n    yontem.ode(tutar)",
+    "gorsel": {
+      "type": "image",
+      "query": "gift card discount voucher code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- Kapsülleme veriyi dış dünyadan korur ve veri bütünlüğü sağlar.\n- __ ile başlayan değişkenler private olur ve dışarıdan doğrudan değiştirilemez.\n- Getter ve Setter metotları kurallı okuma ve yazma sağlar.\n- Çok Biçimlilik aynı arayüz üzerinden farklı nesneleri tek merkezden yönetir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 6: Sihirli (Dunder) Metotlar ve try-except",
+    "icerik": "Ön Hazırlık:\n- print(nesne) yazdığımızda ekranda güzel Türkçe açıklamayı nasıl görürüz (__str__)?\n- Programımızın kırmızı hata verip çökmesini nasıl engelleriz (try-except)?\n- Kütüphane arama sistemini çökmeyen hale getireceğiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "exception handling try except python programming"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir Ogrenci sınıfında __yas niteliğini tanımlayan ve yaşın 0\\'dan küçük olmasını engelleyen bir set_yas(yeni_yas) metodunu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

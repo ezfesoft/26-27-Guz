@@ -1,0 +1,371 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 14",
+    "altbaslik": "Büyük Final: Bütünleşik Öğrenci Not Kayıt ve İstatistik Sistemi",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Kurumsal Masaüstü Yazılım Mimarisi\nHaftalık Odak: Paralel Diziler (Parallel Arrays), CRUD Mantığı, Sınıf İstatistikleri\nHedef: 14 haftanın tüm becerilerini birleştiren tam teşekküllü bir masaüstü yazılımı üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success student management system final project"
+    }
+  },
+  {
+    "baslik": "14 Haftalık Yolculuğun Zirvesi",
+    "altbaslik": "Mezuniyet Motivasyonu",
+    "icerik": "14 hafta önce belki klavyede süslü parantez {} bulmakta zorlanıyordunuz.\nBugün ise:\n- Arayüz tasarlayan,\n- Kullanıcı hatalarını zırhla yakalayan (try-catch),\n- Kararlar veren (if-else),\n- Döngülerle binlerce işlemi saniyede yapan (for/while),\n- Verileri dizilerde saklayıp istatistik çıkaran gerçek bir YAZILIMCISINIZ!",
+    "gorsel": {
+      "type": "image",
+      "query": "students celebrating success graduation achievement"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Büyük Projede Neler Başaracaksınız?",
+    "icerik": "1. 14 haftanın tüm temel kavramlarını tek bir projede hatasız entegre eder.\n2. Paralel Diziler (Parallel Arrays) mimarisini kurar ve yönetir.\n3. Veri Ekleme (Create) ve Veri Listeleme (Read) süreçlerini kodlar.\n4. Ağırlıklı ortalama, harf notu baremi ve sınıf istatistiklerini hesaplar.\n5. 'Giresun MYO Öğrenci Not Otomasyonu' kurumsal masaüstü yazılımını üretir.",
+    "gorsel": {
+      "type": "image",
+      "query": "goals milestones capstone project architecture"
+    }
+  },
+  {
+    "baslik": "Sistem Mimarisi: Paralel Diziler (Parallel Arrays)",
+    "altbaslik": "İlişkili Verileri Aynı İndekste Tutmak",
+    "icerik": "Veritabanı olmadan aynı öğrencinin tüm bilgilerini senkronize saklamak için Paralel Diziler kullanılır:\n- ogrenciAdlari[i] -> Öğrencinin Adı\n- vizeler[i] -> Vize Notu\n- finaller[i] -> Final Notu\n- ortalamalar[i] -> Ortalaması\n- harfNotlari[i] -> Harf Notu\nHerkesin bilgisi aynı 'i' indeks numarasında eşleşir.",
+    "gorsel": {
+      "type": "image",
+      "query": "parallel arrays database table spreadsheet structure"
+    }
+  },
+  {
+    "baslik": "CRUD Kavramı ve Projedeki Yeri",
+    "altbaslik": "Yazılım Dünyasının Temel 4 İşlemi",
+    "icerik": "- Create (Ekleme): Yeni öğrenci kaydını dizilere eklemek (btnEkle).\n- Read (Okuma/Listeleme): Kayıtlı tüm öğrencileri formatlı listelemek (btnListele).\n- Update (Güncelleme): Mevcut kaydı değiştirmek.\n- Delete (Silme): Kaydı listeden kaldırmak.\nBu projede sistemin omurgası olan Create ve Read işlemlerine odaklanıyoruz.",
+    "gorsel": {
+      "type": "image",
+      "query": "CRUD operations database management data lifecycle"
+    }
+  },
+  {
+    "baslik": "Büyük Proje: Giresun MYO Öğrenci Not Otomasyonu",
+    "altbaslik": "Senaryo ve İş Kuralları",
+    "icerik": "İş Kuralları:\n1. Kontenjan: En fazla 50 öğrenci.\n2. Not Kontrolü: 0 ile 100 arası geçerli not zorunluluğu.\n3. Ağırlık: %40 Vize + %60 Final.\n4. Harf Baremi: >=90 AA, >=80 BA, >=70 BB, >=60 CB, >=50 CC, <50 FF (Kaldı).\n5. İstatistik: Sınıf Genel Ortalaması, Toplam Öğrenci ve Kalan Sayısı.",
+    "gorsel": {
+      "type": "image",
+      "query": "university grade record dashboard analytics"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdiler: txtAdSoyad, txtVize, txtFinal\nButonlar: btnEkle ('➕ Kaydet'), btnListele ('📋 Listele ve Analiz Et')\nListe: listBoxKayitlar (Font = Consolas 9.75pt)\nİstatistik Paneli: lblToplamKayit, lblGenelOrtalama, lblKalanSayisi",
+    "gorsel": {
+      "type": "image",
+      "query": "student management system form layout ui visual studio"
+    }
+  },
+  {
+    "baslik": "Global Değişkenler ve Paralel Dizi Tanımları",
+    "altbaslik": "Form Düzeyinde Hafıza Alanı",
+    "icerik": "// FORM SEVİYESİNDE DEĞİŞKENLER (En Üstte)\nstring[] ogrenciAdlari = new string[50];\nint[] vizeler = new int[50];\nint[] finaller = new int[50];\ndouble[] ortalamalar = new double[50];\nstring[] harfNotlari = new string[50];\n\nint toplamKayitliOgrenci = 0; // Sıradaki boş indeks",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp global variables arrays declaration code"
+    }
+  },
+  {
+    "baslik": "Adım 1: Öğrenci Ekleme Kodu (btnEkle)",
+    "altbaslik": "Veri Doğrulama ve Hesaplama",
+    "icerik": "private void btnEkle_Click(object sender, EventArgs e)\n{\n    try\n    {\n        if (toplamKayitliOgrenci >= 50) { MessageBox.Show(\"Kontenjan Dolu!\"); return; }\n        if (string.IsNullOrWhiteSpace(txtAdSoyad.Text)) { MessageBox.Show(\"Adı boş bırakmayın!\"); return; }\n\n        int vize = Convert.ToInt32(txtVize.Text);\n        int final = Convert.ToInt32(txtFinal.Text);\n        if (vize < 0 || vize > 100 || final < 0 || final > 100) { MessageBox.Show(\"Notlar 0-100 arası olmalı!\"); return; }\n\n        double ort = (vize * 0.40) + (final * 0.60);\n        string harf = \"\";\n        if (ort >= 90) harf = \"AA\";\n        else if (ort >= 80) harf = \"BA\";\n        else if (ort >= 70) harf = \"BB\";\n        else if (ort >= 60) harf = \"CB\";\n        else if (ort >= 50) harf = \"CC\";\n        else harf = \"FF\";\n\n        // Diziye Yaz\n        ogrenciAdlari[toplamKayitliOgrenci] = txtAdSoyad.Text;\n        vizeler[toplamKayitliOgrenci] = vize;\n        finaller[toplamKayitliOgrenci] = final;\n        ortalamalar[toplamKayitliOgrenci] = ort;\n        harfNotlari[toplamKayitliOgrenci] = harf;\n        toplamKayitliOgrenci++;\n\n        MessageBox.Show(\"Öğrenci Kaydedildi! Harf: \" + harf);\n        txtAdSoyad.Clear(); txtVize.Clear(); txtFinal.Clear(); txtAdSoyad.Focus();\n    }\n    catch { MessageBox.Show(\"Lütfen sayısal not giriniz!\"); }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code add student record array data validation"
+    }
+  },
+  {
+    "baslik": "Adım 2: Listeleme ve İstatistik Kodu (btnListele)",
+    "altbaslik": "Döngü ile Raporlama",
+    "icerik": "private void btnListele_Click(object sender, EventArgs e)\n{\n    if (toplamKayitliOgrenci == 0) { MessageBox.Show(\"Kayıtlı öğrenci yok!\"); return; }\n    listBoxKayitlar.Items.Clear();\n    double sinifToplam = 0;\n    int kalanSayisi = 0;\n\n    // DÖNGÜ: Kapasite (50) değil, toplamKayitliOgrenci kadar döner!\n    for (int i = 0; i < toplamKayitliOgrenci; i++)\n    {\n        string satir = (i + 1) + \") \" + ogrenciAdlari[i] + \" | Vize: \" + vizeler[i] + \n                       \" | Final: \" + finaller[i] + \" | Ort: \" + ortalamalar[i].ToString(\"0.00\") + \n                       \" | Harf: [\" + harfNotlari[i] + \"]\";\n        listBoxKayitlar.Items.Add(satir);\n        sinifToplam += ortalamalar[i];\n        if (harfNotlari[i] == \"FF\") kalanSayisi++;\n    }\n    double sinifOrt = sinifToplam / toplamKayitliOgrenci;\n    lblToplamKayit.Text   = \"Toplam Öğrenci: \" + toplamKayitliOgrenci;\n    lblGenelOrtalama.Text = \"Sınıf Ortalaması: \" + sinifOrt.ToString(\"0.00\");\n    lblKalanSayisi.Text   = \"Kalan (FF) Sayısı: \" + kalanSayisi;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code report statistics class average list"
+    }
+  },
+  {
+    "baslik": "Kritik Algoritma Kuralı: Döngü Sınırı",
+    "altbaslik": "50 Değil, Kayıtlı Sayı Kadar Dönmek",
+    "icerik": "Döngüde 'i < 50' yazılırsa ne olur?\n- Eğer sadece 3 öğrenci kaydettiyseniz, 4. elemandan itibaren dizi boştur (null/0).\n- Program boş kutuları okumaya çalışırken çöker!\nAltın Kural: Listeleme yaparken daima 'i < toplamKayitliOgrenci' sınırı kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "loop boundary safety check array count"
+    }
+  },
+  {
+    "baslik": "Sıfıra Bölme Güvenliği (DivideByZero)",
+    "altbaslik": "Kayıt Yokken Ortalama Hesabı",
+    "icerik": "Eğer hiç öğrenci eklenmeden ortalama hesaplanırsa:\n- sinifOrtalamasi = 0 / 0 işlemi gerçekleşir ve sistem NaN/Hata verir.\n- Çözüm: if (toplamKayitliOgrenci == 0) kontrolü ile en başta erken çıkış yapılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "divide by zero protection code check"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Üniversite Öğrenci Bilgi Sistemi (ÖBS)",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Giresun Üniversitesi ÖBS sisteminde hocaların not girdiği ve öğrencilerin transkript aldığı dev yazılımın temel çekirdeği:\n- Öğrenci kayıt dizisi,\n- Ağırlıklı vize/final hesabı,\n- Harf notu baremi ve sınıf ortalaması.\nBugün yazdığınız proje tam olarak bu sistemin masaüstü prototipidir!",
+    "gorsel": {
+      "type": "image",
+      "query": "university student portal database transcript"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Final Sorusu 1",
+    "altbaslik": "Bütünleşik Bilgi Testi",
+    "icerik": "Soru: Paralel dizilerde 5. sıradaki öğrencinin adı ile final notunu birbiriyle eşleştiren ortak bağ nedir?\n\nA) Değişken isimlerinin aynı olması\nB) Her iki dizide de aynı indeks (i = 4) numarasında saklanmaları\nC) Rastgele atanmaları\nD) İsimlerin alfabetik sıralanması\n\nDoğru Cevap: B (Paralel dizilerde aynı sıradaki öğrencinin tüm verileri aynı indeks hücresinde tutulur).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz graduation final test diploma"
+    }
+  },
+  {
+    "baslik": "Büyük Proje: Mimarinin Katmanları",
+    "altbaslik": "Veri Toplama, Doğrulama, İşleme, Raporlama",
+    "icerik": "Öğrenci Not Kayıt Sistemimiz 4 ana aşamadan oluşur:\n1. Doğrulama (Validation): Notlar 0-100 arasında mı? İsim boş mu?\n2. Hesaplama (Logic): %40 vize + %60 final ve Harf notu baremi.\n3. Kayıt (Storage): 5 paralel diziye eşzamanlı kayıt.\n4. Raporlama (Analytics): ListBox dökümü ve genel sınıf ortalaması.",
+    "gorsel": {
+      "type": "image",
+      "query": "multi tier architecture software pipeline modular"
+    }
+  },
+  {
+    "baslik": "Paralel Dizilerde Güncelleme (Update)",
+    "altbaslik": "Mevcut Öğrencinin Notunu Değiştirmek",
+    "icerik": "Bir öğrencinin notunu güncellemek için:\n1. İndeks numarası belirlenir (Örn: secilenIndex = listBoxKayitlar.SelectedIndex).\n2. O indeksteki dizi hücrelerine yeni değerler yazılır:\n   vizeler[secilenIndex] = yeniVize;\n   finaller[secilenIndex] = yeniFinal;\n3. Ortalama ve harf notu yeniden hesaplanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "edit update record form interface"
+    }
+  },
+  {
+    "baslik": "Paralel Dizilerde Silme (Delete)",
+    "altbaslik": "Kayıt Silme ve Dizi Kaydırma Mantığı",
+    "icerik": "Bir öğrenci silindiğinde dizide boşluk kalmaması için:\n- Silinen indeksten sonraki tüm elemanlar for döngüsüyle bir basamak sola kaydırılır:\n  ogrenciAdlari[i] = ogrenciAdlari[i + 1];\n- toplamKayitliOgrenci sayacı 1 azaltılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "shift array elements delete row logic"
+    }
+  },
+  {
+    "baslik": "Arayüz Detayı: Consolas Monospaced Font",
+    "altbaslik": "Sütunların Cetvel Gibi Hizalanması",
+    "icerik": "ListBox içindeki yazıların alt alta tam hizalı durması için 'Consolas' veya 'Courier New' gibi Monospaced (her harfi eşit genişlikte) fontlar kullanılır.\nBöylece adlar farklı uzunlukta olsa bile not ve ortalama sütunları kusursuz hizalanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "monospaced font alignment table terminal text"
+    }
+  },
+  {
+    "baslik": "Sınıfın En Yüksek Notunu Alan Öğrenciyi Bulmak",
+    "altbaslik": "Bütünleşik Min/Max Algoritması",
+    "icerik": "double enYuksekOrtalama = ortalamalar[0];\nstring enBasariliOgrenci = ogrenciAdlari[0];\n\nfor (int i = 1; i < toplamKayitliOgrenci; i++)\n{\n    if (ortalamalar[i] > enYuksekOrtalama)\n    {\n        enYuksekOrtalama = ortalamalar[i];\n        enBasariliOgrenci = ogrenciAdlari[i];\n    }\n}\nlblDerece.Text = \"Sınıf Birincisi: \" + enBasariliOgrenci + \" (\" + enYuksekOrtalama.ToString(\"0.00\") + \")\";",
+    "gorsel": {
+      "type": "image",
+      "query": "valedictorian student award top score podium"
+    }
+  },
+  {
+    "baslik": "Dersin Büyük Kapanışı ve Gelecek",
+    "altbaslik": "Görsel Programlama 2 ve İleri Düzey Konular",
+    "icerik": "Önümüzdeki dönem Görsel Programlama 2 dersinde:\n- SQL Veritabanı Entegrasyonu (MSSQL / SQLite)\n- Entity Framework ve Katmanlı Mimari\n- Raporlama araçları ve Modern Arayüz Kütüphaneleri\nile projelerinizi profesyonel piyasa seviyesine taşıyacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "database sql future programming career path"
+    }
+  },
+  {
+    "baslik": "Eğitmen Değerlendirmesi ve Tavsiyeler",
+    "altbaslik": "Başarılı Bir Yazılımcı Olmanın Sırrı",
+    "icerik": "1. Kod yazmaktan asla korkmayın; hata yapmak öğrenmenin doğal adımıdır.\n2. Kopyala-yapıştır yapmayın; her satırın ne iş yaptığını anlamaya çalışın.\n3. Küçük projelerle başlayıp her hafta üzerine yeni bir taş koyun.\nYolunuz açık, kodlarınız hatasız olsun!",
+    "gorsel": {
+      "type": "image",
+      "query": "mentor teacher guiding student graduation success"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Final Sorusu 3",
+    "altbaslik": "Bütünleşik Mantık",
+    "icerik": "Soru: 50 kapasiteli paralel dizide toplam 5 kayıt varken döngü sınırını 50 yapmak neden hatadır?\n\nA) Hiçbir hata olmaz, hızlı çalışır.\nB) Boş (null/0) hücreler okunmaya çalışıldığında program mantık hatası verir veya çöker.\nC) Diziyi otomatik siler.\nD) Bilgisayarı kapatır.\n\nDoğru Cevap: B (Döngü kapasite kadar değil, eklenen eleman sayısı kadar dönmelidir).",
+    "gorsel": {
+      "type": "image",
+      "query": "final exam quiz question verification"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Dönem Sonu Sözlüğü",
+    "icerik": "- Parallel Arrays: Aynı indekste ilişkili verileri tutan dizi kümesi.\n- CRUD: Create, Read, Update, Delete temel veri operasyonları.\n- Monospaced Font: Sabit karakter aralıklı hizalama fontu.\n- Validation: Kullanıcı verisinin geçerlilik denetimi.\n- Business Logic: Uygulamanın iş kuralları ve hesaplama formülleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Çıkış Bileti",
+    "altbaslik": "Görsel Programlama Dersi Mezuniyeti",
+    "icerik": "Final Sorusu:\n'Bu derste öğrendiğiniz en faydalı C# / Windows Forms konusu neydi ve kendi hayatınızda nasıl bir masaüstü yazılımı geliştirmek istersiniz?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation cap diploma celebration success"
+    }
+  },
+  {
+    "baslik": "Kayıt Seçme ve Kutulara Geri Yükleme",
+    "altbaslik": "ListBox'tan Detay Görme",
+    "icerik": "Kullanıcı ListBox'taki bir öğrenciye tıkladığında (SelectedIndexChanged):\n- int secilen = listBoxKayitlar.SelectedIndex;\n- txtAdSoyad.Text = ogrenciAdlari[secilen];\n- txtVize.Text = vizeler[secilen].ToString();\n- txtFinal.Text = finaller[secilen].ToString();\nBu sayede seçilen öğrencinin bilgileri anında form kutularına geri dolar.",
+    "gorsel": {
+      "type": "image",
+      "query": "select item listbox load into text boxes ui"
+    }
+  },
+  {
+    "baslik": "Kayıt Güncelleme (Update) Mantığı",
+    "altbaslik": "Mevcut Notu Değiştirip Kaydetmek",
+    "icerik": "private void btnGuncelle_Click(object sender, EventArgs e)\n{\n    int secilen = listBoxKayitlar.SelectedIndex;\n    if (secilen == -1) { MessageBox.Show(\"Lütfen bir öğrenci seçiniz!\"); return; }\n    \n    // Yeni notları diziye yaz ve ortalamayı yeniden hesapla\n    vizeler[secilen] = Convert.ToInt32(txtVize.Text);\n    finaller[secilen] = Convert.ToInt32(txtFinal.Text);\n    ortalamalar[secilen] = (vizeler[secilen] * 0.40) + (finaller[secilen] * 0.60);\n    btnListele.PerformClick(); // Listeyi otomatik yenile\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "update record edit form button click csharp"
+    }
+  },
+  {
+    "baslik": "PerformClick() ile Otomatik Yenileme",
+    "altbaslik": "Kodla Butona Tıklatmak",
+    "icerik": "Bir butona basıldığında diğer butonun görevini otomatik çalıştırmak için:\n- btnListele.PerformClick();\nBu komut, öğrenci eklendiğinde veya güncellendiğinde ListBox'ı tek satırda otomatik yeniler; kullanıcıyı tekrar Listele butonuna basma zahmetinden kurtarır.",
+    "gorsel": {
+      "type": "image",
+      "query": "automation trigger button programmatically csharp"
+    }
+  },
+  {
+    "baslik": "Paralel Dizilerin Sınırları ve Veritabanı İhtiyacı",
+    "altbaslik": "Neden SQL Veritabanı Kullanırız?",
+    "icerik": "- Paralel diziler program kapanınca silinir (RAM geçicidir).\n- Kapasite baştan sabittir (50 kişi).\n- Gerçek hayatta kalıcı ve sınırsız veriler için veritabanları (SQL Server, SQLite) kullanılır.\nBu dönem öğrendiğiniz CRUD mantığı SQL veritabanlarında da birebir aynıdır!",
+    "gorsel": {
+      "type": "image",
+      "query": "database sql server permanent storage vs ram"
+    }
+  },
+  {
+    "baslik": "Görsel Programlama Başarı Belgesi",
+    "altbaslik": "14 Haftalık Emek ve Büyük Zafer",
+    "icerik": "Tebrikler! 14 haftalık yoğun çalışma sonucunda:\n- Algoritmik düşünme,\n- Arayüz tasarımı,\n- Hata direnci ve veri yapıları konularında önlisans düzeyinin zirvesine ulaştınız.\nYazılım geliştirme kariyerinizde başarılar dileriz!",
+    "gorsel": {
+      "type": "image",
+      "query": "certificate of achievement programming success award"
+    }
+  },
+  {
+    "baslik": "Büyük Proje: Mimarinin Katmanları",
+    "altbaslik": "Veri Toplama, Doğrulama, İşleme, Raporlama",
+    "icerik": "Öğrenci Not Kayıt Sistemimiz 4 ana aşamadan oluşur:\n1. Doğrulama (Validation): Notlar 0-100 arasında mı? İsim boş mu?\n2. Hesaplama (Logic): %40 vize + %60 final ve Harf notu baremi.\n3. Kayıt (Storage): 5 paralel diziye eşzamanlı kayıt.\n4. Raporlama (Analytics): ListBox dökümü ve genel sınıf ortalaması.",
+    "gorsel": {
+      "type": "image",
+      "query": "multi tier architecture software pipeline modular"
+    }
+  },
+  {
+    "baslik": "Paralel Dizilerde Güncelleme (Update)",
+    "altbaslik": "Mevcut Öğrencinin Notunu Değiştirmek",
+    "icerik": "Bir öğrencinin notunu güncellemek için:\n1. İndeks numarası belirlenir (Örn: secilenIndex = listBoxKayitlar.SelectedIndex).\n2. O indeksteki dizi hücrelerine yeni değerler yazılır:\n   vizeler[secilenIndex] = yeniVize;\n   finaller[secilenIndex] = yeniFinal;\n3. Ortalama ve harf notu yeniden hesaplanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "edit update record form interface"
+    }
+  },
+  {
+    "baslik": "Paralel Dizilerde Silme (Delete)",
+    "altbaslik": "Kayıt Silme ve Dizi Kaydırma Mantığı",
+    "icerik": "Bir öğrenci silindiğinde dizide boşluk kalmaması için:\n- Silinen indeksten sonraki tüm elemanlar for döngüsüyle bir basamak sola kaydırılır:\n  ogrenciAdlari[i] = ogrenciAdlari[i + 1];\n- toplamKayitliOgrenci sayacı 1 azaltılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "shift array elements delete row logic"
+    }
+  },
+  {
+    "baslik": "Arayüz Detayı: Consolas Monospaced Font",
+    "altbaslik": "Sütunların Cetvel Gibi Hizalanması",
+    "icerik": "ListBox içindeki yazıların alt alta tam hizalı durması için 'Consolas' veya 'Courier New' gibi Monospaced (her harfi eşit genişlikte) fontlar kullanılır.\nBöylece adlar farklı uzunlukta olsa bile not ve ortalama sütunları kusursuz hizalanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "monospaced font alignment table terminal text"
+    }
+  },
+  {
+    "baslik": "Sınıfın En Yüksek Notunu Alan Öğrenciyi Bulmak",
+    "altbaslik": "Bütünleşik Min/Max Algoritması",
+    "icerik": "double enYuksekOrtalama = ortalamalar[0];\nstring enBasariliOgrenci = ogrenciAdlari[0];\n\nfor (int i = 1; i < toplamKayitliOgrenci; i++)\n{\n    if (ortalamalar[i] > enYuksekOrtalama)\n    {\n        enYuksekOrtalama = ortalamalar[i];\n        enBasariliOgrenci = ogrenciAdlari[i];\n    }\n}\nlblDerece.Text = \"Sınıf Birincisi: \" + enBasariliOgrenci + \" (\" + enYuksekOrtalama.ToString(\"0.00\") + \")\";",
+    "gorsel": {
+      "type": "image",
+      "query": "valedictorian student award top score podium"
+    }
+  },
+  {
+    "baslik": "Dersin Büyük Kapanışı ve Gelecek",
+    "altbaslik": "Görsel Programlama 2 ve İleri Düzey Konular",
+    "icerik": "Önümüzdeki dönem Görsel Programlama 2 dersinde:\n- SQL Veritabanı Entegrasyonu (MSSQL / SQLite)\n- Entity Framework ve Katmanlı Mimari\n- Raporlama araçları ve Modern Arayüz Kütüphaneleri\nile projelerinizi profesyonel piyasa seviyesine taşıyacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "database sql future programming career path"
+    }
+  },
+  {
+    "baslik": "Eğitmen Değerlendirmesi ve Tavsiyeler",
+    "altbaslik": "Başarılı Bir Yazılımcı Olmanın Sırrı",
+    "icerik": "1. Kod yazmaktan asla korkmayın; hata yapmak öğrenmenin doğal adımıdır.\n2. Kopyala-yapıştır yapmayın; her satırın ne iş yaptığını anlamaya çalışın.\n3. Küçük projelerle başlayıp her hafta üzerine yeni bir taş koyun.\nYolunuz açık, kodlarınız hatasız olsun!",
+    "gorsel": {
+      "type": "image",
+      "query": "mentor teacher guiding student graduation success"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Final Sorusu 3",
+    "altbaslik": "Bütünleşik Mantık",
+    "icerik": "Soru: 50 kapasiteli paralel dizide toplam 5 kayıt varken döngü sınırını 50 yapmak neden hatadır?\n\nA) Hiçbir hata olmaz, hızlı çalışır.\nB) Boş (null/0) hücreler okunmaya çalışıldığında program mantık hatası verir veya çöker.\nC) Diziyi otomatik siler.\nD) Bilgisayarı kapatır.\n\nDoğru Cevap: B (Döngü kapasite kadar değil, eklenen eleman sayısı kadar dönmelidir).",
+    "gorsel": {
+      "type": "image",
+      "query": "final exam quiz question verification"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Dönem Sonu Sözlüğü",
+    "icerik": "- Parallel Arrays: Aynı indekste ilişkili verileri tutan dizi kümesi.\n- CRUD: Create, Read, Update, Delete temel veri operasyonları.\n- Monospaced Font: Sabit karakter aralıklı hizalama fontu.\n- Validation: Kullanıcı verisinin geçerlilik denetimi.\n- Business Logic: Uygulamanın iş kuralları ve hesaplama formülleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Çıkış Bileti",
+    "altbaslik": "Görsel Programlama Dersi Mezuniyeti",
+    "icerik": "Final Sorusu:\n'Bu derste öğrendiğiniz en faydalı C# / Windows Forms konusu neydi ve kendi hayatınızda nasıl bir masaüstü yazılımı geliştirmek istersiniz?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation cap diploma celebration success"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Final Sorusu 2",
+    "altbaslik": "Hata Kontrolü",
+    "icerik": "Soru: string.IsNullOrWhiteSpace(txtAdSoyad.Text) kontrolü neyi denetler?\n\nA) İsmin 10 karakterden uzun olduğunu\nB) Kutuya hiçbir şey yazılmadığını veya sadece boşluk bırakıldığını\nC) İsmin sayı içerdiğini\nD) İsmin büyük harfle yazıldığını\n\nDoğru Cevap: B (Kutunun boş geçilmesini engellemek için kullanılır).",
+    "gorsel": {
+      "type": "image",
+      "query": "string validation empty check quiz"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Başarı Özeti",
+    "altbaslik": "Tebrikler! Artık Bir Görsel Programcısınız!",
+    "icerik": "Bu Dönem Başardıklarınız:\n✔ Visual Studio IDE ve Form Tasarımı\n✔ Buton, Etiket ve Metin Kutularını Yönetme\n✔ Bellek, Değişkenler ve Matematiksel Modeller\n✔ Savunmacı Kodlama ve try-catch Zırhı\n✔ if-else ve switch-case ile Akıllı Karar Mekanizmaları\n✔ for ve while Döngüleri ile Otomasyon\n✔ Tek Boyutlu ve Paralel Diziler ile Veri Yönetimi\n✔ Gerçek dünyada çalışan ticari ve kurumsal masaüstü projeleri!",
+    "gorsel": {
+      "type": "image",
+      "query": "software developer celebration diploma accomplishment career"
+    }
+  }
+]

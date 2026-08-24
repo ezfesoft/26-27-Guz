@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 14",
+    "altbaslik": "Hafta 14: Genel Tekrar ve Uygulamalı Vaka Çalışması",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Bütünleşik Dönem Sonu Değerlendirmesi ve Uygulamalı Vaka Çalışması\nHaftalık Odak: Tüm Dönem Konularının Sentezi: Sayı Sistemleri, Subnetting, Cebir, Olasılık ve İstatistik\nHedef: Mesleki matematik kazanımlarını uçtan uca gerçekçi bir siber güvenlik projesinde uygulamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber security comprehensive capstone project case study mathematics"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Bütünleşik Kurumsal Ağ ve Güvenlik Altyapı Projesi",
+    "icerik": "Yeni kurulan bir e-ticaret şirketinin tüm bilişim altyapısını tasarlıyoruz:\n1. IPv4 Subnetting ve Ağ Segmentasyonu\n2. Log Depolama ve Disk Kapasite Planı (1024 tabanı ve Üslü Sayılar)\n3. SLA Uptime ve Paket Kaybı Analizi (Yüzdeler)\n4. Firewall Boole Kural Zinciri ve Parola Güvenliği (Kombinatorik)\n5. SIEM Trafik Anomalisi ve Risk Analizi (Olasılık ve İstatistik).\n14 haftalık matematik bilgi birikimimiz tek bir mühendislik projesinde birleşiyor.",
+    "gorsel": {
+      "type": "image",
+      "query": "enterprise network security architecture design dashboard"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. 14 hafta boyunca öğrenilen temel matematiksel modelleri birbirine bağlar.\n2. Çok disiplinli karmaşık bilişim problemlerini adım adım analiz edip çözer.\n3. Matematiksel hesaplama sonuçlarını teknik bir raporda gerekçelendirir.\n4. Final sınavı ve sektörel mülakatlar için genel tekrarı tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Dönem Panoraması: Konular Arası Bağlantı Haritası",
+    "altbaslik": "Matematikten Güvenlik Mühendisliğine",
+    "icerik": "- Hafta 1-2: Sayı Sistemleri ve Taban Dönüşümleri (Veri Temsili)\n- Hafta 3: Üslü Sayılar ve Kökler (Kriptografi ve Adresleme)\n- Hafta 4-5: Kesirler, Yüzdeler ve Oran-Orantı (SLA, Ölçekleme)\n- Hafta 6: Temel Cebir ve Denklemler (Maliyet ve Kapasite)\n- Hafta 7: Subnetting ve CIDR (Ağ Tasarımı)\n- Hafta 8: Mantık ve Kümeler (Firewall ve SIEM)\n- Hafta 9-10: Permütasyon ve Olasılık (Parola ve Tehdit Riski)\n- Hafta 11: İstatistik (Anomali Tespiti)\n- Hafta 12-13: İleri Problem Çözme ve Analitik Akıl Yürütme.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map course overview engineering mathematics"
+    }
+  },
+  {
+    "baslik": "Bütünleşik Vaka Tanımı: 'FinTech Secure' Projesi",
+    "altbaslik": "Proje Parametreleri ve Kapsam",
+    "icerik": "FinTech Secure A.Ş. 300 personelli bir finans kuruluşudur.\nProje Görevleri:\n- Görev 1: 192.168.0.0/23 C-Sınıfı bloğunun 3 departmana bölünmesi.\n- Görev 2: 12 TB'lık log sunucusunun dolma süresinin hesaplanması.\n- Görev 3: %99.95 SLA garantisi ve yıllık kesinti süresi hesabı.\n- Görev 4: Güvenlik duvarı kural optimizasyonu ve parola entropisi.\n- Görev 5: Günlük saldırı trafiğinin istatistiksel ve olasılıksal risk raporu.",
+    "gorsel": {
+      "type": "image",
+      "query": "fintech corporate cybersecurity project blueprint"
+    }
+  },
+  {
+    "baslik": "Modül 1 Tekrarı: Sayı Tabanları Özeti",
+    "altbaslik": "Binary - Octal - Desimal - Hexadecimal",
+    "icerik": "- 1 Byte = 8 Bit (0 - 255)\n- 1 Hex = 4 Bit (0 - F) | 2 Hex = 1 Byte (FF = 255)\n- 1 Octal = 3 Bit (chmod izinleri)\n- Temel Çevrim: Hexadecimal MAC ve IPv6 blokları doğrudan 4-bit ikili gruplara açılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "number systems conversion review chart"
+    }
+  },
+  {
+    "baslik": "Modül 2 Tekrarı: Ağ ve Subnetting Özeti",
+    "altbaslik": "2^h - 2 ve Magic Number",
+    "icerik": "- /24 -> 254 Host | /25 -> 126 Host | /26 -> 62 Host | /27 -> 30 Host | /28 -> 14 Host\n- Blok Boyutu = 256 - Maske Değeri\n- İlk IP: Ağ Adresi (Kullanılamaz) | Son IP: Broadcast (Kullanılamaz)\n- Router yönlendirmesi ikili VE (AND) işlemidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "subnetting quick reference cheat sheet"
+    }
+  },
+  {
+    "baslik": "Vaka Adımı 1: Ağ Segmentasyonu Çözüm Prosedürü",
+    "altbaslik": "192.168.0.0/23 Bloğunun Bölünmesi (VLSM)",
+    "icerik": "İhtiyaçlar:\n1. Sunucular: 120 IP -> /25 gerekir (126 kullanılabilir host)\n2. Kullanıcılar: 200 IP -> /24 gerekir (254 kullanılabilir host)\n3. Misafir Wi-Fi: 60 IP -> /26 gerekir (62 kullanılabilir host)\nPlanlama:\n- Kullanıcılar: 192.168.0.0/24 (Host: .1 - .254, Bcast: .255)\n- Sunucular: 192.168.1.0/25 (Host: 1.1 - 1.126, Bcast: 1.127)\n- Misafir: 192.168.1.128/26 (Host: 1.129 - 1.190, Bcast: 1.191).",
+    "gorsel": {
+      "type": "image",
+      "query": "vlsm network design calculation solution steps"
+    }
+  },
+  {
+    "baslik": "Vaka Adımı 2: Depolama ve Disk Süresi Çözümü",
+    "altbaslik": "Log Kapasite Hesabı (1024 Tabanı ve Denklem)",
+    "icerik": "Veri: 300 cihaz günde ortalama 200 MB log üretiyor. Diskte 12 TB (12,288 GB) alan var.\nAdım 1: Günlük toplam log = 300 x 200 MB = 60,000 MB = ~58.59 GB/gün (60 GB SI)\nAdım 2: Gzip sıkıştırma oranı %75 -> Kalan veri = %25\nAdım 3: Sıkıştırılmış günlük log = 60 GB x 0.25 = 15 GB/gün\nAdım 4: Disk dolma süresi = 12,000 GB / 15 GB/gün = 800 gün (~2.2 yıl).",
+    "gorsel": {
+      "type": "image",
+      "query": "storage capacity compression timeline solution"
+    }
+  },
+  {
+    "baslik": "Vaka Adımı 3: SLA Uptime ve Kesinti Hesabı",
+    "altbaslik": "%99.95 SLA Analizi",
+    "icerik": "Veri: Yıllık 8760 saat.\n- İzin verilen kesinti = %0.05 = 0.0005\n- Yıllık Maksimum Kesinti = 8760 x 0.0005 = 4.38 saat = 4 saat 22.8 dakika.\nŞirket iki bağımsız yedekli sunucu (her birinin yıllık arıza olasılığı q=0.01) kullanırsa;\nİki sunucunun aynı anda çökme olasılığı = 0.01 x 0.01 = 0.0001 (%0.01) olur ve SLA %99.99'a çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "sla uptime calculation steps math"
+    }
+  },
+  {
+    "baslik": "Vaka Adımı 4: Parola Entropisi ve Kaba Kuvvet Güvenliği",
+    "altbaslik": "Kombinatorik Güvenlik Analizi",
+    "icerik": "Kural: 12 karakterli karmaşık parola (94 sembol)\nToplam Olasılık Uzayı = 94^12 ~ 4.75 x 10^23 kombinasyon.\nSaniyede 100 milyar (10^11) deneme yapan süper bilgisayar kümesi:\nSüre = (4.75 x 10^23) / 10^11 = 4.75 x 10^12 saniye = ~150,000 yıl.\nSonuç: Parola matematiksel olarak brute-force saldırılarına karşı tam dirençlidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "password entropy brute force time calculation"
+    }
+  },
+  {
+    "baslik": "Vaka Adımı 5: İstatistiksel Log Analizi ve Anomali Tespiti",
+    "altbaslik": "Merkezi Eğilim ve Eşik Yönetimi",
+    "icerik": "Haftalık başarısız oturum açma sayıları: [45, 52, 48, 50, 49, 1500, 51].\n- Medyan = 50 (Normal şirket davranışı)\n- Ortalama = 256.4 (Aşırı yüksek)\n- Karar: Cumartesi günü gerçekleşen '1500' giriş denemesi bariz bir anomalidir ve otomatik IP karantinasına alınmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "anomaly detection log statistics case solution"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 1: Sayı Dönüşümü",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: Hexadecimal 'C4' sayısını ikili ve desimale çeviriniz.\nÇözüm:\n- C = 12 = 1100_2, 4 = 0100_2 -> Binary: 11000100_2\n- Desimal: 12 x 16 + 4 = 192 + 4 = 196.",
+    "gorsel": {
+      "type": "image",
+      "query": "hexadecimal binary decimal quick conversion"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 2: Üslü Kapasite",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: 2^34 Byte kaç GB eder?\nÇözüm: 1 GB = 2^30 Byte olduğuna göre;\n2^34 / 2^30 = 2^(34-30) = 2^4 = 16 GB.",
+    "gorsel": {
+      "type": "image",
+      "query": "powers of two gigabyte calculation blackboard"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 3: Yüzde Değişim",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: Ağ gecikmesi 80 ms'den 20 ms'ye düşürülmüştür. İyileşme yüzdesi kaçtır?\nÇözüm: ((80 - 20) / 80) * 100 = (60 / 80) * 100 = %75 iyileşme.",
+    "gorsel": {
+      "type": "image",
+      "query": "latency percentage reduction calculation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 4: Denklem Çözme",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: 5x - 15 = 2x + 18 ise x kaçtır?\nÇözüm: 5x - 2x = 18 + 15 -> 3x = 33 -> x = 11.",
+    "gorsel": {
+      "type": "image",
+      "query": "linear algebra review equation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 5: Subnet Host Bulma",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: /29 maskesinde kaç adet kullanılabilir host IP'si vardır?\nÇözüm: h = 32 - 29 = 3 bit -> 2^3 - 2 = 8 - 2 = 6 host.",
+    "gorsel": {
+      "type": "image",
+      "query": "slash 29 subnet host calculation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 6: Boole Mantığı",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: p=1, q=0 iken (p XOR q) AND (NOT q) ifadesi ne üretir?\nÇözüm: (1 XOR 0) AND (NOT 0) = 1 AND 1 = 1.",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean logic review question"
+    }
+  },
+  {
+    "baslik": "Çözümlü Mini Tekrar 7: Olasılık ve İstatistik",
+    "altbaslik": "Hızlı Hatırlatma",
+    "icerik": "Soru: [4, 6, 9, 15, 6] veri setinin medyanı kaçtır?\nÇözüm: Sıralı [4, 6, 6, 9, 15] -> Ortanca = 6.",
+    "gorsel": {
+      "type": "image",
+      "query": "median statistics quick test"
+    }
+  },
+  {
+    "baslik": "Final Sınavında En Sık Yapılan 5 Hata",
+    "altbaslik": "Sınav Öncesi Hayati Uyarılar",
+    "icerik": "1. Subnetting'de -2 çıkarmayı unutmak (Ağ ve Broadcast).\n2. MB ile Mbps dönüşümünde 8 ile çarpmayı atlamak.\n3. Medyan bulurken sayıları küçükten büyüğe sıralamamak.\n4. Yüzde değişiminde paydaya yeni değeri yazmak.\n5. Olasılık sonucunu 1'den büyük bulup fark etmemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam top 5 mistakes alert checklist"
+    }
+  },
+  {
+    "baslik": "Sınav Stratejisi ve Zaman Kullanımı",
+    "altbaslik": "Final Başarı Rehberi",
+    "icerik": "- Kolay sorulardan başlayın ve moral kazanın.\n- Her soru için işlem adımlarını kâğıda temiz yazın (kısmi puan alırsınız).\n- Sonuçların mantıksal tutarlılığını birim kontrolüyle denetleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam success strategy checklist student"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Dönem Projesi Yönetim Sunumu",
+    "altbaslik": "FinTech Secure Altyapı Kabulü",
+    "icerik": "Yönetim Özeti:\n- Matematiksel modeller sayesinde kurum altyapısı sıfır donanım israfıyla kuruldu.\n- Ağ güvenliği segmentasyonla %100 izole edildi.\n- 12 TB depolama sıkıştırma ile 2.2 yıl kesintisiz çalışacak.\n- Şirket siber güvenlik denetiminden tam not alarak lisansını yeniledi.",
+    "gorsel": {
+      "type": "image",
+      "query": "executive management cybersecurity project presentation"
+    }
+  },
+  {
+    "baslik": "Vaka Değerlendirme Rubriği ve Kanıtlar",
+    "altbaslik": "Akreditasyon ve Kalite Ölçütleri",
+    "icerik": "- İşlem Doğruluğu: %40\n- Birim ve Mantık Tutarlılığı: %30\n- Adım Açıklığı ve Gerekçelendirme: %20\n- Sektörel Uygunluk: %10\nÖğrenciler dönem boyunca bu rubrik doğrultusunda yetkinlik kazanmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "grading rubric accreditation academic assessment"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Quiz: Soru 1",
+    "altbaslik": "Sayı Sistemleri",
+    "icerik": "Soru: 2^16 sayısı aşağıdakilerden hangisine eşittir?\nA) 256\nB) 1024\nC) 65,536\nD) 1,048,576\n\nDoğru Cevap: C (Toplam port sayısı: 65,536)",
+    "gorsel": {
+      "type": "image",
+      "query": "final quiz question 1 powers of two"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Quiz: Soru 2",
+    "altbaslik": "Subnetting",
+    "icerik": "Soru: /27 önekine sahip bir ağda kaç adet kullanılabilir host IP'si vardır?\nA) 14\nB) 30\nC) 62\nD) 126\n\nDoğru Cevap: B (2^5 - 2 = 30)",
+    "gorsel": {
+      "type": "image",
+      "query": "final quiz question 2 subnetting"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Quiz: Soru 3",
+    "altbaslik": "Mantık",
+    "icerik": "Soru: ~(A ^ B) ifadesinin dengi nedir?\nA) ~A ^ ~B\nB) ~A v ~B\nC) A v B\nD) ~A v B\n\nDoğru Cevap: B (~A v ~B - De Morgan)",
+    "gorsel": {
+      "type": "image",
+      "query": "final quiz question 3 boolean logic"
+    }
+  },
+  {
+    "baslik": "Dönem Sonu Quiz: Soru 4",
+    "altbaslik": "İstatistik",
+    "icerik": "Soru: [2, 5, 8, 11, 14] veri setinin aritmetik ortalaması kaçtır?\nA) 7\nB) 8\nC) 9\nD) 10\n\nDoğru Cevap: B (40 / 5 = 8)",
+    "gorsel": {
+      "type": "image",
+      "query": "final quiz question 4 statistics"
+    }
+  },
+  {
+    "baslik": "Dönem Kapanışı ve Mezuniyet Mesajı",
+    "altbaslik": "Matematik Bilişim Güvenliğinin Temel Taşıdır",
+    "icerik": "Tebrikler!\n14 haftalık Mesleki Matematik maratonunu başarıyla tamamladınız.\nArtık sayı sistemlerini, ağ hesaplarını, algoritmik mantığı, kriptografik büyüklükleri ve istatistiksel analizleri yetkinlikle uygulayabilen birer Siber Güvenlik Uzmanı adayısınız.\nSınavlarınızda ve meslek hayatınızda üstün başarılar dileriz!",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success university technology students celebration"
+    }
+  },
+  {
+    "baslik": "Final Sınavı Hatırlatmaları",
+    "altbaslik": "Sınav Takvimi ve Kuralları",
+    "icerik": "- Sınav Tarihi ve Salonu: Akademik Takvimde İlan Edilmiştir.\n- Gerekli Araçlar: Kurşun kalem, silgi, kimlik belgesi.\n- Soru Dağılımı: 1-11. haftalar arası tüm çekirdek konulardan dengeli sorular içerecektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "exam schedule university classroom notice"
+    }
+  },
+  {
+    "baslik": "Final Çıkış Bileti (Dönem Sonu Anketi)",
+    "altbaslik": "Son Değerlendirme",
+    "icerik": "Günün Sorusu:\n'Bu dönem boyunca öğrendiğiniz 14 konu arasından mesleki kariyerinizde en çok fayda sağlayacağını düşündüğünüz 2 konuyu ve nedenini kısaca yazınız.'\n\nGörüşlerinizi yazıp teslim ediniz. Başarılar!",
+    "gorsel": {
+      "type": "image",
+      "query": "course evaluation feedback exit ticket"
+    }
+  }
+]

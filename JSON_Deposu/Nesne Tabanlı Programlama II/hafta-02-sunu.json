@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "NTP II: Hafta 2",
+    "altbaslik": "Veri Yapıları ve Manipülasyon",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Listeler, Sözlükler (Dict), Demetler (Tuple), Kümeler (Set) ve String İşleme\nUygulama Teması: Spotify Çalma Listesi ve Öğrenci İletişim Rehberi",
+    "gorsel": {
+      "type": "image",
+      "query": "data structures computer science programming lists python"
+    }
+  },
+  {
+    "baslik": "Neden Koleksiyon Veri Yapıları?",
+    "altbaslik": "Tek Bir Değişken Yetmediğinde",
+    "icerik": "Bir müzik uygulamasında 500 şarkı varsa tek tek sarki1, sarki2 diye değişken tanımlayamazsınız.\n- Birden çok veriyi tek bir sepette (koleksiyonda) toplamak gerekir.\n- Python bize 4 ana koleksiyon tipi sunar: Liste, Sözlük, Demet ve Küme.\n- Bugün verileri organize etmeyi ve yönetmeyi öğreneceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "music playlist library organizing songs spotify"
+    }
+  },
+  {
+    "baslik": "4 Temel Veri Yapısının Karşılaştırması",
+    "altbaslik": "Hangi Durumda Hangisi Kullanılır?",
+    "icerik": "1. Liste (list): Sıralı, değiştirilebilir (Örn: Çalma listesi ['A', 'B'])\n2. Demet (tuple): Sıralı ama DEĞİŞTİRİLEMEZ (Örn: GPS koordinat (40.9, 38.3))\n3. Sözlük (dict): Anahtar-Değer çifti (Örn: Rehber {'ad': 'Ali', 'tel': '0555...'})\n4. Küme (set): Sırasız ve TEKRARSIZ (Örn: Benzersiz öğrenci numaraları {101, 102})",
+    "gorsel": {
+      "type": "image",
+      "query": "data structure comparison chart python list tuple dictionary set"
+    }
+  },
+  {
+    "baslik": "Liste (List) Nedir ve Nasıl Tanımlanır?",
+    "altbaslik": "Köşeli Parantezlerin Gücü []",
+    "icerik": "Listeler virgülle ayrılan elemanlardan oluşur ve [] ile tanımlanır:\n\nsarkilar = ['Duman - Kırmış Kalbini', 'Mor ve Ötesi - Cambaz', 'Manga - Dursun Zaman']\n\n- Farklı tipleri bir arada tutabilir: karma = [10, 'Metin', 3.14, True]\n- Boş liste: liste = [] veya liste = list()",
+    "gorsel": {
+      "type": "image",
+      "query": "python list data type brackets visual elements"
+    }
+  },
+  {
+    "baslik": "Listelerde İndeks (Sıra Numarası) Mantığı",
+    "altbaslik": "Bilgisayar Saymaya 0'dan Başlar!",
+    "icerik": "Listelerdeki her elemanın bir indeksi (adresi) vardır:\n\nsarkilar = ['Şarkı A', 'Şarkı B', 'Şarkı C']\n\n- sarkilar[0] -> 'Şarkı A' (İlk eleman)\n- sarkilar[1] -> 'Şarkı B' (İkinci eleman)\n- sarkilar[-1] -> 'Şarkı C' (Son eleman - tersten erişim)",
+    "gorsel": {
+      "type": "image",
+      "query": "array index 0 based indexing computer memory"
+    }
+  },
+  {
+    "baslik": "Listeye Eleman Ekleme: append()",
+    "altbaslik": "Listenin Sonuna Yeni Şarkı Ekleme",
+    "icerik": "append() metodu verilen elemanı listenin en sonuna ekler:\n\ncalma_listesi = ['Şarkı 1', 'Şarkı 2']\ncalma_listesi.append('Şarkı 3')\n\nprint(calma_listesi)\n# Çıktı: ['Şarkı 1', 'Şarkı 2', 'Şarkı 3']",
+    "gorsel": {
+      "type": "image",
+      "query": "adding item to list plus button interface"
+    }
+  },
+  {
+    "baslik": "Araya Eleman Ekleme: insert()",
+    "altbaslik": "İstediğimiz Sıraya Yerleştirme",
+    "icerik": "insert(indeks, eleman) metodu belirtilen sıraya yeni elemanı sokar:\n\nnotlar = [50, 70, 90]\nnotlar.insert(1, 60)  # 1. indekse 60 koy\n\nprint(notlar)\n# Çıktı: [50, 60, 70, 90]",
+    "gorsel": {
+      "type": "image",
+      "query": "inserting element in queue line sequence"
+    }
+  },
+  {
+    "baslik": "Listeden Eleman Silme: remove() vs pop()",
+    "altbaslik": "İsme Göre Silmek vs Sıraya Göre Silmek",
+    "icerik": "1. remove(deger): İsme göre ilk bulduğu değeri siler:\nsarkilar.remove('Şarkı 2')\n\n2. pop(indeks): Belirtilen indeksteki elemanı siler ve o elemanı geri döndürür:\nsilinen = sarkilar.pop(0)  # İlk şarkıyı siler\n\n3. pop() parametresiz kullanılırsa en son elemanı siler.",
+    "gorsel": {
+      "type": "image",
+      "query": "delete remove trash bin list item action"
+    }
+  },
+  {
+    "baslik": "Liste Boyutu ve Matematiksel Fonksiyonlar",
+    "altbaslik": "len(), sum(), max(), min()",
+    "icerik": "notlar = [65, 80, 45, 90, 100]\n\n- len(notlar)  -> 5 (Toplam eleman sayısı)\n- max(notlar)  -> 100 (En yüksek not)\n- min(notlar)  -> 45 (En düşük not)\n- sum(notlar)  -> 380 (Notlar toplamı)\n- Ortalama = sum(notlar) / len(notlar) -> 76.0",
+    "gorsel": {
+      "type": "image",
+      "query": "statistics mathematics average maximum minimum chart"
+    }
+  },
+  {
+    "baslik": "Liste Dilimleme (Slicing)",
+    "altbaslik": "Listenin Belirli Bir Bölümünü Kesip Alma",
+    "icerik": "Kural: liste[baslangic : bitis : adim] (Bitiş dahil değildir!)\n\nsayilar = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\n- sayilar[2:5]  -> [2, 3, 4] (2'den 5'e kadar)\n- sayilar[:3]   -> [0, 1, 2] (Baştan 3'e kadar)\n- sayilar[::2]  -> [0, 2, 4, 6, 8] (İkişer atlayarak)\n- sayilar[::-1] -> [9, 8, 7, ...] (Listeyi ters çevirir)",
+    "gorsel": {
+      "type": "image",
+      "query": "slicing data array cutting segments visual"
+    }
+  },
+  {
+    "baslik": "Döngü ile Liste Gezme (for Loop)",
+    "altbaslik": "Tüm Elemanları Tek Tek İşlemek",
+    "icerik": "calma_listesi = ['Duman', 'Mor ve Ötesi', 'Manga']\n\nfor sarki in calma_listesi:\n    print('Şu an çalıyor 🎵:', sarki)\n\nNumaralı Yazdırmak İçin enumerate():\nfor sira, sarki in enumerate(calma_listesi, 1):\n    print(f'{sira}. {sarki}')",
+    "gorsel": {
+      "type": "image",
+      "query": "for loop iteration programming repetition arrows"
+    }
+  },
+  {
+    "baslik": "Sözlük (Dictionary) Nedir?",
+    "altbaslik": "Anahtar - Değer (Key - Value) Eşleşmesi",
+    "icerik": "Sözlükler süslü parantez {} ile tanımlanır ve JSON veri formatının temelidir:\n\nogrenci = {\n    'ad': 'Merve',\n    'soyad': 'Kaya',\n    'numara': '24101',\n    'bolum': 'Bilgisayar'\n}\n\nErişim: print(ogrenci['ad']) -> 'Merve'",
+    "gorsel": {
+      "type": "image",
+      "query": "key value dictionary database json object"
+    }
+  },
+  {
+    "baslik": "Sözlük Manipülasyonu",
+    "altbaslik": "Ekleme, Güncelleme ve Silme",
+    "icerik": "kullanici = {'isim': 'Ahmet', 'bakiye': 150}\n\n# Yeni anahtar ekleme / Güncelleme\nkullanici['bakiye'] = 200     # Güncellendi\nkullanici['sehir'] = 'Giresun' # Yeni eklendi\n\n# Silme\ndel kullanici['sehir']\n\n# Güvenli Okuma (Hata Vermez)\nprint(kullanici.get('email', 'Kayıtlı Değil'))",
+    "gorsel": {
+      "type": "image",
+      "query": "user profile dictionary settings update python"
+    }
+  },
+  {
+    "baslik": "Sözlük Metotları: keys(), values(), items()",
+    "altbaslik": "Sözlüğün İçini Taramak",
+    "icerik": "menu = {'cay': 15, 'kahve': 35, 'tost': 50}\n\n- menu.keys()   -> ['cay', 'kahve', 'tost']\n- menu.values() -> [15, 35, 50]\n- menu.items()  -> [('cay', 15), ('kahve', 35), ...]\n\nfor urun, fiyat in menu.items():\n    print(f'{urun.upper()}: {fiyat} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "restaurant menu pricing list table items"
+    }
+  },
+  {
+    "baslik": "Demet (Tuple) Veri Yapısı",
+    "altbaslik": "Değiştirilemez Sabit Listeler ()",
+    "icerik": "Demetler parantez () ile tanımlanır ve oluşturulduktan sonra ASLA değiştirilemez (Immutable):\n\nkoordinat = (40.9128, 38.3895)\n\n# koordinat[0] = 50.0  -> HATA VERİR (TypeError)!\n\nNeden Kullanılır?\n- Değiştirilmesini istemediğimiz veriler (Doğum tarihi, GPS vb.)\n- Fonksiyonlardan birden çok değer döndürürken.",
+    "gorsel": {
+      "type": "image",
+      "query": "locked data tuple immutable security lock"
+    }
+  },
+  {
+    "baslik": "Küme (Set) Veri Yapısı",
+    "altbaslik": "Tekrarsız (Benzersiz) Elemanlar {}",
+    "icerik": "Kümeler aynı elemandan birden fazla barındırmaz:\n\nnumaralar = {101, 102, 101, 103, 102}\nprint(numaralar)  # Çıktı: {101, 102, 103}\n\nEn Popüler Kullanım:\nBir listedeki yinelenen elemanları tek satırda temizlemek:\ntemiz_liste = list(set(tekrarlari_olan_liste))",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram sets mathematics intersection unique"
+    }
+  },
+  {
+    "baslik": "Metin Manipülasyonu: upper(), lower(), title()",
+    "altbaslik": "Kullanıcı Girdilerini Standart Hale Getirme",
+    "icerik": "Kullanıcı 'EVET', 'evet' veya 'Evet' yazsa da doğru kontrol etmek için metin metotları kullanılır:\n\nmetin = 'python ntp dersi'\n\n- metin.upper() -> 'PYTHON NTP DERSI'\n- metin.lower() -> 'python ntp dersi'\n- metin.title() -> 'Python Ntp Dersi'",
+    "gorsel": {
+      "type": "image",
+      "query": "text case transform upper lower title typography"
+    }
+  },
+  {
+    "baslik": "Metin Parçalama ve Birleştirme: split() & join()",
+    "altbaslik": "Cümleden Listeye, Listeden Cümleye",
+    "icerik": "1. split(): Metni boşluklardan veya ayraca göre bölüp listeye dönüştürür:\nkelimeler = 'Elma, Armut, Çilek'.split(', ')\n# ['Elma', 'Armut', 'Çilek']\n\n2. join(): Listeyi aralarına metin koyarak tek bir yazıya çevirir:\nyeni_metin = ' - '.join(kelimeler)\n# 'Elma - Armut - Çilek'",
+    "gorsel": {
+      "type": "image",
+      "query": "split and join puzzle string manipulation"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Çalma Listesi",
+    "altbaslik": "Şarkı Ekleme ve Listeleme",
+    "icerik": "calma_listesi = []\n\nwhile True:\n    sarki = input('Eklenecek şarkı (Çıkış için q): ')\n    if sarki.lower() == 'q':\n        break\n    calma_listesi.append(sarki.title())\n\nprint('\\n🎵 Çalma Listeniz:')\nfor sira, s in enumerate(calma_listesi, 1):\n    print(f'{sira}. {s}')",
+    "gorsel": {
+      "type": "image",
+      "query": "music player terminal list songs playlist"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Sınıf Not Analizi",
+    "altbaslik": "Listelerle İstatistik Çıkarma",
+    "icerik": "notlar = [70, 85, 40, 95, 60, 100, 55]\n\ngecenler = []\nkalanlar = []\n\nfor n in notlar:\n    if n >= 50:\n        gecenler.append(n)\n    else:\n        kalanlar.append(n)\n\nprint(f'Geçen Sayısı: {len(gecenler)} | Kalan Sayısı: {len(kalanlar)}')",
+    "gorsel": {
+      "type": "image",
+      "query": "exam grading score analysis success failure"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Öğrenci Rehberi (Dict)",
+    "altbaslik": "Anahtar ile Hızlı Sorgulama",
+    "icerik": "rehber = {\n    '24101': {'ad': 'Ali', 'bolum': 'Bilgisayar'},\n    '24102': {'ad': 'Ayşe', 'bolum': 'Elektrik'}\n}\n\nno = input('Sorgulanacak Öğrenci No: ')\nif no in rehber:\n    print(f'Öğrenci: {rehber[no][\"ad\"]} | Bölüm: {rehber[no][\"bolum\"]}')\nelse:\n    print('Öğrenci bulunamadı!')",
+    "gorsel": {
+      "type": "image",
+      "query": "phone directory contacts digital list search"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Kod:\nliste = [10, 20, 30]\nprint(liste[3])\n\nProblem Nedir?\nListenin 3 elemanı vardır (indeksler 0, 1, 2).\n3. indeksi çağırmak IndexError (Index out of range) hatası fırlatır!\nÇözüm: len(liste) - 1 veya liste[-1] kullanılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "index out of range error python exception"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Dikkat Edilmesi Gereken 3 Nokta",
+    "icerik": "1. Sözlüklerde var olmayan bir anahtarı doğrudan çağırmak (KeyError verir -> .get() kullanın).\n2. Demetlerin (tuple) elemanını değiştirmeye çalışmak (TypeError verir).\n3. append() ile liste eklerken tek tek değil tüm listeyi tek bir eleman olarak içeri atmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution alert mistakes software"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Liste Metotları",
+    "icerik": "Soru: Listenin sonuna yeni bir eleman ekleyen metot hangisidir?\nA) insert()\nB) add()\nC) append()\nD) push()\n\nDoğru Cevap: C (append() listenin sonuna ekler).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Veri Yapısı Tanıma",
+    "icerik": "Soru: ogrenci = {'ad': 'Deniz', 'yas': 20} yapısının türü nedir?\nA) list\nB) dict\nC) tuple\nD) set\n\nDoğru Cevap: B (Anahtar-Değer eşleşmesi olan bir sözlüktür/dict).",
+    "gorsel": {
+      "type": "image",
+      "query": "data type recognition quiz answer"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Küme Özellikleri",
+    "icerik": "Soru: sayilar = set([1, 2, 2, 3, 3, 3]) ifadesinde len(sayilar) kaçtır?\nA) 6\nB) 1\nC) 3\nD) 2\n\nDoğru Cevap: C (Kümeler tekrarsızdır -> {1, 2, 3} kalır, eleman sayısı 3'tür).",
+    "gorsel": {
+      "type": "image",
+      "query": "set unique items mathematics quiz"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Sepet Modeli",
+    "altbaslik": "Liste ve Sözlüklerin Birlikte Kullanımı",
+    "icerik": "Gerçek Hayat Mimarisi (List of Dicts):\nsepet = [\n    {'urun': 'Kulaklık', 'fiyat': 450, 'adet': 1},\n    {'urun': 'Mouse Pad', 'fiyat': 120, 'adet': 2}\n]\n\ntoplam = sum(u['fiyat'] * u['adet'] for u in sepet)\nprint(f'Sepet Toplamı: {toplam} TL')\nModern internet sistemlerinin tamamı bu veri modelini kullanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "shopping cart e commerce database json list"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Mini Müzik Çalar ve Şarkı Listesi Yöneticisi",
+    "icerik": "Göreviniz:\n1. 3 şarkıdan oluşan bir liste başlatın.\n2. Kullanıcıya menü sunun:\n   (1) Şarkıları Numaralı Listele\n   (2) Yeni Şarkı Ekle (.title() yaparak)\n   (3) Şarkı Sil (İsme göre)\n   (4) Çıkış\n3. Kullanıcı çıkana kadar bu döngüyü işletin.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "music playlist terminal management app task"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İpucu",
+    "altbaslik": "Başlangıç İskeleti",
+    "icerik": "calma_listesi = ['Duman - Haberin Yok Ölüyorum', 'Manga - Cevapsız Sorular']\n\n# while True döngüsü kurun\n# input('Seçiminiz (1/2/3/4): ') ile menüyü kontrol edin\n# if secim == '1': enumerate ile listeleyin...",
+    "gorsel": {
+      "type": "image",
+      "query": "hint ideas solution coding help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Listeler ([]): Değiştirilebilir, sıralı dinamik koleksiyonlardır.\n- Sözlükler ({}): Key-Value eşleşmesi ile JSON'un kalbidir.\n- Demetler (()): Güvenli, değiştirilemez sabit verilerdir.\n- Kümeler ({}): Tekrarsız benzersiz elemanlar için kullanılır.\n- split() ve join() metin-liste dönüşümlerinde vazgeçilmezdir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap concepts programming"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 3: Sınıf (Class) ve Nesne (Object) Kavramları",
+    "icerik": "Ön Hazırlık:\n- Nesne Tabanlı Programlama (OOP) dünyasına resmi adım atıyoruz!\n- Sınıf (Class) ve Nesne (Object) nedir?\n- Instagram profilini Python sınıfıyla nasıl modelleriz?\n- self kelimesi aslında ne anlama gelir?",
+    "gorsel": {
+      "type": "image",
+      "query": "object oriented programming concept class object blueprint"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir sözlükte telefon anahtarı varsa ekrana yazdıran, yoksa 'Telefon Bilgisi Yok' mesajı veren tek satırlık .get() komutunu yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

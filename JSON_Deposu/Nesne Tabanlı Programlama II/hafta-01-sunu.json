@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "NTP II: Hafta 1",
+    "altbaslik": "Nesne Tabanlı Programlamaya Giriş ve Python Ekosistemi",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Python Sözdizimi, Değişkenler, Bellek Yapısı ve Tip Dönüşümleri\nUygulama Teması: Kampüs Kafe Kasa ve Sipariş Fişi Otomasyonu",
+    "gorsel": {
+      "type": "image",
+      "query": "python programming code on screen modern university lab"
+    }
+  },
+  {
+    "baslik": "Dönemin Büyük Resmi",
+    "altbaslik": "Konsoldan Profesyonel Web API'ye Uzanan Yolculuk",
+    "icerik": "Bu dönem sadece siyah konsola print yazmayacağız.\n- Sınıflarla (OOP) gerçek dünya varlıklarını modelleyeceğiz.\n- FastAPI ile tıklanabilir, butonlu web servisleri üreteceğiz.\n- SQLite veritabanı ile kalıcı kayıtlar tutacağız.\n- Dönem sonunda CV'nize gururla koyabileceğiniz bir Portföy Projesi teslim edeceksiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "software developer working on laptop web api dashboard"
+    }
+  },
+  {
+    "baslik": "Neden 'Daktilo Gibi Kopyalama' Yapmıyoruz?",
+    "altbaslik": "Ezberlemek Değil, Mantığı Anlamak",
+    "icerik": "Tahtada görülen kodu harfi harfine kopyalamak sizi yazılımcı yapmaz.\n- Kodun neyi neden yaptığını sorgulayacağız.\n- Hatalardan korkmayacağız; her hata bir öğrenme fırsatıdır.\n- Her dersin sonunda kendi başınıza çözeceğiniz mini bir Boss Fight görevi olacak.",
+    "gorsel": {
+      "type": "image",
+      "query": "student thinking programming problem solving creative"
+    }
+  },
+  {
+    "baslik": "Haftanın Teması: Kampüs Kafe",
+    "altbaslik": "Neden Günlük Hayat Örnekleri?",
+    "icerik": "Soyut matematik formülleri yerine her gün yaşadığımız durumları kodlayacağız.\n- Çay, tost, kahve fiyatları nasıl toplanır?\n- Öğrenci indirimi nasıl hesaplanır?\n- Müşteriye okunaklı bir fiş çıktısı nasıl verilir?\nProgramlama işte bu günlük sorunları çözme sanatıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "campus coffee shop cafe counter order receipt"
+    }
+  },
+  {
+    "baslik": "Python Dünyası ve Popülerliği",
+    "altbaslik": "Neden Python?",
+    "icerik": "Python günümüzde dünyanın en çok kullanılan dillerindendir:\n- Basit ve Temiz Sözdizimi: İngilizce cümle okur gibi yazılır.\n- Zengin Kütüphane Desteği: Web, yapay zeka, otomasyon, veri bilimi.\n- Büyük Topluluk: Karşılaştığınız her sorunun çözümü internette hazırdır.\n- Hızlı Geliştirme: Az kodla çok iş başarılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "python logo technology programming languages community"
+    }
+  },
+  {
+    "baslik": "Zen of Python: Kod Yazma Sanatı",
+    "altbaslik": "PEP 20 Prensipleri",
+    "icerik": "Python'ın temel felsefesi okunabilirlik üzerinedir:\n- Güzel olan, çirkinden iyidir (Beautiful is better than ugly).\n- Açık olan, örtük olandan iyidir (Explicit is better than implicit).\n- Basit olan, karmaşıktan iyidir (Simple is better than complex).\n- Okunabilirlik her şeyden önemlidir (Readability counts).",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code philosophy software architecture zen"
+    }
+  },
+  {
+    "baslik": "Girintileme (Indentation) Kuralı",
+    "altbaslik": "Süslü Parantez Yerine Boşluk",
+    "icerik": "C, C++ veya Java'da kod blokları {} ile ayrılırken Python'da Tab (4 boşluk) kullanılır.\n\nOrnek:\nsayi1 = 10\nsayi2 = 20\ntoplam = sayi1 + sayi2\nprint('Toplam:', toplam)\n\nGirintileme hatası (IndentationError) en sık yapılan acemi hatasıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "code indentation python ide visual blocks"
+    }
+  },
+  {
+    "baslik": "Değişken Nedir? Bellek Mantığı",
+    "altbaslik": "Kutu Değil, Etiket Yapıştırma!",
+    "icerik": "Geleneksel dillerde değişken bir kutudur.\nPython'da ise bellekte oluşan nesneye yapıştırılan bir etikettir.\n\ncay_fiyati = 15\n# Bellekte 15 sayısı oluşur, 'cay_fiyati' etiketi o sayıya bağlanır.\n\nfiyat2 = cay_fiyati\n# 'fiyat2' de aynı 15 değerine bağlanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "computer ram memory reference pointer illustration"
+    }
+  },
+  {
+    "baslik": "PEP 8 İsimlendirme Kuralları",
+    "altbaslik": "snake_case Standartı",
+    "icerik": "Değişken ve fonksiyon isimlerinde snake_case kullanılır (küçük harfler ve alt çizgi).\n\nDoğru İsimler:\n- musteri_adi\n- urun_fiyati\n- toplam_tutar\n\nYanlış/Kaçınılması Gerekenler:\n- MusteriAdi (PascalCase sınıflar içindir)\n- urunfiyati (Okuması zordur)\n- x, y, a1 (Anlamsızdır)",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code naming conventions guidelines programming"
+    }
+  },
+  {
+    "baslik": "Dinamik Tiplendirme (Dynamic Typing)",
+    "altbaslik": "Python Tipi Kendisi Anlar",
+    "icerik": "Statik Diller (C++/Java): Tip önceden belirtilmelidir (int sayi = 10;).\nPython (Dinamik): Değere bakarak tipi çalışma anında belirler.\n\nfiyat = 25       # int (Tam sayı)\nfiyat = 25.50    # float (Ondalıklı sayı)\nfiyat = 'Ücretsiz' # str (Metin)\n\nBu durum esneklik sağlar ancak dikkatli olunmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "dynamic data typing programming variables transition"
+    }
+  },
+  {
+    "baslik": "4 Temel Veri Tipi",
+    "altbaslik": "Günlük Hayattaki Karşılıkları",
+    "icerik": "1. int (Tam Sayı): Sayılabilen adetler (Örn: 3 bardak çay -> adet = 3)\n2. float (Ondalıklı Sayı): Parasal tutarlar, ölçümler (Örn: fiyat = 45.50)\n3. str (Metin): Yazılar, isimler (Örn: urun = 'Kaşarlı Tost')\n4. bool (Mantıksal): True ya da False (Örn: ogrenci_mi = True)",
+    "gorsel": {
+      "type": "image",
+      "query": "data types numbers text boolean visual chart"
+    }
+  },
+  {
+    "baslik": "Veri Tipini Öğrenme: type()",
+    "altbaslik": "Bu Değişken Ne Tür Bir Veri Tutuyor?",
+    "icerik": "type() fonksiyonu bir değişkenin o anki tipini söyler:\n\nsayi = 100\nprint(type(sayi))   # <class 'int'>\n\nfiyat = 49.90\nprint(type(fiyat))  # <class 'float'>\n\nmesaj = 'Merhaba'\nprint(type(mesaj))  # <class 'str'>",
+    "gorsel": {
+      "type": "image",
+      "query": "type inspection python console terminal output"
+    }
+  },
+  {
+    "baslik": "Kullanıcıdan Veri Alma: input()",
+    "altbaslik": "Programı Kullanıcıyla Konuşturmak",
+    "icerik": "input() fonksiyonu programı durdurur ve kullanıcının klavyeden yazı yazmasını bekler.\n\nkullanici = input('Lütfen adınızı girin: ')\nprint('Hoş geldin', kullanici)\n\nKullanıcı Enter tuşuna basana kadar program beklemede kalır.",
+    "gorsel": {
+      "type": "image",
+      "query": "keyboard user input typing command line interface"
+    }
+  },
+  {
+    "baslik": "BÜYÜK TUZAK: input() Her Zaman Metin Döner!",
+    "altbaslik": "Daktilo Gibi Kopyalayanların En Çok Düştüğü Çukur",
+    "icerik": "input() ile klavyeden '5' yazsanız bile Python bunu 5 (sayı) değil, '5' (yazı) olarak alır!\n\nsayi1 = input('1. Sayı: ')  # Kullanıcı 2 girdi\nsayi2 = input('2. Sayı: ')  # Kullanıcı 3 girdi\ntoplam = sayi1 + sayi2\nprint(toplam)  # ÇIKTI: 23 (Yan yana yapıştırdı, toplamadı!)",
+    "gorsel": {
+      "type": "image",
+      "query": "warning trap bug error programming alert"
+    }
+  },
+  {
+    "baslik": "Tip Dönüşümü (Type Casting)",
+    "altbaslik": "Metni Sayıya Çevirme Zorunluluğu",
+    "icerik": "Metin olarak gelen girdileri matematiksel işlemlere sokabilmek için dönüştürmeliyiz:\n\nint('123')    -> 123 (Tam sayıya çevirir)\nfloat('45.5') -> 45.5 (Ondalıklı sayıya çevirir)\nstr(30)       -> '30' (Metne çevirir)\n\nDoğru Toplama:\nsayi1 = int(input('1. Sayı: '))\nsayi2 = int(input('2. Sayı: '))\nprint(sayi1 + sayi2)  # 5",
+    "gorsel": {
+      "type": "image",
+      "query": "data type conversion transformation arrows"
+    }
+  },
+  {
+    "baslik": "f-String ile Şık Çıktılar Üretme",
+    "altbaslik": "Artı (+) ile Metin Birleştirmeye Son!",
+    "icerik": "Eski Yöntem:\nprint('Merhaba ' + ad + ' yaşınız: ' + str(yas))\n\nModern ve Okunabilir Yöntem (f-string):\nprint(f'Merhaba {ad}, yaşınız: {yas}')\n\nf harfi metnin başına konur ve süslü parantez {} içine değişkenler yazılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "string formatting code clean template"
+    }
+  },
+  {
+    "baslik": "Parasal Çıktılarda Kuruş Hassasiyeti",
+    "altbaslik": ":.2f Format Belirteci",
+    "icerik": "Bölme işlemlerinde 33.3333333 gibi çirkin çıktılar yerine virgülden sonra 2 basamak sabitlemek için :.2f kullanılır:\n\nfiyat = 100 / 3\nprint(f'Tutar: {fiyat:.2f} TL')\n# Çıktı: Tutar: 33.33 TL\n\nBu format kasa ve fatura çıktılarında sektörel standarttır.",
+    "gorsel": {
+      "type": "image",
+      "query": "calculator price currency finance digits"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: Kafe Karşılama",
+    "altbaslik": "Adım Adım Birlikte Kodluyoruz",
+    "icerik": "Hedef: Müşteri adını ve masa numarasını alıp karşılama mesajı üretmek.\n\nKod:\nmusteri_adi = input('Müşteri Adı: ')\nmasa_no = int(input('Masa Numarası: '))\n\nprint(f'Masa {masa_no} için hoş geldin {musteri_adi}!')",
+    "gorsel": {
+      "type": "image",
+      "query": "coffee shop pos system welcoming screen"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: Tutar Hesaplama",
+    "altbaslik": "Birim Fiyat x Adet Çarpımı",
+    "icerik": "Hedef: Çay adedi ve birim fiyat üzerinden ara toplam bulmak.\n\nKod:\ncay_fiyati = 15.0\ncay_adedi = int(input('Kaç bardak çay içildi? '))\n\ntoplam_tutar = cay_adedi * cay_fiyati\nprint(f'{cay_adedi} adet çay = {toplam_tutar:.2f} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "tea glasses on tray cafe billing"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: İndirimli Sipariş Fişi",
+    "altbaslik": "Tam Bir Kasa Fişi Tasarımı",
+    "icerik": "Kod:\nmusteri = input('Müşteri Adı: ')\ncay_sayisi = int(input('Çay Adedi: '))\ntost_sayisi = int(input('Tost Adedi: '))\n\nara_toplam = (cay_sayisi * 15.0) + (tost_sayisi * 50.0)\nogrenci_tutari = ara_toplam * 0.90  # %10 İndirim\n\nprint('='*30)\nprint(f'Müşteri: {musteri}')\nprint(f'Öğrenci Fiyatı: {ogrenci_tutari:.2f} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "printed paper receipt bill payment counter"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Bu Kodun Çıktısı Ne Olur?",
+    "icerik": "Soru:\nx = '10'\ny = '20'\nprint(x + y)\n\nSeçenekler:\nA) 30\nB) 1020\nC) Hata verir\nD) 10 20\n\nCevap: B ('10' ve '20' metin (str) olduğu için yan yana yapışır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test choice examination question"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hatalı Kod:\nboy = input('Boyunuz (m): ')\nkilo = input('Kilonuz (kg): ')\nsonuc = kilo / (boy * boy)\n\nProblem Nedir?\ninput() str döndürdüğü için metinler birbirine bölünemez (TypeError).\nÇözüm: float(input(...)) kullanılmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "debugging finding bugs code error screen"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Kaçınma Yolları",
+    "altbaslik": "Yeni Başlayanların 4 Kritik Hatası",
+    "icerik": "1. int() veya float() dönüşümünü unutmak.\n2. Değişken isimlerinde Türkçe karakter (ç, ş, ğ, ı, ö, ü) veya boşluk kullanmak.\n3. f-string yazarken metnin başına f koymayı unutmak.\n4. Ekrana basılan metinleri tırnak ('...') içine almamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "checklist warning error prevention software"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Değişken Adlandırma",
+    "icerik": "Soru: Hangisi PEP 8 kurallarına göre doğru bir değişken adıdır?\nA) 1urun_fiyati\nB) urun fiyati\nC) urun_fiyati\nD) Urun-Fiyati\n\nDoğru Cevap: C (snake_case standartına uygundur, sayı ile başlamaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice question classroom student test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Veri Tipleri",
+    "icerik": "Soru: ogrenci_mi = False satırındaki değişkenin tipi nedir?\nA) str\nB) int\nC) float\nD) bool\n\nDoğru Cevap: D (Mantıksal tiptir, sadece True veya False alır).",
+    "gorsel": {
+      "type": "image",
+      "query": "boolean logic true false switch digital"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Format Belirteçleri",
+    "icerik": "Soru: print(f'{15.789:.1f}') kodunun ekran çıktısı nedir?\nA) 15.7\nB) 15.8\nC) 15.789\nD) 16\n\nDoğru Cevap: B (Virgülden sonra 1 basamağa yuvarlar -> 15.8).",
+    "gorsel": {
+      "type": "image",
+      "query": "mathematics rounding decimal point display"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Market Kasa Yazılımı",
+    "altbaslik": "Tip Dönüşümü İhmal Edilirse Ne Olur?",
+    "icerik": "Gerçek Yaşam Senaryosu:\nBir süpermarket otomasyonunda barkod okuyucudan gelen adet verisi '2' (str) olarak sisteme girmiştir. Fiyat ise '100' TL'dir.\nTip dönüşümü yapılmadığında sistem çarpma yerine hata verip kasayı kilitlemiştir.\nSonuç: Tip güvenliği ve dönüşümler ticari yazılımların omurgasıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "supermarket barcode scanner cash register terminal"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Günün Menüsü Sipariş Otomasyonu",
+    "icerik": "Göreviniz:\n1. Müşteri adını ve öğrenci olup olmadığını (Evet/Hayır) input ile alın.\n2. Günün yemeği (80 TL) ve içecek (25 TL) adetlerini sorun.\n3. Toplam tutarı hesaplayın.\n4. Öğrenci ise %15 indirim uygulayın.\n5. Fişi ekrana okunaklı şekilde bastırın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "coding challenge task target mission student"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İpucu ve İskelet Kod",
+    "altbaslik": "Takılanlar İçin Başlangıç Desteği",
+    "icerik": "# İskelet Yapı:\nmusteri = input('Müşteri: ')\nyemek_adet = int(input('Yemek Adedi: '))\nicecek_adet = int(input('İçecek Adedi: '))\n\ntutar = (yemek_adet * 80) + (icecek_adet * 25)\n# İndirim hesabını siz tamamlayınız...\nprint(f'Ödenecek Tutar: {tutar:.2f} TL')",
+    "gorsel": {
+      "type": "image",
+      "query": "hint lightbulb idea solution support"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bugün Neler Kazandık?",
+    "icerik": "- Python girintilemeye (Tab) dayalı, okunabilir bir dildir.\n- Değişkenler bellekteki nesnelere yapıştırılan etiketlerdir.\n- int, float, str, bool temel 4 veri tipidir.\n- input() daima metin döner; sayılar için int() veya float() şarttır.\n- f-string ve :.2f ile temiz ve profesyonel çıktılar üretilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary checklist accomplishments graduation cap"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 2: Veri Yapıları (Listeler ve Sözlükler)",
+    "icerik": "Ön Hazırlık:\n- Yüzlerce şarkıyı tek tek değişkene yazmak yerine tek bir listede nasıl tutarız?\n- Spotify çalma listesi nasıl kodlanır?\n- Telefon rehberi ve JSON mantığı nasıl çalışır?\nGelecek hafta listeleri ve sözlükleri keşfedeceğiz!",
+    "gorsel": {
+      "type": "image",
+      "query": "music playlist digital interface spotify list"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Kullanıcıdan fiyatı 45.75 TL olan bir ürün için adet alan ve toplam tutarı ekrana basan 3 satırlık Python kodunu kâğıda yazıp teslim ediniz.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination paper university"
+    }
+  }
+]

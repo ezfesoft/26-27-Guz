@@ -1,0 +1,335 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 12",
+    "altbaslik": "Koşullu Döngüler (while / do-while) ve ComboBox",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Koşula Dayalı Tekrarlar ve Açılır Listeler\nHaftalık Odak: while (Ön Test), do-while (Son Test), ComboBox (SelectedIndex/Item)\nHedef: Tekrar sayısı önceden bilinmeyen dinamik iş süreçlerini modellemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "while loop flow diagram combobox dropdown ui"
+    }
+  },
+  {
+    "baslik": "Neden while Döngüsü Kullanırız?",
+    "altbaslik": "Sektörel Bağlam: Şart Sürdüğü Sürece Tekrar",
+    "icerik": "for döngüsünde kaç tur koşacağımız baştan bellidir (10 tur).\nAncak gerçek hayatta çoğu zaman kaç tur döneceğini bilmeyiz:\n- 'Kullanıcı doğru şifre girene kadar sor!'\n- 'Para bitene kadar banknot dağıt!'\n- 'Dosyanın sonuna gelene kadar satır oku!'\nBu belirsiz durumlarda while döngüsü kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "atm cash withdrawal looping condition"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. for döngüsü ile while döngüsü arasındaki farkı açıklar.\n2. while (Ön Test) ile do-while (Son Test) mekanizmasını kavrar.\n3. ComboBox kontrolüne eleman ekler ve seçili elemanı okur.\n4. Form_Load olayında arayüzü otomatik hazır hale getirir.\n5. 'Akıllı ATM Banknot Dağıtıcı' projesini tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets goals programming while loops"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Lunapark Treni vs Restoran Hesabı",
+    "altbaslik": "while vs do-while Ayrımı",
+    "icerik": "- while (Lunapark Treni - Ön Test): Trene binmeden önce bilet sorulur. Biletin yoksa 0 kez binersin!\n- do-while (Restoran Hesabı - Son Test): Önce yemeği yersin (do), hesabı çıkışta (while) ödersin. Ne olursa olsun EN AZ 1 KEZ yemek yemiş olursun!",
+    "gorsel": {
+      "type": "image",
+      "query": "rollercoaster ticket vs restaurant bill analogy"
+    }
+  },
+  {
+    "baslik": "while Döngüsü Temel Sentaksı",
+    "altbaslik": "Ön Test Döngüsü (Pre-test Loop)",
+    "icerik": "while (kosul)\n{\n    // Koşul DOĞRU olduğu sürece çalışır\n    // Koşulu değiştirecek bir adım (i++ veya azaltma) şarttır!\n}\n\nÖrnek:\nint kalanPara = 1000;\nwhile (kalanPara >= 200)\n{\n    kalanPara -= 200; // 200 TL ver ve eksilt\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "while loop flowchart logic code block"
+    }
+  },
+  {
+    "baslik": "do-while Döngüsü Temel Sentaksı",
+    "altbaslik": "Son Test Döngüsü (Post-test Loop)",
+    "icerik": "do\n{\n    // Kod bloğu EN AZ BİR KEZ kesinlikle çalışır.\n} while (kosul); // Dikkat: Sonda noktalı virgül (;) zorunludur!\n\nKullanım Alanı: Menü gösterme, kullanıcıdan en az bir kez şifre isteme senaryoları.",
+    "gorsel": {
+      "type": "image",
+      "query": "do while loop flowchart post test execution"
+    }
+  },
+  {
+    "baslik": "Karşılaştırmalı Döngü Özeti",
+    "altbaslik": "for, while ve do-while Tablosu",
+    "icerik": "| Özellik | for | while | do-while |\n| :--- | :--- | :--- | :--- |\n| Tur Sayısı | Baştan Belli | Koşula Bağlı | Koşula Bağlı |\n| Kontrol Noktası | Başta | Başta (Pre-test) | Sonda (Post-test) |\n| Min Çalışma | 0 | 0 | 1 (Garanti) |",
+    "gorsel": {
+      "type": "image",
+      "query": "comparison table loop types computer science"
+    }
+  },
+  {
+    "baslik": "UI Kilitlenmesi (Freezing UI) Uyarısı",
+    "altbaslik": "Masaüstü Pencerelerinde while Kullanırken Dikkat",
+    "icerik": "Windows Forms tek bir ana iş parçacığında (UI Thread) çalışır.\n- Bir butonun içine uzun süren bir while döngüsü yazarsanız, form donar ve 'Yanıt Vermiyor' der.\n- Form uygulamalarında sayaçları buton tıklamalarıyla birleştirmek arayüzü akıcı tutar.",
+    "gorsel": {
+      "type": "image",
+      "query": "not responding window freeze ui thread lag"
+    }
+  },
+  {
+    "baslik": "ComboBox (Açılır Liste) ile Tanışma",
+    "altbaslik": "Kullanıcıya Seçenek Sunmak",
+    "icerik": "ComboBox, metin kutusu ile açılır listenin birleşimidir.\n\nTemel Komutları:\n- cmbSecim.Items.Add(\"200 TL\"); -> Listeye seçenek ekler.\n- cmbSecim.SelectedIndex; -> Seçili elemanın 0 tabanlı sıra numarası (Seçim yoksa -1).\n- cmbSecim.SelectedItem.ToString(); -> Seçilen metnin kendisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox dropdown list ui selection element"
+    }
+  },
+  {
+    "baslik": "Form_Load Olayı Nedir?",
+    "altbaslik": "Pencere Açılmadan Önceki Hazırlık",
+    "icerik": "Formun boş bir yerine çift tıkladığınızda 'Form1_Load' metodu açılır:\n- Bu metot, form ekrana gelmeden önce arka planda çalışır.\n- ComboBox'ları doldurmak, başlangıç ayarlarını yüklemek için en ideal yerdir.",
+    "gorsel": {
+      "type": "image",
+      "query": "loading window initialization startup event"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Akıllı ATM Banknot Dağıtıcı",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Bankamatikte para çeken müşterinin tutarını banknotlara bölen para sayma mekanizması.\n- Kullanıcı çekmek istediği tutarı girer (Örn: 1450 TL).\n- ComboBox'tan dağıtılacak banknot tipi seçilir (200 TL, 100 TL, 50 TL).\n- 'Parayı Ver' butonuna basılınca while döngüsü parayı adım adım düşer ve fiş olarak döker.",
+    "gorsel": {
+      "type": "image",
+      "query": "atm cash dispenser banknotes bills counting"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdiler: txtTutar, cmbBanknotTipi\nButon: btnParaCek ('💵 Parayı Ver')\nListe: listBoxFis (Banka İşlem Dekontu)\nDurum: lblKalan (Kalan Bozukluk ve Adet Bilgisi)",
+    "gorsel": {
+      "type": "image",
+      "query": "atm ui user interface layout screen forms"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: Form_Load ile Liste Doldurma",
+    "altbaslik": "ComboBox'ı Hazırlamak",
+    "icerik": "private void Form1_Load(object sender, EventArgs e)\n{\n    cmbBanknotTipi.Items.Add(\"200 TL\");\n    cmbBanknotTipi.Items.Add(\"100 TL\");\n    cmbBanknotTipi.Items.Add(\"50 TL\");\n    cmbBanknotTipi.SelectedIndex = 0; // İlk elemanı seçili getir\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code form load combobox items add"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: while ile Para Dağıtımı",
+    "altbaslik": "Banknot Eksiltme Algoritması",
+    "icerik": "private void btnParaCek_Click(object sender, EventArgs e)\n{\n    try\n    {\n        int cekilecek = Convert.ToInt32(txtTutar.Text);\n        int banknot = 200;\n\n        if (cmbBanknotTipi.SelectedIndex == 0) banknot = 200;\n        else if (cmbBanknotTipi.SelectedIndex == 1) banknot = 100;\n        else if (cmbBanknotTipi.SelectedIndex == 2) banknot = 50;\n\n        listBoxFis.Items.Clear();\n        int adet = 0;\n\n        // WHILE DÖNGÜSÜ: Para yettiği sürece ver!\n        while (cekilecek >= banknot)\n        {\n            adet++;\n            cekilecek -= banknot; // Bakiyeden düş\n            listBoxFis.Items.Add(adet + \". Banknot verildi: \" + banknot + \" TL (Kalan: \" + cekilecek + \" TL)\");\n        }\n        lblKalan.Text = \"Toplam \" + adet + \" adet verildi. Bozuk Kalan: \" + cekilecek + \" TL\";\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli bir tutar giriniz!\"); }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code while loop atm cash distribution"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Akıllı Telefon Pil Tüketimi",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Telefon işletim sistemi arka planda:\nwhile (sarjYuzdesi > 0)\n{\n    EkraniveUygulamalariCalistir();\n}\nTelefonuKapat();\nŞarj tükenene kadar çalışan akıllı cihazlar while döngüsü mimarisine dayanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "smartphone battery charging percentage icon"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "while vs do-while",
+    "icerik": "Soru: Koşul en başta yanlış (false) olsa bile gövdesi EN AZ 1 KEZ çalışan döngü hangisidir?\n\nA) for\nB) while\nC) do-while\nD) foreach\n\nDoğru Cevap: C (do-while son test döngüsü olduğu için koşula bakmadan ilk turu mutlaka çalıştırır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test choice correct answer loops"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "ComboBox",
+    "icerik": "Soru: ComboBox'ta hiçbir eleman seçili olmadığında SelectedIndex özelliği hangi değeri alır?\n\nA) 0\nB) 1\nC) -1\nD) null\n\nDoğru Cevap: C (-1 değeri hiçbir öğenin seçilmediğini ifade eder).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam correct answer question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Form Olayları",
+    "icerik": "Soru: Form ekrana ilk gelmeden önce çalışan başlangıç metodu hangisidir?\n\nA) Form1_Click\nB) Form1_Load\nC) Form1_Close\nD) Form1_Start\n\nDoğru Cevap: B (Form1_Load metodu form açılışında ilk tetiklenen olaydır).",
+    "gorsel": {
+      "type": "image",
+      "query": "form load startup initialization quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Geriye Doğru Sayıcı",
+    "icerik": "Görev:\n- Başlangıç sayısı 100 olan bir sayacı while döngüsü ile 10'ar 10'ar azaltarak 0'a kadar ListBox'a yazdırın.",
+    "gorsel": {
+      "type": "image",
+      "query": "decrement counter while loop list"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- while: Ön testli koşullu döngü.\n- do-while: Son testli, en az 1 kez çalışma garantili döngü.\n- ComboBox: Açılır seçim listesi bileşeni.\n- SelectedIndex: Seçili elemanın 0 tabanlı sıra numarası.\n- Form_Load: Formun ilk açılış hazırlık olayı.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- while ve do-while döngülerinin mekanizmalarını ve farklarını kavradık.\n- ComboBox ile açılır liste yönetimini ve Form_Load hazırlığını uyguladık.\n- while döngüsü ile bakiye eksiltme mantığını modelleyerek ATM projesini tamamladık.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "ComboBox DropDownStyle Özelliği",
+    "altbaslik": "Kullanıcı Girişini Kilitlemek",
+    "icerik": "- DropDown: Kullanıcı hem listeden seçebilir hem de kutuya kendi istediği metni yazabilir (Varsayılan).\n- DropDownList: Kullanıcı kutuya elle yazı yazamaz; YALNIZCA listedeki seçeneklerden birine tıklayabilir (En Güvenli Mod!).",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox dropdown list lock style properties"
+    }
+  },
+  {
+    "baslik": "Hak Sayacı (Kalan Giriş Hakkı) Mantığı",
+    "altbaslik": "while Yerine Form Seviyesinde Sayaç",
+    "icerik": "Masaüstü formlarında arayüz donmasını engellemek için hak sayacı buton tıklamasıyla yürütülür:\n\nint kalanHak = 3; // Global\nif (txtSifre.Text != \"1234\")\n{\n    kalanHak--;\n    lblKalanHak.Text = \"Kalan Hak: \" + kalanHak;\n    if (kalanHak == 0) btnGiris.Enabled = false;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "attempts remaining security countdown lock"
+    }
+  },
+  {
+    "baslik": "Sentinel (Nöbetçi) Kontrollü Döngüler",
+    "altbaslik": "Özel Bir Değer Gelene Kadar Dönmek",
+    "icerik": "Bir veri akışında özel bir durdurma işareti (örn: -1 veya 'CIKIS') gelene kadar devam eden döngülere Sentinel Döngü denir.\n\nwhile (girilenDeger != -1)\n{\n    // Verileri işlemeye devam et\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "sentinel value guard flag loop condition"
+    }
+  },
+  {
+    "baslik": "ComboBox SelectedIndexChanged Olayı",
+    "altbaslik": "Seçim Değiştiği Anda Tetiklenme",
+    "icerik": "Kullanıcı ComboBox'tan yeni bir şehir veya ürün seçtiği anda çalışan olaydır:\n\nprivate void cmbSehir_SelectedIndexChanged(object sender, EventArgs e)\n{\n    lblPlaka.Text = \"Seçilen İlin Plakası: \" + cmbSehir.SelectedItem.ToString();\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox selected index changed event trigger"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan while Döngüsü Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. while döngüsü içine şartı değiştirecek bir eksiltme/artırma (i++) yazmayı unutmak.\n2. do-while sonundaki noktalı virgülü (;) silmek.\n3. Form üzerinde uzun döngü çalıştırıp arayüzü kilitlemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "loop bugs infinite loop frozen application"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "ComboBox Stili",
+    "icerik": "Soru: Kullanıcının ComboBox kutusuna elle yazı yazmasını engelleyip sadece listeden seçmesini sağlayan özellik ayarı nedir?\n\nA) DropDownStyle = DropDownList\nB) Enabled = false\nC) ReadOnly = true\nD) Locked = true\n\nDoğru Cevap: A (DropDownList modu kutuyu sadece seçilebilir hale getirir).",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox dropdownlist property quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Para Üstü Sayacı",
+    "icerik": "Görev:\n- 100 TL'lik bir para üstünü 20 TL'lik banknotlarla while döngüsü kullanarak dağıtın ve her adımda kalan parayı ekrana yazdırın.",
+    "gorsel": {
+      "type": "image",
+      "query": "cash counting bill breakdown calculation"
+    }
+  },
+  {
+    "baslik": "ComboBox DropDownStyle Özelliği",
+    "altbaslik": "Kullanıcı Girişini Kilitlemek",
+    "icerik": "- DropDown: Kullanıcı hem listeden seçebilir hem de kutuya kendi istediği metni yazabilir (Varsayılan).\n- DropDownList: Kullanıcı kutuya elle yazı yazamaz; YALNIZCA listedeki seçeneklerden birine tıklayabilir (En Güvenli Mod!).",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox dropdown list lock style properties"
+    }
+  },
+  {
+    "baslik": "Hak Sayacı (Kalan Giriş Hakkı) Mantığı",
+    "altbaslik": "while Yerine Form Seviyesinde Sayaç",
+    "icerik": "Masaüstü formlarında arayüz donmasını engellemek için hak sayacı buton tıklamasıyla yürütülür:\n\nint kalanHak = 3; // Global\nif (txtSifre.Text != \"1234\")\n{\n    kalanHak--;\n    lblKalanHak.Text = \"Kalan Hak: \" + kalanHak;\n    if (kalanHak == 0) btnGiris.Enabled = false;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "attempts remaining security countdown lock"
+    }
+  },
+  {
+    "baslik": "Sentinel (Nöbetçi) Kontrollü Döngüler",
+    "altbaslik": "Özel Bir Değer Gelene Kadar Dönmek",
+    "icerik": "Bir veri akışında özel bir durdurma işareti (örn: -1 veya 'CIKIS') gelene kadar devam eden döngülere Sentinel Döngü denir.\n\nwhile (girilenDeger != -1)\n{\n    // Verileri işlemeye devam et\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "sentinel value guard flag loop condition"
+    }
+  },
+  {
+    "baslik": "ComboBox SelectedIndexChanged Olayı",
+    "altbaslik": "Seçim Değiştiği Anda Tetiklenme",
+    "icerik": "Kullanıcı ComboBox'tan yeni bir şehir veya ürün seçtiği anda çalışan olaydır:\n\nprivate void cmbSehir_SelectedIndexChanged(object sender, EventArgs e)\n{\n    lblPlaka.Text = \"Seçilen İlin Plakası: \" + cmbSehir.SelectedItem.ToString();\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox selected index changed event trigger"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan while Döngüsü Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. while döngüsü içine şartı değiştirecek bir eksiltme/artırma (i++) yazmayı unutmak.\n2. do-while sonundaki noktalı virgülü (;) silmek.\n3. Form üzerinde uzun döngü çalıştırıp arayüzü kilitlemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "loop bugs infinite loop frozen application"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "ComboBox Stili",
+    "icerik": "Soru: Kullanıcının ComboBox kutusuna elle yazı yazmasını engelleyip sadece listeden seçmesini sağlayan özellik ayarı nedir?\n\nA) DropDownStyle = DropDownList\nB) Enabled = false\nC) ReadOnly = true\nD) Locked = true\n\nDoğru Cevap: A (DropDownList modu kutuyu sadece seçilebilir hale getirir).",
+    "gorsel": {
+      "type": "image",
+      "query": "combobox dropdownlist property quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Para Üstü Sayacı",
+    "icerik": "Görev:\n- 100 TL'lik bir para üstünü 20 TL'lik banknotlarla while döngüsü kullanarak dağıtın ve her adımda kalan parayı ekrana yazdırın.",
+    "gorsel": {
+      "type": "image",
+      "query": "cash counting bill breakdown calculation"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'int x = 10; while (x < 5) { x++; } döngüsü toplam kaç kez çalışır?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 13: Veri Yapıları: Tek Boyutlu Diziler (Arrays)",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- Tek bir isim altında 100 veriyi saklamak: Diziler (Arrays).\n- 0 tabanlı indeks mantığı ve otel odaları analojisi.\n- Bilgisayara zar attırmak: Random sınıfı.\n- Süper Loto Çekiliş Simülatörü ve Min/Max bulma algoritması.",
+    "gorsel": {
+      "type": "image",
+      "query": "data structures arrays lottery numbers preview next week"
+    }
+  }
+]

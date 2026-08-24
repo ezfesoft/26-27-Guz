@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 09 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 09</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 9", "altbaslik": "Hafta 9: Temel Permütasyon ve Kombinasyon", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Sayma İlkeleri ve Kombinatorik\nHaftalık Odak: Parola Karmaşıklığı, Brute-Force Deneme Uzayı, Faktöriyel, Permütasyon ve Kombinasyon\nHedef: Siber güvenlikte parola uzayı ve saldırı zorluklarını kombinatorik yöntemlerle hesaplamak.", "gorsel": {"type": "image", "query": "password security complexity permutation combination combinations lock"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: NIST Parola Güvenliği Standartları", "icerik": "Sadece 4 haneli PIN kodu (10^4 = 10,000 olasılık) kaç saniyede kırılır?\n8 karakterli, büyük/küçük harf, rakam ve özel karakter içeren bir parolanın deneme uzayı nedir (94^8 ~ 6 x 10^15)?\nBu hesaplama, şirket parola politikalarının ve brute-force saldırı dayanıklılığının matematiksel temelidir.", "gorsel": {"type": "image", "query": "brute force attack password cracking complexity matrix"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. Toplama ve Çarpma yoluyla sayma ilkelerini açıklar.\n2. Faktöriyel kavramını hesaplar.\n3. Sıralama (Permütasyon) ile Seçim (Kombinasyon) farkını ayırt eder.\n4. Parola uzayı büyüklüğünü ve kaba kuvvet (brute-force) deneme süresini hesaplar.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "Temel Sayma İlkeleri: Toplama Kuralı", "altbaslik": "Ayrık Olayların Sayılması (VEYA Durumu)", "icerik": "Tanım: Bir işlem A farklı yolla VEYA B farklı yolla yapılabiliyorsa, toplam yol sayısı = A + B'dir.\nÖrnek:\nBir SOC merkezinde 5 Linux sunucu ve 4 Windows sunucu varsa, incelenecek 1 sunucu 5 + 4 = 9 farklı şekilde seçilebilir.", "gorsel": {"type": "image", "query": "addition principle counting discrete math"}}, {"baslik": "Temel Sayma İlkeleri: Çarpma Kuralı", "altbaslik": "Ardışık ve Bağımsız Aşamalar (VE Durumu)", "icerik": "Tanım: Birinci aşama A farklı yolla VE ikinci aşama B farklı yolla yapılabiliyorsa, toplam durum = A x B'dir.\nÖrnek:\nBir sistemde 3 farklı kimlik doğrulama yöntemi ve 4 farklı şifreleme algoritması varsa, 3 x 4 = 12 farklı güvenlik konfigürasyonu kurulabilir.", "gorsel": {"type": "image", "query": "multiplication principle counting tree diagram"}}, {"baslik": "Faktöriyel Kavramı (n!)", "altbaslik": "1'den n'e Kadar Sayıların Çarpımı", "icerik": "Tanım: n! = n x (n-1) x (n-2) x ... x 2 x 1\nÖzel Kural: 0! = 1 ve 1! = 1\nÖrnekler:\n- 3! = 3 x 2 x 1 = 6\n- 4! = 4 x 3 x 2 x 1 = 24\n- 5! = 120\n- 6! = 720\nFaktöriyel, n adet farklı nesnenin yan yana kaç farklı sırada dizilebileceğini gösterir.", "gorsel": {"type": "image", "query": "factorial formula mathematics chalkboard"}}, {"baslik": "Permütasyon vs Kombinasyon Ayrımı", "altbaslik": "Sıra Önemli mi, Değil mi?", "icerik": "- PERMÜTASYON (Sıralama - Sıra ÖNEMLİ): Parolalar, sıralı listeler, yarışma dereceleri.\n  * Örnek: '1234' parolası ile '4321' parolası AYNI DEĞİLDİR.\n- KOMBİNASYON (Seçim / Grup - Sıra ÖNEMSİZ): Ekip oluşturma, sunucu havuzu seçimi.\n  * Örnek: {Sunucu A, Sunucu B} seçimi ile {Sunucu B, Sunucu A} AYNIDIR.", "gorsel": {"type": "image", "query": "permutation vs combination comparison diagram"}}, {"baslik": "Permütasyon Formülü: P(n, r)", "altbaslik": "n Elemandan r Tanesini Sıralama", "icerik": "Formül: P(n, r) = n! / (n - r)!\nÖrnek: 5 firewall kuralından 3 tanesi kaç farklı öncelik sırasıyla dizilebilir?\nP(5, 3) = 5! / (5 - 3)! = 5! / 2! = (5 x 4 x 3 x 2 x 1) / (2 x 1) = 60 farklı sıralama.", "gorsel": {"type": "image", "query": "permutation formula calculation steps"}}, {"baslik": "Kombinasyon Formülü: C(n, r)", "altbaslik": "n Elemandan r Tanesini Seçme", "icerik": "Formül: C(n, r) = n! / (r! * (n - r)!)\nÖrnek: 6 analist arasından 2 kişilik nöbetçi ekibi kaç farklı şekilde seçilir?\nC(6, 2) = 6! / (2! * 4!) = (6 x 5) / (2 x 1) = 15 farklı ekip.", "gorsel": {"type": "image", "query": "combination formula calculation steps math"}}, {"baslik": "Tekrarlı Sayma ve Parola Uzayı Formülü", "altbaslik": "Olasılık Uzayı = (Karakter Havuzu)^(Uzunluk)", "icerik": "Karakter Havuzları (C):\n- Sadece Rakamlar (0-9): 10 sembol\n- Küçük Harfler (a-z): 26 sembol\n- Büyük + Küçük Harf: 52 sembol\n- Harf + Rakam + Özel Karakter (~!@#$%...): ~94 sembol\nL uzunluğundaki bir parolanın toplam deneme sayısı = C^L", "gorsel": {"type": "image", "query": "password space formula character pool length"}}, {"baslik": "Brute-Force Kırma Süresi Hesabı", "altbaslik": "Süre = Toplam Kombinasyon / Saniyedeki Deneme Hızı", "icerik": "Formül: t = C^L / H\n- C^L: Toplam parola uzayı\n- H: Saldırganın donanım hızı (Hash/sn)\nÖrnek: 10^8 kombinasyon / 10^6 hash/sn = 100 saniye.\nUzunluk 1 karakter arttığında süre C katına çıkar!", "gorsel": {"type": "image", "query": "brute force cracking time estimation formula"}}, {"baslik": "Kombinasyonun Özellikleri ve Simetri", "altbaslik": "C(n, r) = C(n, n-r)", "icerik": "Önemli Özellikler:\n- C(n, 0) = 1 (Hiç seçmeme)\n- C(n, n) = 1 (Hepsini seçme)\n- C(n, 1) = n\n- C(n, r) = C(n, n - r)  [Örn: C(10, 8) = C(10, 2) = (10x9)/2 = 45]\nBu simetri büyük kombinasyon hesaplarını çok hızlandırır.", "gorsel": {"type": "image", "query": "pascal triangle combination symmetry properties"}}, {"baslik": "Çözümlü Uygulama 1: PIN Kodu Kombinasyonu", "altbaslik": "Seviye: Başlangıç (Tekrarlı Sayma)", "icerik": "Soru: 4 basamaklı bir PIN kodu rakamlar (0-9) kullanılarak oluşturulacaktır.\na) Rakamlar tekrarlı kaç PIN yazılabilir?\nb) Rakamları tekrarsız (farklı) kaç PIN yazılabilir?\nÇözüm:\na) 10 x 10 x 10 x 10 = 10^4 = 10,000 farklı PIN\nb) 10 x 9 x 8 x 7 = 5040 farklı PIN.", "gorsel": {"type": "image", "query": "pin code keypad combination counting"}}, {"baslik": "Çözümlü Uygulama 2: Permütasyon ile Sunucu Sıralaması", "altbaslik": "Seviye: Kolay (P(n, r))", "icerik": "Soru: 6 farklı yedekleme sunucusundan 3 tanesi öncelik sırasına göre (1. Birincil, 2. İkincil, 3. Üçüncül) kaç farklı şekilde seçilip dizilebilir?\nİşlem: P(6, 3) = 6! / (6 - 3)! = 6! / 3!\n= 6 x 5 x 4 = 120 farklı sıralama.", "gorsel": {"type": "image", "query": "server backup priority ranking permutation"}}, {"baslik": "Çözümlü Uygulama 3: Kombinasyon ile Güvenlik Ekibi Seçimi", "altbaslik": "Seviye: Orta (C(n, r))", "icerik": "Soru: 8 siber güvenlik analisti arasından olay müdahale için 3 kişilik bir ekip kaç farklı şekilde seçilebilir?\nÇözüm (Sıra önemsiz olduğu için Kombinasyon):\nC(8, 3) = (8 x 7 x 6) / (3 x 2 x 1) = 336 / 6 = 56 farklı ekip seçilebilir.", "gorsel": {"type": "image", "query": "cyber security incident response team selection"}}, {"baslik": "Çözümlü Uygulama 4: Parola Uzayı Karşılaştırması", "altbaslik": "Seviye: Orta (6 Haneli vs 8 Haneli)", "icerik": "Soru: Sadece küçük harf (26 sembol) içeren 6 karakterli bir parola ile 8 karakterli bir parolanın uzayını karşılaştırınız.\n- 6 Karakter: 26^6 = 308,915,776 (~308 Milyon)\n- 8 Karakter: 26^8 = 208,827,064,576 (~208 Milyar)\nOran: 26^8 / 26^6 = 26^2 = 676 kat daha fazla deneme gerekir!", "gorsel": {"type": "image", "query": "password length entropy comparison graph"}}, {"baslik": "Çözümlü Uygulama 5: Şartlı Kombinasyon (Kıdemli + Stajyer)", "altbaslik": "Seviye: Orta-İleri (Çarpma Kuralı)", "icerik": "Soru: Bir şirkette 4 kıdemli uzman ve 6 stajyer vardır. 1 kıdemli ve 2 stajyerden oluşan 3 kişilik bir nöbet ekibi kaç farklı şekilde kurulabilir?\nİşlem: C(4, 1) x C(6, 2)\n- C(4, 1) = 4\n- C(6, 2) = (6 x 5) / 2 = 15\nToplam Ekip = 4 x 15 = 60 farklı ekip.", "gorsel": {"type": "image", "query": "team composition senior junior analysts combinations"}}, {"baslik": "Çözümlü Uygulama 6: Brute-Force Kırma Süresi Hesabı", "altbaslik": "Seviye: İleri (GPU Hızı ile Modelleme)", "icerik": "Soru: Saniyede 1 milyar (10^9) MD5 hash deneyen bir RTX 4090 GPU, 8 haneli sadece rakamlardan oluşan bir PIN hash'ini ve 8 haneli karmaşık (94 sembollü) parolayı en fazla ne kadar sürede kırar?\n1. PIN (10^8): 100,000,000 / 10^9 = 0.1 saniye (Anında kırılır!)\n2. Karmaşık (94^8 ~ 6.09 x 10^15): 6.09 x 10^15 / 10^9 = 6,095,689 saniye = ~70.5 gün sürer.", "gorsel": {"type": "image", "query": "gpu hash cracking speed benchmarks time chart"}}, {"baslik": "Çözümlü Uygulama 7: Ağ Port Taraması Sıralaması", "altbaslik": "Seviye: İleri (Permütasyon)", "icerik": "Soru: Bir saldırgan tespit edilmemek için 4 farklı portu (21, 22, 80, 443) rastgele bir sırayla taramak istiyor. Kaç farklı tarama sırası izleyebilir?\nİşlem: 4 nesnenin tam permütasyonu = 4! = 4 x 3 x 2 x 1 = 24 farklı sıra.", "gorsel": {"type": "image", "query": "port scan sequence permutation network"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Permütasyon ve Kombinasyon Karışıklığı", "icerik": "1. Sıranın önemli olduğu (parola) durumlarda kombinasyon kullanmak (Parola sıralı olduğu için C(n,r) değil, çarpma/permütasyon kullanılır).\n2. Sıranın önemsiz olduğu (komite seçimi) durumlarda permütasyon kullanıp aynı grubu tekrar saymak.\n3. Faktöriyelde 0! = 0 zannetmek (0! = 1'dir).", "gorsel": {"type": "image", "query": "combinatorics mistakes caution warning"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Parola Güvenliği Yanılgıları", "icerik": "1. 'Parolaya sadece 1 rakam eklemek güvenliği çok artırır' sanmak (Uzunluğu artırmak, karakter havuzunu artırmaktan çok daha etkilidir: L üsttedir!).\n2. Tekrarlı durumlarda (aynı harf tekrar edebilir) C^L yerine faktöriyel kullanmak.", "gorsel": {"type": "image", "query": "password security myth vs fact"}}, {"baslik": "Sektörel Vaka: Şirket Parola Politikası Revizyonu", "altbaslik": "Güvenlik Denetimi Senaryosu", "icerik": "Vaka: Bir bankada mevcut politika '6 karakter sadece rakam' şeklindeydi.\nDenetçi Raporu: 10^6 = 1,000,000 kombinasyon saniyenin binde birinde çözülebilir.\nYeni Politika: 'En az 10 karakter, Büyük+Küçük harf + Rakam + Özel Sembol'.\nYeni Uzay: 94^10 ~ 5.38 x 10^19 kombinasyon.\nSonuç: Kaba kuvvet saldırılarına karşı sistem matematiksel olarak tam korumaya alınmıştır.", "gorsel": {"type": "image", "query": "banking password policy compliance audit"}}, {"baslik": "Vaka Çözüm Planı ve Hesap Kilitleme", "altbaslik": "Oran Tabanlı Hız Sınırlama (Rate Limiting)", "icerik": "Ek Güvenlik Katmanı:\n1. 5 hatalı denemede hesabın 15 dakika kilitlenmesi (Account Lockout).\n2. Matematiksel hesap: Kilit varken saldırgan günde en fazla 480 deneme yapabilir (10^19 deneme için evrenin ömrü yetmez).", "gorsel": {"type": "image", "query": "account lockout policy rate limiting security"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Faktöriyel", "icerik": "Soru: 5! / 3! işleminin sonucu nedir?\nA) 10\nB) 15\nC) 20\nD) 60\n\nDoğru Cevap: C (5 x 4 = 20)", "gorsel": {"type": "image", "query": "factorial division math quiz question"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Kombinasyon", "icerik": "Soru: C(5, 2) ifadesinin değeri kaçtır?\nA) 10\nB) 20\nC) 25\nD) 60\n\nDoğru Cevap: A ( (5 x 4) / 2 = 10 )", "gorsel": {"type": "image", "query": "combination math question test"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "PIN Uzayı", "icerik": "Soru: 3 basamaklı rakamları farklı kaç şifre oluşturulabilir?\nA) 1000\nB) 720\nC) 504\nD) 900\n\nDoğru Cevap: B (10 x 9 x 8 = 720)", "gorsel": {"type": "image", "query": "counting principle digits test"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Parola Uzayı", "icerik": "Soru: 10 farklı karakterin kullanılabildiği 4 haneli bir parolanın toplam olası kombinasyon sayısı kaçtır?\nA) 40\nB) 1000\nC) 5040\nD) 10,000\n\nDoğru Cevap: D (10^4 = 10,000)", "gorsel": {"type": "image", "query": "password space calculation question"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Sayma ilkeleri (Toplama ve Çarpma) olası durum uzayını belirler.\n- Permütasyon sıranın önemli olduğu durumları (P=n!/(n-r)!), Kombinasyon seçimi (C=n!/(r!(n-r)!)) modeller.\n- Parola uzayı büyüklüğü C^L formülüyle hesaplanır ve üstel artar.\n- Parola güvenliğinde en kritik faktör uzunluktur (L).", "gorsel": {"type": "image", "query": "summary combinations permutations cybersecurity"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 10: Temel Olasılık", "icerik": "Gelecek Konular:\n- Olay, Örnek Uzay ve Olasılık Tanımı P(E) = n(E) / n(S)\n- Ayrık ve Bağımsız Olaylar\n- Spam E-posta Filtreleme ve Hata Olasılıkları\n- Güvenlik Risk Olasılıkları.", "gorsel": {"type": "image", "query": "probability dice cards spam filter mathematics"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'Bir güvenlik sertifikasyon sınavında 10 sorudan 7 tanesi seçilerek cevaplanacaktır. Bir öğrenci bu 7 soruyu kaç farklı şekilde seçebilir?'\n\nFormülü ve işlem sonucunu kağıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exam questions combination selection exit ticket"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

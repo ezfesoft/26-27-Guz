@@ -1,0 +1,290 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 2",
+    "altbaslik": "Temel Kontroller: Button, Label, TextBox ve Özellikler",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Arayüz Tasarımı ve Kontrol Yönetimi\nHaftalık Odak: Kutsal 3'lü (Button, Label, TextBox), Name vs Text Farkı, Properties\nHedef: Kullanıcıdan veri alıp etkileşim kuran ilk giriş ekranını tasarlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "ui controls button label textbox computer forms"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Veri Girişi Olmayan Yazılım Yoktur",
+    "icerik": "Bir e-ticaret sitesine üye olurken, bankadan para transferi yaparken veya e-Devlet'e girerken form doldururuz.\n- Kullanıcı Adı ve Şifre kutuları birer TextBox'tır.\n- Bilgilendirme yazıları birer Label'dır.\n- 'Giriş Yap' veya 'Onayla' komutu bir Button'dır.\nBu üçlü, yazılım dünyasının temel yapı taşıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "login screen form fields user interaction software"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Button, Label ve TextBox kontrollerinin kullanım amaçlarını ayırt eder.\n2. Name (Kimlik) ile Text (Görünen Yazı) arasındaki kritik farkı açıklar.\n3. Standart kontrol isimlendirme kurallarını (btn, txt, lbl) uygular.\n4. Enabled, Visible, MaxLength, PasswordChar gibi özellikleri yönetir.\n5. 'Gizli Ajan Giriş Kartı' uygulamasını hatasız tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "checklist goals learning computer user interface"
+    }
+  },
+  {
+    "baslik": "Yazılımın İki Temel Katmanı",
+    "altbaslik": "Görünüm (UI) vs Mantık (Logic)",
+    "icerik": "Her masaüstü yazılımı iki katmandan oluşur:\n1. Arayüz (UI - User Interface) Katmanı:\n- Programın nasıl göründüğüdür.\n- Renkler, yazı tipleri, buton boyutları bu katmandadır. Properties ile yönetilir.\n\n2. Mantık (Logic) Katmanı:\n- Programın ne yaptığını belirler.\n- Butona basılınca çalışan C# kodlarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "front end ui vs backend logic architecture diagram"
+    }
+  },
+  {
+    "baslik": "Kutsal 3'lü: Kontrol 1 - Label (Etiket)",
+    "altbaslik": "Kullanıcıya Mesaj ve Bilgi Verme Aracı",
+    "icerik": "Label (Etiket):\n- Kullanıcının doğrudan içine yazı yazamadığı, sadece bilgi okuduğu pasif kontroldür.\n- Kullanım Alanları: Başlıklar, kutu açıklamaları ('Adınız:', 'Şifre:') ve işlem sonuçlarını göstermek.\n- Ön Ek Standardı: lbl (Örn: lblSonuc, lblBaslik).",
+    "gorsel": {
+      "type": "image",
+      "query": "information tag label interface element design"
+    }
+  },
+  {
+    "baslik": "Kutsal 3'lü: Kontrol 2 - TextBox (Metin Kutusu)",
+    "altbaslik": "Kullanıcıdan Veri Alma Kapısı",
+    "icerik": "TextBox (Metin Giriş Kutusu):\n- Kullanıcının klavyeden metin, şifre, sayı veya tarih girmesini sağlayan aktif alandır.\n- İçindeki veriye her zaman .Text özelliği ile erişilir.\n- Kullanım Alanları: Arama kutuları, kullanıcı adı, şifre, e-posta girişleri.\n- Ön Ek Standardı: txt (Örn: txtKullaniciAdi, txtSifre).",
+    "gorsel": {
+      "type": "image",
+      "query": "text box input field keyboard typing digital"
+    }
+  },
+  {
+    "baslik": "Kutsal 3'lü: Kontrol 3 - Button (Düğme)",
+    "altbaslik": "İşlemleri Başlatan Tetikleyici",
+    "icerik": "Button (Düğme):\n- Kullanıcının fareyle tıklayarak bir işlemi başlattığı, onayladığı veya iptal ettiği kontroldür.\n- C# tarafında olayları (Event) tetikleyen ana güçtür.\n- Kullanım Alanları: Kaydet, Sil, Giriş Yap, Hesapla, Temizle.\n- Ön Ek Standardı: btn (Örn: btnGiris, btnKaydet).",
+    "gorsel": {
+      "type": "image",
+      "query": "modern sleek button click user interaction"
+    }
+  },
+  {
+    "baslik": "En Kritik Ayrım: Name vs Text",
+    "altbaslik": "Yazılımcıların En Sık Karıştırdığı İki Kavram",
+    "icerik": "Properties penceresindeki en önemli iki özellik:\n\n1. Name (Kimlik / T.C. No):\n- Kontrolün C# kodundaki adıdır. Son kullanıcı ASLA görmez.\n- Boşluksuz ve Türkçe karaktersiz olmalıdır (Örn: btnGiris).\n\n2. Text (Görünen Tabela / Tişört Yazısı):\n- Kontrolün üzerinde kullanıcının gördüğü yazıdır.\n- Boşluk ve Türkçe karakter içerebilir (Örn: 'Giriş Yap').",
+    "gorsel": {
+      "type": "image",
+      "query": "id card vs name badge identification concept"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Tişört Yazısı vs T.C. Kimlik",
+    "altbaslik": "Name ve Text Farkını Asla Unutmayın",
+    "icerik": "- Bir insanın üzerindeki tişörtte 'Şampiyon' yazabilir. Yarın tişörtü değiştirip 'Giresun' giyebilir. Bu insanın Text özelliğidir.\n- Ancak o insanın T.C. Kimlik Numarası ve resmi adı asla değişmez. Devlet ve sistemler ona bu kimlikle seslenir. Bu da kontrolün Name özelliğidir.\n- C# kodunda kontrolleri Name ile çağırır, üzerindeki yazıyı Text ile değiştiririz.",
+    "gorsel": {
+      "type": "image",
+      "query": "tshirt text print vs passport identity card"
+    }
+  },
+  {
+    "baslik": "Standart İsimlendirme Sözlüğü (Naming Conventions)",
+    "altbaslik": "Neden 'button1' Bırakmamalıyız?",
+    "icerik": "Formda 20 tane buton olduğunda hangisinin ne iş yaptığını anlamak imkansızlaşır:\n- button1, button2 yerine anlamlı isimler verilir:\n* Button -> btn (btnGiris, btnHesapla, btnCikis)\n* TextBox -> txt (txtAd, txtSoyad, txtTelefon)\n* Label -> lbl (lblUyari, lblToplamTutar)\nBu standart, kod yazarken otomatik tamamlama (IntelliSense) hızını 5 kat artırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code organized tags naming convention"
+    }
+  },
+  {
+    "baslik": "Ortak Kontrol Özellikleri (Görünüm)",
+    "altbaslik": "Renkler, Fontlar ve Boyutlar",
+    "icerik": "1. BackColor: Kontrolün arka plan rengi (Örn: Color.DarkBlue).\n2. ForeColor: Üzerindeki yazının rengi (Örn: Color.White).\n3. Font: Yazı tipi, boyutu (pt), kalınlık (Bold) ve eğiklik (Italic).\n4. Size: Kontrolün piksel olarak Width (Genişlik) ve Height (Yükseklik) değerleri.",
+    "gorsel": {
+      "type": "image",
+      "query": "color palette font picker ui styling controls"
+    }
+  },
+  {
+    "baslik": "Ortak Kontrol Özellikleri (Davranış)",
+    "altbaslik": "Enabled ve Visible ile Kontrolleri Yönetme",
+    "icerik": "1. Enabled (Aktif / Pasif - true / false):\n- true: Kontrol normal çalışır, tıklanabilir.\n- false: Kontrol soluk grileşir, tıklanamaz ve içine yazı yazılamaz (Örn: Şartları kabul etmeden pasif kalan buton).\n\n2. Visible (Görünürlük - true / false):\n- true: Ekranda görünür.\n- false: Formda vardır ama kullanıcıdan tamamen gizlenir.",
+    "gorsel": {
+      "type": "image",
+      "query": "toggle switch on off enabled disabled visibility"
+    }
+  },
+  {
+    "baslik": "TextBox'a Özel Güçlü Özellikler",
+    "altbaslik": "Güvenlik ve Giriş Sınırlandırma",
+    "icerik": "1. MaxLength: Kutuya girilebilecek maksimum karakter sayısını sınırlar.\n- Örn: T.C. Kimlik No için 11, Araç Plakası için 8.\n\n2. PasswordChar: Yazılan karakterleri gizler.\n- Örn: '*' veya '•' sembolü verilerek şifre girişi gizlenir.\n\n3. Multiline (Çok Satırlı): true yapıldığında kutu genişletilebilir ve adres/açıklama metinleri için kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "password security dots asterisk text input"
+    }
+  },
+  {
+    "baslik": "Daktiloculuğu Önleyen Görsel Keşif",
+    "altbaslik": "Hiç Kod Yazmadan Arayüz Deneyimi",
+    "icerik": "Görev (5 Dakikalık Atölye):\n1. Formunuza 1 adet TextBox ekleyin.\n2. Properties'ten PasswordChar özelliğine '*' yazın.\n3. MaxLength özelliğini '4' yapın.\n4. F5 ile çalıştırın. Kutuya 4 karakterden fazla şifre yazamadığınızı ve harflerin yıldız olarak gizlendiğini gözlemleyin!",
+    "gorsel": {
+      "type": "image",
+      "query": "students practicing ui controls visual studio classroom"
+    }
+  },
+  {
+    "baslik": "Formun Kendi Özellikleri",
+    "altbaslik": "Pencerenin Başlığı ve Başlangıç Konumu",
+    "icerik": "Formun boş bir yerine tıkladığınızda pencerenin ayarları açılır:\n- Text: Pencerenin sol üst köşesindeki başlık yazısı.\n- StartPosition: 'CenterScreen' seçilirse program ekranın tam ortasında açılır.\n- FormBorderStyle: Pencerenin kenarlık tipi (FixedSingle yapılırsa kullanıcı pencereyi fareyle yeniden boyutlandıramaz).",
+    "gorsel": {
+      "type": "image",
+      "query": "window properties titlebar center screen settings"
+    }
+  },
+  {
+    "baslik": "Form Üzerinde Konumlandırma: Location (X, Y)",
+    "altbaslik": "Piksel Koordinat Sistemi",
+    "icerik": "Formun sol üst köşesi (0, 0) başlangıç noktasıdır.\n- X (Left): Kontrolün formun sol kenarından uzaklığı.\n- Y (Top): Kontrolün formun üst kenarından uzaklığı.\n- Bir nesneyi sağa kaydırmak X'i artırır; aşağı indirmek Y'yi artırır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cartesian coordinates pixel x y screen resolution"
+    }
+  },
+  {
+    "baslik": "Tab Tuşu Sıralaması: TabIndex",
+    "altbaslik": "Klavyeyle Hızlı Gezinme",
+    "icerik": "Kullanıcılar form doldururken fare yerine Tab tuşuna basarak kutular arasında geçer:\n- TabIndex: 0, 1, 2 şeklinde sıralanır.\n- TabStop = false yapılırsa o kontrol Tab tuşuyla atlanır.\n- Profesyonel arayüzlerde TabIndex sırası yukarıdan aşağıya mantıklı dizilmelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "keyboard tab key navigation form accessibility"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Gizli Ajan Giriş Kartı",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Güvenlik görevlilerinin kullandığı kilitli bir giriş kartı tasarlıyoruz.\n- Kullanıcı Ajan Kodunu (en fazla 4 hane) ve Gizli Şifresini girer.\n- 'Şifreyi Göster/Gizle' butonu ile şifre görünür hale getirilir.\n- 'Sistemi Kilitle' butonuna basılınca tüm kutular dondurulur (Enabled = false).",
+    "gorsel": {
+      "type": "image",
+      "query": "secret agent security badge futuristic dashboard"
+    }
+  },
+  {
+    "baslik": "Uygulama Form Kontrol Listesi",
+    "altbaslik": "Doğru İsimlendirme ve Yerleşim",
+    "icerik": "- lblBaslik -> Text = 'MİLLİ İSTİHBARAT GİRİŞ PANELİ' (14pt Bold, Koyu Kırmızı)\n- txtAjanKod -> MaxLength = 4\n- txtSifre -> PasswordChar = '*'\n- btnGosterGizle -> Text = '👁️ Şifreyi Göster'\n- btnKitle -> Text = '🔒 Sistemi Kilitle'",
+    "gorsel": {
+      "type": "image",
+      "query": "form layout wireframe controls alignment"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: Şifre Göster/Gizle",
+    "altbaslik": "PasswordChar Özelliğini Kodla Yönetmek",
+    "icerik": "private void btnGosterGizle_Click(object sender, EventArgs e)\n{\n    if (txtSifre.PasswordChar == '*')\n    {\n        txtSifre.PasswordChar = '\\0'; // Yıldızı kaldır (Açık metin)\n        btnGosterGizle.Text = \"Şifreyi Gizle\";\n    }\n    else\n    {\n        txtSifre.PasswordChar = '*'; // Tekrar yıldızla\n        btnGosterGizle.Text = \"Şifreyi Göster\";\n    }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "toggle password visibility code snippet csharp"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları: Formu Kilitleme",
+    "altbaslik": "Enabled ve Renk Değişimi",
+    "icerik": "private void btnKitle_Click(object sender, EventArgs e)\n{\n    // Giriş kutularını ve butonları dondur\n    txtAjanKod.Enabled = false;\n    txtSifre.Enabled = false;\n    btnGosterGizle.Enabled = false;\n    \n    lblBaslik.Text = \"SİSTEM KİLİTLENDİ - YETKİSİZ ERİŞİM!\";\n    lblBaslik.ForeColor = Color.Red;\n    this.BackColor = Color.LightGray;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "locked interface disabled controls csharp code"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Tasarım Hataları",
+    "altbaslik": "Gözü Yoran ve Karışık Arayüzler",
+    "icerik": "1. Birbirine zıt çok fazla parlak renk kullanmak (Neon renkler göz yorar).\n2. 5 farklı yazı tipi (font) karıştırmak (Standart: Segoe UI veya Arial).\n3. Butonları hizalamadan dağınık bırakmak.\n4. Kutu açıklaması (Label) koymadan boş kutular bırakmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "bad vs good user interface design comparison"
+    }
+  },
+  {
+    "baslik": "Yaygın Teknik Hatalar",
+    "altbaslik": "Name Değiştirirken Karşılaşılan Sorunlar",
+    "icerik": "1. Butona çift tıkladıktan SONRA Name değiştirmek:\n- Kod sayfasındaki eski metot adı ile bağlantı kopabilir.\n- Kural: Kontrolün Name özelliğini çift tıklamadan ÖNCE değiştirin!\n2. PasswordChar için çift tırnak kullanmak:\n- PasswordChar tek bir karakter alır, bu yüzden tek tırnak '*' kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "caution warning checklist visual studio tips"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Banka Giriş Paneli Güvenliği",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Bir internet bankacılığı uygulamasında şifre kutusu:\n- MaxLength = 6 ile sınırlandırılmıştır.\n- PasswordChar ile gizlenir.\n- 3 kez yanlış girildiğinde Enabled = false yapılarak hesap kilitlenir.\nBu haftaki öğrendiğimiz özellikler tam olarak bu güvenliği sağlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "online banking security login keypad"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Name vs Text",
+    "icerik": "Soru: Bir butonun C# kodunda çağrılacağı kimlik adı hangi özelliktir?\n\nA) Text\nB) Tag\nC) Name\nD) Title\n\nDoğru Cevap: C (Name özelliği geliştiricinin kod tarafında kullandığı benzersiz kimliktir).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "TextBox Özellikleri",
+    "icerik": "Soru: TextBox içine en fazla 11 karakter yazılabilmesini sağlayan özellik hangisidir?\n\nA) Size\nB) MaxLength\nC) Length\nD) Limit\n\nDoğru Cevap: B (MaxLength özelliği karakter sınırını belirler).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice question correct answer option"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Kontrol Davranışları",
+    "icerik": "Soru: Bir butonun tıklanamaz ve soluk gri hale gelmesi için hangi ayar yapılır?\n\nA) Visible = false\nB) Enabled = false\nC) ReadOnly = true\nD) Locked = true\n\nDoğru Cevap: B (Enabled = false kontrolü devre dışı bırakır).",
+    "gorsel": {
+      "type": "image",
+      "query": "disabled button grayed out interface quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Uygulama",
+    "altbaslik": "Kendi Giriş Ekranınızı Tasarlayın",
+    "icerik": "Görev:\n- Yanınızdaki arkadaşınızla birlikte bir 'Kütüphane Üye Giriş Ekranı' tasarlayın.\n- Öğrenci No (MaxLength = 9), Şifre (*), Giriş Yap ve İptal butonları ekleyin.\n- İptal butonuna basıldığında kutuların içini temizleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "students collaborating programming laboratory"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Kelimeleri",
+    "icerik": "- UI (User Interface): Kullanıcı arayüzü.\n- Snap Lines: Hizalama kılavuz çizgileri.\n- Naming Convention: Standart isimlendirme kuralları (btn, txt, lbl).\n- PasswordChar: Şifre maskeleme karakteri.\n- Enabled / Visible: Aktiflik ve görünürlük durumları.",
+    "gorsel": {
+      "type": "image",
+      "query": "glossary dictionary technical terms software"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Kutsal 3'lüyü (Button, Label, TextBox) ve standart ön eklerini (btn, lbl, txt) öğrendik.\n- Name (Kimlik) ile Text (Tabela) arasındaki farkı netleştirdik.\n- Enabled, Visible, MaxLength ve PasswordChar özelliklerini pratik ettik.\n- Kod yazarak arayüz bileşenlerinin davranışlarını anlık değiştirdik.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept summary infographic software engineering"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir butona tıkladığımızda butonun kendi üzerindeki yazıyı \"Lütfen Bekleyin...\" yapmak için yazılması gereken C# kod satırı nedir?'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket classroom assessment feedback"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 3: Kontrollerle Etkileşim ve Olay Yönetimi",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- TextBox'tan girilen yazıları okuyup hafızada tutma.\n- Birden fazla kelimeyi ve kutuyu '+' ile birleştirme (String Concatenation).\n- VIP Kongre Yaka Kartı Otomasyonu projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "preview next class event interaction programming"
+    }
+  }
+]

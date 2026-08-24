@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nesne Tabanlı Programlama II - Hafta 13 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #8b5cf6;
+            --accent-glow: #8b5cf640;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🧱</span>
+            <span>Nesne Tabanlı Programlama II</span>
+            <span class="badge-pill">Hafta 13</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • OOP & Mimari</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-14.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "NTP II: Hafta 13", "altbaslik": "Postman ile Test ve Web Arayüzü ile API Entegrasyonu", "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Postman Koleksiyonları, CORS Güvenliği (CORSMiddleware) ve JavaScript fetch() ile API Tüketimi\nUygulama Teması: Canlı Web Sayfasına FastAPI Kitaplarını Listeleme & Ekleme", "gorsel": {"type": "image", "query": "postman api testing frontend backend integration javascript html"}}, {"baslik": "Motivasyon: Yazdığımız API'yi Web Sayfasında Nasıl Gösteririz?", "altbaslik": "Backend ile Frontend'i Birleştirmek", "icerik": "Backend yazdık, veritabanına bağladık, güvenlik şifrelemesi koyduk.\n- Ama son kullanıcı Swagger UI veya siyah konsol kullanmaz; web sitesindeki düğmelere tıklar.\n- Bugün yazdığımız FastAPI servislerini tek sayfalık şık bir HTML web arayüzüne bağlayacağız!\n- Butona bastığınızda Python'daki kitapların web sayfasına aktığını canlı izleyeceksiniz.", "gorsel": {"type": "image", "query": "frontend user interface connecting to python backend"}}, {"baslik": "Postman Nedir ve Neden Kullanılır?", "altbaslik": "Profesyonel API Test ve Dokümantasyon Aracı", "icerik": "Postman, yazılımcıların API endpoint'lerini test etmesini, istekleri kaydetmesini ve otomatik test senaryoları koşmasını sağlayan sektör standardı araçtır:\n- GET, POST, PUT, DELETE isteklerini kaydetme\n- İstek Başlıkları (Headers / Authorization) ekleme\n- Ekip arkadaşlarıyla koleksiyon (Collection) paylaşma", "gorsel": {"type": "image", "query": "postman application workspace api test collection"}}, {"baslik": "Postman'de İstek Oluşturma Adımları", "altbaslik": "GET ve POST Testi", "icerik": "1. Yeni İstek (New Request) açın.\n2. Metodu seçin: `GET` veya `POST`.\n3. URL girin: `http://127.0.0.1:8000/kitaplar`\n4. POST ise: Body -> raw -> JSON seçip veriyi yapıştırın:\n   `{\"baslik\": \"Nutuk\", \"yazar\": \"Atatürk\", \"sayfa_sayisi\": 600}`\n5. 'Send' butonuna basıp dönen yanıtı (Status: 201 Created) inceleyin.", "gorsel": {"type": "image", "query": "postman send request json body response 200 ok"}}, {"baslik": "Postman'de Bearer Token ile Yetkili İstek", "altbaslik": "Korumalı Sayfaları Test Etmek", "icerik": "Kilitli endpoint'leri test ederken:\n1. Authorization sekmesine gidin.\n2. Type olarak **Bearer Token** seçin.\n3. `/token` endpoint'inden aldığınız bilet metnini yapıştırın.\n4. Send dediğinizde korumalı verilerin geldiğini görün.", "gorsel": {"type": "image", "query": "postman bearer token authorization header"}}, {"baslik": "BÜYÜK ENGEL: CORS (Cross-Origin Resource Sharing) Hatası!", "altbaslik": "Tarayıcıların Güvenlik Duvarı", "icerik": "Tarayıcıda bir web sayfası (örn: port 5500) başka bir adresteki (port 8000) FastAPI sunucusuna istek attığında:\nTarayıcı güvenlik sebebiyle isteği engeller (CORS error: No 'Access-Control-Allow-Origin' header).\n\nÇözüm: FastAPI sunucumuza 'Bu web sayfasına güveniyorum, veri almasına izin ver' demektir.", "gorsel": {"type": "image", "query": "cors error cross origin resource sharing browser block"}}, {"baslik": "FastAPI'ye CORSMiddleware Eklemek", "altbaslik": "Tek Blokla CORS Kilidini Kaldırmak", "icerik": "from fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\n\n# CORS İzni Tanımlıyoruz:\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=['*'],        # Geliştirme için tüm sitelere izin ver\n    allow_credentials=True,\n    allow_methods=['*'],        # GET, POST, PUT, DELETE serbest\n    allow_headers=['*'],        # Tüm başlıklara izin ver\n)", "gorsel": {"type": "image", "query": "cors middleware python code configuration fastapi"}}, {"baslik": "Frontend Tarafı: JavaScript fetch() Mantığı", "altbaslik": "Tarayıcıdan Python Sunucusuna Çağrı Yapmak", "icerik": "JavaScript'in `fetch()` fonksiyonu arka planda FastAPI sunucumuza asenkron HTTP isteği atar:\n\n// Kitapları Çeken JS Kodu:\nasync function kitaplariGetir() {\n    const yanit = await fetch('http://127.0.0.1:8000/kitaplar');\n    const veriler = await yanit.json();\n    console.log('Sunucudan Gelen Kitaplar:', veriler);\n}", "gorsel": {"type": "image", "query": "javascript fetch api async await browser code"}}, {"baslik": "Tek Dosyalık Web Arayüzümüz (index.html)", "altbaslik": "HTML + CSS + JS Bir Arada", "icerik": "<!DOCTYPE html>\n<html lang='tr'>\n<head>\n  <meta charset='UTF-8'>\n  <title>Kampüs Kütüphane Paneli</title>\n  <style>\n    body { font-family: Arial, sans-serif; padding: 40px; background: #f4f6f9; }\n    .kart { background: white; padding: 25px; border-radius: 10px; max-width: 500px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }\n    button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; }\n    li { margin: 10px 0; padding: 8px; background: #eef2f7; border-radius: 4px; }\n  </style>\n</head>", "gorsel": {"type": "image", "query": "html css modern card ui clean design"}}, {"baslik": "index.html Gövde ve Buton Tasarımı", "altbaslik": "Kullanıcı Arayüzü", "icerik": "<body>\n  <div class='kart'>\n    <h2>📚 Kütüphane Kitap Listesi</h2>\n    <p>FastAPI sunucumuzdan canlı veri çekilir.</p>\n    <button onclick='kitaplariListele()'>Kitapları Getir 🔄</button>\n    <ul id='kitapListesi'></ul>\n  </div>", "gorsel": {"type": "image", "query": "web page button list interaction frontend"}}, {"baslik": "index.html JavaScript DOM Entegrasyonu", "altbaslik": "Gelen JSON'ı Ekrana Çizmek", "icerik": "  <script>\n    async function kitaplariListele() {\n      const res = await fetch('http://127.0.0.1:8000/kitaplar');\n      const kitaplar = await res.json();\n      \n      const ul = document.getElementById('kitapListesi');\n      ul.innerHTML = '';  // Listeyi temizle\n      \n      kitaplar.forEach(k => {\n        const li = document.createElement('li');\n        li.innerHTML = `<strong>${k.baslik}</strong> - ${k.yazar} (${k.sayfa_sayisi} s.)`;\n        ul.appendChild(li);\n      });\n    }\n  </script>\n</body>\n</html>", "gorsel": {"type": "image", "query": "dom manipulation javascript dynamic list web"}}, {"baslik": "Laboratuvar Döngüsü 1: FastAPI'ye CORS Ekleyip Başlatma", "altbaslik": "Adım Adım Kodluyoruz", "icerik": "1. `main.py` içine `CORSMiddleware` kodunu ekleyin.\n2. `uvicorn main:app --reload` başlatın.\n3. Sunucunun hazır olduğunu doğrulayın.", "gorsel": {"type": "image", "query": "terminal running backend server fastapi"}}, {"baslik": "Laboratuvar Döngüsü 2: index.html Dosyasını Tarayıcıda Açma", "altbaslik": "İlk Canlı Tıklama!", "icerik": "- PyCharm'da `index.html` dosyasına sağ tıklayın -> Open in Browser (Chrome/Edge).\n- 'Kitapları Getir' yeşil butonuna tıklayın.\n- Veritabanınızdaki kitapların saniyeler içinde ekranda belirdiğini izleyin!", "gorsel": {"type": "image", "query": "browser displaying books from python api"}}, {"baslik": "Laboratuvar Döngüsü 3: Web Formundan Yeni Kitap Ekleme", "altbaslik": "POST İsteği Gönderen HTML Formu", "icerik": "<input type='text' id='baslik' placeholder='Kitap Adı'>\n<input type='text' id='yazar' placeholder='Yazar'>\n<input type='number' id='sayfa' placeholder='Sayfa'>\n<button onclick='kitapEkle()'>Kaydet 💾</button>", "gorsel": {"type": "image", "query": "html input form text fields submit button"}}, {"baslik": "Laboratuvar Döngüsü 4: JavaScript POST fetch() Kodu", "altbaslik": "Form Verisini JSON Olarak İletmek", "icerik": "async function kitapEkle() {\n  const veri = {\n    baslik: document.getElementById('baslik').value,\n    yazar: document.getElementById('yazar').value,\n    sayfa_sayisi: parseInt(document.getElementById('sayfa').value)\n  };\n\n  await fetch('http://127.0.0.1:8000/kitaplar', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify(veri)\n  });\n  kitaplariListele();  // Listeyi anında yenile!\n}", "gorsel": {"type": "image", "query": "javascript post fetch request json payload"}}, {"baslik": "Çözümlü Uygulama 1: Silme Butonu Eklemek (DELETE)", "altbaslik": "Her Kitabın Yanına Çöp Kutusu", "icerik": "async function kitapSil(id) {\n  await fetch(`http://127.0.0.1:8000/kitaplar/${id}`, { method: 'DELETE' });\n  kitaplariListele();\n}\n\n// li içine buton ekleme:\n// li.innerHTML += `<button onclick='kitapSil(${k.id})'>🗑️ Sil</button>`;", "gorsel": {"type": "image", "query": "delete button trash can icon ui list item"}}, {"baslik": "Çözümlü Uygulama 2: Postman Test Koleksiyonu Dışa Aktarma", "altbaslik": "Ekip Çalışması İçin Export", "icerik": "Postman'de sol panelde koleksiyonunuza sağ tıklayın -> **Export** -> JSON olarak kaydedin.\nBu dosyayı arkadaşınıza verdiğinizde tüm test endpoint'lerini tek saniyede kendi bilgisayarına yükler.", "gorsel": {"type": "image", "query": "postman export collection json file share"}}, {"baslik": "Tarayıcı Geliştirici Araçları (F12 / Console)", "altbaslik": "Ağ Trafiğini İzlemek (Network Tab)", "icerik": "Klavyeden **F12** tuşuna basın:\n- **Console:** JavaScript hatalarını ve console.log çıktılarını gösterir.\n- **Network:** Tarayıcının FastAPI'ye attığı gerçek HTTP isteklerini, durum kodlarını (200, 201) ve JSON yanıtlarını canlı gösterir.", "gorsel": {"type": "image", "query": "chrome devtools network tab inspect requests"}}, {"baslik": "Kod Okuma Alıştırması 1", "altbaslik": "Hatanın Sebebini Bulun", "icerik": "Hata:\n`Access to fetch at 'http://127.0.0.1:8000/kitaplar' from origin 'null' has been blocked by CORS policy.`\n\nProblem Nedir?\nFastAPI uygulamasında `CORSMiddleware` tanımlanmamıştır veya `allow_origins` listesinde izin verilmemiştir!", "gorsel": {"type": "image", "query": "browser console cors error red text"}}, {"baslik": "Kod Okuma Alıştırması 2", "altbaslik": "Çıktıyı Tahmin Edin", "icerik": "const yanit = await fetch('http://127.0.0.1:8000/kitaplar');\nconsole.log(yanit.status);\n\nÇıktı: `200` (Sunucu başarılı yanıt döndüğünde status 200 olur).", "gorsel": {"type": "image", "query": "status code 200 console log print"}}, {"baslik": "Sık Yapılan Hatalar", "altbaslik": "Frontend Entegrasyonunda 3 Hata", "icerik": "1. FastAPI sunucusunu çalıştırmayı unutup HTML sayfasından istek atmak (Connection Refused).\n2. `JSON.stringify(veri)` yapmadan düz JS nesnesini body'ye göndermek.\n3. POST isteklerinde `headers: {'Content-Type': 'application/json'}` başlığını unutmak.", "gorsel": {"type": "image", "query": "warning caution checklist integration bugs"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "CORS Güvenliği", "icerik": "Soru: Tarayıcının farklı bir porttaki API'ye istek atabilmesi için FastAPI'ye hangi bileşen eklenmelidir?\nA) AuthMiddleware\nB) CORSMiddleware\nC) StaticFiles\nD) SessionMiddleware\n\nDoğru Cevap: B (CORSMiddleware).", "gorsel": {"type": "image", "query": "quiz test examination classroom students"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "JavaScript fetch()", "icerik": "Soru: JavaScript'te sunucudan gelen JSON yanıtını ayrıştırıp nesneye çeviren metot hangisidir?\nA) response.text()\nB) response.json()\nC) response.parse()\nD) response.data()\n\nDoğru Cevap: B (response.json()).", "gorsel": {"type": "image", "query": "javascript json parse response question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Geliştirici Araçları", "icerik": "Soru: Tarayıcıda ağ isteklerini ve gelen JSON paketlerini canlı izlemek için hangi sekme kullanılır?\nA) Elements\nB) Network (Ağ)\nC) Security\nD) Memory\n\nDoğru Cevap: B (Network).", "gorsel": {"type": "image", "query": "browser devtools network tab test"}}, {"baslik": "Sektörel Vaka: Full-Stack Yazılım Mimarisi", "altbaslik": "Frontend ve Backend Ayrımı (Decoupled Architecture)", "icerik": "Günümüzün tüm modern şirketlerinde (Netflix, Spotify, Yemeksepeti):\n- Backend (FastAPI / Python) sadece JSON veri üretir.\n- Frontend (React, Vue, HTML, Flutter) bu JSON'ı ekranda güzelce çizer.\nİki taraf birbirinden bağımsız geliştirilir. Bugün tam olarak bu mimariyi başardınız!", "gorsel": {"type": "image", "query": "full stack architecture frontend backend api database"}}, {"baslik": "Ders Sonu Görevi (Boss Fight)", "altbaslik": "Canlı Web Sayfasından Kitap Ekleme & Listeleme", "icerik": "Göreviniz:\n1. `index.html` sayfanızda bir giriş formu tasarlayın (Kitap Adı, Yazar, Sayfa Sayısı).\n2. 'Yeni Kitap Kaydet' butonuna basıldığında FastAPI `POST /kitaplar` endpoint'ine `fetch` ile veri göndersin.\n3. Kayıt bitince listeyi anında otomatik güncellesin.\n4. Çalışır durumdaki web arayüzünün ekran görüntüsünü alın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!", "gorsel": {"type": "image", "query": "web application task student project mission"}}, {"baslik": "Boss Fight İçin İskelet Kod", "altbaslik": "Başlangıç Desteği", "icerik": "async function kaydet() {\n  const baslik = document.getElementById('b').value;\n  const yazar = document.getElementById('y').value;\n  \n  await fetch('http://127.0.0.1:8000/kitaplar', {\n    method: 'POST',\n    headers: {'Content-Type': 'application/json'},\n    body: JSON.stringify({baslik: baslik, yazar: yazar, sayfa_sayisi: 200})\n  });\n  kitaplariListele();\n}", "gorsel": {"type": "image", "query": "hints blueprint solution code help"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Kazandık?", "icerik": "- Postman ile profesyonel API istekleri kaydedildi ve test edildi.\n- CORSMiddleware ile tarayıcı güvenlik izinleri başarıyla açıldı.\n- JavaScript fetch() ile HTML butonu Python FastAPI sunucusuyla konuşturuldu.\n- Full-Stack mimarinin ilk çalışan örneği tamamlandı.", "gorsel": {"type": "image", "query": "summary roadmap achievements university"}}, {"baslik": "BÜYÜK FİNAL HAFTASINA BAKIŞ", "altbaslik": "Hafta 14: Proje Refactoring, Portföy Hazırlığı ve Kapanış", "icerik": "Gelecek Hafta Büyük Final:\n- Tüm öğrendiklerimizi (OOP + FastAPI + SQLite + Pydantic + Router) tek bir şaheser projede birleştireceğiz.\n- GitHub README ve CV portföyünüzü hazırlayacağız!\n- Mezuniyet projenizi gururla teslim edeceksiniz.", "gorsel": {"type": "image", "query": "graduation success software engineer portfolio trophy"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'FastAPI sunucusunda tüm alan adlarından gelen isteklere izin veren CORSMiddleware ekleme kodunu kâğıda yazınız.'\n\nİyi çalışmalar!", "gorsel": {"type": "image", "query": "exit ticket examination university"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • OOP & Mimari`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

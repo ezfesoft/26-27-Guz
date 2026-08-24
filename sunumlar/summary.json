@@ -1,0 +1,740 @@
+[
+  {
+    "info": {
+      "slug": "gorsel-programlama",
+      "title": "Görsel Programlama",
+      "icon": "💻",
+      "badge": "C# & Windows Forms",
+      "color": "#6366f1"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 32,
+        "title": "Görsel Programlama: Hafta 1",
+        "subtitle": "Görsel Programlamaya Giriş ve Visual Studio Ortamı",
+        "json_filename": "h1.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 32,
+        "title": "Görsel Programlama: Hafta 2",
+        "subtitle": "Temel Kontroller: Button, Label, TextBox ve Özellikler",
+        "json_filename": "h2.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 33,
+        "title": "Görsel Programlama: Hafta 3",
+        "subtitle": "Olaylar (Events), Veri Akışı ve Metin Birleştirme",
+        "json_filename": "h3.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 35,
+        "title": "Görsel Programlama: Hafta 4",
+        "subtitle": "Bellek Yönetimi, Değişkenler ve string Veri Tipi",
+        "json_filename": "h4.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 31,
+        "title": "Görsel Programlama: Hafta 5",
+        "subtitle": "Sayısal Veri Tipleri, 4 İşlem ve .ToString()",
+        "json_filename": "h5.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 36,
+        "title": "Görsel Programlama: Hafta 6",
+        "subtitle": "Tip Dönüşümleri (Convert, Parse) ve try-catch Güvenliği",
+        "json_filename": "h6.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 42,
+        "title": "Görsel Programlama: Hafta 7",
+        "subtitle": "İlk 6 Haftanın Entegrasyonu ve Ticari Otomasyon",
+        "json_filename": "h7.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 37,
+        "title": "Görsel Programlama: Hafta 8",
+        "subtitle": "Akış Kontrolü (Control Flow): if ve if-else Yapıları",
+        "json_filename": "h8.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 38,
+        "title": "Görsel Programlama: Hafta 9",
+        "subtitle": "Çoklu Karar Yapıları: if-else if-else Merdiveni",
+        "json_filename": "h9.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 37,
+        "title": "Görsel Programlama: Hafta 10",
+        "subtitle": "switch-case ve Timer ile Animasyonlu Durum Makineleri",
+        "json_filename": "h10.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 37,
+        "title": "Görsel Programlama: Hafta 11",
+        "subtitle": "Döngüler: for Döngüsü, ListBox ve Akümülatör Mantığı",
+        "json_filename": "h11.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 37,
+        "title": "Görsel Programlama: Hafta 12",
+        "subtitle": "Koşullu Döngüler (while / do-while) ve ComboBox",
+        "json_filename": "h12.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 38,
+        "title": "Görsel Programlama: Hafta 13",
+        "subtitle": "Veri Yapıları: Tek Boyutlu Diziler (Arrays) ve Random",
+        "json_filename": "h13.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 41,
+        "title": "Görsel Programlama: Hafta 14",
+        "subtitle": "Büyük Final: Bütünleşik Öğrenci Not Kayıt ve İstatistik Sistemi",
+        "json_filename": "h14.json"
+      }
+    ]
+  },
+  {
+    "info": {
+      "slug": "mesleki-matematik",
+      "title": "Mesleki Matematik",
+      "icon": "📐",
+      "badge": "Aritmetik & Bilişim Mantığı",
+      "color": "#0ea5e9"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 1",
+        "subtitle": "Sayı Sistemlerine Giriş ve 10'luk (Desimal) Sistem",
+        "json_filename": "hafta-01-sunu.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 2",
+        "subtitle": "İkili (Binary), Sekizli (Octal) ve On Altılık (Hexadecimal) Sayı Sistemleri",
+        "json_filename": "hafta-02-sunu.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 31,
+        "title": "Mesleki Matematik: Hafta 3",
+        "subtitle": "Üslü Sayılar ve Kökler",
+        "json_filename": "hafta-03-sunu.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 4",
+        "subtitle": "Hafta 4: Kesirler, Ondalık Sayılar ve Yüzdeler",
+        "json_filename": "hafta-04-sunu.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 5",
+        "subtitle": "Hafta 5: Oran-Orantı ve Ölçeklendirme",
+        "json_filename": "hafta-05-sunu.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 6",
+        "subtitle": "Hafta 6: Temel Cebirsel İfadeler ve Basit Denklemler",
+        "json_filename": "hafta-06-sunu.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 7",
+        "subtitle": "Hafta 7: Subnetting Mantığı ve İkili Sistemle Ağ Hesapları",
+        "json_filename": "hafta-07-sunu.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 8",
+        "subtitle": "Hafta 8: Temel Mantık ve Küme İşlemleri",
+        "json_filename": "hafta-08-sunu.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 9",
+        "subtitle": "Hafta 9: Temel Permütasyon ve Kombinasyon",
+        "json_filename": "hafta-09-sunu.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 10",
+        "subtitle": "Hafta 10: Temel Olasılık",
+        "json_filename": "hafta-10-sunu.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 11",
+        "subtitle": "Hafta 11: Temel İstatistik: Ortalama, Medyan, Mod",
+        "json_filename": "hafta-11-sunu.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 12",
+        "subtitle": "Hafta 12: DGS Karma Problem Çözümü I",
+        "json_filename": "hafta-12-sunu.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 13",
+        "subtitle": "Hafta 13: DGS Karma Problem Çözümü II",
+        "json_filename": "hafta-13-sunu.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 30,
+        "title": "Mesleki Matematik: Hafta 14",
+        "subtitle": "Hafta 14: Genel Tekrar ve Uygulamalı Vaka Çalışması",
+        "json_filename": "hafta-14-sunu.json"
+      }
+    ]
+  },
+  {
+    "info": {
+      "slug": "nesne-tabanli-programlama-2",
+      "title": "Nesne Tabanlı Programlama II",
+      "icon": "🧱",
+      "badge": "OOP & Mimari",
+      "color": "#8b5cf6"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 32,
+        "title": "NTP II: Hafta 1",
+        "subtitle": "Nesne Tabanlı Programlamaya Giriş ve Python Ekosistemi",
+        "json_filename": "hafta-01-sunu.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 32,
+        "title": "NTP II: Hafta 2",
+        "subtitle": "Veri Yapıları ve Manipülasyon",
+        "json_filename": "hafta-02-sunu.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 3",
+        "subtitle": "Sınıf (Class) ve Nesne (Object) Kavramları",
+        "json_filename": "hafta-03-sunu.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 31,
+        "title": "NTP II: Hafta 4",
+        "subtitle": "Nesne Tabanlı Programlamada Kalıtım (Inheritance)",
+        "json_filename": "hafta-04-sunu.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 31,
+        "title": "NTP II: Hafta 5",
+        "subtitle": "Kapsülleme ve Çok Biçimlilik",
+        "json_filename": "hafta-05-sunu.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 6",
+        "subtitle": "Dunder (Sihirli) Metotlar ve Hata Yönetimi",
+        "json_filename": "hafta-06-sunu.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 31,
+        "title": "NTP II: Hafta 7",
+        "subtitle": "Modüler Proje Yönetimi ve Python Paketleri",
+        "json_filename": "hafta-07-sunu.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 31,
+        "title": "NTP II: Hafta 8",
+        "subtitle": "Web Dünyasına Giriş ve FastAPI ile İlk Web Servisi",
+        "json_filename": "hafta-08-sunu.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 9",
+        "subtitle": "Pydantic ve Veri Doğrulama (Data Validation)",
+        "json_filename": "hafta-09-sunu.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 33,
+        "title": "NTP II: Hafta 10",
+        "subtitle": "SQLAlchemy ORM ve Kalıcı CRUD Operasyonları",
+        "json_filename": "hafta-10-sunu.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 11",
+        "subtitle": "API'den API'ye İletişim ve Asenkron HTTP İstemcileri",
+        "json_filename": "hafta-11-sunu.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 31,
+        "title": "NTP II: Hafta 12",
+        "subtitle": "API Güvenliği, Kimlik Doğrulama ve JWT",
+        "json_filename": "hafta-12-sunu.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 13",
+        "subtitle": "Postman ile Test ve Web Arayüzü ile API Entegrasyonu",
+        "json_filename": "hafta-13-sunu.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 30,
+        "title": "NTP II: Hafta 14",
+        "subtitle": "Büyük Final: Proje Refactoring ve Portföy Hazırlığı",
+        "json_filename": "hafta-14-sunu.json"
+      }
+    ]
+  },
+  {
+    "info": {
+      "slug": "saglikta-yapay-zeka",
+      "title": "Sağlıkta Yapay Zeka",
+      "icon": "🏥",
+      "badge": "Medikal YZ & Teşhis",
+      "color": "#10b981"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 31,
+        "title": "Sağlıkta Yapay Zekanın Bilimsel Temeli",
+        "subtitle": "Ders Tanıtımı, Kapsam ve Öğrenme Hedefleri",
+        "json_filename": "hafta-01-sunu.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 31,
+        "title": "Görüntü Tabanlı Tanı Sistemleri",
+        "subtitle": "Radyoloji, Patoloji ve Dermatolojide Yapay Zeka",
+        "json_filename": "hafta-02-sunu.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 31,
+        "title": "Sağlık Kayıtlarında Doğal Dil İşleme (NLP)",
+        "subtitle": "Klinik Metinler, Kodlama ve Büyük Dil Modelleri",
+        "json_filename": "hafta-03-sunu.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 31,
+        "title": "Klinik Karar Destek Sistemleri (CDSS)",
+        "subtitle": "Mimariler, Veri Girdileri ve Uyarı Mekanizmaları",
+        "json_filename": "hafta-04-sunu.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 31,
+        "title": "HBYS/EHR ve Sağlık Veri Standartları",
+        "subtitle": "Birlikte Çalışabilirlik, HL7 ve FHIR Ekosistemi",
+        "json_filename": "hafta-05-sunu.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 31,
+        "title": "Veri Kalitesinin YZ Performansına Etkisi",
+        "subtitle": "Eksik Veri Doldurma, Normalizasyon ve Aykırı Değerler",
+        "json_filename": "hafta-06-sunu.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 31,
+        "title": "Giyilebilir Teknolojiler ve Sürekli İzleme Verisi",
+        "subtitle": "Akıllı Cihazlar, PPG/EKG Sinyalleri ve Anomali Tespiti",
+        "json_filename": "hafta-07-sunu.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 31,
+        "title": "Ara Değerlendirme ve Vaka Çalıştayı",
+        "subtitle": "Sağlıkta YZ Uygulamalarını Eleştirel Değerlendirme",
+        "json_filename": "hafta-08-sunu.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 31,
+        "title": "Genomik Veri ve Kişiselleştirilmiş Tıp",
+        "subtitle": "Büyük Biyolojik Veri, NGS ve Hasta Segmentasyonu",
+        "json_filename": "hafta-09-sunu.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 31,
+        "title": "İlaç Geliştirme ve Klinik Araştırmalarda YZ",
+        "subtitle": "Molekül Taramadan Klinik Denemelere ve İstatistiksel Kanıta",
+        "json_filename": "hafta-10-sunu.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 31,
+        "title": "Sağlıkta Veri Mahremiyeti ve Anonimleştirme",
+        "subtitle": "KVKK, GDPR, HIPAA ve Anonimleştirme Teknikleri",
+        "json_filename": "hafta-11-sunu.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 31,
+        "title": "Algoritmik Yanlılık (Bias) ve YZ'nin Sınırları",
+        "subtitle": "Veri Temsiliyeti, Adillik ve Sağlıkta Eşitlik",
+        "json_filename": "hafta-12-sunu.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 31,
+        "title": "Sağlıkta YZ: Sektörden Bakış ve Kariyer",
+        "subtitle": "Girişimcilik, İş İlanları ve Mezuniyet Sonrası Roller",
+        "json_filename": "hafta-13-sunu.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 31,
+        "title": "Final Projesi Sunumları ve Değerlendirme",
+        "subtitle": "Dönem Sonu Bilimsel Savunma ve Akran Değerlendirmesi",
+        "json_filename": "hafta-14-sunu.json"
+      }
+    ]
+  },
+  {
+    "info": {
+      "slug": "siber-saldiri-ve-savunma",
+      "title": "Siber Saldırı ve Savunma Yöntemleri",
+      "icon": "🛡️",
+      "badge": "Siber Güvenlik & SOC",
+      "color": "#f43f5e"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 34,
+        "title": "Siber Güvenlik: Hafta 1",
+        "subtitle": "Siber Güvenliğe Giriş, Temel Kavramlar ve Bilişim Hukuku",
+        "json_filename": "hafta-01-sunu.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 2",
+        "subtitle": "Siber Saldırı Yaşam Döngüsü ve Ağ Güvenliği",
+        "json_filename": "hafta-02-sunu.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 3",
+        "subtitle": "Şifreleme Teknikleri ve Steganografi Yöntemleri",
+        "json_filename": "hafta-03-sunu.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 4",
+        "subtitle": "Kali Linux ve Temel Komut Satırı Kullanımı (CLI)",
+        "json_filename": "hafta-04-sunu.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 5",
+        "subtitle": "Bilgi Toplama Yöntemleri (Reconnaissance) ve Nmap",
+        "json_filename": "hafta-05-sunu.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 6",
+        "subtitle": "Siber Güvenlikte Parola Kırma Teknikleri ve Hash Analizi",
+        "json_filename": "hafta-06-sunu.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 30,
+        "title": "Siber Güvenlik: Hafta 7",
+        "subtitle": "Ağ Dinleme (Sniffing) Yöntemleri ve Uygulamaları",
+        "json_filename": "hafta-07-sunu.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 8",
+        "subtitle": "Ağ ve Sistem Güvenliği: Güvenlik Duvarları, IDS/IPS ve Hardening",
+        "json_filename": "hafta-08-sunu.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 9",
+        "subtitle": "Sızma Testleri (Pentest) Metodolojisi ve Metasploit Framework",
+        "json_filename": "hafta-09-sunu.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 10",
+        "subtitle": "İleri Sızma Testi ve Sömürü Sonrası (Post-Exploitation)",
+        "json_filename": "hafta-10-sunu.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 11",
+        "subtitle": "Web Uygulama Güvenliğine Giriş ve SQL Injection",
+        "json_filename": "hafta-11-sunu.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 12",
+        "subtitle": "Ağ ve Servis Parola Saldırıları: Çevrimiçi Hydra Testleri",
+        "json_filename": "hafta-12-sunu.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 32,
+        "title": "Siber Güvenlik: Hafta 13",
+        "subtitle": "Web Uygulama Güvenliği - II: Web Fuzzing, XSS ve Komut Enjeksiyonu",
+        "json_filename": "hafta-13-sunu.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 31,
+        "title": "Siber Güvenlik: Hafta 14",
+        "subtitle": "Hizmet Reddi (DoS) ve Dağıtılmış Hizmet Reddi (DDoS) Atakları",
+        "json_filename": "hafta-14-sunu.json"
+      }
+    ]
+  },
+  {
+    "info": {
+      "slug": "veri-madenciligi-ve-makine-ogrenmesi",
+      "title": "Veri Madenciliği ve Makine Öğrenmesi",
+      "icon": "🤖",
+      "badge": "Python & ML Algoritmaları",
+      "color": "#f59e0b"
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "filename": "hafta-01.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 1",
+        "subtitle": "Yapay Zekaya Giriş & Colab (Sosyal Medya Analizi)",
+        "json_filename": "hafta1_slaytlar.json"
+      },
+      {
+        "week": 2,
+        "filename": "hafta-02.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 2",
+        "subtitle": "Python Temelleri & Karar Yapıları (Trendyol Fiyat Dedektifi)",
+        "json_filename": "hafta2_slaytlar.json"
+      },
+      {
+        "week": 3,
+        "filename": "hafta-03.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 3",
+        "subtitle": "NumPy ile Sayıların Gücü (Spotify Hit Şarkı Analizörü)",
+        "json_filename": "hafta3_slaytlar.json"
+      },
+      {
+        "week": 4,
+        "filename": "hafta-04.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 4",
+        "subtitle": "NumPy İleri İşlemler & Filtreleme (Efsane Oyun Takımı Kurucu)",
+        "json_filename": "hafta4_slaytlar.json"
+      },
+      {
+        "week": 5,
+        "filename": "hafta-05.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 5",
+        "subtitle": "Pandas ile Veri Manipülasyonu (Yemeksepeti Sipariş Dedektifliği)",
+        "json_filename": "hafta5_slaytlar.json"
+      },
+      {
+        "week": 6,
+        "filename": "hafta-06.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 6",
+        "subtitle": "Matplotlib & Seaborn ile Görselleştirme (Netflix Film Trendleri)",
+        "json_filename": "hafta6_slaytlar.json"
+      },
+      {
+        "week": 7,
+        "filename": "hafta-07.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 7",
+        "subtitle": "Makine Öğrenmesi & Doğrusal Regresyon (Sahibinden Araba Değerleme)",
+        "json_filename": "hafta7_slaytlar.json"
+      },
+      {
+        "week": 8,
+        "filename": "hafta-08.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 8",
+        "subtitle": "Lojistik Regresyon (E-Ticaret Sepet Kurtarıcı)",
+        "json_filename": "hafta8_slaytlar.json"
+      },
+      {
+        "week": 9,
+        "filename": "hafta-09.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 9",
+        "subtitle": "K-En Yakın Komşu (K-NN) (Akıllı Öğrenci Rehberi)",
+        "json_filename": "hafta9_slaytlar.json"
+      },
+      {
+        "week": 10,
+        "filename": "hafta-10.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 10",
+        "subtitle": "Destek Vektör Makineleri (SVM) (Banka Kredi Risk Modeli)",
+        "json_filename": "hafta10_slaytlar.json"
+      },
+      {
+        "week": 11,
+        "filename": "hafta-11.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 11",
+        "subtitle": "Karar Ağaçları (Decision Trees) (İK İşe Alım Karar Botu)",
+        "json_filename": "hafta11_slaytlar.json"
+      },
+      {
+        "week": 12,
+        "filename": "hafta-12.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 12",
+        "subtitle": "Rastgele Ormanlar (Random Forest) (Otel İptal Erken Uyarı Sistemi)",
+        "json_filename": "hafta12_slaytlar.json"
+      },
+      {
+        "week": 13,
+        "filename": "hafta-13.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 13",
+        "subtitle": "K-Ortalamalar (K-Means Kümeleme) (AVM Müşteri Segmentasyonu)",
+        "json_filename": "hafta13_slaytlar.json"
+      },
+      {
+        "week": 14,
+        "filename": "hafta-14.html",
+        "slides_count": 41,
+        "title": "Veri Madenciliği: Hafta 14",
+        "subtitle": "Hiyerarşik Kümeleme & Büyük Final (YouTube Strateji Şampiyonası)",
+        "json_filename": "hafta14_slaytlar.json"
+      }
+    ]
+  }
+]

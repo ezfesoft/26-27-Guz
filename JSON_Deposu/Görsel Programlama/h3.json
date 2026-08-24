@@ -1,0 +1,299 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 3",
+    "altbaslik": "Olaylar (Events), Veri Akışı ve Metin Birleştirme",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Etkileşimli Arayüz Programlama\nHaftalık Odak: Girdi-İşlem-Çıktı Döngüsü, Metin Birleştirme (+), Event Handler Anatomisi\nHedef: Kullanıcı girdilerini okuyup işleyen ilk dinamik etkileşimli formu üretmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "event driven programming data flow user interaction"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Dinamik Veri Akışı",
+    "icerik": "Statik bir ekran sadece resim gibidir. Bir uygulamanın 'canlı' olması için kullanıcının yazdığı bilgileri okuyabilmesi gerekir.\n- Kullanıcı 'Ahmet' yazdığında ekranda 'Hoş Geldiniz Ahmet Bey' çıkması,\n- Sipariş formunda isim ve adresin birleştirilip kargo etiketine dönüşmesi olay yönetimiyle gerçekleşir.",
+    "gorsel": {
+      "type": "image",
+      "query": "interactive dynamic web desktop form workflow"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Olay Güdümlü Programlama (Event-Driven Programming) mantığını kavrar.\n2. TextBox'tan .Text ile veri okuma ve Label'a veri aktarma adımlarını uygular.\n3. Metinleri '+' operatörü ile aralarında boşluk bırakarak birleştirir (Concatenation).\n4. '\\n' kaçış karakteriyle çok satırlı görsel çıktılar üretir.\n5. 'VIP Kongre Yaka Kartı' projesini başarıyla tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "goals objectives visual programming milestones"
+    }
+  },
+  {
+    "baslik": "Görsel Programlamanın Altın Döngüsü",
+    "altbaslik": "Girdi -> İşlem -> Çıktı Mimarisi",
+    "icerik": "Tüm etkileşimli programlar 3 aşamalı bir döngüde çalışır:\n\n1. Girdi (Input): TextBox'tan veriyi oku -> txtAd.Text\n2. İşlem (Process): Verileri birleştir, dönüştür, mantık işlet.\n3. Çıktı (Output): Sonucu kullanıcıya göster -> lblSonuc.Text\n\nBu üç adımın sırası asla bozulmaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "input process output diagram computer science"
+    }
+  },
+  {
+    "baslik": "Olay (Event) ve Olay İşleyici (Event Handler)",
+    "altbaslik": "Kodlar Ne Zaman Çalışır?",
+    "icerik": "Geleneksel programlar baştan sona çalışır ve kapanır. Görsel programlar ise 'Olay Güdümlü'dür (Event-Driven):\n- Program sürekli arka planda dinlemede bekler (Idle state).\n- Kullanıcı butona tıkladığında (Click Event) C# uyanır, o butona bağlı metodu çalıştırır ve tekrar beklemeye geçer.",
+    "gorsel": {
+      "type": "image",
+      "query": "event listener trigger action reaction software"
+    }
+  },
+  {
+    "baslik": "Olay Metodunun Anatomisi",
+    "altbaslik": "Visual Studio'nun Oluşturduğu Kod Bloğu",
+    "icerik": "private void btnGiris_Click(object sender, EventArgs e)\n{\n    // Komutlar buraya yazılır\n}\n\n- private: Bu metoda sadece bu form penceresi erişebilir.\n- void: İşlemi yapar ama geriye bir değer döndürmez.\n- btnGiris_Click: Metodun adı (KontrolAdı_OlayAdı).\n- { }: Kodların yazılacağı sınır kapılarıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp method signature anatomy syntax breakdown"
+    }
+  },
+  {
+    "baslik": "Metot Parametreleri: sender ve e",
+    "altbaslik": "Korkutmadan Parametre Kavramı",
+    "icerik": "- object sender: Olayı kimin tetiklediğini söyler (Örn: Tıklanan butonun kendisi).\n- EventArgs e: Olayla ilgili ek detayları barındırır (Örn: Fare hangi koordinata tıkladı, klavyeden hangi tuşa basıldı).\n- Şimdilik bu parametreleri değiştirmeden olduğu gibi bırakıyoruz.",
+    "gorsel": {
+      "type": "image",
+      "query": "parameters arguments function caller concept"
+    }
+  },
+  {
+    "baslik": "TextBox'tan Veri Okuma Mantığı",
+    "altbaslik": ".Text Özelliğine Erişmek",
+    "icerik": "TextBox içindeki yazıyı okumak için 'txtKutuAdi.Text' ifadesi kullanılır.\n\nÖrnek:\nstring kullaniciGirdisi = txtAd.Text;\n\nBu satır, kullanıcının o an kutuya yazdığı harfleri alır ve hafızadaki 'kullaniciGirdisi' alanına kopyalar.",
+    "gorsel": {
+      "type": "image",
+      "query": "reading text input field variable assignment"
+    }
+  },
+  {
+    "baslik": "Label'a Veri Yazma Mantığı",
+    "altbaslik": "Atama Operatörü (=) ile Yazdırma",
+    "icerik": "Bir Label'ın üzerindeki yazıyı değiştirmek için = operatörü kullanılır:\n\nlblMesaj.Text = \"İşlem Tamamlandı!\";\n\nEşittir (=) işareti matematikteki eşitlik değildir! 'Sağdaki değeri al, soldaki kutunun içine yaz' anlamına gelen Atama Operatörüdür.",
+    "gorsel": {
+      "type": "image",
+      "query": "assignment operator arrow data transfer programming"
+    }
+  },
+  {
+    "baslik": "Metin Birleştirme (String Concatenation)",
+    "altbaslik": "Metinleri '+' ile Uç Uca Eklemek",
+    "icerik": "Metinlerde (string) artı (+) işareti matematiksel toplama yapmaz; kelimeleri yan yana yapıştırır.\n\nÖrnek:\nstring ad = txtAd.Text;\nlblSonuc.Text = \"Merhaba \" + ad + \", Hoş Geldiniz!\";\n\nKutuya 'Ali' yazılmışsa ekranda 'Merhaba Ali, Hoş Geldiniz!' çıkar.",
+    "gorsel": {
+      "type": "image",
+      "query": "connecting puzzle pieces string concatenation words"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: Boşluk Bırakmayı Unutmak",
+    "altbaslik": "Kelimelerin Birbirine Yapışması Hatası",
+    "icerik": "Öğrencilerin en çok yaptığı hata:\n\nlblSonuc.Text = \"Merhaba\" + txtAd.Text; // HATA: 'MerhabaAli'\n\nC# otomatik boşluk bırakmaz! Kelimelerin arasına mutlaka tırnak içinde boşluk eklenmelidir:\n\nlblSonuc.Text = \"Merhaba \" + txtAd.Text; // DOĞRU: 'Merhaba Ali'",
+    "gorsel": {
+      "type": "image",
+      "query": "spacing typography text layout words gap"
+    }
+  },
+  {
+    "baslik": "Çok Satırlı Çıktı: Kaçış Karakteri \\n",
+    "altbaslik": "Yazıyı Alt Satıra Geçirmek (Enter Etkisi)",
+    "icerik": "Bir metin içinde alt satıra geçmek için '\\n' (New Line) özel sembolü kullanılır.\n\nÖrnek:\nlblBilgi.Text = \"Ad: Ali\" + \"\\n\" + \"Soyad: Can\";\n\nEkranda Çıktı:\nAd: Ali\nSoyad: Can",
+    "gorsel": {
+      "type": "image",
+      "query": "new line enter key paragraph break typography"
+    }
+  },
+  {
+    "baslik": "Metin Dönüşüm Fonksiyonları: ToUpper ve ToLower",
+    "altbaslik": "Harf Büyüklüğünü Standartlaştırmak",
+    "icerik": "- .ToUpper(): Tüm harfleri BÜYÜK harfe çevirir (Örn: \"ali\".ToUpper() -> \"ALİ\").\n- .ToLower(): Tüm harfleri küçük harfe çevirir (Örn: \"AHMET\".ToLower() -> \"ahmet\").\n- Kullanım: txtAd.Text.ToUpper() yazarak resmi evraklara uygun büyük harf elde edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "uppercase lowercase letters text transformation"
+    }
+  },
+  {
+    "baslik": "Daktiloculuğu Kıran 'Hata Dedektifi'",
+    "altbaslik": "30 Saniyede 3 Hatayı Bulun!",
+    "icerik": "Aşağıdaki hatalı kod satırını inceleyin:\n\nprivate void btnGonder_Click(object sender, EventArgs e)\n{\n    lblsonuc.text = \"Sayın \" + txtAd.Text\n}\n\nHatalar:\n1. lblsonuc -> lblSonuc (Küçük s hatası)\n2. .text -> .Text (Büyük harf duyarlılığı)\n3. Satır sonunda ; (noktalı virgül) eksik!",
+    "gorsel": {
+      "type": "image",
+      "query": "detective magnifying glass error finding bug code"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: VIP Kongre Yaka Kartı",
+    "altbaslik": "Senaryo ve Arayüz Planı",
+    "icerik": "Senaryo: Uluslararası bir bilim kongresinde kayıt masasında çalışan görevlinin kullandığı yaka kartı otomasyonu.\n- Kullanıcı Ad, Soyad, Kurum ve Unvan bilgilerini girer.\n- 'Yaka Kartı Oluştur' butonuna tıklar.\n- Alttaki altın sarısı VIP panelde formatlı yaka kartı anında basılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "conference badge id card lanyard vip pass"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Girdi ve Çıktı Kontrolleri",
+    "icerik": "Girdi Kutuları:\n- txtAd (Adınız)\n- txtSoyad (Soyadınız)\n- txtKurum (Çalıştığınız Üniversite / Kurum)\n- txtUnvan (Prof., Dr., Mühendis, Öğrenci)\n\nButon: btnKartOlustur ('🎫 Yaka Kartı Oluştur')\nÇıktı Alanı: lblYakaKarti (Geniş etiket, BorderStyle = FixedSingle)",
+    "gorsel": {
+      "type": "image",
+      "query": "ui form controls layout badges conference"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Adım Adım)",
+    "altbaslik": "Verileri Birleştirip Kartı Oluşturmak",
+    "icerik": "private void btnKartOlustur_Click(object sender, EventArgs e)\n{\n    // 1. Bilgileri oku ve birleştir\n    string tamAd = txtAd.Text.ToUpper() + \" \" + txtSoyad.Text.ToUpper();\n    string kurum = txtKurum.Text;\n    string unvan = txtUnvan.Text;\n\n    // 2. Yaka kartı metnini \\n ile inşa et\n    lblYakaKarti.Text = \"★ ULUSLARARASI BİLİŞİM KONGRESİ ★\" + \"\\n\" +\n                        \"Katılımcı: \" + unvan + \" \" + tamAd + \"\\n\" +\n                        \"Kurum: \" + kurum;\n\n    // 3. Kartın stilini ayarla\n    lblYakaKarti.BackColor = Color.Gold;\n    lblYakaKarti.ForeColor = Color.DarkBlue;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code editor string concatenation result"
+    }
+  },
+  {
+    "baslik": "Formu Temizleme ve Yeniden Başlatma",
+    "altbaslik": "TextBox.Clear() ve Focus() Metotları",
+    "icerik": "Yeni bir katılımcı kaydederken kutuları tek tek elle silmek yerine 'Temizle' butonu eklenir:\n\nprivate void btnTemizle_Click(object sender, EventArgs e)\n{\n    txtAd.Clear();      // İçini boşaltır\n    txtSoyad.Clear();\n    txtKurum.Clear();\n    txtUnvan.Clear();\n    lblYakaKarti.Text = \"...\";\n    txtAd.Focus();      // İmleci tekrar ilk kutuya yerleştirir\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "clean reset interface focus text field input"
+    }
+  },
+  {
+    "baslik": "Farklı Olaylar (Events): TextChanged",
+    "altbaslik": "Harfe Bastıkça Anında Tepki",
+    "icerik": "Butona basmayı beklemeden, kullanıcı kutuya her harf yazdığında eyleme geçmek için 'TextChanged' olayı kullanılır:\n- Kutuya çift tıkladığınızda varsayılan olarak TextChanged açılır.\n- Arama motorlarında harf yazdıkça filtreleme yapma mantığı bu olaya dayanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "real time search filtering typing text changed"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Sentaks Hataları",
+    "altbaslik": "Metin Birleştirmede Dikkat Edilecekler",
+    "icerik": "1. Artı (+) işaretini metin tırnaklarının içine yazmak:\n   \"Merhaba\" + ad yerine \"Merhaba + ad\" yazmak (Ekranda 'Merhaba + ad' çıkar).\n2. Değişken adını tırnak içine almak:\n   lblSonuc.Text = \"tamAd\"; yazarsanız ekranda 'tamAd' yazar, kutudaki isim çıkmaz!",
+    "gorsel": {
+      "type": "image",
+      "query": "syntax error debugging string quotes checklist"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Posta Şablon Motoru",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Banka veya e-ticaret siteleri binlerce müşteriye aynı anda şu metni üretir:\n'Sayın ' + musteriAdi + ', ' + siparisNo + ' nolu siparişiniz kargoya verildi.'\nString Concatenation (Metin Birleştirme) kurumsal CRM yazılımlarının temel motorudur.",
+    "gorsel": {
+      "type": "image",
+      "query": "automated email notification template crm customer"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Metin Birleştirme",
+    "icerik": "Soru: string a = \"20\"; string b = \"26\"; string c = a + b; kodunun çıktısı nedir?\n\nA) 46\nB) 2026\nC) 20 26\nD) Hata verir\n\nDoğru Cevap: B (Metinlerde '+' işlemi matematiksel toplama yapmaz, metinleri yan yana yapıştırır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination correct answer code"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Kaçış Karakterleri",
+    "icerik": "Soru: C# dilinde metin içinde bir alt satıra geçmeyi sağlayan kaçış sembolü hangisidir?\n\nA) \\t\nB) \\s\nC) \\n\nD) \\r\n\nDoğru Cevap: C (\\n - New Line sembolü imleci alt satıra taşır).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice examination programming skills"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Odaklanma Metodu",
+    "icerik": "Soru: Klavyedeki imleci doğrudan txtAd kutusuna taşımak için hangi metot çağrılır?\n\nA) txtAd.Select()\nB) txtAd.Focus()\nC) txtAd.Active()\nD) txtAd.Cursor()\n\nDoğru Cevap: B (.Focus() metodu giriş odağını o kontrole verir).",
+    "gorsel": {
+      "type": "image",
+      "query": "cursor focus text field input quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Tweet / Durum Mesajı Oluşturucu",
+    "icerik": "Görev:\n- Formunuza Adınız ve Mesajınız için 2 TextBox ekleyin.\n- 'Paylaş' butonuna basınca alt etikette '@[Adiniz] diyor ki: [Mesajiniz]' formatında birleştirip gösterin.",
+    "gorsel": {
+      "type": "image",
+      "query": "social media post card message bubble"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- Event (Olay): Kullanıcının arayüzde yaptığı eylem (Tıklama, tuşa basma).\n- Event Handler (Olay İşleyici): Olay olunca çalışan C# metodu.\n- Concatenation: Metinlerin birbirine eklenmesi.\n- Escape Sequence (\\n): Kaçış dizisi / alt satır komutu.\n- Focus(): İmleci ilgili kutuya odaklama metodu.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Girdi -> İşlem -> Çıktı veri akışını öğrendik.\n- TextBox'tan .Text ile veri okumayı ve Label'a atamayı kavradık.\n- Metin birleştirme (+), boşluk yönetimi ve '\\n' ile çok satırlı metin oluşturduk.\n- VIP Kongre Yaka Kartı projesiyle çalışan bir arayüz inşa ettik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "Kullanıcı Deneyimi (UX): Etiket Yerleşimi",
+    "altbaslik": "Kutunun Üstü mü Yanı mı?",
+    "icerik": "Form tasarımında etiketlerin kutuya göre konumu okunabilirliği belirler:\n- Sol Hizalama: Kutu açıklaması solda, kutu sağda (Giriş formları için standart).\n- Üst Hizalama: Mobilde veya dar panellerde etiketin kutunun üstünde olması.\nTutarlılık profesyonel kullanıcı deneyiminin birinci kuralıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "ux ui label alignment form design usability"
+    }
+  },
+  {
+    "baslik": "Performans İpucu: String Bellek Yönetimi",
+    "altbaslik": "Arka Planda Neler Oluyor?",
+    "icerik": "C# dilinde string veri tipi 'immutable' (değiştirilemez) yapıdadır.\n- İki metni '+' ile her birleştirdiğinizde RAM'de yepyeni bir metin alanı açılır.\n- Basit form uygulamalarında bu fark edilmez; ancak milyonlarca veride StringBuilder sınıfı tercih edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "memory allocation string immutable csharp"
+    }
+  },
+  {
+    "baslik": "Kullanıcı Deneyimi (UX): Etiket Yerleşimi",
+    "altbaslik": "Kutunun Üstü mü Yanı mı?",
+    "icerik": "Form tasarımında etiketlerin kutuya göre konumu okunabilirliği belirler:\n- Sol Hizalama: Kutu açıklaması solda, kutu sağda (Giriş formları için standart).\n- Üst Hizalama: Mobilde veya dar panellerde etiketin kutunun üstünde olması.\nTutarlılık profesyonel kullanıcı deneyiminin birinci kuralıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "ux ui label alignment form design usability"
+    }
+  },
+  {
+    "baslik": "Performans İpucu: String Bellek Yönetimi",
+    "altbaslik": "Arka Planda Neler Oluyor?",
+    "icerik": "C# dilinde string veri tipi 'immutable' (değiştirilemez) yapıdadır.\n- İki metni '+' ile her birleştirdiğinizde RAM'de yepyeni bir metin alanı açılır.\n- Basit form uygulamalarında bu fark edilmez; ancak milyonlarca veride StringBuilder sınıfı tercih edilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "memory allocation string immutable csharp"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'txtSehir kutusundaki metni okuyup \"Gidilecek Şehir: ANKARA\" şeklinde ekrana basan tek satırlık C# kodunu yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 4: Bilgiyi Saklamak: Değişkenler ve string Tipi",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- Bilgisayar hafızası (RAM) nasıl çalışır?\n- Değişken kavramı ve 'Etiketli Ayakkabı Kutusu' analojisi.\n- Değişken tanımlama, değer atama ve temiz kod kuralları (CamelCase).\n- E-Ticaret Kargo Teslimat Fişi projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "memory ram computer storage preview next week"
+    }
+  }
+]

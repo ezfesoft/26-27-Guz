@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 14 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 14</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 41 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 41</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="#" class="btn-nav" style="text-decoration:none;" disabled>
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (41 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 14", "altbaslik": "Büyük Final: Bütünleşik Öğrenci Not Kayıt ve İstatistik Sistemi", "icerik": "Program: Bilgisayar Programcılığı\nModül: Kurumsal Masaüstü Yazılım Mimarisi\nHaftalık Odak: Paralel Diziler (Parallel Arrays), CRUD Mantığı, Sınıf İstatistikleri\nHedef: 14 haftanın tüm becerilerini birleştiren tam teşekküllü bir masaüstü yazılımı üretmek.", "gorsel": {"type": "image", "query": "graduation success student management system final project"}}, {"baslik": "14 Haftalık Yolculuğun Zirvesi", "altbaslik": "Mezuniyet Motivasyonu", "icerik": "14 hafta önce belki klavyede süslü parantez {} bulmakta zorlanıyordunuz.\nBugün ise:\n- Arayüz tasarlayan,\n- Kullanıcı hatalarını zırhla yakalayan (try-catch),\n- Kararlar veren (if-else),\n- Döngülerle binlerce işlemi saniyede yapan (for/while),\n- Verileri dizilerde saklayıp istatistik çıkaran gerçek bir YAZILIMCISINIZ!", "gorsel": {"type": "image", "query": "students celebrating success graduation achievement"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Büyük Projede Neler Başaracaksınız?", "icerik": "1. 14 haftanın tüm temel kavramlarını tek bir projede hatasız entegre eder.\n2. Paralel Diziler (Parallel Arrays) mimarisini kurar ve yönetir.\n3. Veri Ekleme (Create) ve Veri Listeleme (Read) süreçlerini kodlar.\n4. Ağırlıklı ortalama, harf notu baremi ve sınıf istatistiklerini hesaplar.\n5. 'Giresun MYO Öğrenci Not Otomasyonu' kurumsal masaüstü yazılımını üretir.", "gorsel": {"type": "image", "query": "goals milestones capstone project architecture"}}, {"baslik": "Sistem Mimarisi: Paralel Diziler (Parallel Arrays)", "altbaslik": "İlişkili Verileri Aynı İndekste Tutmak", "icerik": "Veritabanı olmadan aynı öğrencinin tüm bilgilerini senkronize saklamak için Paralel Diziler kullanılır:\n- ogrenciAdlari[i] -> Öğrencinin Adı\n- vizeler[i] -> Vize Notu\n- finaller[i] -> Final Notu\n- ortalamalar[i] -> Ortalaması\n- harfNotlari[i] -> Harf Notu\nHerkesin bilgisi aynı 'i' indeks numarasında eşleşir.", "gorsel": {"type": "image", "query": "parallel arrays database table spreadsheet structure"}}, {"baslik": "CRUD Kavramı ve Projedeki Yeri", "altbaslik": "Yazılım Dünyasının Temel 4 İşlemi", "icerik": "- Create (Ekleme): Yeni öğrenci kaydını dizilere eklemek (btnEkle).\n- Read (Okuma/Listeleme): Kayıtlı tüm öğrencileri formatlı listelemek (btnListele).\n- Update (Güncelleme): Mevcut kaydı değiştirmek.\n- Delete (Silme): Kaydı listeden kaldırmak.\nBu projede sistemin omurgası olan Create ve Read işlemlerine odaklanıyoruz.", "gorsel": {"type": "image", "query": "CRUD operations database management data lifecycle"}}, {"baslik": "Büyük Proje: Giresun MYO Öğrenci Not Otomasyonu", "altbaslik": "Senaryo ve İş Kuralları", "icerik": "İş Kuralları:\n1. Kontenjan: En fazla 50 öğrenci.\n2. Not Kontrolü: 0 ile 100 arası geçerli not zorunluluğu.\n3. Ağırlık: %40 Vize + %60 Final.\n4. Harf Baremi: >=90 AA, >=80 BA, >=70 BB, >=60 CB, >=50 CC, <50 FF (Kaldı).\n5. İstatistik: Sınıf Genel Ortalaması, Toplam Öğrenci ve Kalan Sayısı.", "gorsel": {"type": "image", "query": "university grade record dashboard analytics"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi", "icerik": "Girdiler: txtAdSoyad, txtVize, txtFinal\nButonlar: btnEkle ('➕ Kaydet'), btnListele ('📋 Listele ve Analiz Et')\nListe: listBoxKayitlar (Font = Consolas 9.75pt)\nİstatistik Paneli: lblToplamKayit, lblGenelOrtalama, lblKalanSayisi", "gorsel": {"type": "image", "query": "student management system form layout ui visual studio"}}, {"baslik": "Global Değişkenler ve Paralel Dizi Tanımları", "altbaslik": "Form Düzeyinde Hafıza Alanı", "icerik": "// FORM SEVİYESİNDE DEĞİŞKENLER (En Üstte)\nstring[] ogrenciAdlari = new string[50];\nint[] vizeler = new int[50];\nint[] finaller = new int[50];\ndouble[] ortalamalar = new double[50];\nstring[] harfNotlari = new string[50];\n\nint toplamKayitliOgrenci = 0; // Sıradaki boş indeks", "gorsel": {"type": "image", "query": "csharp global variables arrays declaration code"}}, {"baslik": "Adım 1: Öğrenci Ekleme Kodu (btnEkle)", "altbaslik": "Veri Doğrulama ve Hesaplama", "icerik": "private void btnEkle_Click(object sender, EventArgs e)\n{\n    try\n    {\n        if (toplamKayitliOgrenci >= 50) { MessageBox.Show(\"Kontenjan Dolu!\"); return; }\n        if (string.IsNullOrWhiteSpace(txtAdSoyad.Text)) { MessageBox.Show(\"Adı boş bırakmayın!\"); return; }\n\n        int vize = Convert.ToInt32(txtVize.Text);\n        int final = Convert.ToInt32(txtFinal.Text);\n        if (vize < 0 || vize > 100 || final < 0 || final > 100) { MessageBox.Show(\"Notlar 0-100 arası olmalı!\"); return; }\n\n        double ort = (vize * 0.40) + (final * 0.60);\n        string harf = \"\";\n        if (ort >= 90) harf = \"AA\";\n        else if (ort >= 80) harf = \"BA\";\n        else if (ort >= 70) harf = \"BB\";\n        else if (ort >= 60) harf = \"CB\";\n        else if (ort >= 50) harf = \"CC\";\n        else harf = \"FF\";\n\n        // Diziye Yaz\n        ogrenciAdlari[toplamKayitliOgrenci] = txtAdSoyad.Text;\n        vizeler[toplamKayitliOgrenci] = vize;\n        finaller[toplamKayitliOgrenci] = final;\n        ortalamalar[toplamKayitliOgrenci] = ort;\n        harfNotlari[toplamKayitliOgrenci] = harf;\n        toplamKayitliOgrenci++;\n\n        MessageBox.Show(\"Öğrenci Kaydedildi! Harf: \" + harf);\n        txtAdSoyad.Clear(); txtVize.Clear(); txtFinal.Clear(); txtAdSoyad.Focus();\n    }\n    catch { MessageBox.Show(\"Lütfen sayısal not giriniz!\"); }\n}", "gorsel": {"type": "image", "query": "csharp code add student record array data validation"}}, {"baslik": "Adım 2: Listeleme ve İstatistik Kodu (btnListele)", "altbaslik": "Döngü ile Raporlama", "icerik": "private void btnListele_Click(object sender, EventArgs e)\n{\n    if (toplamKayitliOgrenci == 0) { MessageBox.Show(\"Kayıtlı öğrenci yok!\"); return; }\n    listBoxKayitlar.Items.Clear();\n    double sinifToplam = 0;\n    int kalanSayisi = 0;\n\n    // DÖNGÜ: Kapasite (50) değil, toplamKayitliOgrenci kadar döner!\n    for (int i = 0; i < toplamKayitliOgrenci; i++)\n    {\n        string satir = (i + 1) + \") \" + ogrenciAdlari[i] + \" | Vize: \" + vizeler[i] + \n                       \" | Final: \" + finaller[i] + \" | Ort: \" + ortalamalar[i].ToString(\"0.00\") + \n                       \" | Harf: [\" + harfNotlari[i] + \"]\";\n        listBoxKayitlar.Items.Add(satir);\n        sinifToplam += ortalamalar[i];\n        if (harfNotlari[i] == \"FF\") kalanSayisi++;\n    }\n    double sinifOrt = sinifToplam / toplamKayitliOgrenci;\n    lblToplamKayit.Text   = \"Toplam Öğrenci: \" + toplamKayitliOgrenci;\n    lblGenelOrtalama.Text = \"Sınıf Ortalaması: \" + sinifOrt.ToString(\"0.00\");\n    lblKalanSayisi.Text   = \"Kalan (FF) Sayısı: \" + kalanSayisi;\n}", "gorsel": {"type": "image", "query": "csharp code report statistics class average list"}}, {"baslik": "Kritik Algoritma Kuralı: Döngü Sınırı", "altbaslik": "50 Değil, Kayıtlı Sayı Kadar Dönmek", "icerik": "Döngüde 'i < 50' yazılırsa ne olur?\n- Eğer sadece 3 öğrenci kaydettiyseniz, 4. elemandan itibaren dizi boştur (null/0).\n- Program boş kutuları okumaya çalışırken çöker!\nAltın Kural: Listeleme yaparken daima 'i < toplamKayitliOgrenci' sınırı kullanılır.", "gorsel": {"type": "image", "query": "loop boundary safety check array count"}}, {"baslik": "Sıfıra Bölme Güvenliği (DivideByZero)", "altbaslik": "Kayıt Yokken Ortalama Hesabı", "icerik": "Eğer hiç öğrenci eklenmeden ortalama hesaplanırsa:\n- sinifOrtalamasi = 0 / 0 işlemi gerçekleşir ve sistem NaN/Hata verir.\n- Çözüm: if (toplamKayitliOgrenci == 0) kontrolü ile en başta erken çıkış yapılmalıdır.", "gorsel": {"type": "image", "query": "divide by zero protection code check"}}, {"baslik": "Sektörel Vaka: Üniversite Öğrenci Bilgi Sistemi (ÖBS)", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Giresun Üniversitesi ÖBS sisteminde hocaların not girdiği ve öğrencilerin transkript aldığı dev yazılımın temel çekirdeği:\n- Öğrenci kayıt dizisi,\n- Ağırlıklı vize/final hesabı,\n- Harf notu baremi ve sınıf ortalaması.\nBugün yazdığınız proje tam olarak bu sistemin masaüstü prototipidir!", "gorsel": {"type": "image", "query": "university student portal database transcript"}}, {"baslik": "Mini Quiz: Final Sorusu 1", "altbaslik": "Bütünleşik Bilgi Testi", "icerik": "Soru: Paralel dizilerde 5. sıradaki öğrencinin adı ile final notunu birbiriyle eşleştiren ortak bağ nedir?\n\nA) Değişken isimlerinin aynı olması\nB) Her iki dizide de aynı indeks (i = 4) numarasında saklanmaları\nC) Rastgele atanmaları\nD) İsimlerin alfabetik sıralanması\n\nDoğru Cevap: B (Paralel dizilerde aynı sıradaki öğrencinin tüm verileri aynı indeks hücresinde tutulur).", "gorsel": {"type": "image", "query": "quiz graduation final test diploma"}}, {"baslik": "Büyük Proje: Mimarinin Katmanları", "altbaslik": "Veri Toplama, Doğrulama, İşleme, Raporlama", "icerik": "Öğrenci Not Kayıt Sistemimiz 4 ana aşamadan oluşur:\n1. Doğrulama (Validation): Notlar 0-100 arasında mı? İsim boş mu?\n2. Hesaplama (Logic): %40 vize + %60 final ve Harf notu baremi.\n3. Kayıt (Storage): 5 paralel diziye eşzamanlı kayıt.\n4. Raporlama (Analytics): ListBox dökümü ve genel sınıf ortalaması.", "gorsel": {"type": "image", "query": "multi tier architecture software pipeline modular"}}, {"baslik": "Paralel Dizilerde Güncelleme (Update)", "altbaslik": "Mevcut Öğrencinin Notunu Değiştirmek", "icerik": "Bir öğrencinin notunu güncellemek için:\n1. İndeks numarası belirlenir (Örn: secilenIndex = listBoxKayitlar.SelectedIndex).\n2. O indeksteki dizi hücrelerine yeni değerler yazılır:\n   vizeler[secilenIndex] = yeniVize;\n   finaller[secilenIndex] = yeniFinal;\n3. Ortalama ve harf notu yeniden hesaplanır.", "gorsel": {"type": "image", "query": "edit update record form interface"}}, {"baslik": "Paralel Dizilerde Silme (Delete)", "altbaslik": "Kayıt Silme ve Dizi Kaydırma Mantığı", "icerik": "Bir öğrenci silindiğinde dizide boşluk kalmaması için:\n- Silinen indeksten sonraki tüm elemanlar for döngüsüyle bir basamak sola kaydırılır:\n  ogrenciAdlari[i] = ogrenciAdlari[i + 1];\n- toplamKayitliOgrenci sayacı 1 azaltılır.", "gorsel": {"type": "image", "query": "shift array elements delete row logic"}}, {"baslik": "Arayüz Detayı: Consolas Monospaced Font", "altbaslik": "Sütunların Cetvel Gibi Hizalanması", "icerik": "ListBox içindeki yazıların alt alta tam hizalı durması için 'Consolas' veya 'Courier New' gibi Monospaced (her harfi eşit genişlikte) fontlar kullanılır.\nBöylece adlar farklı uzunlukta olsa bile not ve ortalama sütunları kusursuz hizalanır.", "gorsel": {"type": "image", "query": "monospaced font alignment table terminal text"}}, {"baslik": "Sınıfın En Yüksek Notunu Alan Öğrenciyi Bulmak", "altbaslik": "Bütünleşik Min/Max Algoritması", "icerik": "double enYuksekOrtalama = ortalamalar[0];\nstring enBasariliOgrenci = ogrenciAdlari[0];\n\nfor (int i = 1; i < toplamKayitliOgrenci; i++)\n{\n    if (ortalamalar[i] > enYuksekOrtalama)\n    {\n        enYuksekOrtalama = ortalamalar[i];\n        enBasariliOgrenci = ogrenciAdlari[i];\n    }\n}\nlblDerece.Text = \"Sınıf Birincisi: \" + enBasariliOgrenci + \" (\" + enYuksekOrtalama.ToString(\"0.00\") + \")\";", "gorsel": {"type": "image", "query": "valedictorian student award top score podium"}}, {"baslik": "Dersin Büyük Kapanışı ve Gelecek", "altbaslik": "Görsel Programlama 2 ve İleri Düzey Konular", "icerik": "Önümüzdeki dönem Görsel Programlama 2 dersinde:\n- SQL Veritabanı Entegrasyonu (MSSQL / SQLite)\n- Entity Framework ve Katmanlı Mimari\n- Raporlama araçları ve Modern Arayüz Kütüphaneleri\nile projelerinizi profesyonel piyasa seviyesine taşıyacağız!", "gorsel": {"type": "image", "query": "database sql future programming career path"}}, {"baslik": "Eğitmen Değerlendirmesi ve Tavsiyeler", "altbaslik": "Başarılı Bir Yazılımcı Olmanın Sırrı", "icerik": "1. Kod yazmaktan asla korkmayın; hata yapmak öğrenmenin doğal adımıdır.\n2. Kopyala-yapıştır yapmayın; her satırın ne iş yaptığını anlamaya çalışın.\n3. Küçük projelerle başlayıp her hafta üzerine yeni bir taş koyun.\nYolunuz açık, kodlarınız hatasız olsun!", "gorsel": {"type": "image", "query": "mentor teacher guiding student graduation success"}}, {"baslik": "Mini Quiz: Final Sorusu 3", "altbaslik": "Bütünleşik Mantık", "icerik": "Soru: 50 kapasiteli paralel dizide toplam 5 kayıt varken döngü sınırını 50 yapmak neden hatadır?\n\nA) Hiçbir hata olmaz, hızlı çalışır.\nB) Boş (null/0) hücreler okunmaya çalışıldığında program mantık hatası verir veya çöker.\nC) Diziyi otomatik siler.\nD) Bilgisayarı kapatır.\n\nDoğru Cevap: B (Döngü kapasite kadar değil, eklenen eleman sayısı kadar dönmelidir).", "gorsel": {"type": "image", "query": "final exam quiz question verification"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Dönem Sonu Sözlüğü", "icerik": "- Parallel Arrays: Aynı indekste ilişkili verileri tutan dizi kümesi.\n- CRUD: Create, Read, Update, Delete temel veri operasyonları.\n- Monospaced Font: Sabit karakter aralıklı hizalama fontu.\n- Validation: Kullanıcı verisinin geçerlilik denetimi.\n- Business Logic: Uygulamanın iş kuralları ve hesaplama formülleri.", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Dönem Sonu Çıkış Bileti", "altbaslik": "Görsel Programlama Dersi Mezuniyeti", "icerik": "Final Sorusu:\n'Bu derste öğrendiğiniz en faydalı C# / Windows Forms konusu neydi ve kendi hayatınızda nasıl bir masaüstü yazılımı geliştirmek istersiniz?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "graduation cap diploma celebration success"}}, {"baslik": "Kayıt Seçme ve Kutulara Geri Yükleme", "altbaslik": "ListBox'tan Detay Görme", "icerik": "Kullanıcı ListBox'taki bir öğrenciye tıkladığında (SelectedIndexChanged):\n- int secilen = listBoxKayitlar.SelectedIndex;\n- txtAdSoyad.Text = ogrenciAdlari[secilen];\n- txtVize.Text = vizeler[secilen].ToString();\n- txtFinal.Text = finaller[secilen].ToString();\nBu sayede seçilen öğrencinin bilgileri anında form kutularına geri dolar.", "gorsel": {"type": "image", "query": "select item listbox load into text boxes ui"}}, {"baslik": "Kayıt Güncelleme (Update) Mantığı", "altbaslik": "Mevcut Notu Değiştirip Kaydetmek", "icerik": "private void btnGuncelle_Click(object sender, EventArgs e)\n{\n    int secilen = listBoxKayitlar.SelectedIndex;\n    if (secilen == -1) { MessageBox.Show(\"Lütfen bir öğrenci seçiniz!\"); return; }\n    \n    // Yeni notları diziye yaz ve ortalamayı yeniden hesapla\n    vizeler[secilen] = Convert.ToInt32(txtVize.Text);\n    finaller[secilen] = Convert.ToInt32(txtFinal.Text);\n    ortalamalar[secilen] = (vizeler[secilen] * 0.40) + (finaller[secilen] * 0.60);\n    btnListele.PerformClick(); // Listeyi otomatik yenile\n}", "gorsel": {"type": "image", "query": "update record edit form button click csharp"}}, {"baslik": "PerformClick() ile Otomatik Yenileme", "altbaslik": "Kodla Butona Tıklatmak", "icerik": "Bir butona basıldığında diğer butonun görevini otomatik çalıştırmak için:\n- btnListele.PerformClick();\nBu komut, öğrenci eklendiğinde veya güncellendiğinde ListBox'ı tek satırda otomatik yeniler; kullanıcıyı tekrar Listele butonuna basma zahmetinden kurtarır.", "gorsel": {"type": "image", "query": "automation trigger button programmatically csharp"}}, {"baslik": "Paralel Dizilerin Sınırları ve Veritabanı İhtiyacı", "altbaslik": "Neden SQL Veritabanı Kullanırız?", "icerik": "- Paralel diziler program kapanınca silinir (RAM geçicidir).\n- Kapasite baştan sabittir (50 kişi).\n- Gerçek hayatta kalıcı ve sınırsız veriler için veritabanları (SQL Server, SQLite) kullanılır.\nBu dönem öğrendiğiniz CRUD mantığı SQL veritabanlarında da birebir aynıdır!", "gorsel": {"type": "image", "query": "database sql server permanent storage vs ram"}}, {"baslik": "Görsel Programlama Başarı Belgesi", "altbaslik": "14 Haftalık Emek ve Büyük Zafer", "icerik": "Tebrikler! 14 haftalık yoğun çalışma sonucunda:\n- Algoritmik düşünme,\n- Arayüz tasarımı,\n- Hata direnci ve veri yapıları konularında önlisans düzeyinin zirvesine ulaştınız.\nYazılım geliştirme kariyerinizde başarılar dileriz!", "gorsel": {"type": "image", "query": "certificate of achievement programming success award"}}, {"baslik": "Büyük Proje: Mimarinin Katmanları", "altbaslik": "Veri Toplama, Doğrulama, İşleme, Raporlama", "icerik": "Öğrenci Not Kayıt Sistemimiz 4 ana aşamadan oluşur:\n1. Doğrulama (Validation): Notlar 0-100 arasında mı? İsim boş mu?\n2. Hesaplama (Logic): %40 vize + %60 final ve Harf notu baremi.\n3. Kayıt (Storage): 5 paralel diziye eşzamanlı kayıt.\n4. Raporlama (Analytics): ListBox dökümü ve genel sınıf ortalaması.", "gorsel": {"type": "image", "query": "multi tier architecture software pipeline modular"}}, {"baslik": "Paralel Dizilerde Güncelleme (Update)", "altbaslik": "Mevcut Öğrencinin Notunu Değiştirmek", "icerik": "Bir öğrencinin notunu güncellemek için:\n1. İndeks numarası belirlenir (Örn: secilenIndex = listBoxKayitlar.SelectedIndex).\n2. O indeksteki dizi hücrelerine yeni değerler yazılır:\n   vizeler[secilenIndex] = yeniVize;\n   finaller[secilenIndex] = yeniFinal;\n3. Ortalama ve harf notu yeniden hesaplanır.", "gorsel": {"type": "image", "query": "edit update record form interface"}}, {"baslik": "Paralel Dizilerde Silme (Delete)", "altbaslik": "Kayıt Silme ve Dizi Kaydırma Mantığı", "icerik": "Bir öğrenci silindiğinde dizide boşluk kalmaması için:\n- Silinen indeksten sonraki tüm elemanlar for döngüsüyle bir basamak sola kaydırılır:\n  ogrenciAdlari[i] = ogrenciAdlari[i + 1];\n- toplamKayitliOgrenci sayacı 1 azaltılır.", "gorsel": {"type": "image", "query": "shift array elements delete row logic"}}, {"baslik": "Arayüz Detayı: Consolas Monospaced Font", "altbaslik": "Sütunların Cetvel Gibi Hizalanması", "icerik": "ListBox içindeki yazıların alt alta tam hizalı durması için 'Consolas' veya 'Courier New' gibi Monospaced (her harfi eşit genişlikte) fontlar kullanılır.\nBöylece adlar farklı uzunlukta olsa bile not ve ortalama sütunları kusursuz hizalanır.", "gorsel": {"type": "image", "query": "monospaced font alignment table terminal text"}}, {"baslik": "Sınıfın En Yüksek Notunu Alan Öğrenciyi Bulmak", "altbaslik": "Bütünleşik Min/Max Algoritması", "icerik": "double enYuksekOrtalama = ortalamalar[0];\nstring enBasariliOgrenci = ogrenciAdlari[0];\n\nfor (int i = 1; i < toplamKayitliOgrenci; i++)\n{\n    if (ortalamalar[i] > enYuksekOrtalama)\n    {\n        enYuksekOrtalama = ortalamalar[i];\n        enBasariliOgrenci = ogrenciAdlari[i];\n    }\n}\nlblDerece.Text = \"Sınıf Birincisi: \" + enBasariliOgrenci + \" (\" + enYuksekOrtalama.ToString(\"0.00\") + \")\";", "gorsel": {"type": "image", "query": "valedictorian student award top score podium"}}, {"baslik": "Dersin Büyük Kapanışı ve Gelecek", "altbaslik": "Görsel Programlama 2 ve İleri Düzey Konular", "icerik": "Önümüzdeki dönem Görsel Programlama 2 dersinde:\n- SQL Veritabanı Entegrasyonu (MSSQL / SQLite)\n- Entity Framework ve Katmanlı Mimari\n- Raporlama araçları ve Modern Arayüz Kütüphaneleri\nile projelerinizi profesyonel piyasa seviyesine taşıyacağız!", "gorsel": {"type": "image", "query": "database sql future programming career path"}}, {"baslik": "Eğitmen Değerlendirmesi ve Tavsiyeler", "altbaslik": "Başarılı Bir Yazılımcı Olmanın Sırrı", "icerik": "1. Kod yazmaktan asla korkmayın; hata yapmak öğrenmenin doğal adımıdır.\n2. Kopyala-yapıştır yapmayın; her satırın ne iş yaptığını anlamaya çalışın.\n3. Küçük projelerle başlayıp her hafta üzerine yeni bir taş koyun.\nYolunuz açık, kodlarınız hatasız olsun!", "gorsel": {"type": "image", "query": "mentor teacher guiding student graduation success"}}, {"baslik": "Mini Quiz: Final Sorusu 3", "altbaslik": "Bütünleşik Mantık", "icerik": "Soru: 50 kapasiteli paralel dizide toplam 5 kayıt varken döngü sınırını 50 yapmak neden hatadır?\n\nA) Hiçbir hata olmaz, hızlı çalışır.\nB) Boş (null/0) hücreler okunmaya çalışıldığında program mantık hatası verir veya çöker.\nC) Diziyi otomatik siler.\nD) Bilgisayarı kapatır.\n\nDoğru Cevap: B (Döngü kapasite kadar değil, eklenen eleman sayısı kadar dönmelidir).", "gorsel": {"type": "image", "query": "final exam quiz question verification"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Dönem Sonu Sözlüğü", "icerik": "- Parallel Arrays: Aynı indekste ilişkili verileri tutan dizi kümesi.\n- CRUD: Create, Read, Update, Delete temel veri operasyonları.\n- Monospaced Font: Sabit karakter aralıklı hizalama fontu.\n- Validation: Kullanıcı verisinin geçerlilik denetimi.\n- Business Logic: Uygulamanın iş kuralları ve hesaplama formülleri.", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Dönem Sonu Çıkış Bileti", "altbaslik": "Görsel Programlama Dersi Mezuniyeti", "icerik": "Final Sorusu:\n'Bu derste öğrendiğiniz en faydalı C# / Windows Forms konusu neydi ve kendi hayatınızda nasıl bir masaüstü yazılımı geliştirmek istersiniz?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "graduation cap diploma celebration success"}}, {"baslik": "Mini Quiz: Final Sorusu 2", "altbaslik": "Hata Kontrolü", "icerik": "Soru: string.IsNullOrWhiteSpace(txtAdSoyad.Text) kontrolü neyi denetler?\n\nA) İsmin 10 karakterden uzun olduğunu\nB) Kutuya hiçbir şey yazılmadığını veya sadece boşluk bırakıldığını\nC) İsmin sayı içerdiğini\nD) İsmin büyük harfle yazıldığını\n\nDoğru Cevap: B (Kutunun boş geçilmesini engellemek için kullanılır).", "gorsel": {"type": "image", "query": "string validation empty check quiz"}}, {"baslik": "Dönem Sonu Başarı Özeti", "altbaslik": "Tebrikler! Artık Bir Görsel Programcısınız!", "icerik": "Bu Dönem Başardıklarınız:\n✔ Visual Studio IDE ve Form Tasarımı\n✔ Buton, Etiket ve Metin Kutularını Yönetme\n✔ Bellek, Değişkenler ve Matematiksel Modeller\n✔ Savunmacı Kodlama ve try-catch Zırhı\n✔ if-else ve switch-case ile Akıllı Karar Mekanizmaları\n✔ for ve while Döngüleri ile Otomasyon\n✔ Tek Boyutlu ve Paralel Diziler ile Veri Yönetimi\n✔ Gerçek dünyada çalışan ticari ve kurumsal masaüstü projeleri!", "gorsel": {"type": "image", "query": "software developer celebration diploma accomplishment career"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

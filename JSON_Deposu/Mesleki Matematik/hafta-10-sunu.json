@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "Mesleki Matematik: Hafta 10",
+    "altbaslik": "Hafta 10: Temel Olasılık",
+    "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: Olasılık ve Risk Analizi\nHaftalık Odak: Örnek Uzay, İstenen Olay, Bağımsız Olaylar, Spam Filtreleme ve Güvenlik Tehdit Modellemesi\nHedef: Güvenlik risklerini ve arıza olasılıklarını matematiksel olarak modellemek.",
+    "gorsel": {
+      "type": "image",
+      "query": "probability risk assessment cyber security matrix mathematics"
+    }
+  },
+  {
+    "baslik": "Neden Bu Konuyu Öğreniyoruz?",
+    "altbaslik": "Sektörel Bağlam: Spam Filtresi ve Tehdit Olasılığı",
+    "icerik": "Gelen bir e-postanın 'Kredi', 'Bedava', 'Şifre Sıfırlama' kelimelerini içermesi durumunda spam olma olasılığı nedir?\nİki yedekli sunucunun aynı anda çökme olasılığı nasıl hesaplanır?\nOlasılık teorisi, yapay zeka tabanlı antivirüs motorlarının ve risk yönetiminin merkezindedir.",
+    "gorsel": {
+      "type": "image",
+      "query": "spam filter email security probability machine learning"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar",
+    "icerik": "1. Deney, örnek uzay, çıktı ve olay kavramlarını açıklar.\n2. Basit olayların olasılığını P(E) = n(E)/n(S) formülüyle hesaplar.\n3. Ayrık ve bağımsız olayların olasılık kurallarını uygular.\n4. Sistem güvenliğinde hata, kesinti ve saldırı risklerini olasılıkla yorumlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "academic learning outcomes checklist education"
+    }
+  },
+  {
+    "baslik": "Olasılık Temel Kavramları",
+    "altbaslik": "Deney, Örnek Uzay ve Olay",
+    "icerik": "- Deney: Sonucu önceden kesin olarak bilinmeyen işlem (Örn: Ağdan rastgele bir paket çekmek)\n- Örnek Uzay (S): Deneyin tüm olası çıktılarının kümesi (Tüm ağ trafiği)\n- Olay (E): Örnek uzayın herhangi bir alt kümesi (Zararlı paketler kümesi)\n- İmkansız Olay: Olasılığı 0 olan durum\n- Kesin Olay: Olasılığı 1 olan durum.",
+    "gorsel": {
+      "type": "image",
+      "query": "probability sample space event outcome diagram"
+    }
+  },
+  {
+    "baslik": "Klasik Olasılık Tanımı ve Sınırları",
+    "altbaslik": "0 <= P(E) <= 1",
+    "icerik": "Formül: P(E) = (İstenen Olayın Eleman Sayısı) / (Tüm Örnek Uzayın Eleman Sayısı) = n(E) / n(S)\nKurallar:\n- Olasılık daima 0 ile 1 arasındadır (0 <= P <= 1 veya %0 ile %100 arası).\n- Bir olayın gerçekleşme olasılığı P(E) ise, gerçekleşmeme olasılığı P(E') = 1 - P(E)'dir.",
+    "gorsel": {
+      "type": "image",
+      "query": "probability formula 0 to 1 scale mathematics"
+    }
+  },
+  {
+    "baslik": "Ayrık Olaylar (Mutually Exclusive)",
+    "altbaslik": "Aynı Anda Gerçekleşemeyen Durumlar",
+    "icerik": "Tanım: Ortak elemanı olmayan olaylardır (A n B = bos kume).\nAyrık Olaylarda VEYA Olasılığı:\nP(A veya B) = P(A) + P(B)\nÖrnek: Bir paketin TCP olma olasılığı 0.6, UDP olma olasılığı 0.3 ise, TCP veya UDP olma olasılığı = 0.6 + 0.3 = 0.9'dur.",
+    "gorsel": {
+      "type": "image",
+      "query": "mutually exclusive events venn diagram probability"
+    }
+  },
+  {
+    "baslik": "Bağımsız Olaylar (Independent Events)",
+    "altbaslik": "Birbirinin Sonucunu Etkilemeyen Olaylar",
+    "icerik": "Tanım: Bir olayın gerçekleşmesi diğerinin olasılığını değiştirmiyorsa bağımsızdır.\nBağımsız Olaylarda VE Olasılığı (Çarpım Kuralı):\nP(A ve B) = P(A) * P(B)\nÖrnek: İki farklı veri merkezindeki sunucuların çökme olasılıkları 0.01 ve 0.02 ise, ikisinin aynı anda çökme olasılığı = 0.01 x 0.02 = 0.0002 (%0.02).",
+    "gorsel": {
+      "type": "image",
+      "query": "independent events multiplication rule probability"
+    }
+  },
+  {
+    "baslik": "Ayrık Olmayan Olaylarda Toplama Kuralı",
+    "altbaslik": "P(A u B) = P(A) + P(B) - P(A n B)",
+    "icerik": "Kural: Olayların ortak kesişimi varsa kesişim olasılığı bir kez çıkarılır.\nÖrnek: Bir paketin dış IP'den gelme olasılığı 0.40, şifreli olma olasılığı 0.50, hem dış hem şifreli olma olasılığı 0.20 ise;\nDış IP veya Şifreli olma olasılığı = 0.40 + 0.50 - 0.20 = 0.70 (%70).",
+    "gorsel": {
+      "type": "image",
+      "query": "addition rule non mutually exclusive probability"
+    }
+  },
+  {
+    "baslik": "Tümleyen Olay Mantığı: 'En Az Bir'",
+    "altbaslik": "P(En Az Bir) = 1 - P(Hiçbiri)",
+    "icerik": "Çok güçlü bir olasılık stratejisidir:\n'En az bir sunucunun ayakta kalma olasılığı' sorulduğunda;\n1. Tüm sunucuların aynı anda çökme olasılığı bulunur: P(Tümü Çöktü)\n2. 1'den çıkarılır: P(Ayakta) = 1 - P(Tümü Çöktü)\nBu yöntem yüksek erişilebilirlik (HA) hesaplarında esastır.",
+    "gorsel": {
+      "type": "image",
+      "query": "complement rule at least one probability"
+    }
+  },
+  {
+    "baslik": "Koşullu Olasılık Fikri (Bayes Sezgisi)",
+    "altbaslik": "P(A | B) - B Bilindiğinde A'nın Olasılığı",
+    "icerik": "Tanım: B olayının gerçekleştiği bilindiğinde A'nın olma olasılığıdır.\nFormül: P(A | B) = P(A n B) / P(B)\nSpam Filtresi Örneği:\nBir e-postada 'Banka' kelimesi geçiyorsa (B), bu postanın oltalama (phishing) olma olasılığı (A) genel e-postalara göre çok daha yüksektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "conditional probability bayes theorem machine learning"
+    }
+  },
+  {
+    "baslik": "Risk Skoru Formülü",
+    "altbaslik": "Risk = Olasılık x Etki",
+    "icerik": "Siber güvenlik risk değerlendirme standardı (ISO 27001):\nRisk = Tehdidin Gerçekleşme Olasılığı (P) x Tehdidin Sisteme Etkisi (I)\n- Yüksek Olasılık (0.8) x Düşük Etki (2) = Risk 1.6\n- Düşük Olasılık (0.05) x Kritik Etki (100) = Risk 5.0 (Daha öncelikli!).",
+    "gorsel": {
+      "type": "image",
+      "query": "risk matrix probability impact severity cybersecurity"
+    }
+  },
+  {
+    "baslik": "Yedeklilik ve Güvenilirlik Hesabı",
+    "altbaslik": "Paralel Sistem Güvenilirliği",
+    "icerik": "İki özdeş yedekli bileşen için (Bileşen arıza olasılığı = q):\n- Sistemin Tamamen Çökme Olasılığı = q * q = q^2\n- Sistemin Çalışma Güvenilirliği R = 1 - q^2\nÖrnek: q = 0.05 (%5 arıza) ise sistem çökmesi = 0.05^2 = 0.0025 (%0.25). Güvenilirlik %99.75'e yükselir.",
+    "gorsel": {
+      "type": "image",
+      "query": "redundancy reliability parallel systems formula"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Basit Ağ Paketi Olasılığı",
+    "altbaslik": "Seviye: Başlangıç (n(E)/n(S))",
+    "icerik": "Soru: Bir ağ arayüzünden geçen 200 paketten 30 tanesi ICMP (Ping) paketidir. Rastgele seçilen bir paketin ICMP olma olasılığı nedir?\nİşlem: P(ICMP) = 30 / 200\nSadeleştirme: 3 / 20 = 0.15 (%15).",
+    "gorsel": {
+      "type": "image",
+      "query": "network packets sampling probability calculation"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Tümleyen Olay (Ters Olasılık)",
+    "altbaslik": "Seviye: Kolay (P(E'))",
+    "icerik": "Soru: Bir antivirüs motorunun bilinmeyen bir zararlı yazılımı tespit etme olasılığı 0.94'tür (%94). Bu antivirüsün zararlıyı kaçırma (tespit edememe) olasılığı kaçtır?\nÇözüm: P(Kaçırma) = 1 - P(Tespit) = 1 - 0.94 = 0.06 (%6).",
+    "gorsel": {
+      "type": "image",
+      "query": "antivirus malware detection probability rate"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 3: İki Bağımsız Güvenlik Katmanı",
+    "altbaslik": "Seviye: Orta (Çarpım Kuralı)",
+    "icerik": "Soru: Bir saldırganın Şirket Güvenlik Duvarını aşma olasılığı 0.10 (%10), EDR antivirüsü aşma olasılığı ise 0.05 (%5)'tir. Bu iki sistem bağımsız çalıştığına göre, saldırganın her iki katmanı birden aşarak sunucuya sızma olasılığı nedir?\nİşlem: P(Sızma) = 0.10 x 0.05 = 0.005 (%0.5 - Binde 5).",
+    "gorsel": {
+      "type": "image",
+      "query": "defense in depth layers probability bypass"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 4: Yedekli Sunucularda 'En Az Biri'",
+    "altbaslik": "Seviye: Orta (Tümleyen ile Yüksek Erişilebilirlik)",
+    "icerik": "Soru: 3 adet yedekli web sunucusu vardır. Her bir sunucunun gün içinde çökme olasılığı 0.20'dir. Gün içinde EN AZ BİR sunucunun çalışır durumda kalma olasılığı nedir?\nAdım 1: 3 sunucunun da aynı anda çökme olasılığı = 0.20 x 0.20 x 0.20 = 0.008\nAdım 2: En az biri ayakta = 1 - 0.008 = 0.992 (%99.2).",
+    "gorsel": {
+      "type": "image",
+      "query": "high availability server cluster reliability"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 5: Şifreli ve Şüpheli Paket Analizi",
+    "altbaslik": "Seviye: Orta-İleri (Ayrık Olmayan Toplama)",
+    "icerik": "Soru: 1000 paketlik örneklemde;\n- 400 paket şifresiz (HTTP)\n- 300 paket dış ülkeden gelen trafik\n- 100 paket hem şifresiz hem dış ülke trafiğidir.\nRastgele seçilen bir paketin Şifresiz VEYA Dış Ülke trafiği olma olasılığı nedir?\nİşlem: P(A u B) = (400/1000) + (300/1000) - (100/1000) = 600 / 1000 = 0.60 (%60).",
+    "gorsel": {
+      "type": "image",
+      "query": "traffic packet analysis venn probability"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 6: Spam Filtresi Yanlış Pozitif (False Positive)",
+    "altbaslik": "Seviye: İleri (Hata Olasılıkları)",
+    "icerik": "Soru: Bir e-posta ağında gelen postaların %80'i normal, %20'si spamdir. Filtre normal postaların %2'sini yanlışlıkla spam olarak işaretlemektedir. Gelen rastgele bir normal e-postanın spam kutusuna düşme olasılığı nedir?\nİşlem: P(Normal VE Hatalı Engelleme) = 0.80 x 0.02 = 0.016 (%1.6).",
+    "gorsel": {
+      "type": "image",
+      "query": "false positive spam detection rate diagram"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 7: Güvenlik Riski Karşılaştırma",
+    "altbaslik": "Seviye: İleri (Risk Skoru)",
+    "icerik": "Soru: Tehdit A: Olasılık = 0.40, Etki = 50.000 TL.\nTehdit B: Olasılık = 0.05, Etki = 600.000 TL.\nHangi tehdit şirkete daha büyük beklenen mali risk oluşturur?\n- Beklenen Kayıp A = 0.40 x 50.000 = 20.000 TL\n- Beklenen Kayıp B = 0.05 x 600.000 = 30.000 TL\nTehdit B'nin olasılığı düşük olmasına rağmen beklenen riski daha yüksektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cyber risk quantitative monetary assessment"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (1)",
+    "altbaslik": "Olasılık Kurallarını Karıştırmak",
+    "icerik": "1. Olasılığı 1'den büyük veya negatif bulup fark etmemek (Olasılık daima [0, 1] aralığındadır).\n2. Bağımsız olaylarda olasılıkları toplamak (Bağımsız olaylarda VE durumu ÇARPILIR, toplanmaz!).\n3. Kesişimi olan olayları toplarken kesişimi çıkarmayı unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "probability common mistakes warning sign"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar ve Uyarılar (2)",
+    "altbaslik": "Yedeklilik Yanılgısı",
+    "icerik": "1. İki sunucu varsa arıza olasılığı yarıya iner sanmak (Bağımsız iseler arıza olasılıkları çarpılarak katlanarak azalır: 0.1 -> 0.01).\n2. Bağımlı olayları bağımsız kabul etmek (Örn: İki sunucu aynı elektrik hattına bağlıysa arızaları bağımsız DEĞİLDİR!).",
+    "gorsel": {
+      "type": "image",
+      "query": "system dependency common failure point caution"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Bulut Veri Merkezi Çöküşü",
+    "altbaslik": "Yedeklilik ve Gerçek Hayat Olasılıkları",
+    "icerik": "Olay: Bir kurum iki farklı veri merkezinde çalışan yedekli mimariye sahipti. Her merkezin yıllık çökme olasılığı 0.01 idi.\nKurum yöneticisi ikisinin aynı anda çökme olasılığını 0.01 x 0.01 = 0.0001 (On binde bir) hesaplamıştı.\nAncak her iki merkez aynı DNS sağlayıcısını kullanıyordu. DNS çökünce iki merkez de erişilemez oldu.\nHata: Ortak bağımlılık (Single Point of Failure) olasılıkları bağımsız olmaktan çıkarmıştır.",
+    "gorsel": {
+      "type": "image",
+      "query": "cloud outage single point of failure dns incident"
+    }
+  },
+  {
+    "baslik": "Vaka Çözüm Planı ve İyileştirme",
+    "altbaslik": "Tam Bağımsız Altyapı Mimarisi",
+    "icerik": "Alınan Önlemler:\n1. DNS sağlayıcılarının da ikincil ve yedekli olarak farklı operatörlerden alınması.\n2. Matematiksel modelin koşullu olasılık P(A | Ortak Hata) şeklinde revize edilmesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "redundant multi-cloud architecture diagram"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Basit Olasılık",
+    "icerik": "Soru: 500 ağ isteğinden 25'i DDoS saldırısı içeriyorsa, rastgele bir isteğin DDoS olma olasılığı nedir?\nA) 0.02\nB) 0.05\nC) 0.25\nD) 0.50\n\nDoğru Cevap: B (25 / 500 = 5 / 100 = 0.05)",
+    "gorsel": {
+      "type": "image",
+      "query": "probability question quiz classroom"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "Ters Olasılık",
+    "icerik": "Soru: Bir diskin 1 yıl içinde bozulma olasılığı 0.08 ise, bozulmama (sağlam kalma) olasılığı nedir?\nA) 0.08\nB) 0.80\nC) 0.92\nD) 0.98\n\nDoğru Cevap: C (1 - 0.08 = 0.92)",
+    "gorsel": {
+      "type": "image",
+      "query": "hard drive failure probability test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Bağımsız Olay",
+    "icerik": "Soru: A sunucusunun çökme olasılığı 0.1, B sunucusunun çökme olasılığı 0.2'dir. İkisinin aynı anda çökme olasılığı nedir?\nA) 0.30\nB) 0.02\nC) 0.15\nD) 0.002\n\nDoğru Cevap: B (0.1 x 0.2 = 0.02)",
+    "gorsel": {
+      "type": "image",
+      "query": "server downtime independent events test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Olasılık Değer Sınırı",
+    "icerik": "Soru: Aşağıdakilerden hangisi bir olayın olasılığı OLAMAZ?\nA) 0\nB) 0.45\nC) 1.0\nD) 1.25\n\nDoğru Cevap: D (Olasılık 1'den büyük olamaz)",
+    "gorsel": {
+      "type": "image",
+      "query": "probability scale bounds question"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Olasılık 0 (İmkansız) ile 1 (Kesin) arasında değer alır.\n- P(A') = 1 - P(A) kuralı ters olasılık ve 'en az bir' problemlerinde en hızlı çözümdür.\n- Bağımsız olaylarda VE olasılığı çarpılarak bulunur.\n- Siber güvenlik risk analizi 'Olasılık x Etki' modeline dayanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary probability risk assessment cybersecurity"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 11: Temel İstatistik (Ortalama, Medyan, Mod)",
+    "icerik": "Gelecek Konular:\n- Merkezi Eğilim Ölçüleri: Aritmetik Ortalama, Medyan (Ortanca), Mod (Tepe Değer)\n- Log ve Yanıt Süreleri Analizi\n- Anomali ve Aykırı Değer (Outlier) Tespiti\n- Dağılım Sezgisi.",
+    "gorsel": {
+      "type": "image",
+      "query": "statistics mean median mode data analytics"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Terk Etmeden Önce",
+    "icerik": "Günün Sorusu:\n'Bir güvenlik duvarı cihazının güç kaynağı arıza olasılığı %4'tür. Cihaza yedekli ikinci bir bağımsız güç kaynağı takılmıştır. Sistemin elektriksiz kalması için her iki kaynağın da arızalanması gerektiğine göre, sistemin elektriksiz kalma olasılığı yüzde kaçtır?'\n\nİşlemlerinizi yazıp kağıdı teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "dual redundant power supply server exit ticket"
+    }
+  }
+]

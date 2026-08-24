@@ -1,0 +1,344 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 9",
+    "altbaslik": "Çoklu Karar Yapıları: if-else if-else Merdiveni",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Çok Durumlu Karar Mekanizmaları\nHaftalık Odak: Çoklu Şart Zinciri, Sayısal Aralık Kontrolü, Şart Sıralama Kuralları\nHedef: 3 veya daha fazla duruma sahip karmaşık iş kurallarını kodlamak.",
+    "gorsel": {
+      "type": "image",
+      "query": "staircase steps decision tree branches software"
+    }
+  },
+  {
+    "baslik": "Neden else if Merdiveni Kullanırız?",
+    "altbaslik": "Sektörel Bağlam: Çok Seçenekli Dünyayı Yönetmek",
+    "icerik": "Hayat sadece 2 seçenekten ibaret değildir:\n- Üniversitede notlar: AA, BA, BB, CB, CC, DC, DD, FF (8 durum)\n- Otopark tarifeleri: 1 saat, 3 saat, 8 saat, tam gün\n- Müşteri sadakat kartı: Bronz, Gümüş, Altın, Platin\nBu çoklu durumları birbirini dışlayacak şekilde sıralamak için merdiven yapısı kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple options tiers loyalty levels parking rates"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Bağımsız if blokları yerine neden else if kullanılması gerektiğini açıklar.\n2. if-else if-else merdiveninin yukarıdan aşağıya çalışma mantığını kavrar.\n3. Sayısal aralıkları (&& ile) çakışma olmadan modeller.\n4. Sıralama hatası (Ordering Error) tuzağını fark eder ve çözer.\n5. 'Akıllı Otopark Ücret Otomasyonu' projesini başarıyla tamamlar.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning goals flowchart decision making steps"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: AVM Yürüyen Merdivenleri",
+    "altbaslik": "Merdiven Mantığını Zihinde Canlandırmak",
+    "icerik": "Bir AVM'de yürüyen merdivenden yukarı çıkıyorsunuz:\n- 1. Kat aradığınız yer mi? (Koşul 1) -> Evet ise inersiniz, üst katlara bakmazsınız!\n- Değilse -> 2. Kata çıkarsınız (else if 2).\n- Hiçbir kat uymadıysa -> En son terasa (else bloğuna) çıkarsınız.\n- Kural: Doğru olan ilk katta işlem biter, kalan basamaklar atlanır!",
+    "gorsel": {
+      "type": "image",
+      "query": "escalator shopping mall levels floors steps"
+    }
+  },
+  {
+    "baslik": "Merdiven Yapısının Temel Sentaksı",
+    "altbaslik": "C# Şablonu",
+    "icerik": "if (kosul1)\n{\n    // 1. Koşul DOĞRU ise çalışır ve merdivenden çıkılır.\n}\nelse if (kosul2)\n{\n    // 1. Yanlış VE 2. Doğru ise çalışır.\n}\nelse if (kosul3)\n{\n    // İlk ikisi Yanlış VE 3. Doğru ise çalışır.\n}\nelse\n{\n    // Yukarıdaki HİÇBİR şart tutmazsa (Varsayılan) çalışır.\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code if else if syntax flowchart"
+    }
+  },
+  {
+    "baslik": "Sayısal Aralıkları Belirlemek (&& Kullanımı)",
+    "altbaslik": "İki Sınır Arasındaki Sayıları Yakalamak",
+    "icerik": "Matematikteki '80 <= not < 90' ifadesi C# dilinde şöyle yazılır:\n\nif (not >= 80 && not < 90)\n{\n    lblHarf.Text = \"BB\";\n}\n\nHer iki sınırın arasına mutlaka '&&' (Mantıksal VE) konulmalıdır.",
+    "gorsel": {
+      "type": "image",
+      "query": "number line range interval mathematical inequality"
+    }
+  },
+  {
+    "baslik": "Büyük Tuzak: Sıralama Hatası (Ordering Error)",
+    "altbaslik": "En Dar Koşulu En Üste Yazmak Şarttır!",
+    "icerik": "Tahtadaki hatalı koda bakın:\n\nint puan = 95;\nif (puan >= 50) { lblNot.Text = \"Geçti\"; }\nelse if (puan >= 90) { lblNot.Text = \"AA\"; } // ASLA ÇALIŞMAZ!\n\nNeden? 95 sayısı ilk kapıdan (>=50) içeri dalar ve C# alttaki AA kontrolüne hiç bakmaz.\nAltın Kural: Şartlar her zaman en dar/en yüksek değerden başlayarak dizilmelidir!",
+    "gorsel": {
+      "type": "image",
+      "query": "ordering error logic bug hierarchy flowchart"
+    }
+  },
+  {
+    "baslik": "Sayı Sınıflandırma: Pozitif, Negatif, Sıfır",
+    "altbaslik": "3 Durumlu Karar Örneği",
+    "icerik": "int sayi = Convert.ToInt32(txtSayi.Text);\n\nif (sayi > 0)\n{\n    lblSonuc.Text = \"Sayı Pozitiftir (+)\";\n}\nelse if (sayi < 0)\n{\n    lblSonuc.Text = \"Sayı Negatiftir (-)\";\n}\nelse\n{\n    lblSonuc.Text = \"Sayı Sıfırdır (0)\";\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "positive negative zero number classification math"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: Akıllı Otopark Otomasyonu",
+    "altbaslik": "Senaryo ve Belediye Tarifesi",
+    "icerik": "Senaryo: Şehirlerarası otoparkta gişe görevlisinin kullandığı ücret hesaplama sistemi.\n- Giriş: Aracın kaldığı süre (Saat).\n- Belediye Tarifesi:\n  * 0 - 1 Saat: 40 TL (Kısa Park)\n  * 2 - 4 Saat: 90 TL (Standart Park)\n  * 5 - 8 Saat: 160 TL (Uzun Park)\n  * 8+ Saat: 160 TL + Fazla her saat için 25 TL\n  * Negatif/0: Geçersiz Süre Uyarısı!",
+    "gorsel": {
+      "type": "image",
+      "query": "parking barrier gate ticket automated system"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi",
+    "icerik": "Girdi: txtSaat (Otoparkta Kalınan Saat)\nButon: btnHesapla ('🅿️ Ücreti Hesapla')\nÇıktılar:\n- lblTarife (Tarife Kategorisi Adı)\n- lblUcret (Ödenecek Toplam Tutar - 16pt Yeşil)",
+    "gorsel": {
+      "type": "image",
+      "query": "parking checkout user interface ticket machine"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Tam Çözüm)",
+    "altbaslik": "Otopark Ücret Merdiveni",
+    "icerik": "private void btnHesapla_Click(object sender, EventArgs e)\n{\n    try\n    {\n        double saat = Convert.ToDouble(txtSaat.Text);\n        double ucret = 0;\n        string tarifeAdi = \"\";\n\n        if (saat <= 0)\n        {\n            MessageBox.Show(\"Lütfen 0'dan büyük bir süre giriniz!\");\n            return;\n        }\n        else if (saat <= 1)\n        {\n            ucret = 40; tarifeAdi = \"Kısa Süreli Park\";\n        }\n        else if (saat <= 4)\n        {\n            ucret = 90; tarifeAdi = \"Standart Park\";\n        }\n        else if (saat <= 8)\n        {\n            ucret = 160; tarifeAdi = \"Uzun Süreli Park\";\n        }\n        else\n        {\n            double fazla = saat - 8;\n            ucret = 160 + (fazla * 25);\n            tarifeAdi = \"Gün Boyu Park (Ek Saatli)\";\n        }\n        lblTarife.Text = \"Tarife: \" + tarifeAdi;\n        lblUcret.Text = \"Ödenecek: \" + ucret.ToString(\"0.00\") + \" TL\";\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli bir saat giriniz!\"); }\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code parking calculation if else if ladder"
+    }
+  },
+  {
+    "baslik": "return Komutu Nedir?",
+    "altbaslik": "Metottan Acil Çıkış Kapısı",
+    "icerik": "Kodumuzun başındaki 'return;' komutu:\n- Hatalı bir durum tespit edildiğinde (Örn: saat <= 0) uyarı verir ve alt satırlardaki hesaplamaları hiç çalıştırmadan metottan hemen çıkar.\n- Bu teknik kodun gereksiz yere hata vermesini önler.",
+    "gorsel": {
+      "type": "image",
+      "query": "emergency exit sign return early programming concept"
+    }
+  },
+  {
+    "baslik": "Aralık Çakışması Hatası (Overlap Error)",
+    "altbaslik": "Aralıkları Net Tanımlamak",
+    "icerik": "Eğer aralıklar şöyle yazılırsa:\n- not >= 80 (BB)\n- not >= 70 (CB)\nSıralama doğruysa C# yukarıdan yakalar. Ancak aralıkların sınırlarını açıkça belirtmek (not >= 80 && not < 90) kodu çok daha güvenli ve hatasız kılar.",
+    "gorsel": {
+      "type": "image",
+      "query": "venn diagram overlap sets logic mathematics"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Ticaret Kargo Kampanyası",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Sepet tutarına göre kargo ücreti:\n- Sepet < 500 TL -> Kargo 50 TL\n- 500 - 1000 TL arası -> Kargo 25 TL (%50 İndirimli)\n- 1000 TL ve üzeri -> KARGO ÜCRETSİZ! (0 TL)\nBu kampanya kuralı doğrudan else if merdiveni ile kodlanır.",
+    "gorsel": {
+      "type": "image",
+      "query": "free shipping badge ecommerce shopping cart"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Merdiven Akışı",
+    "icerik": "Soru: Bir if-else if merdiveninde 2. koşul doğruysa C# ne yapar?\n\nA) 2. bloğu çalıştırır ve 3., 4. koşulları da kontrol eder.\nB) 2. bloğu çalıştırır ve merdivenden tamamen çıkar (alttakileri atlar).\nC) Tüm blokları aynı anda çalıştırır.\nD) Hata verir.\n\nDoğru Cevap: B (İlk doğru koşul çalıştığında kalan tüm else if blokları atlanır).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz question logic examination test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "else Bloğunun Rolü",
+    "icerik": "Soru: else if merdiveninin en sonundaki 'else' bloğu ne zaman çalışır?\n\nA) Her zaman çalışır.\nB) Hiçbir zaman çalışmaz.\nC) Yukarıdaki hiçbir koşul sağlanmadığında çalışır.\nD) Sadece ilk koşul doğruysa çalışır.\n\nDoğru Cevap: C (else bloğu yukarıdaki hiçbir şart eşleşmediğinde devreye giren varsayılan durumdur).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam correct answer question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "return Komutu",
+    "icerik": "Soru: Bir event handler metodu içinde 'return;' komutu çağrıldığında ne olur?\n\nA) Form anında kapanır.\nB) O anki metot derhal sonlanır ve alt satırlar çalıştırılmaz.\nC) Program çöker.\nD) Bilgisayar kilitlenir.\n\nDoğru Cevap: B (return komutu o an çalışmakta olan metottan hemen çıkılmasını sağlar).",
+    "gorsel": {
+      "type": "image",
+      "query": "exit return code execution quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Hava Durumu Öneri Motoru",
+    "icerik": "Görev:\n- Sıcaklık (°C) kutusunu okuyun.\n- < 0 ise: 'Don Tehlikesi! Kalın giyinin.'\n- 0 - 15 arası ise: 'Hava serin, mont alın.'\n- 16 - 25 arası ise: 'Hava ılık ve güzel.'\n- > 25 ise: 'Hava sıcak, bol su için!'",
+    "gorsel": {
+      "type": "image",
+      "query": "weather forecast temperature thermometer icons"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- Ladder (Merdiven): Birbirini izleyen sıralı çoklu şart blokları.\n- Mutually Exclusive: Birbirini dışlayan (aynı anda gerçekleşemeyen) durumlar.\n- Boundary Testing: Sınır değerlerinin (örn: 0, 50, 100) ayrı ayrı test edilmesi.\n- return: Metot yürütmesini erken durdurma anahtar kelimesi.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Çoklu karar durumlarında if-else if merdiveninin gücünü gördük.\n- && ile aralık kontrollerini ve doğru sıralama kuralını kavradık.\n- return komutuyla erken çıkış stratejisini uyguladık.\n- Akıllı Otopark Otomasyonu ile tam çalışan bir tarife motoru geliştirdik.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap knowledge learning complete"
+    }
+  },
+  {
+    "baslik": "Not Baremi Harf Sistemi Analizi",
+    "altbaslik": "Üniversite Harf Notu Motoru",
+    "icerik": "Ağırlıklı ortalamaya göre:\n- >= 90 : AA (Mükemmel)\n- >= 80 : BA (Çok İyi)\n- >= 70 : BB (İyi)\n- >= 60 : CB (Orta)\n- >= 50 : CC (Geçer)\n- < 50  : FF (Kaldı)\nBu barem klasik merdiven yapısının en saf örneğidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "grade letters university transcript AA BA BB CC FF"
+    }
+  },
+  {
+    "baslik": "Sayısal Aralık Kontrolünde Yaygın Tuzak",
+    "altbaslik": "Tek Taraflı Kontrol vs Çift Taraflı",
+    "icerik": "Eğer else if sıralaması yukarıdan aşağıya doğruysa (90, 80, 70...):\n'else if (not >= 80)' yazmak yeterlidir; çünkü 90 ve üzeri zaten ilk if tarafından yakalanmıştır!\nBu C#'ın sıralı çalışma garantisidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "logical deduction step by step ladder reasoning"
+    }
+  },
+  {
+    "baslik": "Beden Kitle İndeksi (BKİ) Sınıflandırması",
+    "altbaslik": "Sağlık Bakanlığı Ölçeği",
+    "icerik": "- BKİ < 18.5 -> Zayıf\n- 18.5 - 24.9 -> Normal Kilo\n- 25.0 - 29.9 -> Fazla Kilolu\n- 30.0 ve üzeri -> Obez\nelse if merdiveni sağlık ve diyetisyen yazılımlarının temelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "body mass index chart health fitness"
+    }
+  },
+  {
+    "baslik": "Performans İncelemesi: Merdiven Uzunluğu",
+    "altbaslik": "Kaç Şart Kontrol Edilmeli?",
+    "icerik": "Bir if-else if merdiveninde 20'den fazla basamak varsa kod okunabilirliği bozulur (Spaghetti Code).\n- Böyle durumlarda switch-case veya sözlük (Dictionary) yapıları tercih edilir.\n- 3-8 durum arası için merdiven yapısı en ideal çözümdür.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code refactoring spaghetti code vs structured"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Banka Kredi Faiz Oranları",
+    "altbaslik": "Kredi Notuna Göre Faiz",
+    "icerik": "- Kredi Skoru >= 1800 -> %1.99 Faiz (VIP Müşteri)\n- Kredi Skoru >= 1500 -> %2.49 Faiz\n- Kredi Skoru >= 1100 -> %3.19 Faiz\n- Kredi Skoru < 1100 -> Kredi Başvurusu Reddedildi!\nBankacılık risk analizleri merdiven mimarisiyle çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "credit score rating financial bank loan interest"
+    }
+  },
+  {
+    "baslik": "Kullanıcı Arayüzü: Duruma Göre Renkli Etiket",
+    "altbaslik": "Görsel Geri Bildirimi Güçlendirmek",
+    "icerik": "Harf notuna göre etiketin rengini değiştirebilirsiniz:\nif (harf == \"AA\") lblSonuc.ForeColor = Color.DarkGreen;\nelse if (harf == \"FF\") lblSonuc.ForeColor = Color.Red;\nelse lblSonuc.ForeColor = Color.DarkBlue;\nBu görsel ipuçları kullanıcı deneyimini zenginleştirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "color coding success error warning badges"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Aralık Mantığı",
+    "icerik": "Soru: 0 ile 100 arasında olması gereken bir sınav notunun sınır dışı olduğunu hangi şart yakalar?\n\nA) not < 0 && not > 100\nB) not < 0 || not > 100\nC) not == 0 && not == 100\nD) not >= 0 || not <= 100\n\nDoğru Cevap: B (Bir sayı aynı anda hem 0'dan küçük hem 100'den büyük olamaz; VEYA || kullanılmalıdır).",
+    "gorsel": {
+      "type": "image",
+      "query": "logic quiz boolean OR condition boundary"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir sinemada Yaş < 12 ise Çocuk (50 TL), 12-65 arası Tam (100 TL), > 65 ise Emekli (70 TL) tarifesini kodlayan else if şablonunu yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Not Baremi Harf Sistemi Analizi",
+    "altbaslik": "Üniversite Harf Notu Motoru",
+    "icerik": "Ağırlıklı ortalamaya göre:\n- >= 90 : AA (Mükemmel)\n- >= 80 : BA (Çok İyi)\n- >= 70 : BB (İyi)\n- >= 60 : CB (Orta)\n- >= 50 : CC (Geçer)\n- < 50  : FF (Kaldı)\nBu barem klasik merdiven yapısının en saf örneğidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "grade letters university transcript AA BA BB CC FF"
+    }
+  },
+  {
+    "baslik": "Sayısal Aralık Kontrolünde Yaygın Tuzak",
+    "altbaslik": "Tek Taraflı Kontrol vs Çift Taraflı",
+    "icerik": "Eğer else if sıralaması yukarıdan aşağıya doğruysa (90, 80, 70...):\n'else if (not >= 80)' yazmak yeterlidir; çünkü 90 ve üzeri zaten ilk if tarafından yakalanmıştır!\nBu C#'ın sıralı çalışma garantisidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "logical deduction step by step ladder reasoning"
+    }
+  },
+  {
+    "baslik": "Beden Kitle İndeksi (BKİ) Sınıflandırması",
+    "altbaslik": "Sağlık Bakanlığı Ölçeği",
+    "icerik": "- BKİ < 18.5 -> Zayıf\n- 18.5 - 24.9 -> Normal Kilo\n- 25.0 - 29.9 -> Fazla Kilolu\n- 30.0 ve üzeri -> Obez\nelse if merdiveni sağlık ve diyetisyen yazılımlarının temelidir.",
+    "gorsel": {
+      "type": "image",
+      "query": "body mass index chart health fitness"
+    }
+  },
+  {
+    "baslik": "Performans İncelemesi: Merdiven Uzunluğu",
+    "altbaslik": "Kaç Şart Kontrol Edilmeli?",
+    "icerik": "Bir if-else if merdiveninde 20'den fazla basamak varsa kod okunabilirliği bozulur (Spaghetti Code).\n- Böyle durumlarda switch-case veya sözlük (Dictionary) yapıları tercih edilir.\n- 3-8 durum arası için merdiven yapısı en ideal çözümdür.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code refactoring spaghetti code vs structured"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Banka Kredi Faiz Oranları",
+    "altbaslik": "Kredi Notuna Göre Faiz",
+    "icerik": "- Kredi Skoru >= 1800 -> %1.99 Faiz (VIP Müşteri)\n- Kredi Skoru >= 1500 -> %2.49 Faiz\n- Kredi Skoru >= 1100 -> %3.19 Faiz\n- Kredi Skoru < 1100 -> Kredi Başvurusu Reddedildi!\nBankacılık risk analizleri merdiven mimarisiyle çalışır.",
+    "gorsel": {
+      "type": "image",
+      "query": "credit score rating financial bank loan interest"
+    }
+  },
+  {
+    "baslik": "Kullanıcı Arayüzü: Duruma Göre Renkli Etiket",
+    "altbaslik": "Görsel Geri Bildirimi Güçlendirmek",
+    "icerik": "Harf notuna göre etiketin rengini değiştirebilirsiniz:\nif (harf == \"AA\") lblSonuc.ForeColor = Color.DarkGreen;\nelse if (harf == \"FF\") lblSonuc.ForeColor = Color.Red;\nelse lblSonuc.ForeColor = Color.DarkBlue;\nBu görsel ipuçları kullanıcı deneyimini zenginleştirir.",
+    "gorsel": {
+      "type": "image",
+      "query": "color coding success error warning badges"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 4",
+    "altbaslik": "Aralık Mantığı",
+    "icerik": "Soru: 0 ile 100 arasında olması gereken bir sınav notunun sınır dışı olduğunu hangi şart yakalar?\n\nA) not < 0 && not > 100\nB) not < 0 || not > 100\nC) not == 0 && not == 100\nD) not >= 0 || not <= 100\n\nDoğru Cevap: B (Bir sayı aynı anda hem 0'dan küçük hem 100'den büyük olamaz; VEYA || kullanılmalıdır).",
+    "gorsel": {
+      "type": "image",
+      "query": "logic quiz boolean OR condition boundary"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'Bir sinemada Yaş < 12 ise Çocuk (50 TL), 12-65 arası Tam (100 TL), > 65 ise Emekli (70 TL) tarifesini kodlayan else if şablonunu yazınız.'\n\nCevabınızı kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'0 ile 100 arasındaki bir not için: not >= 90 şartı mı en üste yazılmalıdır yoksa not >= 50 şartı mı? Neden?'\n\nCevabınızı 1 cümleyle kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket paper test classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 10: switch-case Yapısı ve Timer ile Durum Yönetimi",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- TV kumandası gibi çalışan hızlı switch-case yapısı.\n- break; anahtar kelimesinin zorunluluğu.\n- Ekranda hareket yaratan Timer (Zamanlayıcı) kontrolü.\n- Animasyonlu Akıllı Trafik Lambası projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "traffic lights timer animation preview next week"
+    }
+  }
+]

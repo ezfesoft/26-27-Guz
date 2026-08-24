@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sağlıkta Yapay Zeka - Hafta 12 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #10b981;
+            --accent-glow: #10b98140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>🏥</span>
+            <span>Sağlıkta Yapay Zeka</span>
+            <span class="badge-pill">Hafta 12</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 31 • Medikal YZ & Teşhis</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-11.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 31</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-13.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (31 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Algoritmik Yanlılık (Bias) ve YZ'nin Sınırları", "altbaslik": "Veri Temsiliyeti, Adillik ve Sağlıkta Eşitlik", "icerik": "- Kapsam: YZ modellerinin belirli demografik gruplarda (yaş, cinsiyet, sosyoekonomik durum) neden hatalı çalıştığı.\n- Algoritmik Yanlılık (Bias): Geçmişteki insan önyargılarının ve veri dengesizliklerinin koda yansıması.\n- Çözüm Arayışları: Alt grup analizleri (Subgroup analysis), Algoritmik Adillik (Fairness) metrikleri.\n- Mesleki Rol: Tıbbi veri teknikerinin veri temsil adaletini denetleme görevi.", "gorsel": {"type": "image", "query": "algorithmic bias fairness healthcare AI diversity ethics"}}, {"baslik": "Haftanın Öğrenme Çıktıları (Bologna / Bloom)", "altbaslik": "12. Hafta Hedefleri", "icerik": "- ÖÇ1: Sağlıkta algoritmik yanlılık türlerini (Temsil, Etiketleme, Ölçüm yanlılığı) açıklar.\n- ÖÇ2: Bir YZ modelinin farklı hasta alt gruplarındaki başarı farklarını hesaplar ve yorumlar.\n- ÖÇ3: 'Yapay zeka tamamen tarafsızdır' mitini somut kanıtlarla çürütür.\n- ÖÇ4: Yanlılığı azaltıcı veri dengeleme ve adillik denetim adımlarını planlar.", "gorsel": {"type": "image", "query": "learning objectives bias fairness ethics medical AI"}}, {"baslik": "Klinik Bağlam: YZ Tarafsız mıdır?", "altbaslik": "'Matematik Yalan Söylemez' Yanılgısı", "icerik": "- Yaygın İnanç: 'Bilgisayar duygusuzdur, ırk veya cinsiyet ayrımı yapmaz.'\n- Acı Gerçek: Bilgisayar insan tarafından toplanan ve etiketlenen geçmiş veriyi öğrenir!\n- Sağlık Verisi Mirası: Eğer geçmişte belirli hasta gruplarına daha az test yapıldıysa, YZ o grubu 'hastalık riski düşük' sanır.\n- Sonuç: Mevcut sağlık eşitsizliklerinin yapay zeka aracılığıyla katlanarak büyümesi.", "gorsel": {"type": "image", "query": "algorithmic bias concept scale balance healthcare disparity"}}, {"baslik": "Sağlıkta Başlıca Yanlılık (Bias) Türleri", "altbaslik": "Hata Nerede Başlıyor?", "icerik": "- 1. Temsil Yanlılığı (Representation Bias): Veri setinin %80'inin genç beyaz erkeklerden oluşması.\n- 2. Ölçüm Yanlılığı (Measurement Bias): Nabız oksimetresinin koyu tenli bireylerde kandaki oksijeni hatalı yüksek ölçmesi.\n- 3. Etiketleme Yanlılığı (Label Bias): Doktorların kadın hastaların ağrı şikayetlerini daha sık 'psikolojik' olarak etiketlemesi.\n- 4. Tarihsel Yanlılık (Historical Bias): Geçmiş sağlık politikalarının yarattığı sistemsel açıklar.", "gorsel": {"type": "image", "query": "types of bias in machine learning representation measurement label"}}, {"baslik": "Dünya Çapında Ünlü Vaka: Sağlık Harcaması Yanlılığı", "altbaslik": "Risk Skoru Hastalıkla mı, Harcamayla mı Ölçülür?", "icerik": "- Olay (2019 ABD): 200 milyon hastaya uygulanan ticari bir YZ algoritması, siyah hastaları beyaz hastalara göre daha 'sağlıklı' gösterdi.\n- Hata Kaynağı: Algoritma risk göstergesi olarak 'hastalık şiddetini' değil, 'yıllık sağlık harcamasını' tahmin ediyordu!\n- Sistemsel Sorun: Gelir adaletsizliği nedeniyle siyah hastalar hastaneye daha az para harcayabiliyordu.\n- Ders: Yanlış hedef değişken seçimi doğrudan ayrımcılık üretir!", "gorsel": {"type": "image", "query": "healthcare spending bias algorithm disparity racial gap"}}, {"baslik": "Dermatolojide Cilt Tipi Yanlılığı (Fitzpatrick Skalası)", "altbaslik": "Koyu Tenli Bireylerde Düşen Tanı Başarısı", "icerik": "- Açık Kaynak Veri Kümeleri: Tıbbi lezyon veri setlerinin %85'i Fitzpatrick Tip I ve II (Açık ten) görüntülerinden oluşur.\n- Sonuç: Model açık tende %95 başarı gösterirken, koyu tende (Tip V-VI) başarı %60'a düşmektedir.\n- Klinik Risk: Koyu tenli hastalarda melanomun geç evrede yakalanması ve ölüm oranının artması.\n- Çözüm: Çeşitlendirilmiş ve dengelenmiş eğitim veri havuzları oluşturmak.", "gorsel": {"type": "image", "query": "fitzpatrick skin phototypes dermatology AI fairness"}}, {"baslik": "Kardiyolojide Cinsiyet Yanlılığı (Gender Bias)", "altbaslik": "Kadınlarda Atlanan Kalp Krizleri", "icerik": "- Klinik Gerçek: Kalp krizi belirtileri erkeklerde klasik göğüs ağrısıyken, kadınlarda mide bulantısı, nefes darlığı ve sırt ağrısı olabilir.\n- Model Hatası: Çoğunlukla erkek verisiyle eğitilen YZ modelleri, kadınların atipik semptomlarını kalp krizi saymamaktadır.\n- Sonuç: Kadın hastalarda acil anjiyo kararlarının gecikmesi.\n- Önlem: Eğitim verisinde cinsiyet oranlarının ve semptom çeşitliliğinin eşitlenmesi.", "gorsel": {"type": "image", "query": "gender bias cardiology heart attack atypical symptoms female"}}, {"baslik": "Atölye: Alt Grup Analizi (Subgroup Performance Audit)", "altbaslik": "Farklı Demografilerde Modeli Test Etmek", "icerik": "- Senaryo: Kalp yetmezliği tahmin modeli genel test setinde %90 Doğruluk vermiştir.\n- Adım 1: Veriyi cinsiyete göre ikiye bölün (Erkek vs Kadın).\n- Adım 2: Metrikleri ayrı ayrı hesaplayın:\n  * Erkeklerde: %94 Duyarlılık, %91 Özgüllük\n  * Kadınlarda: %68 Duyarlılık, %72 Özgüllük!\n- Soru: Bu model hastanede kullanılabilir mi?\n- Karar: Hayır! Kadın hastalarda kabul edilemez düzeyde yetersizdir.", "gorsel": {"type": "image", "query": "subgroup analysis gender disparity confusion matrix comparison"}}, {"baslik": "Adillik (Fairness) Metrikleri Nelerdir?", "altbaslik": "Matematiksel Eşitlik Arayışı", "icerik": "- Demografik Eşitlik (Demographic Parity): Modelin pozitif karar oranının tüm alt gruplarda eşit olması.\n- Eşitlenmiş Fırsat (Equalized Odds): Modelin Duyarlılık ve Yanlış Pozitif oranlarının tüm gruplarda eşit olması.\n- Adillik-Doğruluk Dengesi: Adilliği artırmak bazen genel doğruluğu bir miktar düşürebilir; ancak klinik etik eşitliği önceler.", "gorsel": {"type": "image", "query": "fairness metrics machine learning demographic parity equalized odds"}}, {"baslik": "Açıklanabilir YZ (XAI) ve SHAP Değerleri", "altbaslik": "Her Özelliğin Karara Katkısını Ölçmek", "icerik": "- SHAP (SHapley Additive exPlanations): Oyun teorisine dayalı olarak her bir klinik değişkenin (yaş, tansiyon, gen) son kararı ne kadar pozitif veya negatif etkilediğini gösteren skor.\n- Adillik Denetimi: 'Model hastanın cinsiyetini veya ırkını kararda gizlice yüksek ağırlıklı mı kullanıyor?' sorusunun cevabı SHAP ile kanıtlanır.", "gorsel": {"type": "image", "query": "SHAP summary plot explainable AI feature importance medical"}}, {"baslik": "Tıbbi Veri Teknikerinin Adillik Kontrol Listesi", "altbaslik": "Sistemi Yayına Almadan Önce 4 Soru", "icerik": "- 1. Veri setinde yaş, cinsiyet ve bölge dağılımı toplumun gerçek oranlarını yansıtıyor mu?\n- 2. Modelin alt gruplardaki Yanlış Negatif oranları eşit mi?\n- 3. Veri toplamada dışlanan veya erişimi kısıtlı hasta grubu var mı?\n- 4. Model çıktısı bir grup için dezavantajlı klinik karara yol açıyor mu?", "gorsel": {"type": "image", "query": "ethical AI audit checklist health data science governance"}}, {"baslik": "Haftalık Özet: 12. Haftanın Ana Fikirleri", "altbaslik": "Akılda Kalması Gerekenler", "icerik": "- YZ modelleri tarafsız değildir; beslendikleri verinin toplumsal önyargılarını aynen yansıtır.\n- Genel doğruluk skoru yanıltıcıdır; alt grup analizleri yapılmadan klinik güvenlik sağlanamaz.\n- Temsil edilmeyen azınlıklar ve dezavantajlı gruplar YZ sistemlerinde en büyük mağduriyet riskini taşır.\n- Adillik ve açıklanabilirlik, tıbbi YZ'nin vazgeçilmez iki temel etik şartıdır.", "gorsel": {"type": "image", "query": "summary infographic algorithmic bias healthcare fairness"}}, {"baslik": "Ölçme-Değerlendirme: Kendinizi Sınayın (Soru 1-2)", "altbaslik": "Yanlılık ve Adillik Kontrolü", "icerik": "- Soru 1: Bir YZ modelinin genel başarısının yüksek olmasına rağmen 70 yaş üstü grupta çok sık yanlış karar üretmesine ne denir?\n  Cevap: Alt grup yanlılığı / Temsil eksikliği (Subgroup bias).\n- Soru 2: Bir lezyon tarama modelinin sadece açık tenli hastalardan toplanan verilerle eğitilmesinin yaratacağı temel risk nedir?\n  Cevap: Koyu tenli hastalarda lezyonların atlanması (Yüksek Yanlış Negatif oranı).", "gorsel": {"type": "image", "query": "quiz questions algorithmic bias fairness"}}, {"baslik": "Ölçme-Değerlendirme: Vaka İnceleme Sorusu", "altbaslik": "Etik Karar", "icerik": "- Senaryo: Bir hastane yapay zeka triyaj sisteminde erkek hastaların acil bekleme süresinin kadın hastalara göre %40 daha kısa olduğu tespit edilmiştir.\n- Soru: Tıbbi veri teknikeri bu adaletsizliğin kaynağını tespit etmek için ilk hangi analizi yapmalıdır?\n- Cevap: Şikayet bazlı etiketleme yanlılığı ve modelin cinsiyet değişkenine verdiği ağırlık (SHAP analizi) incelenmelidir.", "gorsel": {"type": "image", "query": "triage emergency room gender disparity algorithm"}}, {"baslik": "Çıkış Kartı: 12. Hafta Geri Bildirimi", "altbaslik": "Dersten Ayrılmadan Önce Yanıtlayınız", "icerik": "- 1. Sağlıkta 'matematiksel adillik' ile 'klinik güvenlik' arasındaki ilişkiyi tek cümleyle nasıl özetlersiniz?\n- 2. Kendi hastanenizde bir YZ sistemi kurulsa hangi alt grupları öncelikli denetlersiniz?\n- 3. Gelecek hafta konusu: Sektörden Bakış, HealthTech Girişimleri ve Mezuniyet Sonrası Kariyer.", "gorsel": {"type": "image", "query": "exit ticket student classroom reflection medical"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "13. Hafta: Sektörden Bakış ve Güncel Gelişmeler", "icerik": "- Konu: Sağlık teknolojisi girişimleri (Healthtech), iş ilanları ve aranan yetkinlikler.\n- Odak: Tıbbi veri teknikerinin kariyer yol haritası ve hastane satın alma kriterleri.\n- Hazırlık: Kariyer portallarında 'Sağlık Bilişimi / Tıbbi Veri' alanındaki iş ilanlarını inceleyiniz.", "gorsel": {"type": "image", "query": "healthtech careers medical informatics industry trends preview"}}, {"baslik": "Etiketleme Yanlılığı (Label Bias) ve Doktor Önyargıları", "altbaslik": "İnsan Hatalarının Modeli Zehirlemesi", "icerik": "- Sosyolojik Gerçek: Hekimler de insandır ve bilinçdışı önyargılara sahip olabilir.\n- Ağrı Eşiği Yanılgısı: Araştırmalar, acil serviste aynı şiddette karın ağrısı çeken kadın hastalara ağrı kesici verilme süresinin erkeklere göre 16 dakika daha uzun olduğunu göstermektedir.\n- YZ Sonucu: Geçmiş reçetelerle eğitilen model kadınların ağrısını 'düşük öncelikli' olarak etiketlemeyi öğrenir!", "gorsel": {"type": "image", "query": "label bias doctor subjectivity unconscious bias healthcare"}}, {"baslik": "Etnik Köken ve Genetik Çeşitlilik Eksikliği", "altbaslik": "Dünya Genomik Veritabanlarının %80'i Avrupa Kökenlidir!", "icerik": "- Küresel Sorun: Genomik veri bankalarındaki hastaların büyük çoğunluğu Kuzey Amerika ve Batı Avrupa kökenlidir.\n- Sonuç: Asya, Afrika ve Orta Doğu kökenli toplumlara özgü genetik varyasyonlar 'bilinmeyen mutasyon' veya 'zararsız' sanılarak atlanmaktadır.\n- Klinik Çözüm: Yerel genom projeleri (Ör. Türkiye Genom Projesi) ile kendi toplumumuzun genetik temsilini sağlamak.", "gorsel": {"type": "image", "query": "genomic diversity disparity world map ethnic representation"}}, {"baslik": "Yaş Yanlılığı (Ageism in AI): Geriatrik ve Pediatrik Dışlanma", "altbaslik": "Genç Yetişkinlerin Verisiyle Eğitilen Modeller", "icerik": "- Geriatrik Sorun: 80 yaş üstü hastalar genellikle çoklu kronik hastalığa (Multimorbidite) sahiptir ve klinik araştırmalardan dışlanırlar.\n- Model Yanılgısı: Sadece tek bir hastalığı olan genç hastalarla eğitilen YZ, yaşlı hastanın karmaşık ilaç tablosunda çöker.\n- Pediatrik Kriz: Çocukların organ boyutları ve fizyolojisi yetişkinlerin küçültülmüş hali değildir; özel modeller gerektirir.", "gorsel": {"type": "image", "query": "elderly patient multimorbidity geriatric pediatric AI bias"}}, {"baslik": "Cihaz ve Üretici Yanlılığı (Vendor / Scanner Bias)", "altbaslik": "X Marka MR'da Çalışan Model Y Marka MR'da Çöküyor!", "icerik": "- Sorun: Siemens marka MR cihazının kontrast ve piksel dağılımı ile GE veya Philips marka cihazınki farklıdır.\n- Model Ezberi: YZ lezyonu değil, Siemens cihazının kendine has piksel dokusunu ezberleyebilir.\n- Çözüm: Harmonizasyon (ComBat algoritması) ile farklı cihazlardan gelen görüntülerin renk ve kontrastının eşitlenmesi.", "gorsel": {"type": "image", "query": "mri scanner vendor differences siemens ge philips harmonization"}}, {"baslik": "Kestirme Yoldan Öğrenme (Shortcut Learning)", "altbaslik": "Modelin Tembellik Edip Yan İpuçlarına Sarılması", "icerik": "- Klasik Örnek: Kurt ve köpek ayrımı yapan bir yapay sinir ağının, köpeği değil arkadaki 'kar manzarasını' öğrenmesi!\n- Tıbbi Örnek: Yoğun bakım röntgenlerindeki 'Portatif' yazısını pnömoni belirtisi sanmak.\n- Tehlike: Test setinde harika puan alır; ancak kar olmayan ortamda veya ayakta çekilen filmde tamamen çuvallar.", "gorsel": {"type": "image", "query": "shortcut learning machine learning wolf snow background analogy"}}, {"baslik": "Açıklanabilir YZ (XAI): LIME ve SHAP Yöntemleri", "altbaslik": "Kararın Anatomisini Çıkarmak", "icerik": "- LIME (Local Interpretable Model-agnostic Explanations): Modelin belirli bir hasta için verdiği kararın etrafındaki veriyi hafifçe değiştirerek hangi özelliğin belirleyici olduğunu bulma.\n- SHAP: Her değişkenin (Glukoz, Yaş, Tansiyon) risk puanına kaç puan eklediğini veya düşürdüğünü gösterir.\n- Klinik Güven: Hekim 'Model bu kararı hastanın 80 yaşında olması ve troponinin yüksekliği nedeniyle verdi' açıklamasını görünce sisteme güvenir.", "gorsel": {"type": "image", "query": "LIME SHAP explainability local feature importance medical"}}, {"baslik": "Algoritmik Adillik İçin Ön İşleme Yöntemleri (Pre-processing)", "altbaslik": "Veriyi Eğitmeden Önce Düzeltmek", "icerik": "- 1. Yeniden Ağırlıklandırma (Reweighting): Azınlık gruptaki hatalara model eğitiminde daha yüksek ceza puanı vermek.\n- 2. Dengeli Örnekleme (Fair Resampling): Az temsil edilen kadın veya yaşlı hasta verilerini artırmak.\n- 3. Korunan Değişkenleri Maskeleme: Irk, din, sigorta türü gibi alanları eğitim veri setinden tamamen çıkarmak.", "gorsel": {"type": "image", "query": "fair pre-processing data reweighting machine learning balance"}}, {"baslik": "Algoritmik Adillik İçin İşlem Sırası Yöntemleri (In-processing)", "altbaslik": "Modelin Kayıp Fonksiyonuna Adillik Cezası Eklemek", "icerik": "- Kayıp Fonksiyonu (Loss Function): Model sadece hatayı minimize etmeye çalışmaz.\n- Yeni Amaç: Loss = Tahmin Hatası + Lambda * (Gruplar Arası Başarı Farkı).\n- Sonuç: Model eğitilirken gruplar arasındaki başarı farkını açarsa ceza puanı alarak adil olmaya zorlanır.", "gorsel": {"type": "image", "query": "fairness constrained optimization loss function mathematics"}}, {"baslik": "Algoritmik Adillik İçin Son İşleme Yöntemleri (Post-processing)", "altbaslik": "Eşik Değerlerini Gruplara Göre Ayarlamak", "icerik": "- Eşik Değeri Ayarı: Erkeklerde hastalık teşhis eşiği 0.50 iken, kadınlarda atipik semptomlar nedeniyle eşiği 0.35'e çekerek Duyarlılığı eşitlemek.\n- Tartışma: Farklı gruplara farklı eşik uygulamak adil midir? Klinik güvenlik açısından evet, fırsat eşitliğini sağlar.", "gorsel": {"type": "image", "query": "threshold adjustment equal opportunity fairness postprocessing"}}, {"baslik": "Dünya Sağlık Örgütü (WHO) Sağlıkta YZ Etik İlkeleri", "altbaslik": "6 Temel Küresel İlke", "icerik": "- 1. İnsan Özerkliğinin Korunması (Karar insanda kalmalı).\n- 2. İnsan Refahı ve Kamu Güvenliğinin Sağlanması.\n- 3. Şeffaflık, Açıklanabilirlik ve Anlaşılabilirlik.\n- 4. Sorumluluk ve Hesap Verebilirlik.\n- 5. Kapsayıcılık ve Adillik (Eşitsizlik yaratmama).\n- 6. Duyarlı ve Sürdürülebilir Olma.", "gorsel": {"type": "image", "query": "WHO ethics and governance of artificial intelligence for health 6 principles"}}, {"baslik": "Avrupa Birliği Yapay Zeka Yasası (EU AI Act) ve Sağlık", "altbaslik": "Yüksek Riskli (High-Risk) Sistemler", "icerik": "- Sınıflandırma: Sağlık ve tıbbi tanı yazılımları 'Yüksek Riskli YZ' kategorisindedir.\n- Zorunluluklar: Katı veri kalitesi denetimi, sürekli insan gözetimi, siber güvenlik dayanıklılığı ve CE uygunluk değerlendirmesi.\n- Cezalar: Kurallara uymayan şirketlere küresel cirolarının %7'sine kadar devasa para cezaları.", "gorsel": {"type": "image", "query": "EU AI Act high risk medical devices regulation compliance"}}, {"baslik": "Tıbbi Veri Teknikerinin Etik Denetim Rolü", "altbaslik": "Hastanede Adillik Komiserliği", "icerik": "- 1. Demografik Dağılım Kontrolü: Hastane veri havuzunun il/ilçe nüfus yapısıyla uyumunu raporlamak.\n- 2. Dışlanan Grup Tespiti: Hangi hasta gruplarının randevu alamadığı veya verisinin eksik kaldığını izlemek.\n- 3. Şikayet Yönetimi: YZ triyaj veya randevu önceliğinden şikayetçi olan hastaların vaka incelemesini yapmak.", "gorsel": {"type": "image", "query": "health information officer ethics audit committee hospital"}}, {"baslik": "Vaka Analizi: Cerrahi Robotik ve Cerrah Boyutu", "altbaslik": "Kadın Cerrahların Ergonomik Dışlanması", "icerik": "- Olay: Erken dönem cerrahi robot kollarının ve kontrol konsollarının ortalama erkek cerrah el ve boy ölçülerine göre tasarlanması.\n- Sonuç: Kadın cerrahların ameliyatlarda daha hızlı fiziksel yorgunluk yaşaması.\n- Çıkarım: Yanlılık sadece veride değil; sağlık donanım ve yazılım arayüz tasarımlarında da ortaya çıkabilir.", "gorsel": {"type": "image", "query": "robotic surgery da vinci console surgeon ergonomic"}}, {"baslik": "Geleceğin Vizyonu: Herkes İçin Adil Sağlık Yapay Zekası", "altbaslik": "Teknolojiyi Eşitleyici Bir Güç Yapmak", "icerik": "- Hedef: YZ'nin sağlık eşitsizliklerini artıran değil; en ücra köydeki hastaya en iyi profesörün teşhis kalitesini ulaştıran demokratik bir güç olması.\n- Bu Hedefe Ulaşmanın Yolu: Çeşitlendirilmiş veri, şeffaf algoritmalar ve etik bilinci yüksek sağlık veri teknikerleridir.", "gorsel": {"type": "image", "query": "equitable healthcare AI telemedicine rural global health"}}, {"baslik": "Haftanın Mesajı: 'Mükemmel Algoritma Yoktur, Dikkatli İnsan Vardır'", "altbaslik": "Etik Farkındalık Kapanışı", "icerik": "- Hiçbir YZ sistemine körü körüne güvenmeyiniz.\n- Her sonucun arkasındaki veri kaynağını, alt grup başarılarını ve olası yanlılıkları sorgulayınız.\n- Hasta hakkı ve adalet, her türlü teknik skordan üstündür.", "gorsel": {"type": "image", "query": "human compassion ethics medical technology balance"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Medikal YZ & Teşhis`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

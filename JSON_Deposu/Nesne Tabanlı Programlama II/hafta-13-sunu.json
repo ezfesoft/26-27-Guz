@@ -1,0 +1,272 @@
+[
+  {
+    "baslik": "NTP II: Hafta 13",
+    "altbaslik": "Postman ile Test ve Web Arayüzü ile API Entegrasyonu",
+    "icerik": "Program: Bilgisayar Programcılığı (Önlisans)\nDers: Nesne Tabanlı Programlama II\nEğitmen: Öğr. Gör. Süleyman EZDEMİR\nKurum: Giresun Üniversitesi\nHaftalık Odak: Postman Koleksiyonları, CORS Güvenliği (CORSMiddleware) ve JavaScript fetch() ile API Tüketimi\nUygulama Teması: Canlı Web Sayfasına FastAPI Kitaplarını Listeleme & Ekleme",
+    "gorsel": {
+      "type": "image",
+      "query": "postman api testing frontend backend integration javascript html"
+    }
+  },
+  {
+    "baslik": "Motivasyon: Yazdığımız API'yi Web Sayfasında Nasıl Gösteririz?",
+    "altbaslik": "Backend ile Frontend'i Birleştirmek",
+    "icerik": "Backend yazdık, veritabanına bağladık, güvenlik şifrelemesi koyduk.\n- Ama son kullanıcı Swagger UI veya siyah konsol kullanmaz; web sitesindeki düğmelere tıklar.\n- Bugün yazdığımız FastAPI servislerini tek sayfalık şık bir HTML web arayüzüne bağlayacağız!\n- Butona bastığınızda Python'daki kitapların web sayfasına aktığını canlı izleyeceksiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "frontend user interface connecting to python backend"
+    }
+  },
+  {
+    "baslik": "Postman Nedir ve Neden Kullanılır?",
+    "altbaslik": "Profesyonel API Test ve Dokümantasyon Aracı",
+    "icerik": "Postman, yazılımcıların API endpoint'lerini test etmesini, istekleri kaydetmesini ve otomatik test senaryoları koşmasını sağlayan sektör standardı araçtır:\n- GET, POST, PUT, DELETE isteklerini kaydetme\n- İstek Başlıkları (Headers / Authorization) ekleme\n- Ekip arkadaşlarıyla koleksiyon (Collection) paylaşma",
+    "gorsel": {
+      "type": "image",
+      "query": "postman application workspace api test collection"
+    }
+  },
+  {
+    "baslik": "Postman'de İstek Oluşturma Adımları",
+    "altbaslik": "GET ve POST Testi",
+    "icerik": "1. Yeni İstek (New Request) açın.\n2. Metodu seçin: `GET` veya `POST`.\n3. URL girin: `http://127.0.0.1:8000/kitaplar`\n4. POST ise: Body -> raw -> JSON seçip veriyi yapıştırın:\n   `{\"baslik\": \"Nutuk\", \"yazar\": \"Atatürk\", \"sayfa_sayisi\": 600}`\n5. 'Send' butonuna basıp dönen yanıtı (Status: 201 Created) inceleyin.",
+    "gorsel": {
+      "type": "image",
+      "query": "postman send request json body response 200 ok"
+    }
+  },
+  {
+    "baslik": "Postman'de Bearer Token ile Yetkili İstek",
+    "altbaslik": "Korumalı Sayfaları Test Etmek",
+    "icerik": "Kilitli endpoint'leri test ederken:\n1. Authorization sekmesine gidin.\n2. Type olarak **Bearer Token** seçin.\n3. `/token` endpoint'inden aldığınız bilet metnini yapıştırın.\n4. Send dediğinizde korumalı verilerin geldiğini görün.",
+    "gorsel": {
+      "type": "image",
+      "query": "postman bearer token authorization header"
+    }
+  },
+  {
+    "baslik": "BÜYÜK ENGEL: CORS (Cross-Origin Resource Sharing) Hatası!",
+    "altbaslik": "Tarayıcıların Güvenlik Duvarı",
+    "icerik": "Tarayıcıda bir web sayfası (örn: port 5500) başka bir adresteki (port 8000) FastAPI sunucusuna istek attığında:\nTarayıcı güvenlik sebebiyle isteği engeller (CORS error: No 'Access-Control-Allow-Origin' header).\n\nÇözüm: FastAPI sunucumuza 'Bu web sayfasına güveniyorum, veri almasına izin ver' demektir.",
+    "gorsel": {
+      "type": "image",
+      "query": "cors error cross origin resource sharing browser block"
+    }
+  },
+  {
+    "baslik": "FastAPI'ye CORSMiddleware Eklemek",
+    "altbaslik": "Tek Blokla CORS Kilidini Kaldırmak",
+    "icerik": "from fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\n\napp = FastAPI()\n\n# CORS İzni Tanımlıyoruz:\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=['*'],        # Geliştirme için tüm sitelere izin ver\n    allow_credentials=True,\n    allow_methods=['*'],        # GET, POST, PUT, DELETE serbest\n    allow_headers=['*'],        # Tüm başlıklara izin ver\n)",
+    "gorsel": {
+      "type": "image",
+      "query": "cors middleware python code configuration fastapi"
+    }
+  },
+  {
+    "baslik": "Frontend Tarafı: JavaScript fetch() Mantığı",
+    "altbaslik": "Tarayıcıdan Python Sunucusuna Çağrı Yapmak",
+    "icerik": "JavaScript'in `fetch()` fonksiyonu arka planda FastAPI sunucumuza asenkron HTTP isteği atar:\n\n// Kitapları Çeken JS Kodu:\nasync function kitaplariGetir() {\n    const yanit = await fetch('http://127.0.0.1:8000/kitaplar');\n    const veriler = await yanit.json();\n    console.log('Sunucudan Gelen Kitaplar:', veriler);\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "javascript fetch api async await browser code"
+    }
+  },
+  {
+    "baslik": "Tek Dosyalık Web Arayüzümüz (index.html)",
+    "altbaslik": "HTML + CSS + JS Bir Arada",
+    "icerik": "<!DOCTYPE html>\n<html lang='tr'>\n<head>\n  <meta charset='UTF-8'>\n  <title>Kampüs Kütüphane Paneli</title>\n  <style>\n    body { font-family: Arial, sans-serif; padding: 40px; background: #f4f6f9; }\n    .kart { background: white; padding: 25px; border-radius: 10px; max-width: 500px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }\n    button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; }\n    li { margin: 10px 0; padding: 8px; background: #eef2f7; border-radius: 4px; }\n  </style>\n</head>",
+    "gorsel": {
+      "type": "image",
+      "query": "html css modern card ui clean design"
+    }
+  },
+  {
+    "baslik": "index.html Gövde ve Buton Tasarımı",
+    "altbaslik": "Kullanıcı Arayüzü",
+    "icerik": "<body>\n  <div class='kart'>\n    <h2>📚 Kütüphane Kitap Listesi</h2>\n    <p>FastAPI sunucumuzdan canlı veri çekilir.</p>\n    <button onclick='kitaplariListele()'>Kitapları Getir 🔄</button>\n    <ul id='kitapListesi'></ul>\n  </div>",
+    "gorsel": {
+      "type": "image",
+      "query": "web page button list interaction frontend"
+    }
+  },
+  {
+    "baslik": "index.html JavaScript DOM Entegrasyonu",
+    "altbaslik": "Gelen JSON'ı Ekrana Çizmek",
+    "icerik": "  <script>\n    async function kitaplariListele() {\n      const res = await fetch('http://127.0.0.1:8000/kitaplar');\n      const kitaplar = await res.json();\n      \n      const ul = document.getElementById('kitapListesi');\n      ul.innerHTML = '';  // Listeyi temizle\n      \n      kitaplar.forEach(k => {\n        const li = document.createElement('li');\n        li.innerHTML = `<strong>${k.baslik}</strong> - ${k.yazar} (${k.sayfa_sayisi} s.)`;\n        ul.appendChild(li);\n      });\n    }\n  </script>\n</body>\n</html>",
+    "gorsel": {
+      "type": "image",
+      "query": "dom manipulation javascript dynamic list web"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 1: FastAPI'ye CORS Ekleyip Başlatma",
+    "altbaslik": "Adım Adım Kodluyoruz",
+    "icerik": "1. `main.py` içine `CORSMiddleware` kodunu ekleyin.\n2. `uvicorn main:app --reload` başlatın.\n3. Sunucunun hazır olduğunu doğrulayın.",
+    "gorsel": {
+      "type": "image",
+      "query": "terminal running backend server fastapi"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 2: index.html Dosyasını Tarayıcıda Açma",
+    "altbaslik": "İlk Canlı Tıklama!",
+    "icerik": "- PyCharm'da `index.html` dosyasına sağ tıklayın -> Open in Browser (Chrome/Edge).\n- 'Kitapları Getir' yeşil butonuna tıklayın.\n- Veritabanınızdaki kitapların saniyeler içinde ekranda belirdiğini izleyin!",
+    "gorsel": {
+      "type": "image",
+      "query": "browser displaying books from python api"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 3: Web Formundan Yeni Kitap Ekleme",
+    "altbaslik": "POST İsteği Gönderen HTML Formu",
+    "icerik": "<input type='text' id='baslik' placeholder='Kitap Adı'>\n<input type='text' id='yazar' placeholder='Yazar'>\n<input type='number' id='sayfa' placeholder='Sayfa'>\n<button onclick='kitapEkle()'>Kaydet 💾</button>",
+    "gorsel": {
+      "type": "image",
+      "query": "html input form text fields submit button"
+    }
+  },
+  {
+    "baslik": "Laboratuvar Döngüsü 4: JavaScript POST fetch() Kodu",
+    "altbaslik": "Form Verisini JSON Olarak İletmek",
+    "icerik": "async function kitapEkle() {\n  const veri = {\n    baslik: document.getElementById('baslik').value,\n    yazar: document.getElementById('yazar').value,\n    sayfa_sayisi: parseInt(document.getElementById('sayfa').value)\n  };\n\n  await fetch('http://127.0.0.1:8000/kitaplar', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify(veri)\n  });\n  kitaplariListele();  // Listeyi anında yenile!\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "javascript post fetch request json payload"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 1: Silme Butonu Eklemek (DELETE)",
+    "altbaslik": "Her Kitabın Yanına Çöp Kutusu",
+    "icerik": "async function kitapSil(id) {\n  await fetch(`http://127.0.0.1:8000/kitaplar/${id}`, { method: 'DELETE' });\n  kitaplariListele();\n}\n\n// li içine buton ekleme:\n// li.innerHTML += `<button onclick='kitapSil(${k.id})'>🗑️ Sil</button>`;",
+    "gorsel": {
+      "type": "image",
+      "query": "delete button trash can icon ui list item"
+    }
+  },
+  {
+    "baslik": "Çözümlü Uygulama 2: Postman Test Koleksiyonu Dışa Aktarma",
+    "altbaslik": "Ekip Çalışması İçin Export",
+    "icerik": "Postman'de sol panelde koleksiyonunuza sağ tıklayın -> **Export** -> JSON olarak kaydedin.\nBu dosyayı arkadaşınıza verdiğinizde tüm test endpoint'lerini tek saniyede kendi bilgisayarına yükler.",
+    "gorsel": {
+      "type": "image",
+      "query": "postman export collection json file share"
+    }
+  },
+  {
+    "baslik": "Tarayıcı Geliştirici Araçları (F12 / Console)",
+    "altbaslik": "Ağ Trafiğini İzlemek (Network Tab)",
+    "icerik": "Klavyeden **F12** tuşuna basın:\n- **Console:** JavaScript hatalarını ve console.log çıktılarını gösterir.\n- **Network:** Tarayıcının FastAPI'ye attığı gerçek HTTP isteklerini, durum kodlarını (200, 201) ve JSON yanıtlarını canlı gösterir.",
+    "gorsel": {
+      "type": "image",
+      "query": "chrome devtools network tab inspect requests"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 1",
+    "altbaslik": "Hatanın Sebebini Bulun",
+    "icerik": "Hata:\n`Access to fetch at 'http://127.0.0.1:8000/kitaplar' from origin 'null' has been blocked by CORS policy.`\n\nProblem Nedir?\nFastAPI uygulamasında `CORSMiddleware` tanımlanmamıştır veya `allow_origins` listesinde izin verilmemiştir!",
+    "gorsel": {
+      "type": "image",
+      "query": "browser console cors error red text"
+    }
+  },
+  {
+    "baslik": "Kod Okuma Alıştırması 2",
+    "altbaslik": "Çıktıyı Tahmin Edin",
+    "icerik": "const yanit = await fetch('http://127.0.0.1:8000/kitaplar');\nconsole.log(yanit.status);\n\nÇıktı: `200` (Sunucu başarılı yanıt döndüğünde status 200 olur).",
+    "gorsel": {
+      "type": "image",
+      "query": "status code 200 console log print"
+    }
+  },
+  {
+    "baslik": "Sık Yapılan Hatalar",
+    "altbaslik": "Frontend Entegrasyonunda 3 Hata",
+    "icerik": "1. FastAPI sunucusunu çalıştırmayı unutup HTML sayfasından istek atmak (Connection Refused).\n2. `JSON.stringify(veri)` yapmadan düz JS nesnesini body'ye göndermek.\n3. POST isteklerinde `headers: {'Content-Type': 'application/json'}` başlığını unutmak.",
+    "gorsel": {
+      "type": "image",
+      "query": "warning caution checklist integration bugs"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "CORS Güvenliği",
+    "icerik": "Soru: Tarayıcının farklı bir porttaki API'ye istek atabilmesi için FastAPI'ye hangi bileşen eklenmelidir?\nA) AuthMiddleware\nB) CORSMiddleware\nC) StaticFiles\nD) SessionMiddleware\n\nDoğru Cevap: B (CORSMiddleware).",
+    "gorsel": {
+      "type": "image",
+      "query": "quiz test examination classroom students"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "JavaScript fetch()",
+    "icerik": "Soru: JavaScript'te sunucudan gelen JSON yanıtını ayrıştırıp nesneye çeviren metot hangisidir?\nA) response.text()\nB) response.json()\nC) response.parse()\nD) response.data()\n\nDoğru Cevap: B (response.json()).",
+    "gorsel": {
+      "type": "image",
+      "query": "javascript json parse response question"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Geliştirici Araçları",
+    "icerik": "Soru: Tarayıcıda ağ isteklerini ve gelen JSON paketlerini canlı izlemek için hangi sekme kullanılır?\nA) Elements\nB) Network (Ağ)\nC) Security\nD) Memory\n\nDoğru Cevap: B (Network).",
+    "gorsel": {
+      "type": "image",
+      "query": "browser devtools network tab test"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: Full-Stack Yazılım Mimarisi",
+    "altbaslik": "Frontend ve Backend Ayrımı (Decoupled Architecture)",
+    "icerik": "Günümüzün tüm modern şirketlerinde (Netflix, Spotify, Yemeksepeti):\n- Backend (FastAPI / Python) sadece JSON veri üretir.\n- Frontend (React, Vue, HTML, Flutter) bu JSON'ı ekranda güzelce çizer.\nİki taraf birbirinden bağımsız geliştirilir. Bugün tam olarak bu mimariyi başardınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "full stack architecture frontend backend api database"
+    }
+  },
+  {
+    "baslik": "Ders Sonu Görevi (Boss Fight)",
+    "altbaslik": "Canlı Web Sayfasından Kitap Ekleme & Listeleme",
+    "icerik": "Göreviniz:\n1. `index.html` sayfanızda bir giriş formu tasarlayın (Kitap Adı, Yazar, Sayfa Sayısı).\n2. 'Yeni Kitap Kaydet' butonuna basıldığında FastAPI `POST /kitaplar` endpoint'ine `fetch` ile veri göndersin.\n3. Kayıt bitince listeyi anında otomatik güncellesin.\n4. Çalışır durumdaki web arayüzünün ekran görüntüsünü alın.\n\nSüre: 30 Dakika | Tek Başınıza Tamamlayınız!",
+    "gorsel": {
+      "type": "image",
+      "query": "web application task student project mission"
+    }
+  },
+  {
+    "baslik": "Boss Fight İçin İskelet Kod",
+    "altbaslik": "Başlangıç Desteği",
+    "icerik": "async function kaydet() {\n  const baslik = document.getElementById('b').value;\n  const yazar = document.getElementById('y').value;\n  \n  await fetch('http://127.0.0.1:8000/kitaplar', {\n    method: 'POST',\n    headers: {'Content-Type': 'application/json'},\n    body: JSON.stringify({baslik: baslik, yazar: yazar, sayfa_sayisi: 200})\n  });\n  kitaplariListele();\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "hints blueprint solution code help"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Kazandık?",
+    "icerik": "- Postman ile profesyonel API istekleri kaydedildi ve test edildi.\n- CORSMiddleware ile tarayıcı güvenlik izinleri başarıyla açıldı.\n- JavaScript fetch() ile HTML butonu Python FastAPI sunucusuyla konuşturuldu.\n- Full-Stack mimarinin ilk çalışan örneği tamamlandı.",
+    "gorsel": {
+      "type": "image",
+      "query": "summary roadmap achievements university"
+    }
+  },
+  {
+    "baslik": "BÜYÜK FİNAL HAFTASINA BAKIŞ",
+    "altbaslik": "Hafta 14: Proje Refactoring, Portföy Hazırlığı ve Kapanış",
+    "icerik": "Gelecek Hafta Büyük Final:\n- Tüm öğrendiklerimizi (OOP + FastAPI + SQLite + Pydantic + Router) tek bir şaheser projede birleştireceğiz.\n- GitHub README ve CV portföyünüzü hazırlayacağız!\n- Mezuniyet projenizi gururla teslim edeceksiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "graduation success software engineer portfolio trophy"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Laboratuvardan Çıkmadan Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'FastAPI sunucusunda tüm alan adlarından gelen isteklere izin veren CORSMiddleware ekleme kodunu kâğıda yazınız.'\n\nİyi çalışmalar!",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket examination university"
+    }
+  }
+]

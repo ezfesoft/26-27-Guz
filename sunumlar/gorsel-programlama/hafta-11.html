@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görsel Programlama - Hafta 11 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #6366f1;
+            --accent-glow: #6366f140;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>💻</span>
+            <span>Görsel Programlama</span>
+            <span class="badge-pill">Hafta 11</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 37 • C# & Windows Forms</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-10.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 37</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (37 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Görsel Programlama: Hafta 11", "altbaslik": "Döngüler: for Döngüsü, ListBox ve Akümülatör Mantığı", "icerik": "Program: Bilgisayar Programcılığı\nModül: Tekrarlı İşlemler ve Liste Yönetimi\nHaftalık Odak: for Döngüsü, ListBox Kontrolü, Sayaç/Kumbara Deseni (toplam += i)\nHedef: Binlerce veriyi saniyeler içinde işleyip ekrana listeleyen otomasyonlar üretmek.", "gorsel": {"type": "image", "query": "infinite loop circle repetition algorithm code"}}, {"baslik": "Neden Döngüleri Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Bilgisayarın Asıl Süper Gücü", "icerik": "Bir insan 1000 tane faturayı tek tek elle toplasa saatler sürer ve yorulur. Ama bir bilgisayara '1'den 1000'e kadar olan tüm faturaları topla' demek 2 satır kod ve 0.001 saniyedir!\n- Bilgisayarlar tekrarlı işlerden asla bıkmaz ve hata yapmaz.", "gorsel": {"type": "image", "query": "super computer fast data processing repetition"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?", "icerik": "1. for döngüsünün 3 temel parçasını (Başlangıç, Koşul, Adım) açıklar.\n2. ListBox kontrolünü (Items.Add, Items.Clear, Items.Count) etkin kullanır.\n3. Akümülatör (Kumbara) deseniyle döngü içinde toplam biriktirir.\n4. Sonsuz döngülerin (Infinite Loop) nedenlerini ve çözümünü bilir.\n5. 'Süper Sayı Matik ve Çarpım Tablosu' projesini tamamlar.", "gorsel": {"type": "image", "query": "learning targets goals loops programming"}}, {"baslik": "Somut Analoji: Stadyumda 10 Tur Koşu", "altbaslik": "for Döngüsünü Zihinde Canlandırmak", "icerik": "Beden eğitimi öğretmeniniz 'Sahada 10 tur koş!' dedi:\n- int i = 1; -> 1. Turdan başlıyorsun (Başlangıç).\n- i <= 10; -> 10. tur bitene kadar koşmaya devam et (Koşul)!\n- i++ -> Her tur bittiğinde sayacını 1 artır (Adım).\n- for (int i = 1; i <= 10; i++)", "gorsel": {"type": "image", "query": "track runner stadium laps running race"}}, {"baslik": "for Döngüsü Temel Sentaksı", "altbaslik": "C# Döngü İskeleti", "icerik": "for (Başlatma; Koşul; İterasyon)\n{\n    // Her turda tekrarlanacak komutlar\n}\n\nÖrnek:\nfor (int i = 1; i <= 5; i++)\n{\n    listBox1.Items.Add(\"Sayı: \" + i);\n}", "gorsel": {"type": "image", "query": "for loop code block syntax flowchart"}}, {"baslik": "ListBox Kontrolü ile Tanışma", "altbaslik": "Kaydırılabilir Liste Kutusu", "icerik": "Verileri tek tek değil, alt alta şık bir liste halinde göstermek için ListBox kullanılır.\n\nTemel Metotları:\n- listBox1.Items.Add(\"Ali\"); -> Listeye yeni bir satır ekler.\n- listBox1.Items.Clear(); -> Listedeki her şeyi siler, sayfayı temizler.\n- listBox1.Items.Count; -> Listede toplam kaç satır olduğunu sayar.", "gorsel": {"type": "image", "query": "listbox ui control elements scrollable list"}}, {"baslik": "Geriye Doğru Sayım Döngüsü", "altbaslik": "i-- ile Eksiltme Mantığı", "icerik": "10'dan geriye doğru 1'e kadar saymak için:\n\nfor (int i = 10; i >= 1; i--)\n{\n    listBox1.Items.Add(i);\n}\n\nBaşlangıç 10, koşul >= 1, adım ise i-- (1 azalt) olur.", "gorsel": {"type": "image", "query": "countdown clock ten nine eight timer"}}, {"baslik": "Kumbara (Akümülatör) Mantığı", "altbaslik": "Döngü İçinde Toplam Biriktirmek", "icerik": "Döngüdeki her sayıyı bir toplamda biriktirmek için 'toplam += i;' kullanılır:\n\nint toplam = 0; // Boş kumbara\nfor (int i = 1; i <= 5; i++)\n{\n    toplam += i; // 0+1=1, 1+2=3, 3+3=6, 6+4=10, 10+5=15\n}\nlblSonuc.Text = \"Toplam: \" + toplam;", "gorsel": {"type": "image", "query": "piggy bank coins accumulator saving concept"}}, {"baslik": "Büyük Tuzak: Sonsuz Döngü (Infinite Loop)", "altbaslik": "Programın Kilitlenmesi ve Donması", "icerik": "for (int i = 1; i <= 10; ) // i++ UNUTULMUŞ!\n{\n    listBox1.Items.Add(i);\n}\n\nNeden Kilitlenir? i hep 1 kalır, 1 daima 10'dan küçüktür ve döngü ASLA bitmez! CPU %100'e vurur.\nDers: Döngünün bir çıkış kapısı (i++) olmak zorundadır.", "gorsel": {"type": "image", "query": "infinite loop spiral freeze lock error cpu"}}, {"baslik": "Döngü Kontrol Komutları: break ve continue", "altbaslik": "Akışı Kesmek veya Adım Atlamak", "icerik": "- break: Döngüyü anında sonlandırır ve dışarı fırlatır (Örn: Aranan isim bulununca aramayı durdur).\n- continue: O anki turun kalan kodlarını atlar ve hemen bir sonraki tura geçer (Örn: Çift sayıları atla, tekleri yaz).", "gorsel": {"type": "image", "query": "break continue flow skip step programming"}}, {"baslik": "Günün Büyük Uygulaması: Süper Sayı Matik", "altbaslik": "Senaryo ve Arayüz Tasarımı", "icerik": "Senaryo: Kullanıcının belirlediği aralıkta sayılar üreten ve analiz eden matematik motoru.\n- Kullanıcı Başlangıç, Bitiş ve Artış Adımını girer.\n- 'Listele' butonuna basınca sayılar ListBox'a dökülür, toplamları ve adetleri hesaplanır.\n- 'Çarpım Tablosu' butonuyla iç içe döngü çalıştırılır.", "gorsel": {"type": "image", "query": "math generator numbers calculator list interface"}}, {"baslik": "Form Arayüz Bileşenleri", "altbaslik": "Kontrol Listesi", "icerik": "Girdiler: txtBaslangic, txtBitis, txtAdim\nButonlar: btnListele, btnCarpimTablosu, btnTemizle\nListe: listBox1 (Geniş Liste Kutusu)\nÖzet: lblOzet (Adet ve Toplam Bilgisi)", "gorsel": {"type": "image", "query": "form layout listbox textboxes buttons ui"}}, {"baslik": "Uygulama Kodları: Dinamik Sayı Listeleme", "altbaslik": "Adım Adım Döngü ve Toplam Hesabı", "icerik": "private void btnListele_Click(object sender, EventArgs e)\n{\n    try\n    {\n        int baslangic = Convert.ToInt32(txtBaslangic.Text);\n        int bitis = Convert.ToInt32(txtBitis.Text);\n        int adim = Convert.ToInt32(txtAdim.Text);\n\n        listBox1.Items.Clear();\n        int toplam = 0;\n        int sayac = 0;\n\n        for (int i = baslangic; i <= bitis; i += adim)\n        {\n            listBox1.Items.Add(\"Sayı: \" + i);\n            toplam += i; // Kumbaraya at\n            sayac++;     // Adet say\n        }\n        lblOzet.Text = \"Adet: \" + sayac + \" | Toplam: \" + toplam;\n    }\n    catch { MessageBox.Show(\"Lütfen geçerli sayılar giriniz!\"); }\n}", "gorsel": {"type": "image", "query": "csharp code for loop listbox items add arithmetic"}}, {"baslik": "İç İçe Döngüler: Çarpım Tablosu", "altbaslik": "Döngü İçinde Döngü Çalıştırmak", "icerik": "private void btnCarpimTablosu_Click(object sender, EventArgs e)\n{\n    listBox1.Items.Clear();\n    for (int i = 1; i <= 5; i++) // Dış Döngü (Gruplar)\n    {\n        for (int j = 1; j <= 10; j++) // İç Döngü (Satırlar)\n        {\n            listBox1.Items.Add(i + \" x \" + j + \" = \" + (i * j));\n        }\n        listBox1.Items.Add(\"--------------------\");\n    }\n}", "gorsel": {"type": "image", "query": "multiplication table math matrix nested loops"}}, {"baslik": "Sektörel Vaka: Toplu SMS Gönderim Motoru", "altbaslik": "Gerçek Yaşam Senaryosu", "icerik": "Bir mağazada 5000 kayıtlı müşteriye kampanya mesajı giderken:\nfor (int i = 0; i < musteriListesi.Count; i++)\n{\n    SmsGonder(musteriListesi[i].Telefon, mesaj);\n}\nDöngüler kurumsal toplu işlem operasyonlarının kalbidir.", "gorsel": {"type": "image", "query": "bulk sms notification marketing message broadcasting"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "for Döngüsü", "icerik": "Soru: for (int i = 0; i < 5; i++) döngüsü toplam kaç kez çalışır?\n\nA) 4\nB) 5\nC) 6\nD) Sonsuz\n\nDoğru Cevap: B (i değerleri sırasıyla 0, 1, 2, 3, 4 olur; toplam 5 kez döner).", "gorsel": {"type": "image", "query": "quiz test examination loop count answer"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "ListBox Metotları", "icerik": "Soru: Bir ListBox kontrolündeki tüm öğeleri tamamen temizlemek için hangi metot kullanılır?\n\nA) listBox1.Items.DeleteAll()\nB) listBox1.Items.Remove()\nC) listBox1.Items.Clear()\nD) listBox1.ClearText()\n\nDoğru Cevap: C (listBox1.Items.Clear() metodu listedeki tüm elemanları temizler).", "gorsel": {"type": "image", "query": "multiple choice exam correct answer question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Döngü Adımı", "icerik": "Soru: for (int i = 0; i <= 20; i += 2) döngüsü hangi sayıları listeler?\n\nA) 1'den 20'ye kadar tüm sayıları\nB) 0'dan 20'ye kadar ÇİFT sayıları\nC) 1'den 19'a kadar TEK sayıları\nD) Sadece 20 sayısını\n\nDoğru Cevap: B (i += 2 adımı ikişer ikişer artırarak çift sayıları üretir).", "gorsel": {"type": "image", "query": "even numbers sequence math quiz"}}, {"baslik": "Sınıf İçi Tartışma ve Mini Alıştırma", "altbaslik": "Faktöriyel Hesaplayıcı", "icerik": "Görev:\n- Girilen n sayısı için faktöriyel (n! = 1 * 2 * 3 * ... * n) hesabını bir for döngüsü ile yapın.\n- Çarpmada etkisiz eleman 1 olduğu için başlangıç toplam = 1 alınmalıdır.", "gorsel": {"type": "image", "query": "factorial mathematics formula factorial multiplication"}}, {"baslik": "Haftalık Kavram Sözlüğü", "altbaslik": "Bu Haftanın Anahtar Terimleri", "icerik": "- for Loop: Belirli sayıda tekrarlayan döngü.\n- Iteration: Döngünün her bir tam turu/adımı.\n- Accumulator: Döngü içinde değer biriktiren değişken (toplam += i).\n- ListBox: Çok satırlı görsel liste kontrolü.\n- Nested Loop: İç içe geçmiş döngüler.", "gorsel": {"type": "image", "query": "concept map glossary definitions terms"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- for döngüsünün parçalarını (Başlangıç, Koşul, Adım) öğrendik.\n- ListBox kontrolüne dinamik veri eklemeyi ve temizlemeyi uyguladık.\n- Akümülatör (toplam += i) mantığıyla toplam biriktirmeyi kavradık.\n- İç içe döngülerle Çarpım Tablosu ürettik.", "gorsel": {"type": "image", "query": "summary roadmap knowledge learning complete"}}, {"baslik": "ListBox'tan Öğe Seçme ve Okuma", "altbaslik": "SelectedIndex ve SelectedItem", "icerik": "Kullanıcı ListBox'taki bir satıra tıkladığında:\n- listBox1.SelectedIndex -> Seçilen satırın 0 tabanlı indeks numarası.\n- listBox1.SelectedItem.ToString() -> Seçilen satırdaki yazının kendisi.\n- Seçim yapılmamışsa SelectedIndex = -1 döner.", "gorsel": {"type": "image", "query": "listbox item selected highlighted row"}}, {"baslik": "ListBox'tan Öğe Silme: Remove ve RemoveAt", "altbaslik": "Listeyi Dinamik Yönetmek", "icerik": "- listBox1.Items.Remove(\"Ali\"); -> İsme göre bulup siler.\n- listBox1.Items.RemoveAt(0); -> 0 numaralı indeksteki ilk elemanı siler.\n- listBox1.Items.RemoveAt(listBox1.SelectedIndex); -> Seçili satırı siler.", "gorsel": {"type": "image", "query": "delete remove item from list recycle bin ui"}}, {"baslik": "for Döngüsü ile Ortalama Hesaplama", "altbaslik": "Kumbara Mantığının İleri Seviyesi", "icerik": "int toplam = 0;\nint adet = 10;\n\nfor (int i = 1; i <= adet; i++)\n{\n    toplam += i;\n}\ndouble ortalama = (double)toplam / adet;\nlblSonuc.Text = \"Ortalama: \" + ortalama.ToString(\"0.00\");", "gorsel": {"type": "image", "query": "average mean calculation statistics formula"}}, {"baslik": "Adım Miktarını Dinamik Değiştirmek", "altbaslik": "i += adim Mantığı", "icerik": "Kullanıcının girdiği adım miktarına göre döngü kurmak:\n\nint artis = Convert.ToInt32(txtAdim.Text);\nfor (int i = 0; i <= 100; i += artis)\n{\n    listBox1.Items.Add(i);\n}\nBu yapı sayesinde 3'er 3'er, 5'er 5'er veya 10'ar 10'ar esnek listeleme yapılabilir.", "gorsel": {"type": "image", "query": "step size incremental skip numbers ladder"}}, {"baslik": "Zaman Karmaşıklığı (Big-O): O(N) ve O(N²)", "altbaslik": "Akademik Arka Plan", "icerik": "- Tek bir for döngüsü N eleman için N adımda biter -> O(N) Doğrusal Zaman.\n- İç içe 2 for döngüsü (Çarpım Tablosu) N x N adım sürer -> O(N²) Karesel Zaman.\nVeri büyüdükçe iç içe döngülerin çalışma süresi hızla artar.", "gorsel": {"type": "image", "query": "big o notation complexity curve graph algorithm"}}, {"baslik": "Sık Yapılan Döngü Hataları", "altbaslik": "Yazılımcı Tuzakları", "icerik": "1. for satırının sonuna noktalı virgül koymak: for (int i=0; i<10; i++); -> Döngü içi boş kalır!\n2. Döngü değişkenini blok dışından okumaya çalışmak (Scope hatası).\n3. Başlangıç ve bitiş sınırlarını ters yazmak (i=10; i<=1; i++ -> Hiç çalışmaz).", "gorsel": {"type": "image", "query": "debugging loop errors visual studio compiler"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Döngü Değişkeni Kapsamı", "icerik": "Soru: for (int i = 0; i < 10; i++) yapısında tanımlanan 'i' değişkenine döngü bittikten sonra erişilebilir mi?\n\nA) Evet, tüm metot içinde erişilebilir.\nB) Hayır, sadece döngünün { } süslü parantezleri içinde geçerlidir (Block Scope).\nC) Sadece form kapatılırken erişilir.\nD) Sadece F5'e basınca erişilir.\n\nDoğru Cevap: B (Döngü değişkenleri blok kapsamına sahiptir, döngü bitince bellekten silinir).", "gorsel": {"type": "image", "query": "variable scope lifetime block curly braces quiz"}}, {"baslik": "ListBox'tan Öğe Seçme ve Okuma", "altbaslik": "SelectedIndex ve SelectedItem", "icerik": "Kullanıcı ListBox'taki bir satıra tıkladığında:\n- listBox1.SelectedIndex -> Seçilen satırın 0 tabanlı indeks numarası.\n- listBox1.SelectedItem.ToString() -> Seçilen satırdaki yazının kendisi.\n- Seçim yapılmamışsa SelectedIndex = -1 döner.", "gorsel": {"type": "image", "query": "listbox item selected highlighted row"}}, {"baslik": "ListBox'tan Öğe Silme: Remove ve RemoveAt", "altbaslik": "Listeyi Dinamik Yönetmek", "icerik": "- listBox1.Items.Remove(\"Ali\"); -> İsme göre bulup siler.\n- listBox1.Items.RemoveAt(0); -> 0 numaralı indeksteki ilk elemanı siler.\n- listBox1.Items.RemoveAt(listBox1.SelectedIndex); -> Seçili satırı siler.", "gorsel": {"type": "image", "query": "delete remove item from list recycle bin ui"}}, {"baslik": "for Döngüsü ile Ortalama Hesaplama", "altbaslik": "Kumbara Mantığının İleri Seviyesi", "icerik": "int toplam = 0;\nint adet = 10;\n\nfor (int i = 1; i <= adet; i++)\n{\n    toplam += i;\n}\ndouble ortalama = (double)toplam / adet;\nlblSonuc.Text = \"Ortalama: \" + ortalama.ToString(\"0.00\");", "gorsel": {"type": "image", "query": "average mean calculation statistics formula"}}, {"baslik": "Adım Miktarını Dinamik Değiştirmek", "altbaslik": "i += adim Mantığı", "icerik": "Kullanıcının girdiği adım miktarına göre döngü kurmak:\n\nint artis = Convert.ToInt32(txtAdim.Text);\nfor (int i = 0; i <= 100; i += artis)\n{\n    listBox1.Items.Add(i);\n}\nBu yapı sayesinde 3'er 3'er, 5'er 5'er veya 10'ar 10'ar esnek listeleme yapılabilir.", "gorsel": {"type": "image", "query": "step size incremental skip numbers ladder"}}, {"baslik": "Zaman Karmaşıklığı (Big-O): O(N) ve O(N²)", "altbaslik": "Akademik Arka Plan", "icerik": "- Tek bir for döngüsü N eleman için N adımda biter -> O(N) Doğrusal Zaman.\n- İç içe 2 for döngüsü (Çarpım Tablosu) N x N adım sürer -> O(N²) Karesel Zaman.\nVeri büyüdükçe iç içe döngülerin çalışma süresi hızla artar.", "gorsel": {"type": "image", "query": "big o notation complexity curve graph algorithm"}}, {"baslik": "Sık Yapılan Döngü Hataları", "altbaslik": "Yazılımcı Tuzakları", "icerik": "1. for satırının sonuna noktalı virgül koymak: for (int i=0; i<10; i++); -> Döngü içi boş kalır!\n2. Döngü değişkenini blok dışından okumaya çalışmak (Scope hatası).\n3. Başlangıç ve bitiş sınırlarını ters yazmak (i=10; i<=1; i++ -> Hiç çalışmaz).", "gorsel": {"type": "image", "query": "debugging loop errors visual studio compiler"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Döngü Değişkeni Kapsamı", "icerik": "Soru: for (int i = 0; i < 10; i++) yapısında tanımlanan 'i' değişkenine döngü bittikten sonra erişilebilir mi?\n\nA) Evet, tüm metot içinde erişilebilir.\nB) Hayır, sadece döngünün { } süslü parantezleri içinde geçerlidir (Block Scope).\nC) Sadece form kapatılırken erişilir.\nD) Sadece F5'e basınca erişilir.\n\nDoğru Cevap: B (Döngü değişkenleri blok kapsamına sahiptir, döngü bitince bellekten silinir).", "gorsel": {"type": "image", "query": "variable scope lifetime block curly braces quiz"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız", "icerik": "Günün Sorusu:\n'for (int i = 1; i <= 10; i++) döngüsü bittiğinde i değişkeninin son değeri kaç olur?'\n\nCevabınızı kâğıda yazıp teslim ediniz.", "gorsel": {"type": "image", "query": "exit ticket paper test classroom"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 12: Koşullu Döngüler (while / do-while) ve ComboBox", "icerik": "Gelecek Hafta Neler Yapacağız?\n- Kaç tur döneceğini bilmediğimiz durumlar: while ve do-while.\n- Açılır liste: ComboBox kontrolü.\n- Akıllı ATM Banknot Dağıtıcı projesini geliştireceğiz.", "gorsel": {"type": "image", "query": "atm cash dispenser combobox preview next week"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • C# & Windows Forms`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

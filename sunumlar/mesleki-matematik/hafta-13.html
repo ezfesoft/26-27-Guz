@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesleki Matematik - Hafta 13 Sunumu | ezfesoft 26-27 Güz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #0ea5e9;
+            --accent-glow: #0ea5e940;
+            --code-bg: #090d16;
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --radius: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --code-bg: #1e293b;
+            --nav-bg: rgba(241, 245, 249, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header / Top Progress */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .progress-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .course-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .badge-pill {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--accent-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* Slide Viewport */
+        .slide-container {
+            flex: 1;
+            margin-top: 60px;
+            margin-bottom: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .slide-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 520px;
+            max-height: calc(100vh - 160px);
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: var(--radius);
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .slide-header {
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-card-border);
+            padding-bottom: 16px;
+        }
+
+        .slide-meta {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .slide-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 6px;
+        }
+
+        .slide-body {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* Content Formatting */
+        .content-paragraph {
+            margin-bottom: 14px;
+            white-space: pre-line;
+        }
+
+        .content-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .content-list-item {
+            background: rgba(255,255,255,0.03);
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 0 10px 10px 0;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-list-item::before {
+            content: "✦";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .step-badge {
+            background: var(--accent-color);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #38bdf8;
+            overflow-x: auto;
+            margin: 16px 0;
+            white-space: pre-wrap;
+            user-select: text;
+        }
+
+        .visual-box {
+            margin-top: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Bottom Nav Controller */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            background: var(--accent-glow);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: transparent;
+        }
+
+        .slide-counter {
+            font-weight: 700;
+            font-size: 1.05rem;
+            min-width: 90px;
+            text-align: center;
+            background: var(--bg-card);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--bg-card-border);
+        }
+
+        /* Overview Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            display: none;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .thumb-card:hover, .thumb-card.active {
+            border-color: var(--accent-color);
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .thumb-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .thumb-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .slide-card {
+                padding: 24px;
+                min-height: 440px;
+            }
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            .bottom-nav {
+                padding: 0 12px;
+            }
+            .btn-nav span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <a href="../../README.md" class="course-badge">
+            <span>📐</span>
+            <span>Mesleki Matematik</span>
+            <span class="badge-pill">Hafta 13</span>
+        </a>
+        <div class="header-actions">
+            <button class="btn-icon" id="themeToggle" title="Temayı Değiştir (T)">☀️</button>
+            <button class="btn-icon" id="overviewToggle" title="Slayt Haritası (M / O)">📑</button>
+            <button class="btn-icon" id="fullscreenToggle" title="Tam Ekran (F)">⛶</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Slide Area -->
+    <main class="slide-container">
+        <div class="slide-card" id="slideCard">
+            <div class="slide-header">
+                <div class="slide-meta" id="slideMeta">SLAYT 1 / 30 • Aritmetik & Bilişim Mantığı</div>
+                <h1 class="slide-title" id="slideTitle">Yükleniyor...</h1>
+                <h2 class="slide-subtitle" id="slideSubtitle"></h2>
+            </div>
+            <div class="slide-body" id="slideBody">
+                <!-- Slide content injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Dock -->
+    <footer class="bottom-nav">
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-12.html" class="btn-nav" style="text-decoration:none;" >
+                <span>◀ Önceki Hafta</span>
+            </a>
+            <a href="../index.html" class="btn-nav" style="text-decoration:none;">
+                <span>📚 Ders Kataloğu</span>
+            </a>
+        </div>
+
+        <div class="nav-center">
+            <button class="btn-nav" id="prevBtn">
+                <span>◀</span> <span>Önceki</span>
+            </button>
+            <div class="slide-counter" id="slideCounter">1 / 30</div>
+            <button class="btn-nav" id="nextBtn">
+                <span>Sonraki</span> <span>▶</span>
+            </button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="hafta-14.html" class="btn-nav" style="text-decoration:none;" >
+                <span>Sonraki Hafta ▶</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Overview Modal Grid -->
+    <div class="modal-overlay" id="overviewModal">
+        <div class="modal-header">
+            <h2>Slayt Haritası (30 Slayt)</h2>
+            <button class="btn-icon" id="closeModal">✕</button>
+        </div>
+        <div class="grid-overview" id="gridOverview"></div>
+    </div>
+
+    <script>
+        const slides = [{"baslik": "Mesleki Matematik: Hafta 13", "altbaslik": "Hafta 13: DGS Karma Problem Çözümü II", "icerik": "Program: Bilişim Güvenliği Teknolojisi (Önlisans)\nModül: İleri Düzey Problem Çözme ve Grafik/Geometri Analitiği (İsteğe Bağlı İleri Blok)\nHaftalık Odak: Temel Geometri Yorumları, Fonksiyon Fikri, Güvenlik Trend Grafikleri ve Sınav Stratejileri\nHedef: Grafik ve geometrik modelleri DGS ve teknik karar süreçlerinde hızlıca yorumlamak.", "gorsel": {"type": "image", "query": "geometry functions graphs analytics dashboard mathematics"}}, {"baslik": "Neden Bu Konuyu Öğreniyoruz?", "altbaslik": "Sektörel Bağlam: Güvenlik Panosu Trend Grafikleri ve Fonksiyonel Değişim", "icerik": "Bir SIEM panosundaki saldırı grafiği f(t) fonksiyonu gibi zamanla artan-azalan davranış sergiler.\n- Grafiğin eğimi saldırının hızlanma ivmesini gösterir.\n- Dik üçgen ve Pisagor bağıntısı kablolama ve sinyal menzili hesaplarında kullanılır.\nGeometri ve fonksiyonel düşünme, soyut verileri mekânsal ve zamansal olarak anlamlandırmayı sağlar.", "gorsel": {"type": "image", "query": "network security operations dashboard trend lines graphs"}}, {"baslik": "Haftanın Öğrenme Kazanımları", "altbaslik": "Bologna ve Akreditasyon Odaklı Çıktılar", "icerik": "1. DGS tarzında temel geometri ve fonksiyon sorularını tanır.\n2. Fonksiyonel gösterimi f(x) ve grafik girdi-çıktı ilişkilerini yorumlar.\n3. Alan, çevre ve Pisagor bağıntısını temel seviyede uygular.\n4. Süre baskısı altında zaman yönetimi ve hata azaltma tekniklerini kullanır.", "gorsel": {"type": "image", "query": "academic learning outcomes checklist education"}}, {"baslik": "Fonksiyon Fikri: Girdi - Kural - Çıktı Makinesi", "altbaslik": "f(x) Gösterimi", "icerik": "Tanım: Tanım kümesindeki her bir elemanı, değer kümesinde YALNIZ BİR elemana eşleyen kuraldır.\n- Girdi: x (Örn: Zaman, Kullanıcı sayısı)\n- Kural: f (Fonksiyon formülü)\n- Çıktı: f(x) (Örn: Üretilen log boyutu, CPU sıcaklığı)\nÖrnek: f(x) = 3x + 5 ise f(4) = 3(4) + 5 = 17.", "gorsel": {"type": "image", "query": "function machine input output math diagram"}}, {"baslik": "Grafik Okuma ve Eğim (Doğrusal Fonksiyon)", "altbaslik": "Değişim Oranı: Eğim = dy / dx", "icerik": "Doğrusal Grafik: y = mx + n\n- m (Eğim): Birim zamandaki değişim hızı (Trafik artış hızı)\n- Grafikte yukarı doğru eğim: Artan trafik / Yük artışı\n- Grafikte aşağı doğru eğim: Azalan tehdit / İyileşme\n- Grafiğin eksenleri kestiği noktalar başlangıç ve bitiş değerleridir.", "gorsel": {"type": "image", "query": "linear graph slope trend line analysis"}}, {"baslik": "Temel Geometri: Dikdörtgen ve Kare Alan/Çevre", "altbaslik": "Veri Merkezi Taban Alanı Hesapları", "icerik": "- Dikdörtgen Çevre: 2 x (a + b)\n- Dikdörtgen Alan: a x b\n- Kare Çevre: 4 x a\n- Kare Alan: a^2\nVeri merkezi kabinet yerleşimi ve zemin yük dağılımında temel alan hesapları doğrudan kullanılır.", "gorsel": {"type": "image", "query": "rectangle square area perimeter geometry diagram"}}, {"baslik": "Pisagor Bağıntısı ve Özel Üçgenler", "altbaslik": "a^2 + b^2 = c^2", "icerik": "Dik Üçgen Kuralı: Hipotenüsün karesi dik kenarların kareleri toplamına eşittir.\nÖzel Dik Üçgenler (DGS Sık Çıkanlar):\n- (3 - 4 - 5) Üçgeni ve katları: (6-8-10), (9-12-15)\n- (5 - 12 - 13) Üçgeni\n- (8 - 15 - 17) Üçgeni\n- (7 - 24 - 25) Üçgeni\nBu oranları ezbere bilmek kök almadan saniyeler içinde kenar buldurur.", "gorsel": {"type": "image", "query": "pythagorean theorem special triangles 3 4 5"}}, {"baslik": "Bileşke Fonksiyon Prosedürü: (fog)(x)", "altbaslik": "f(g(x)) İç İçe Fonksiyon", "icerik": "Kural: İçteki fonksiyondan başlanır.\nÖrnek: f(x) = 2x + 1 ve g(x) = x^2\n(fog)(3) = f(g(3))\n1. g(3) = 3^2 = 9\n2. f(9) = 2(9) + 1 = 19.\nKriptografik zincirlerde (Hash of Hash) bileşke fonksiyon mantığı çalışır.", "gorsel": {"type": "image", "query": "composite function math calculation steps"}}, {"baslik": "Ters Fonksiyon Bulma Adımları", "altbaslik": "f^(-1)(x)", "icerik": "f(x) = ax + b doğrusal fonksiyonunun tersi:\nf^(-1)(x) = (x - b) / a\nÖrnek: f(x) = 3x - 6 ise tersi = (x + 6) / 3\nŞifreleme fonksiyonunun tersi şifre çözme (Decryption) işlemidir.", "gorsel": {"type": "image", "query": "inverse function algebraic calculation steps"}}, {"baslik": "Daire ve Daire Dilimi Alanı", "altbaslik": "Wi-Fi Kapsama Alanı Hesapları", "icerik": "- Daire Alanı: Pi x r^2\n- Daire Çevresi: 2 x Pi x r\n- Access Point (AP) kapsama alanı yarıçapın (r) karesiyle orantılı olarak büyür.\nÖrnek: Yarıçapı 10 metre olan bir antenin kapsama alanı (Pi=3) = 3 x 10^2 = 300 m^2.", "gorsel": {"type": "image", "query": "circle area wifi coverage radius diagram"}}, {"baslik": "Sınavda Zaman Yönetimi: Turlama Tekniği", "altbaslik": "DGS İçin 3 Aşamalı Çözüm", "icerik": "1. Tur: İlk bakışta çözümü net olan ve 1 dakikadan kısa sürecek kolay soruları çöz.\n2. Tur: Çözüm yolunu bildiğin ama işlem kalabalığı olan orta zorluktaki soruları çöz.\n3. Tur: Kalan sürede uzun ve karmaşık mantık/geometri sorularına odaklan.\nAsla tek bir soruya takılıp 5-10 dakika harcama!", "gorsel": {"type": "image", "query": "exam time management strategy round technique"}}, {"baslik": "Grafik Kesişim Noktası Bulma Prosedürü", "altbaslik": "İki Fonksiyonun Eşitlenmesi: f(x) = g(x)", "icerik": "İki doğrunun kesiştiği nokta, sistemlerin eşitlendiği (başabaş) noktadır.\nÖrnek: f(x) = 2x + 10 ve g(x) = 4x\n2x + 10 = 4x -> 2x = 10 -> x = 5\ny = 4(5) = 20 -> Kesişim Noktası: (5, 20).", "gorsel": {"type": "image", "query": "graph intersection two lines break even point"}}, {"baslik": "Çözümlü Uygulama 1: Temel Fonksiyon Değeri", "altbaslik": "Seviye: Başlangıç", "icerik": "Soru: f(x) = 4x - 7 olduğuna göre f(5) + f(-2) toplamı kaçtır?\nÇözüm:\n- f(5) = 4(5) - 7 = 20 - 7 = 13\n- f(-2) = 4(-2) - 7 = -8 - 7 = -15\nToplam = 13 + (-15) = -2.", "gorsel": {"type": "image", "query": "function value evaluation math chalkboard"}}, {"baslik": "Çözümlü Uygulama 2: Bileşke Fonksiyon", "altbaslik": "Seviye: Kolay-Orta", "icerik": "Soru: f(x) = 2x + 3 ve g(x) = 5x - 1 ise (gof)(2) değeri kaçtır?\nÇözüm:\n1. Adım: f(2) = 2(2) + 3 = 7\n2. Adım: g(7) = 5(7) - 1 = 35 - 1 = 34.", "gorsel": {"type": "image", "query": "composite function calculation step by step"}}, {"baslik": "Çözümlü Uygulama 3: Özel Üçgen ve Ağ Kablosu Uzunluğu", "altbaslik": "Seviye: Orta (Pisagor)", "icerik": "Soru: Bir sunucu odasında tabandan 9 metre yatay ve 12 metre dikey mesafedeki iki switch arasına en kısa mesafeden doğrudan hat çekilecektir. Kablo uzunluğu en az kaç metre olmalıdır?\nÇözüm: Dik kenarlar a = 9, b = 12.\n(3 - 4 - 5) üçgeninin 3 katı:\n- 3 x 3 = 9\n- 4 x 3 = 12\n- 5 x 3 = 15 metre kablo gereklidir.", "gorsel": {"type": "image", "query": "pythagoras triangle 9 12 15 cable length"}}, {"baslik": "Çözümlü Uygulama 4: Wi-Fi Kapsama Alanı Oranı", "altbaslik": "Seviye: Orta (Daire Alanı)", "icerik": "Soru: Eski Wi-Fi anteninin kapsama yarıçapı 6 metre iken yeni takılan güçlü antenin yarıçapı 12 metredir. Kapsanan alan kaç katına çıkmıştır?\nÇözüm:\n- Eski Alan = Pi x 6^2 = 36 x Pi\n- Yeni Alan = Pi x 12^2 = 144 x Pi\nOran = (144 x Pi) / (36 x Pi) = 4 katına çıkmıştır.\nYarıçap 2 katına çıkınca alan 4 katına (2^2) çıkar.", "gorsel": {"type": "image", "query": "wifi coverage area radius expansion"}}, {"baslik": "Çözümlü Uygulama 5: Güvenlik Panosu Grafik Yorumlama", "altbaslik": "Seviye: Orta-İleri (Doğrusal Eğim)", "icerik": "Soru: Bir saldırı grafiğinde t=0 anında 50 istek varken, t=10. dakikada 250 isteğe ulaşılmıştır. Trafik doğrusal arttığına göre t=25. dakikada kaç istek beklenir?\nEğim m = (250 - 50) / (10 - 0) = 200 / 10 = 20 istek/dk\nDenklem: f(t) = 20t + 50\nt = 25 için: f(25) = 20(25) + 50 = 500 + 50 = 550 istek.", "gorsel": {"type": "image", "query": "linear trend line prediction graph"}}, {"baslik": "Çözümlü Uygulama 6: Fonksiyonun Tersi ve Decryption", "altbaslik": "Seviye: İleri (f^(-1))", "icerik": "Soru: Bir şifreleme algoritması karakter kodlarını f(x) = (3x + 1) / 2 formülüyle şifrelemektedir. Şifreli çıktısı 20 olan orijinal karakter kodu (x) kaçtır?\nÇözüm: f(x) = 20\n(3x + 1) / 2 = 20\n3x + 1 = 40 -> 3x = 39 -> x = 13.", "gorsel": {"type": "image", "query": "algebraic inverse function decryption solution"}}, {"baslik": "Çözümlü Uygulama 7: Veri Merkezi Zemin Alanı Optimizasyonu", "altbaslik": "Seviye: İleri (Geometri ve Eşitsizlik)", "icerik": "Soru: Çevresi 60 metre olan dikdörtgen biçimindeki bir sistem odasının alanının MAKSİMUM olabilmesi için kenar uzunlukları kaç metre olmalıdır?\nKural: Çevresi sabit dikdörtgenin alanının en büyük olması için kare olması gerekir!\nÇevre = 4a = 60 -> a = 15 metre.\nMaksimum Alan = 15 x 15 = 225 m^2.", "gorsel": {"type": "image", "query": "maximum area optimization geometry rectangle square"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (1)", "altbaslik": "Fonksiyon ve Geometri Hataları", "icerik": "1. (fog)(x) işleminde soldan başlamak (İşlem daima EN İÇTEKİ g(x)'ten başlar!).\n2. Daire alanında yarıçapın karesini almak yerine 2 ile çarpmak (Pi*r^2 yerine 2*Pi*r yazmak).\n3. Dik üçgende Pisagor kuralını sadece dik kenarlara uygulamak (Hipotenüsün en uzun kenar olduğunu unutmamak).", "gorsel": {"type": "image", "query": "geometry function mistake caution sign"}}, {"baslik": "Sık Yapılan Hatalar ve Uyarılar (2)", "altbaslik": "Grafik ve Süre Tuzakları", "icerik": "1. Grafiğin başlangıç değerini (y-keseni) 0 zannetmek (Grafik orijinden başlamayabilir!).\n2. Sınavda çözülemeyen tek bir soruya inat edip kalan soruları yetiştirememek.", "gorsel": {"type": "image", "query": "exam time pressure stress warning"}}, {"baslik": "Sektörel Vaka: Veri Merkezi Kablolama Projesi", "altbaslik": "Mühendislik ve Maliyet Hesabı", "icerik": "Vaka: Bir veri merkezinde ana omurga anahtarı (Core Switch) ile kenar anahtarlar (Edge Switch) arasında fiber optik kablolama yapılacaktır.\nYatay mesafe = 24 metre, Dikey şaft yüksekliği = 7 metre.\nAnaliz: Doğrudan çekilecek kablo için (7 - 24 - 25) özel dik üçgeni kullanılır.\nHipotenüs = 25 metre fiber kablo.\nDuvarları dolaşmak (7+24=31 metre) yerine 25 metre doğrudan hat ile %20 kablo tasarrufu ve daha düşük sinyal zayıflaması (attenuation) elde edilmiştir.", "gorsel": {"type": "image", "query": "data center fiber optic cabling layout geometry"}}, {"baslik": "Vaka Çözüm Planı ve Sinyal Kalitesi", "altbaslik": "Optimizasyon Raporu", "icerik": "Mühendislik Değerlendirmesi:\nKısa kablo mesafesi sayesinde optik sinyal kaybı 0.4 dB azaltılmış, 100 Gbps omurga hattında sıfır paket hatası garantilenmiştir.", "gorsel": {"type": "image", "query": "fiber optic signal quality testing report"}}, {"baslik": "Mini Quiz: Soru 1", "altbaslik": "Fonksiyon Değeri", "icerik": "Soru: f(x) = 3x - 5 ise f(4) kaçtır?\nA) 7\nB) 12\nC) 17\nD) 20\n\nDoğru Cevap: A ( 3(4) - 5 = 12 - 5 = 7 )", "gorsel": {"type": "image", "query": "function evaluation quiz question"}}, {"baslik": "Mini Quiz: Soru 2", "altbaslik": "Bileşke Fonksiyon", "icerik": "Soru: f(x) = x + 2 ve g(x) = 2x ise (fog)(3) kaçtır?\nA) 7\nB) 8\nC) 10\nD) 12\n\nDoğru Cevap: B ( g(3) = 6 -> f(6) = 6 + 2 = 8 )", "gorsel": {"type": "image", "query": "composite function test question"}}, {"baslik": "Mini Quiz: Soru 3", "altbaslik": "Özel Dik Üçgen", "icerik": "Soru: Dik kenarları 6 ve 8 cm olan bir dik üçgenin hipotenüs uzunluğu kaç cm'dir?\nA) 9\nB) 10\nC) 12\nD) 14\n\nDoğru Cevap: B ( 3-4-5 üçgeninin 2 katı: 6-8-10 )", "gorsel": {"type": "image", "query": "pythagorean theorem quiz triangle"}}, {"baslik": "Mini Quiz: Soru 4", "altbaslik": "Daire Alanı", "icerik": "Soru: Yarıçapı 4 cm olan dairenin alanı (Pi=3 alınırsa) kaç cm^2'dir?\nA) 24\nB) 36\nC) 48\nD) 64\n\nDoğru Cevap: C ( Pi * r^2 = 3 * 16 = 48 )", "gorsel": {"type": "image", "query": "circle area calculation test"}}, {"baslik": "Haftalık Konu Özeti", "altbaslik": "Neler Öğrendik?", "icerik": "- Fonksiyonlar girdileri çıktılara dönüştüren kural makineleridir; f(x) analitik düşünmenin temelidir.\n- Özel dik üçgenler (3-4-5, 5-12-13, 7-24-25) geometrik problemleri saniyeler içinde çözdürür.\n- Daire alanı yarıçapın karesiyle büyür (Wi-Fi kapsama hesabı).\n- Sınavlarda turlama tekniği ve süre disiplini başarıyı belirler.", "gorsel": {"type": "image", "query": "summary geometry functions dgs strategy"}}, {"baslik": "Gelecek Haftaya Bakış", "altbaslik": "Hafta 14: Genel Tekrar ve Uygulamalı Vaka Çalışması", "icerik": "Gelecek Hafta (Final Modülü):\n- Dönem Boyunca İşlenen Tüm 13 Haftanın Bütünleşik Tekrarı\n- Büyük Ölçekli Ağ, Depolama, Güvenlik ve İstatistik Vaka Analizi\n- Final Sınavı Formatı ve Başarı Kriterleri.", "gorsel": {"type": "image", "query": "final exam comprehensive review technology mathematics"}}, {"baslik": "Çıkış Bileti (Exit Ticket)", "altbaslik": "Dersi Terk Etmeden Önce", "icerik": "Günün Sorusu:\n'f(x) = 2x + k fonksiyonu veriliyor. f(3) = 11 olduğuna göre k sabiti kaçtır ve f(-1) değeri ne olur?'\n\nİşlemlerinizi yazıp kağıdı teslim ediniz.", "gorsel": {"type": "image", "query": "linear function exit ticket classroom"}}];
+        let currentIndex = 0;
+
+        const slideTitle = document.getElementById('slideTitle');
+        const slideSubtitle = document.getElementById('slideSubtitle');
+        const slideBody = document.getElementById('slideBody');
+        const slideMeta = document.getElementById('slideMeta');
+        const slideCounter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCard = document.getElementById('slideCard');
+
+        const themeToggle = document.getElementById('themeToggle');
+        const overviewToggle = document.getElementById('overviewToggle');
+        const overviewModal = document.getElementById('overviewModal');
+        const closeModal = document.getElementById('closeModal');
+        const gridOverview = document.getElementById('gridOverview');
+        const fullscreenToggle = document.getElementById('fullscreenToggle');
+
+        function formatContent(text) {
+            if (!text) return '';
+            const lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                    if (!inList) {
+                        html += '<ul class="content-list">';
+                        inList = true;
+                    }
+                    html += `<li class="content-list-item">${trimmed.substring(2)}</li>`;
+                }
+                else if (/^\d+\.\s/.test(trimmed)) {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    const match = trimmed.match(/^(\d+)\.\s+(.*)/);
+                    if (match) {
+                        html += `<div class="content-list-item"><span class="step-badge">${match[1]}</span><span>${match[2]}</span></div>`;
+                    }
+                }
+                else if (trimmed.includes(';') || trimmed.includes('{') || trimmed.includes('}') || trimmed.includes('print(') || trimmed.includes('def ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="code-block">${trimmed}</div>`;
+                }
+                else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="content-paragraph">${trimmed}</div>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderSlide(index) {
+            if (index < 0 || index >= slides.length) return;
+            currentIndex = index;
+            const slide = slides[currentIndex];
+
+            slideCard.style.animation = 'none';
+            slideCard.offsetHeight;
+            slideCard.style.animation = 'slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            slideTitle.textContent = slide.baslik || 'Başlıksız Slayt';
+            slideSubtitle.textContent = slide.altbaslik || '';
+            
+            let bodyHTML = formatContent(slide.icerik);
+            if (slide.gorsel && slide.gorsel.query) {
+                bodyHTML += `<div class="visual-box">🖼️ <strong>Görsel Analoji & Tematik Kavram:</strong> ${slide.gorsel.query}</div>`;
+            }
+            slideBody.innerHTML = bodyHTML;
+
+            slideMeta.textContent = `SLAYT ${currentIndex + 1} / ${slides.length} • Aritmetik & Bilişim Mantığı`;
+            slideCounter.textContent = `${currentIndex + 1} / ${slides.length}`;
+            
+            const pct = ((currentIndex + 1) / slides.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === slides.length - 1;
+
+            updateOverviewActive();
+        }
+
+        function buildOverviewGrid() {
+            gridOverview.innerHTML = '';
+            slides.forEach((slide, idx) => {
+                const card = document.createElement('div');
+                card.className = `thumb-card ${idx === currentIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="thumb-num">Slayt ${idx + 1}</div>
+                    <div class="thumb-title">${slide.baslik || 'Başlıksız'}</div>
+                `;
+                card.onclick = () => {
+                    renderSlide(idx);
+                    overviewModal.classList.remove('active');
+                };
+                gridOverview.appendChild(card);
+            });
+        }
+
+        function updateOverviewActive() {
+            const cards = gridOverview.querySelectorAll('.thumb-card');
+            cards.forEach((c, idx) => {
+                if (idx === currentIndex) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+        }
+
+        prevBtn.onclick = () => renderSlide(currentIndex - 1);
+        nextBtn.onclick = () => renderSlide(currentIndex + 1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'PageDown') {
+                e.preventDefault();
+                renderSlide(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                renderSlide(currentIndex - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                renderSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                renderSlide(slides.length - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'm' || e.key === 'M' || e.key === 'o' || e.key === 'O') {
+                toggleOverview();
+            } else if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
+        });
+
+        function toggleOverview() {
+            buildOverviewGrid();
+            overviewModal.classList.toggle('active');
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            themeToggle.textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        overviewToggle.onclick = toggleOverview;
+        closeModal.onclick = () => overviewModal.classList.remove('active');
+        themeToggle.onclick = toggleTheme;
+        fullscreenToggle.onclick = toggleFullscreen;
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+            let touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) renderSlide(currentIndex + 1);
+            if (touchEndX - touchStartX > 50) renderSlide(currentIndex - 1);
+        });
+
+        renderSlide(0);
+        buildOverviewGrid();
+    </script>
+</body>
+</html>

@@ -1,0 +1,317 @@
+[
+  {
+    "baslik": "Görsel Programlama: Hafta 4",
+    "altbaslik": "Bellek Yönetimi, Değişkenler ve string Veri Tipi",
+    "icerik": "Program: Bilgisayar Programcılığı\nModül: Temel Programlama ve Bellek Yapıları\nHaftalık Odak: Değişken Kavramı, RAM Analojisi, string Tipi, Clean Code Kuralları\nHedef: Bilgileri bellekte güvenle saklayıp biçimlendiren uygulamalar geliştirmek.",
+    "gorsel": {
+      "type": "image",
+      "query": "computer memory variables storage data concepts"
+    }
+  },
+  {
+    "baslik": "Neden Değişken Kullanırız?",
+    "altbaslik": "Sektörel Bağlam: Veriyi Geçici Saklama İhtiyacı",
+    "icerik": "Bir hesap makinesinde sayı girdiğinizde, e-ticaret sepetinize ürün eklediğinizde veya oyunda skor yaptığınızda bu bilgilerin bir yerde saklanması gerekir.\n- Programlama dillerinde geçici bilgileri bilgisayarın ana hafızasında (RAM) saklamak için Değişkenler (Variables) kullanılır.",
+    "gorsel": {
+      "type": "image",
+      "query": "shopping cart data temporary storage ecommerce"
+    }
+  },
+  {
+    "baslik": "Haftanın Öğrenme Kazanımları",
+    "altbaslik": "Bu Dersin Sonunda Neler Kazanacaksınız?",
+    "icerik": "1. Değişken kavramını ve RAM belleğin çalışma mantığını açıklar.\n2. string veri tipinin özelliklerini ve kullanım kurallarını tanımlar.\n3. Değişken tanımlama (deklarasyon) ve değer atama sentaksını hatasız yazar.\n4. CamelCase ve Clean Code isimlendirme standartlarını uygular.\n5. 'E-Ticaret Kargo ve Teslimat Fişi' uygulamasını üretir.",
+    "gorsel": {
+      "type": "image",
+      "query": "learning targets goals programming data types"
+    }
+  },
+  {
+    "baslik": "Değişken (Variable) Nedir?",
+    "altbaslik": "Bellekteki İsimlendirilmiş Odalar",
+    "icerik": "Değişken, bilgisayarın geçici ana belleğinde (RAM) verileri saklamak amacıyla ayrılan, tipi ve adı olan depolama alanıdır.\n- Program çalıştığı sürece bu alanın içindeki değer değiştirilebilir.\n- Program kapandığında RAM'deki değişkenler tamamen silinir.",
+    "gorsel": {
+      "type": "image",
+      "query": "computer ram memory chips hardware close up"
+    }
+  },
+  {
+    "baslik": "Somut Analoji: Etiketli Ayakkabı Kutuları",
+    "altbaslik": "Değişkenleri Zihinde Somutlaştırmak",
+    "icerik": "Bir ayakkabı kutusu düşünün:\n1. Kutu: RAM bellekteki depolama hücresi.\n2. Kutunun Üzerindeki Etiket: Değişken Adı (Örn: musteriAdi).\n3. Kutunun İçindeki Eşya: Değişken Değeri (Örn: 'Mehmet').\n4. Kural: Kutunun içine yeni bir şey koyarsanız, eski eşya çöpe gider!",
+    "gorsel": {
+      "type": "image",
+      "query": "labeled storage boxes shelves warehouse organization"
+    }
+  },
+  {
+    "baslik": "Veri Tipi (Data Type) Kavramı",
+    "altbaslik": "Kutunun İçine Ne Koyabiliriz?",
+    "icerik": "Kutuların şekli içine konacak eşyayı belirler:\n- Ayakkabı kutusuna su dolduramazsınız; su için şişe gerekir.\n- C# strongly-typed (katı tipli) bir dildir.\n- Bir değişken tanımlarken içine sayı mı, metin mi, tarih mi koyacağınızı önceden bildirmek ZORUNDASINIZ.",
+    "gorsel": {
+      "type": "image",
+      "query": "sorting different shaped objects types data structure"
+    }
+  },
+  {
+    "baslik": "string Veri Tipi Nedir?",
+    "altbaslik": "Metinsel Karakter Zinciri",
+    "icerik": "string, harfleri, kelimeleri, cümleleri ve alfanümerik metinleri saklamak için kullanılan veri tipidir.\n- C# dilinde string değerler MUTLAKA çift tırnak (\" \") içinde yazılır.\n\nÖrnek:\nstring sehir = \"Giresun\";\nstring mesaj = \"Hoş geldiniz!\";",
+    "gorsel": {
+      "type": "image",
+      "query": "text typography letters alphabet string coding"
+    }
+  },
+  {
+    "baslik": "Değişken Tanımlama ve Değer Atama",
+    "altbaslik": "C# Sentaks Kalıpları",
+    "icerik": "1. Yöntem: Tanımla ve Sonra Değer Ver\nstring musteriAdi;\nmusteriAdi = \"Ahmet Yılmaz\";\n\n2. Yöntem: Tek Satırda Tanımla ve Değer Ver (En Yaygın)\nstring musteriAdi = \"Ahmet Yılmaz\";\n\nKalıp: VeriTipi DegiskenAdi = Deger;",
+    "gorsel": {
+      "type": "image",
+      "query": "code snippet variable declaration and assignment"
+    }
+  },
+  {
+    "baslik": "Değişkenlerin Kapsamı (Scope)",
+    "altbaslik": "Değişken Nerede Yaşar?",
+    "icerik": "- Bir butonun süslü parantezleri { } içinde tanımlanan değişken YEREL (Local) değişkendir.\n- Sadece o butonun içinde yaşar, başka bir butondan ona erişilemez.\n- Form seviyesinde (tüm metotların üstünde) tanımlanan değişken GENEL (Global) değişkendir ve tüm butonlar görebilir.",
+    "gorsel": {
+      "type": "image",
+      "query": "scope boundary curly braces local global variable"
+    }
+  },
+  {
+    "baslik": "Temiz Kod: Değişken İsimlendirme Kuralları",
+    "altbaslik": "Clean Code ve Yazılımcı Standartları",
+    "icerik": "1. Rakamla Başlayamaz: 1sayi (HATA!) -> sayi1 (DOĞRU)\n2. Boşluk İçeremez: musteri adi (HATA!) -> musteriAdi (DOĞRU)\n3. Özel Sembol İçeremez: ad-soyad (HATA!) -> adSoyad (DOĞRU)\n4. Türkçe Karakter Kullanmayın: ş, ç, ğ, ı, ö, ü kullanmaktan kaçının -> musteriYasi\n5. C# Anahtar Kelimeleri Olamaz: string, class, void gibi kelimeler değişken adı yapılamaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code checklist software development rules"
+    }
+  },
+  {
+    "baslik": "camelCase Standardı",
+    "altbaslik": "Deve Sırtı Yazım Kuralı",
+    "icerik": "Değişken isimlerinde birden fazla kelime varsa:\n- İlk kelimenin tüm harfleri küçük yazılır.\n- Sonraki her kelimenin ilk harfi BÜYÜK yazılır.\n\nÖrnekler:\n- kullaniciAdi\n- teslimatAdresi\n- siparisToplamTutari",
+    "gorsel": {
+      "type": "image",
+      "query": "camel silhouette typography camelCase writing style"
+    }
+  },
+  {
+    "baslik": "Daktiloculuğu Önleyen 'Tahmin Et & Çalıştır'",
+    "altbaslik": "Kutuların İçeriği Nasıl Değişir?",
+    "icerik": "Aşağıdaki kod çalıştığında sehir1 kutusunda ne yazar?\n\nstring sehir1 = \"Trabzon\";\nstring sehir2 = \"Ordu\";\nsehir1 = sehir2;\nsehir2 = \"Samsun\";\n\nCevap: 'Ordu' yazar! Çünkü 'sehir1 = sehir2' satırında sehir2'nin o anki kopyası (Ordu) sehir1'e aktarılmıştır. Sonradan sehir2'nin değişmesi sehir1'i etkilemez.",
+    "gorsel": {
+      "type": "image",
+      "query": "mental puzzle logic riddle programming variable state"
+    }
+  },
+  {
+    "baslik": "Günün Büyük Uygulaması: E-Ticaret Kargo Fişi",
+    "altbaslik": "Senaryo ve Arayüz Tasarımı",
+    "icerik": "Senaryo: Trendyol / Hepsiburada kargo lojistik merkezinde koli üzerine basılan profesyonel sevk irsaliye etiketi.\n- Kullanıcı Alıcı Adı, Telefonu, Şehri ve Sipariş Edilen Ürünü girer.\n- 'Kargo Fişi Kes' butonuna basar.\n- Çok satırlı çıktı alanında monospaced düzenli teslimat fişi oluşur.",
+    "gorsel": {
+      "type": "image",
+      "query": "shipping label barcode package delivery ecommerce"
+    }
+  },
+  {
+    "baslik": "Form Arayüz Bileşenleri",
+    "altbaslik": "Kontrol Listesi ve Özellikler",
+    "icerik": "Girdi Kutuları:\n- txtMusteri (Alıcı Ad-Soyad)\n- txtTelefon (İletişim Tel)\n- txtSehir (Teslimat İli)\n- txtUrun (Sipariş İçeriği)\n\nButon: btnFisKes ('📦 Kargo Fişi Oluştur')\nÇıktı: txtFis (TextBox: Multiline = true, ReadOnly = true, Font = Courier New 10pt)",
+    "gorsel": {
+      "type": "image",
+      "query": "form design layout shipping form fields"
+    }
+  },
+  {
+    "baslik": "Uygulama Kodları (Tam Çözüm)",
+    "altbaslik": "Değişkenlerle Metin İnşa Etmek",
+    "icerik": "private void btnFisKes_Click(object sender, EventArgs e)\n{\n    // 1. Kutulardaki metinleri değişkenlere al\n    string alici = txtMusteri.Text;\n    string tel = txtTelefon.Text;\n    string sehir = txtSehir.Text;\n    string urun = txtUrun.Text;\n\n    // 2. Formatlı kargo metni oluştur (\\n ile)\n    string kargoMetni = \"================================\" + \"\\n\" +\n                        \"     ARAS KARGO SEVKİYAT FİŞİ    \" + \"\\n\" +\n                        \"================================\" + \"\\n\" +\n                        \"Alıcı Adı : \" + alici + \"\\n\" +\n                        \"Telefon   : \" + tel + \"\\n\" +\n                        \"Varış İli : \" + sehir + \"\\n\" +\n                        \"Ürün      : \" + urun + \"\\n\" +\n                        \"================================\" + \"\\n\" +\n                        \"Durum     : Dağıtıma Hazır ✔\";\n\n    // 3. Fiş alanına aktar\n    txtFis.Text = kargoMetni;\n}",
+    "gorsel": {
+      "type": "image",
+      "query": "csharp code receipt generation string formatting"
+    }
+  },
+  {
+    "baslik": "TextBox Multiline ve ReadOnly Özellikleri",
+    "altbaslik": "Çıktı Alanını Güvenceye Almak",
+    "icerik": "txtFis için uyguladığımız özel ayarlar:\n- Multiline = true: Kutuya birden çok satır yazılmasını ve fareyle yüksekliğinin ayarlanabilmesini sağlar.\n- ReadOnly = true: Kullanıcının yanlışlıkla fiş üzerindeki yazıları klavyeyle silmesini/bozmasını engeller (Sadece okunabilir yapar).",
+    "gorsel": {
+      "type": "image",
+      "query": "readonly text box ui settings visual studio"
+    }
+  },
+  {
+    "baslik": "Sabit Değerler: const Anahtar Kelimesi",
+    "altbaslik": "Asla Değişmeyen Bilgiler",
+    "icerik": "Değeri program boyunca asla değişmeyecek veriler için 'const' kullanılır:\n\nconst string SirketAdi = \"Giresun Kargo A.Ş.\";\nconst double KdvOrani = 0.20;\n\nYanlışlıkla değiştirilmek istenirse derleyici hata verir.",
+    "gorsel": {
+      "type": "image",
+      "query": "lock constant immutable value security"
+    }
+  },
+  {
+    "baslik": "Sık Karşılaşılan Değişken Hataları",
+    "altbaslik": "Yazılımcı Tuzakları",
+    "icerik": "1. Tanımlanmamış Değişkeni Kullanmak:\n   ad = \"Ali\"; (Başına string yazılmadıysa derlenmez).\n2. Değer Atanmamış Değişkeni Okumak:\n   string sehir; lblSonuc.Text = sehir; (Use of unassigned local variable hatası).\n3. Tırnak işaretini unutmak:\n   string il = Ankara; (Ankara'yı değişken sanır).",
+    "gorsel": {
+      "type": "image",
+      "query": "error debugging unassigned variable compiler"
+    }
+  },
+  {
+    "baslik": "Sektörel Vaka: E-Fatura Sistemi",
+    "altbaslik": "Gerçek Yaşam Senaryosu",
+    "icerik": "Kurumsal bir ERP yazılımında fatura kesilirken:\n- musteriVergiNo, sirketUnvani, faturaTarihi string değişkenlerde toplanır.\n- E-Fatura XML şablonuna bu değişkenler aktarılır.\nDeğişkenler olmadan hiçbir ticari veri transferi yapılamaz.",
+    "gorsel": {
+      "type": "image",
+      "query": "electronic invoice erp accounting digital software"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 1",
+    "altbaslik": "Değişken İsimlendirme",
+    "icerik": "Soru: Aşağıdaki değişken tanımlamalarından hangisi C# kurallarına göre GEÇERLİDİR?\n\nA) string 1.ogrenci = \"Ali\";\nB) string ogrenci adi = \"Ali\";\nC) string ogrenciAdi = \"Ali\";\nD) string ogrenci-adi = \"Ali\";\n\nDoğru Cevap: C (camelCase kuralına uygun, boşluksuz ve geçerli isimlendirme).",
+    "gorsel": {
+      "type": "image",
+      "query": "multiple choice exam quiz correct answer test"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 2",
+    "altbaslik": "RAM ve Değişkenler",
+    "icerik": "Soru: Program kapatıldığında RAM bellekteki değişkenlere ne olur?\n\nA) Sabit diske kaydedilirler.\nB) Tamamen silinirler.\nC) Çöp kutusuna taşınırlar.\nD) Gizli dosyaya dönüşürler.\n\nDoğru Cevap: B (RAM geçici bellektir, bilgisayar kapandığında veya program sonlandığında veriler silinir).",
+    "gorsel": {
+      "type": "image",
+      "query": "ram memory data erasure concept technology"
+    }
+  },
+  {
+    "baslik": "Mini Quiz: Soru 3",
+    "altbaslik": "Değişken Kapsamı",
+    "icerik": "Soru: Bir butonun süslü parantezleri { } içinde tanımlanan bir değişkene formdaki diğer butonlar erişebilir mi?\n\nA) Evet, tüm butonlar erişebilir.\nB) Hayır, sadece tanımlandığı buton erişebilir (Local Scope).\nC) Sadece form kapanırken erişir.\nD) Sadece F5'e basınca erişir.\n\nDoğru Cevap: B (Blok içinde tanımlanan yerel değişkenler dışarıdan görünmez).",
+    "gorsel": {
+      "type": "image",
+      "query": "variable scope private local block quiz"
+    }
+  },
+  {
+    "baslik": "Sınıf İçi Tartışma ve Mini Alıştırma",
+    "altbaslik": "Reçete / Sipariş Kartı Tasarlayın",
+    "icerik": "Görev:\n- İlaç Adı, Dozaj (Sabah/Akşam) ve Kullanım Süresi için 3 değişken tanımlayın.\n- 'Reçete Yaz' butonuna basınca Multiline kutuda formatlı doktor reçetesi oluşturun.",
+    "gorsel": {
+      "type": "image",
+      "query": "doctor medical prescription paper form pharmacy"
+    }
+  },
+  {
+    "baslik": "Haftalık Kavram Sözlüğü",
+    "altbaslik": "Bu Haftanın Anahtar Terimleri",
+    "icerik": "- Variable (Değişken): Bellekteki isimlendirilmiş veri saklama alanı.\n- Declaration (Tanımlama): Değişkenin tipini ve adını sisteme bildirme.\n- Assignment (Atama): Değişkene = ile değer yükleme.\n- camelCase: Değişken isimlendirme standardı (kullaniciAdi).\n- Local Scope: Değişkenin sadece tanımlandığı blokta geçerli olması.",
+    "gorsel": {
+      "type": "image",
+      "query": "concept map glossary definitions terms"
+    }
+  },
+  {
+    "baslik": "Haftalık Konu Özeti",
+    "altbaslik": "Neler Öğrendik?",
+    "icerik": "- Değişkenlerin RAM'deki depolama kutuları olduğunu öğrendik.\n- string veri tipini ve çift tırnak kuralını kavradık.\n- camelCase ve Clean Code isimlendirme standartlarını uyguladık.\n- Multiline TextBox ve değişkenler ile profesyonel bir kargo fişi ürettik.",
+    "gorsel": {
+      "type": "image",
+      "query": "achievement summary success programming course"
+    }
+  },
+  {
+    "baslik": "Değişken Yaşam Döngüsü (Lifecycle)",
+    "altbaslik": "Doğum, Yaşam ve Çöp Toplayıcı (GC)",
+    "icerik": "1. Doğum: 'string ad = \"Ali\";' dendiğinde RAM'de yer ayrılır.\n2. Kullanım: Buton çalıştığı sürece işlem yapılır.\n3. Ölüm: Butonun { } süslü parantezi bittiğinde yerel değişken yok edilir.\n4. Çöp Toplayıcı (Garbage Collector): Kullanılmayan RAM alanlarını otomatik temizler.",
+    "gorsel": {
+      "type": "image",
+      "query": "garbage collection memory lifecycle programming"
+    }
+  },
+  {
+    "baslik": "Değişken Türü: char vs string",
+    "altbaslik": "Tek Harf ile Kelime Ayrımı",
+    "icerik": "- char: Yalnızca TEK BİR karakter saklar ve tek tırnakla yazılır: char harf = 'A';\n- string: Kelimeler veya cümleler saklar ve çift tırnakla yazılır: string metin = \"Ahmet\";\nPasswordChar özelliğinde tek tırnak '*' kullanılmasının sebebi budur.",
+    "gorsel": {
+      "type": "image",
+      "query": "character vs string alphabet letters typography"
+    }
+  },
+  {
+    "baslik": "Kurumsal Kodlama Standartları",
+    "altbaslik": "Kodun Okunabilirliği ve Bakımı",
+    "icerik": "Büyük yazılım şirketlerinde kod yazarken:\n- Tek harfli anlamsız isimler (a, b, x, y) YASAKTIR.\n- Her değişken adından ne sakladığı net anlaşılmalıdır (örn: musteriTeslimatIlcesi).\n- Kodunuzu 6 ay sonra okuduğunuzda hemen anlayabilmelisiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code readability software engineering standards"
+    }
+  },
+  {
+    "baslik": "Metin Uzunluğu: .Length Özelliği",
+    "altbaslik": "Kutuda Kaç Harf Var?",
+    "icerik": "Bir string değişkenin içinde toplam kaç harf olduğunu öğrenmek için .Length kullanılır:\n\nstring sifre = txtSifre.Text;\nint uzunluk = sifre.Length;\nlblKarakterSayisi.Text = \"Karakter: \" + uzunluk;\n\nŞifre uzunluk kontrolü için idealdir.",
+    "gorsel": {
+      "type": "image",
+      "query": "string length ruler measuring text characters"
+    }
+  },
+  {
+    "baslik": "Değişken Yaşam Döngüsü (Lifecycle)",
+    "altbaslik": "Doğum, Yaşam ve Çöp Toplayıcı (GC)",
+    "icerik": "1. Doğum: 'string ad = \"Ali\";' dendiğinde RAM'de yer ayrılır.\n2. Kullanım: Buton çalıştığı sürece işlem yapılır.\n3. Ölüm: Butonun { } süslü parantezi bittiğinde yerel değişken yok edilir.\n4. Çöp Toplayıcı (Garbage Collector): Kullanılmayan RAM alanlarını otomatik temizler.",
+    "gorsel": {
+      "type": "image",
+      "query": "garbage collection memory lifecycle programming"
+    }
+  },
+  {
+    "baslik": "Değişken Türü: char vs string",
+    "altbaslik": "Tek Harf ile Kelime Ayrımı",
+    "icerik": "- char: Yalnızca TEK BİR karakter saklar ve tek tırnakla yazılır: char harf = 'A';\n- string: Kelimeler veya cümleler saklar ve çift tırnakla yazılır: string metin = \"Ahmet\";\nPasswordChar özelliğinde tek tırnak '*' kullanılmasının sebebi budur.",
+    "gorsel": {
+      "type": "image",
+      "query": "character vs string alphabet letters typography"
+    }
+  },
+  {
+    "baslik": "Kurumsal Kodlama Standartları",
+    "altbaslik": "Kodun Okunabilirliği ve Bakımı",
+    "icerik": "Büyük yazılım şirketlerinde kod yazarken:\n- Tek harfli anlamsız isimler (a, b, x, y) YASAKTIR.\n- Her değişken adından ne sakladığı net anlaşılmalıdır (örn: musteriTeslimatIlcesi).\n- Kodunuzu 6 ay sonra okuduğunuzda hemen anlayabilmelisiniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "clean code readability software engineering standards"
+    }
+  },
+  {
+    "baslik": "Metin Uzunluğu: .Length Özelliği",
+    "altbaslik": "Kutuda Kaç Harf Var?",
+    "icerik": "Bir string değişkenin içinde toplam kaç harf olduğunu öğrenmek için .Length kullanılır:\n\nstring sifre = txtSifre.Text;\nint uzunluk = sifre.Length;\nlblKarakterSayisi.Text = \"Karakter: \" + uzunluk;\n\nŞifre uzunluk kontrolü için idealdir.",
+    "gorsel": {
+      "type": "image",
+      "query": "string length ruler measuring text characters"
+    }
+  },
+  {
+    "baslik": "Çıkış Bileti (Exit Ticket)",
+    "altbaslik": "Dersi Bitirmeden Önce Cevaplayınız",
+    "icerik": "Günün Sorusu:\n'string plaka = \"28 AB 123\"; satırında Veri Tipi nedir, Değişken Adı nedir, Değer nedir?'\n\nCevabınızı 3 madde halinde kâğıda yazıp teslim ediniz.",
+    "gorsel": {
+      "type": "image",
+      "query": "exit ticket question paper classroom"
+    }
+  },
+  {
+    "baslik": "Gelecek Haftaya Bakış",
+    "altbaslik": "Hafta 5: Sayısal Değişkenler ve Matematiksel İşlemler",
+    "icerik": "Gelecek Hafta Neler Yapacağız?\n- Matematik korkusunu yeniyoruz: int ve double sayı tipleri.\n- 4 İşlem (+, -, *, /) ve mod alma (%).\n- Sayıları ekrana yazdırma köprüsü: .ToString()\n- Kampüs Kantini Hızlı Adisyon Otomasyonu projesini geliştireceğiz.",
+    "gorsel": {
+      "type": "image",
+      "query": "mathematics calculator numbers preview next week"
+    }
+  }
+]
