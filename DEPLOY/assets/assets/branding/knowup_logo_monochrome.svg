@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 160" width="512" height="160">
+  <!-- Logo Mark Icon Monochrome -->
+  <g>
+    <rect x="16" y="16" width="128" height="128" rx="32" fill="none" stroke="#0F172A" stroke-width="6"/>
+    <!-- Mortarboard Hat Top -->
+    <polygon points="80,44 122,66 80,88 38,66" fill="#0F172A"/>
+    <!-- Mortarboard Cap Body -->
+    <path d="M52,75 L52,98 C52,106 108,106 108,98 L108,75" fill="none" stroke="#0F172A" stroke-width="6" stroke-linecap="round"/>
+    <!-- Tassel -->
+    <path d="M116,68 L124,96 L128,96" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="124" cy="98" r="4" fill="#0F172A"/>
+  </g>
+
+  <!-- Typography Monochrome -->
+  <text x="164" y="92" font-family="'Outfit', 'Inter', 'Segoe UI', sans-serif" font-weight="900" font-size="64" fill="#0F172A" letter-spacing="-1">KnowUp</text>
+  
+  <!-- Slogan Monochrome -->
+  <text x="166" y="128" font-family="'Inter', 'Segoe UI', sans-serif" font-weight="600" font-size="20" fill="#0F172A" letter-spacing="0.5">Öğren. Pekiştir. Ustalaş.</text>
+</svg>

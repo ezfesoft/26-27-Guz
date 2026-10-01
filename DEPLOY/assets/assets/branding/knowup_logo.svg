@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 160" width="512" height="160">
+  <defs>
+    <linearGradient id="knowup-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="turq-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#22D3EE" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Logo Mark Icon -->
+  <g filter="url(#shadow)">
+    <rect x="16" y="16" width="128" height="128" rx="32" fill="url(#knowup-grad)" stroke="#22D3EE" stroke-width="3"/>
+    <!-- Mortarboard Hat Top -->
+    <polygon points="80,44 122,66 80,88 38,66" fill="url(#turq-grad)"/>
+    <!-- Mortarboard Cap Body -->
+    <path d="M52,75 L52,98 C52,106 108,106 108,98 L108,75" fill="none" stroke="#22D3EE" stroke-width="6" stroke-linecap="round"/>
+    <!-- Tassel -->
+    <path d="M116,68 L124,96 L128,96" fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="124" cy="98" r="4" fill="#F59E0B"/>
+    <!-- Upward Growth Arrow -->
+    <path d="M72,74 L80,64 L88,74" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Typography -->
+  <!-- "Know" -->
+  <text x="164" y="92" font-family="'Outfit', 'Inter', 'Segoe UI', sans-serif" font-weight="900" font-size="64" fill="#0F172A" letter-spacing="-1">Know</text>
+  <!-- "Up" -->
+  <text x="328" y="92" font-family="'Outfit', 'Inter', 'Segoe UI', sans-serif" font-weight="900" font-size="64" fill="url(#turq-grad)" letter-spacing="-1">Up</text>
+  
+  <!-- Slogan -->
+  <text x="166" y="128" font-family="'Inter', 'Segoe UI', sans-serif" font-weight="600" font-size="20" fill="#64748B" letter-spacing="0.5">Öğren. Pekiştir. Ustalaş.</text>
+</svg>
